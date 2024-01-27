@@ -7,6 +7,7 @@ import {
     listarSetores,
     deletarSetor,
     editarSetor,
+    editarListaSetores,
     exibirSetor,
     situacaoSetor
 } from "../services/SetorService.js"
@@ -26,6 +27,12 @@ router.put(`/:uuid`, async function (req, res) {
     const uuid = req.params.uuid
     const setor = req.body
     const result = await editarSetor(uuid, setor)
+    res.json(result)
+})
+
+router.post(`/editarLista/`, async function (req, res) {
+    const setores = req.body
+    const result = await editarListaSetores(setores)
     res.json(result)
 })
 

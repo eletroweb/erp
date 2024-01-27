@@ -74,8 +74,6 @@ export function findByUuid(uuid) {
     });
 }
 
-
-
 export async function deletarSetor(uuid) {
     const registro = await findByUuid(uuid)
     if (!registro)
@@ -107,6 +105,12 @@ export async function editarSetor(uuid, setor) {
             resolve("Edição realizada com sucesso.")
         })
     })
+}
+
+export async function editarListaSetores(setores) {
+    setores.forEach(setor => {
+        editarSetor(setor.uuid, setor)
+    });
 }
 
 export async function situacaoSetor(uuid, stiuacao) {
