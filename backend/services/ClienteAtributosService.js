@@ -5,6 +5,11 @@ db.connect()
 import {findByUuid} from "./ClienteService.js"
 
 export async function obterAtributosDoCliente(clienteUuid) {
+
+    const cliente = await findByUuid(clienteUuid);
+    if (!cliente)
+        return "Registro não localizado"
+
     return new Promise((resolve, reject) => {
         const query = `
         select
@@ -15,9 +20,9 @@ export async function obterAtributosDoCliente(clienteUuid) {
         clientes_atributos ca
     join clientes c on c.id = ca.cliente_id 
     where
-        c.uuid = ?;
+        c.id = ?;
         `;
-        db.query(query, [clienteUuid], function (error, clienteAtributos) {
+        db.query(query, [cliente.id], function (error, clienteAtributos) {
             if (error) {
                 reject(error);
                 return;

@@ -39,7 +39,7 @@ export async function exibirCliente(uuid) {
 
             if (clientes.length > 0) {
                 const { id: _, ...cliente } = clientes[0];
-                cliente.attributos = await obterAtributosDoCliente(clientes[0].id)
+                cliente.attributos = await obterAtributosDoCliente(clientes[0].uuid)
                 resolve(cliente);
             } else {
                 resolve("Cliente não localizado");
