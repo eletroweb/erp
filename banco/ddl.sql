@@ -56,7 +56,6 @@ CREATE TABLE clientes_atributos (
     cliente_id INT,
     chave VARCHAR(255),
     valor VARCHAR(255),
-    obrigatorio BOOLEAN,
     situacao INT(1) DEFAULT 1,
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
 );
@@ -89,25 +88,25 @@ CREATE TABLE servicos (
     FOREIGN KEY (os_id) REFERENCES os(id) ON DELETE CASCADE
 );
 
--- Tabela: os_atributos
-CREATE TABLE os_atributos (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    uuid CHAR(36) DEFAULT (UUID()),
-    os_id INT,
-    atributo_id INT,
-    valor VARCHAR(255),
-    FOREIGN KEY (os_id) REFERENCES os(id) ON DELETE CASCADE,
-    FOREIGN KEY (atributo_id) REFERENCES clientes_atributos(id) ON DELETE CASCADE
-);
-
 -- Tabela: os_configuracao_atributos
 CREATE TABLE os_configuracao_atributos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     uuid CHAR(36) DEFAULT (UUID()),
     descricao VARCHAR(255),
     tipo VARCHAR(50),
+    obrigatorio boolean DEFAULT 0,
     situacao INT(1) DEFAULT 1,
     setor INT,
     FOREIGN KEY (setor) REFERENCES setores(id) ON DELETE CASCADE
 );
 
+-- Tabela: os_atributos
+CREATE TABLE os_atributos (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid CHAR(36) DEFAULT (UUID()),
+    os_id INT,
+    atributo_id INT,
+    valor text,
+    FOREIGN KEY (os_id) REFERENCES os(id) ON DELETE CASCADE,
+    FOREIGN KEY (atributo_id) REFERENCES os_configuracao_atributos(id) ON DELETE CASCADE
+);

@@ -1,4 +1,5 @@
 import db from "../config/db.js"
+import {obterAtributosDoCliente} from "./ClienteAtributosService.js"
 
 db.connect()
 
@@ -15,12 +16,11 @@ export async function listarClientes(paginacao) {
                 return;
             }
 
-            const clientesSemId = clientes.map(({ id: _, ...cliente }) => cliente);
-            resolve(clientesSemId);
+            const cliente = clientes.map(({ id: _, ...cliente }) => cliente);
+            resolve(cliente);
         });
     });
 }
-
 
 
 export async function exibirCliente(uuid) {
@@ -31,7 +31,7 @@ export async function exibirCliente(uuid) {
 
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM clientes WHERE uuid = ?"
-        db.query(query, [uuid], function (error, clientes) {
+        db.query(query, [uuid], async function (error, clientes) {
             if (error) {
                 reject(error);
                 return;
@@ -39,6 +39,7 @@ export async function exibirCliente(uuid) {
 
             if (clientes.length > 0) {
                 const { id: _, ...cliente } = clientes[0];
+                cliente.attributos = await obterAtributosDoCliente(clientes[0].id)
                 resolve(cliente);
             } else {
                 resolve("Cliente não localizado");

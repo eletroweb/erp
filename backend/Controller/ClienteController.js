@@ -12,6 +12,13 @@ import {
     situacaoCliente
 } from "../services/ClienteService.js"
 
+import {
+    obterAtributosDoCliente, 
+    editarAtributoDoCliente,
+    adicionarAtributoAoCliente,
+    deletarClienteAtributo
+} from "../services/ClienteAtributosService.js"
+
 function getPaginacao(req){
     const { pagina = 1, quantidade = 10} = req.query;
     return { pagina: parseInt(pagina), quantidade: parseInt(quantidade) };
@@ -59,6 +66,33 @@ router.delete('/:id', async function (req, res) {
     const id = req.params.id
     const result = await deletarCliente(id)
     res.send(result)
+})
+
+
+// Atributos do cliente
+router.get('/atributos/:clienteUuid', async function (req, res) {
+    const clienteUuid = req.params.clienteUuid
+    let atributos = await obterAtributosDoCliente(clienteUuid)
+    res.send(atributos)
+})
+
+router.post('/atributos', async function (req, res) {
+    const atributo = req.body
+    let atributos = await adicionarAtributoAoCliente(atributo)
+    res.send(atributos)
+})
+
+router.put('/atributos/:uuid', async function (req, res) {
+    const uuid = req.params.uuid
+    const atributo = req.body
+    let atributos = await editarAtributoDoCliente(uuid, atributo)
+    res.send(atributos)
+})
+
+router.delete('/atributos/:uuid', async function (req, res) {
+    const uuid = req.params.uuid
+    let atributos = await deletarClienteAtributo(uuid)
+    res.send(atributos)
 })
 
 export default router
