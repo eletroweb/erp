@@ -7,7 +7,8 @@ import {
     listarSetores,
     deletarSetor,
     editarSetor,
-    exibirSetor
+    exibirSetor,
+    situacaoSetor
 } from "../services/SetorService.js"
 
 router.get('/', async function (req, res) {
@@ -21,12 +22,20 @@ router.get('/:uuid', async function (req, res) {
     res.send(setor)
 })
 
-router.put(`/:id`, async function (req, res) {
-    const id = req.params.id
+router.put(`/:uuid`, async function (req, res) {
+    const uuid = req.params.uuid
     const setor = req.body
-    const result = await editarSetor(id, setor)
+    const result = await editarSetor(uuid, setor)
     res.json(result)
 })
+
+router.put(`/situacao/:uuid`, async function (req, res) {
+    const uuid = req.params.uuid
+    const { situacao } = req.body
+    const result = await situacaoSetor(uuid, situacao)
+    res.json(result)
+})
+
 
 router.post('/', async function (req, res) {
     const setor = req.body

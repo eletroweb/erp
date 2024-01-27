@@ -56,11 +56,11 @@ export async function cadastrarSetor(setor) {
     });
 }
 
-export function findByUuid(cnpj) {
+export function findByUuid(uuid) {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM setores WHERE uuid = ?'
 
-        db.query(query, [cnpj], function (error, setores, fields) {
+        db.query(query, [uuid], function (error, setores, fields) {
             if (error) {
                 reject(error);
             }
@@ -92,19 +92,34 @@ export async function deletarSetor(uuid) {
     })
 }
 
-export async function editarSetor(id, setor) {
-    const { nome, cnpj, situacao } = setor
+export async function editarSetor(uuid, setor) {
+    const { descricao, situacao } = setor
 
-    const setorCadastrado = await findById(id)
+    const setorCadastrado = await findByUuid(uuid)
     if (!setorCadastrado)
         return "Setor não localizado."
 
     return new Promise((resolve, reject) => {
-        const query = `UPDATE setores SET nome = ?, cnpj = ?, situacao = ? WHERE id = ?`;
-        db.query(query, [nome, cnpj, situacao, id], function (error) {
+        const query = `UPDATE setores SET descricao = ?, situacao = ? WHERE id = ?`;
+        db.query(query, [descricao, situacao, setorCadastrado.id], function (error) {
             if (error)
                 reject(error);
             resolve("Edição realizada com sucesso.")
+        })
+    })
+}
+
+export async function situacaoSetor(uuid, stiuacao) {
+    const setorCadastrado = await findByUuid(uuid)
+    if (!setorCadastrado)
+        return "Setor não localizado."
+
+    return new Promise((resolve, reject) => {
+        const query = `UPDATE setores SET situacao = ? WHERE uuid = ?`;
+        db.query(query, [stiuacao, uuid], function (error) {
+            if (error)
+                reject(error);
+            resolve("Situação alterada com sucesso")
         })
     })
 }
