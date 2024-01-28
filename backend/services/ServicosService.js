@@ -72,9 +72,8 @@ export function localizarServicoPorUuid(uuid) {
         const query = 'SELECT * FROM servicos WHERE uuid = ?'
 
         db.query(query, [uuid], function (error, servicos, fields) {
-            if (error) {
+            if (error)
                 reject(error);
-            }
 
             if (servicos.length > 0) {
                 resolve(servicos[0]);

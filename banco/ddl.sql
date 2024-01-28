@@ -67,8 +67,8 @@ INSERT INTO agilmax_erp.clientes_atributos (uuid,cliente_id,chave,valor,situacao
 /*
  * Um contrato possui N serviços vinculados a ele
  * */
-
--- Tabela: contratdos
+	
+-- Tabela: contratos
 CREATE TABLE contratos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     uuid CHAR(36) DEFAULT (UUID()),
@@ -81,28 +81,14 @@ CREATE TABLE contratos (
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Inserção 1
 INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
-VALUES (UUID(), 'Contrato de Manutenção', 1, 1500.00, '2024-01-10', '2024-12-31');
+VALUES 
+(UUID(), 'Contrato de Manutenção', 1, 1500.00, '2024-01-10', '2024-12-31'),
+(UUID(), 'Contrato de Consultoria', 1, 2500.00, '2024-02-15', '2024-06-30'),
+(UUID(), 'Contrato de Consturção', 1, 3500.00, '2024-03-01', '2024-09-30'),
+(UUID(), 'Contrato de Treinamento', 1, 2000.00, '2024-04-10', '2024-08-15'),
+(UUID(), 'Contrato de Suporte', 1, 1800.00, '2024-05-20', '2024-11-30');
 
--- Inserção 2
-INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
-VALUES (UUID(), 'Contrato de Consultoria', 1, 2500.00, '2024-02-15', '2024-06-30');
-
--- Inserção 3
-INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
-VALUES (UUID(), 'Contrato de Consturção', 1, 3500.00, '2024-03-01', '2024-09-30');
-
--- Inserção 4
-INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
-VALUES (UUID(), 'Contrato de Treinamento', 1, 2000.00, '2024-04-10', '2024-08-15');
-
--- Inserção 5
-INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
-VALUES (UUID(), 'Contrato de Suporte', 1, 1800.00, '2024-05-20', '2024-11-30');
-
-
-select * from contratos;
 
 CREATE TABLE cliente_contratos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -115,10 +101,6 @@ CREATE TABLE cliente_contratos (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE cascade,
     FOREIGN KEY (contrato_id) REFERENCES contratos(id) ON DELETE CASCADE
 );
-
-INSERT INTO cliente_contratos (uuid,cliente_id,contrato_id,situacao,data_cadastro,data_atualizacao) VALUES
-	 ('9ccdda70-be1b-11ee-a210-00155d010300',1,5,1,'2024-01-28 17:27:09','2024-01-28 17:27:09'),
-	 ('ce77ac82-be1b-11ee-a210-00155d010300',1,7,1,'2024-01-28 17:28:33','2024-01-28 17:28:33');
 
 
 /*
@@ -168,6 +150,21 @@ CREATE TABLE os (
     FOREIGN KEY (setor_id) REFERENCES setores(id) ON DELETE CASCADE
 );
 
+
+-- Inserir 10 ordens de serviços
+INSERT INTO os (cliente_id, descricao, prazo, situacao, setor_id)
+VALUES
+    (FLOOR(1 + RAND() * 5), 'Serviço de Manutenção Elétrica', '2024-02-10', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Instalação de Sistemas de Segurança', '2024-02-15', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Serviço de Pintura Interna', '2024-02-20', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Limpeza e Manutenção de Ar Condicionado', '2024-02-25', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Reparo em Encanamento', '2024-03-05', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Serviço de Jardinagem', '2024-03-10', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Instalação de Equipamentos de Segurança', '2024-03-15', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Manutenção de Elevadores', '2024-03-20', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Serviço de Limpeza Geral', '2024-03-25', 1, 3),
+    (FLOOR(1 + RAND() * 5), 'Reparo em Telhado', '2024-04-01', 1, 3);
+
 -- Tabela: servicos
 CREATE TABLE os_servicos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -181,6 +178,20 @@ CREATE TABLE os_servicos (
     FOREIGN KEY (os_id) REFERENCES os(id) ON DELETE cascade,
     FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE
 );
+
+-- Inserir associação de serviços para cada ordem de serviço
+INSERT INTO os_servicos (os_id, servico_id, situacao, observacao)
+VALUES
+    (1, 1, 1, 'Realizar serviço de Fundação'),
+    (1, 2, 1, 'Realizar Instalação Elétrica'),
+    (3, 3, 1, 'Realizar Serviço de Alvenaria'),
+    (4, 4, 1, 'Realizar Pintura Interna'),
+    (5, 5, 1, 'Realizar Serviço de Encanamento'),
+    (6, 6, 1, 'Realizar Instalação de Pisos'),
+    (7, 7, 1, 'Realizar Serviço de Telhado'),
+    (8, 8, 1, 'Realizar Pintura Externa'),
+    (9, 9, 1, 'Realizar Limpeza Pós-Obra'),
+    (10, 10, 1, 'Realizar Serviço de Paisagismo');
 
 -- Tabela: os_configuracao_atributos
 CREATE TABLE os_configuracao_atributos (
