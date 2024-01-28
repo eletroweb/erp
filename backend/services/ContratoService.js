@@ -20,7 +20,7 @@ export async function listar() {
 
 export async function exibir(uuid) {
 
-    const registro = await localizarPorUuid(uuid)
+    const registro = await localizarContratoPorUuid(uuid)
     if (!registro)
         return "Registro não localizado"
 
@@ -60,7 +60,7 @@ export async function cadastrar(contrato) {
     });
 }
 
-export function localizarPorUuid(uuid) {
+export function localizarContratoPorUuid(uuid) {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM contratos WHERE uuid = ?'
 
@@ -79,7 +79,7 @@ export function localizarPorUuid(uuid) {
 }
 
 export async function deletar(uuid) {
-    const registro = await localizarPorUuid(uuid)
+    const registro = await localizarContratoPorUuid(uuid)
     if (!registro)
         return "Registro não localizado"
 
@@ -97,7 +97,7 @@ export async function deletar(uuid) {
 export async function editar(uuid, contrato) {
     const { descricao, situacao, orcamento, data_inicio, data_fim } = contrato;
 
-    const contratoCadastrado = await localizarPorUuid(uuid);
+    const contratoCadastrado = await localizarContratoPorUuid(uuid);
     if (!contratoCadastrado)
         return "Contrato não localizado.";
 

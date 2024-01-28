@@ -2,11 +2,11 @@ import db from "../config/db.js"
 
 db.connect()
 
-import {findByUuid} from "./ClienteService.js"
+import {localizarClientePorUuid} from "./ClienteService.js"
 
 export async function obterAtributosDoCliente(clienteUuid) {
 
-    const cliente = await findByUuid(clienteUuid);
+    const cliente = await localizarClientePorUuid(clienteUuid);
     if (!cliente)
         return "Registro não localizado"
 
@@ -35,7 +35,7 @@ export async function obterAtributosDoCliente(clienteUuid) {
 export async function adicionarAtributoAoCliente(atributo) {
     const {clienteUuid, chave, valor } = atributo
 
-    const cliente = await findByUuid(clienteUuid);
+    const cliente = await localizarClientePorUuid(clienteUuid);
     if (!cliente)
         return "Registro não localizado"
 

@@ -24,7 +24,7 @@ export async function listarClientes(paginacao) {
 
 export async function exibirCliente(uuid) {
 
-    const registro = await findByUuid(uuid)
+    const registro = await localizarClientePorUuid(uuid)
     if (!registro)
         return "Registro não localizado"
 
@@ -81,7 +81,7 @@ export async function cadastrarCliente(cliente) {
     });
 }
 
-export function findByUuid(uuid) {
+export function localizarClientePorUuid(uuid) {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM clientes WHERE uuid = ?'
 
@@ -100,7 +100,7 @@ export function findByUuid(uuid) {
 }
 
 export async function deletarCliente(uuid) {
-    const registro = await findByUuid(uuid)
+    const registro = await localizarClientePorUuid(uuid)
     if (!registro)
         return "Registro não localizado"
 
@@ -128,7 +128,7 @@ export async function editarCliente(uuid, cliente) {
         setor_id,
     } = cliente;
 
-    const clienteCadastrado = await findByUuid(uuid)
+    const clienteCadastrado = await localizarClientePorUuid(uuid)
     if (!clienteCadastrado)
         return "Cliente não localizado."
 
@@ -168,7 +168,7 @@ export async function editarListaClientes(clientes) {
 }
 
 export async function situacaoCliente(uuid, stiuacao) {
-    const clienteCadastrado = await findByUuid(uuid)
+    const clienteCadastrado = await localizarClientePorUuid(uuid)
     if (!clienteCadastrado)
         return "Cliente não localizado."
 
