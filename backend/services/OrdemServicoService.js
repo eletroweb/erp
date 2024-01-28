@@ -1,5 +1,5 @@
 import db from "../config/db.js"
-import {localizarContratoPorUuid} from "./ContratoService.js"
+import { localizarContratoPorUuid } from "./ContratoService.js"
 
 db.connect()
 
@@ -7,14 +7,23 @@ function removerColunasProtegidas(colunas) {
     const conteudo = colunas.map(coluna => {
         const item = {};
         for (const key in coluna) {
-          if (!key.includes("id") || key.includes("uuid")) {
-            item[key] = coluna[key];
-          }
+            if (!key.includes("id") || key.includes("uuid")) {
+                item[key] = coluna[key];
+            }
         }
         return item;
-      });
+    });
 
-      return conteudo
+    return conteudo
+}
+
+function removerColunasProtegidasObjeto(objeto) {
+    return Object.keys(objeto).reduce((obj, key) => {
+        if (!key.includes("id") || key.includes("uuid")) {
+            obj[key] = objeto[key];
+        }
+        return obj;
+    }, {});
 }
 
 export async function listarOrdemServicos(paginacao) {
@@ -47,11 +56,19 @@ export async function listarOrdemServicos(paginacao) {
 }
 
 export async function exibirOrdemServico(uuid) {
-    const registro = await localizarOrdemServicoPorUuid(uuid)
-    if (!registro)
+    const os = await localizarOrdemServicoPorUuid(uuid)
+    if (!os)
         return "Ordem de Serviço não localizada"
 
-    return registro
+    os.servicos = await listarServicosDaOrdemServico(os.id)
+    os.total = calcularValorTotalOs(os.servicos)
+    return removerColunasProtegidasObjeto(os)
+}
+
+function calcularValorTotalOs(servicos) {
+    return servicos
+        .map(servico => parseFloat(servico.valor))
+        .reduce((total, valor) => total + valor, 0);
 }
 
 export async function cadastrarOrdemServico(os) {
@@ -59,7 +76,7 @@ export async function cadastrarOrdemServico(os) {
     const contrato = await localizarContratoPorUuid(contrato_id)
 
     if (!contrato)
-        return "Contrato não localizado"
+        return "Ordem Serviço não localizada"
 
     return new Promise((resolve, reject) => {
         const query = `INSERT INTO oss (descricao, situacao, valor, contrato_id) VALUES (?,?,?,?)`
@@ -69,7 +86,7 @@ export async function cadastrarOrdemServico(os) {
             if (error)
                 reject(error)
 
-            resolve("Serviço cadastrado com sucesso")
+            resolve("Ordem Serviço cadastrada com sucesso")
         });
     });
 }
@@ -89,16 +106,13 @@ export function localizarOrdemServicoPorUuid(uuid) {
         s.id = os.setor_id
         where os.uuid = ?
         `
-
-        db.query(query, [uuid], function (error, oss, fields) {
+        db.query(query, [uuid], function (error, os) {
             if (error)
                 reject(error);
 
-            if (oss.length > 0) {
-                const os = removerColunasProtegidas(oss)
+            if (os.length > 0) {
+                //const os = removerColunasProtegidas(oss)
                 resolve(os[0]);
-            } else {
-                resolve(null);
             }
         });
     });
@@ -107,7 +121,7 @@ export function localizarOrdemServicoPorUuid(uuid) {
 export async function deletarOrdemServico(uuid) {
     const os = await localizarOrdemServicoPorUuid(uuid)
     if (!os)
-        return "Registro não localizado"
+        return "Ordem Serviço não localizado"
 
     return new Promise((resolve, reject) => {
         const query = "DELETE FROM oss WHERE id = ?"
@@ -115,7 +129,7 @@ export async function deletarOrdemServico(uuid) {
             if (error)
                 reject(error)
 
-            resolve("OrdemServico excluído com sucesso");
+            resolve("Ordem Serviço excluído com sucesso");
         })
     })
 }
@@ -125,11 +139,11 @@ export async function editarOrdemServico(uuid, os) {
     const contrato = await localizarContratoPorUuid(contrato_id)
 
     if (!contrato)
-        return "Contrato não localizado"
+        return "Ordem Serviço não localizada"
 
     const osCadastrado = await localizarOrdemServicoPorUuid(uuid)
     if (!osCadastrado)
-        return "OrdemServico não localizado."
+        return "Ordem Serviço não localizado."
 
     return new Promise((resolve, reject) => {
         const query = `
@@ -145,7 +159,34 @@ export async function editarOrdemServico(uuid, os) {
                 return;
             }
 
-            resolve("Serviço atualizado com sucesso");
+            resolve("Ordem Serviço atualizada com sucesso");
+        });
+    });
+}
+
+// Serviços associados a OS
+export async function listarServicosDaOrdemServico(osId) {
+    return new Promise((resolve, reject) => {
+        const query = `
+        select
+            oss.uuid,
+            s.descricao,
+            s.valor
+        from
+            os_servicos oss
+        join servicos s on
+            s.id = oss.servico_id
+        where
+            oss.os_id =?
+        `;
+        db.query(query, [osId], function (error, result) {
+            if (error) {
+                reject(error)
+                return
+            }
+
+            const oss = removerColunasProtegidas(result)
+            resolve(oss)
         });
     });
 }
