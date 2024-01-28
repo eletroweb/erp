@@ -5,13 +5,13 @@ const router = express.Router()
 import {
     cadastrar,
     deletar,
-    exibir,
+    exibirContratosPorCliente,
 } from "../services/ClienteContratoService.js"
 
 
 router.get('/:uuid', async function (req, res) {
     const uuid = req.params.uuid
-    let contrato = await exibir(uuid)
+    let contrato = await exibirContratosPorCliente(uuid)
     res.send(contrato)
 })
 

@@ -4,7 +4,7 @@ import {localizarContratoPorUuid} from "./ContratoService.js"
 
 db.connect()
 
-export async function exibir(clienteUuid) {
+export async function exibirContratosPorCliente(clienteUuid) {
 
     const cliente = await localizarClientePorUuid(clienteUuid);
     if (!cliente)

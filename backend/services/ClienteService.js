@@ -1,5 +1,6 @@
 import db from "../config/db.js"
 import {obterAtributosDoCliente} from "./ClienteAtributosService.js"
+import {exibirContratosPorCliente} from "./ClienteContratoService.js"
 
 db.connect()
 
@@ -39,6 +40,7 @@ export async function exibirCliente(uuid) {
             if (clientes.length > 0) {
                 const { id: _, ...cliente } = clientes[0];
                 cliente.attributos = await obterAtributosDoCliente(clientes[0].uuid)
+                cliente.contratos = await exibirContratosPorCliente(clientes[0].uuid)
                 resolve(cliente);
             } else {
                 resolve("Cliente não localizado");
