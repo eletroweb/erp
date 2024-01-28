@@ -4,7 +4,12 @@ import {localizarContratoPorUuid} from "./ContratoService.js"
 
 db.connect()
 
-export async function listar() {
+export async function exibir(clienteUuid) {
+
+    const cliente = await localizarClientePorUuid(clienteUuid);
+    if (!cliente)
+        return "Cliente não localizado"
+
     return new Promise((resolve, reject) => {
         const query = `select
         cc.uuid,
@@ -15,8 +20,8 @@ export async function listar() {
         c.situacao 
     from cliente_contratos cc
     join clientes cli on cli.id  = cc.cliente_id
-    join contratos c on c.id = cc.contrato_id`;
-        db.query(query, function (error, contratos) {
+    join contratos c on c.id = cc.contrato_id where cli.id = ?`;
+        db.query(query,[cliente.id], function (error, contratos) {
             if (error) {
                 reject(error);
                 return;
