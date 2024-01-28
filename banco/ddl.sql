@@ -60,6 +60,77 @@ CREATE TABLE clientes_atributos (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
 );
 
+INSERT INTO agilmax_erp.clientes_atributos (uuid,cliente_id,chave,valor,situacao) VALUES
+	 ('64567cfd-bd57-11ee-8c1d-641c679a799a',1,'Telefone','83991732800',1),
+	 ('801f6f1c-bd57-11ee-8c1d-641c679a799a',1,'E-mail','fulano@teste.com',1);
+
+/*
+ * Um contrato possui N serviços vinculados a ele
+ * */
+
+-- Tabela: contratdos
+CREATE TABLE contratos (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid CHAR(36) DEFAULT (UUID()),
+    descricao TEXT,
+    situacao INT(1) DEFAULT 1,
+    orcamento DECIMAL(10,2),
+    data_inicio DATE,
+    data_fim DATE,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Inserção 1
+INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
+VALUES (UUID(), 'Contrato de Manutenção', 1, 1500.00, '2024-01-10', '2024-12-31');
+
+-- Inserção 2
+INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
+VALUES (UUID(), 'Contrato de Consultoria', 1, 2500.00, '2024-02-15', '2024-06-30');
+
+-- Inserção 3
+INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
+VALUES (UUID(), 'Contrato de Consturção', 1, 3500.00, '2024-03-01', '2024-09-30');
+
+-- Inserção 4
+INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
+VALUES (UUID(), 'Contrato de Treinamento', 1, 2000.00, '2024-04-10', '2024-08-15');
+
+-- Inserção 5
+INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
+VALUES (UUID(), 'Contrato de Suporte', 1, 1800.00, '2024-05-20', '2024-11-30');
+
+
+CREATE TABLE cliente_contratos (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid CHAR(36) DEFAULT (UUID()),
+    cliente_id INT,
+    contrato_id INT,
+    situacao INT(1) DEFAULT 1,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE cascade,
+    FOREIGN KEY (contrato_id) REFERENCES contratos(id) ON DELETE CASCADE
+);
+
+/*
+ * Um serviço esta associado a um contrato
+ * que possui um orçamento; Cada serviço possui um valor
+ * */
+-- Tabela: servicos
+CREATE TABLE servicos (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid CHAR(36) DEFAULT (UUID()),
+    descricao TEXT,
+    situacao INT(1) DEFAULT 1,
+    valor DECIMAL(10,2),
+    contrato_id INT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (contrato_id) REFERENCES contratos(id) ON DELETE CASCADE
+);
+
 -- Tabela: os
 CREATE TABLE os (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -76,16 +147,17 @@ CREATE TABLE os (
 );
 
 -- Tabela: servicos
-CREATE TABLE servicos (
+CREATE TABLE os_servicos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     uuid CHAR(36) DEFAULT (UUID()),
     os_id INT,
-    descricao TEXT,
+    servico_id INT,
     situacao INT(1) DEFAULT 1,
-    valor DECIMAL(10,2),
+    observacao TEXT,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (os_id) REFERENCES os(id) ON DELETE CASCADE
+    FOREIGN KEY (os_id) REFERENCES os(id) ON DELETE cascade,
+    FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE
 );
 
 -- Tabela: os_configuracao_atributos

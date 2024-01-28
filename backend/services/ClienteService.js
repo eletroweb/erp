@@ -22,7 +22,6 @@ export async function listarClientes(paginacao) {
     });
 }
 
-
 export async function exibirCliente(uuid) {
 
     const registro = await findByUuid(uuid)
