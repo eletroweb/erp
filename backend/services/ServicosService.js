@@ -48,8 +48,8 @@ export async function exibirServico(uuid) {
 }
 
 export async function cadastrarServico(servico) {
-    const { descricao, situacao, valor, contratoUuid } = servico
-    const contrato = await localizarContratoPorUuid(contratoUuid)
+    const { descricao, situacao, valor, contrato_id } = servico
+    const contrato = await localizarContratoPorUuid(contrato_id)
 
     if (!contrato)
         return "Contrato não localizado"

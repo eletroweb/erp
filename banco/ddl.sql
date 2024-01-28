@@ -102,6 +102,8 @@ INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_f
 VALUES (UUID(), 'Contrato de Suporte', 1, 1800.00, '2024-05-20', '2024-11-30');
 
 
+select * from contratos;
+
 CREATE TABLE cliente_contratos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     uuid CHAR(36) DEFAULT (UUID()),
@@ -113,6 +115,11 @@ CREATE TABLE cliente_contratos (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE cascade,
     FOREIGN KEY (contrato_id) REFERENCES contratos(id) ON DELETE CASCADE
 );
+
+INSERT INTO cliente_contratos (uuid,cliente_id,contrato_id,situacao,data_cadastro,data_atualizacao) VALUES
+	 ('9ccdda70-be1b-11ee-a210-00155d010300',1,5,1,'2024-01-28 17:27:09','2024-01-28 17:27:09'),
+	 ('ce77ac82-be1b-11ee-a210-00155d010300',1,7,1,'2024-01-28 17:28:33','2024-01-28 17:28:33');
+
 
 /*
  * Um serviço esta associado a um contrato
@@ -130,6 +137,21 @@ CREATE TABLE servicos (
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (contrato_id) REFERENCES contratos(id) ON DELETE CASCADE
 );
+
+-- Inserir serviços relacionados à construção civil associados ao contrato_id = 3
+INSERT INTO servicos (descricao, situacao, valor, contrato_id)
+VALUES
+    ('Serviço de Fundação', 1, 5000.00, 3),
+    ('Instalação Elétrica', 1, 3000.00, 3),
+    ('Serviço de Alvenaria', 1, 4500.00, 3),
+    ('Pintura Interna', 1, 2000.00, 3),
+    ('Serviço de Encanamento', 1, 3500.00, 3),
+    ('Instalação de Pisos', 1, 2800.00, 3),
+    ('Serviço de Telhado', 1, 4000.00, 3),
+    ('Pintura Externa', 1, 2200.00, 3),
+    ('Limpeza Pós-Obra', 1, 1200.00, 3),
+    ('Serviço de Paisagismo', 1, 1800.00, 3);
+
 
 -- Tabela: os
 CREATE TABLE os (
