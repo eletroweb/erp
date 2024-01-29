@@ -171,7 +171,9 @@ export async function listarServicosDaOrdemServico(osId) {
         select
             oss.uuid,
             s.descricao,
-            s.valor
+            s.valor,
+            oss.observacao,
+            oss.situacao
         from
             os_servicos oss
         join servicos s on
