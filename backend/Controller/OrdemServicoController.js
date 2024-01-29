@@ -7,7 +7,9 @@ import {
     exibirOrdemServico,
     cadastrarOrdemServico,
     editarOrdemServico,
-    deletarOrdemServico
+    deletarOrdemServico,
+    removerServicoDaOrdemServico,
+    adicionarServicoDaOrdemServico
 } from "../services/OrdemServicoService.js"
 
 function getPaginacao(req){
@@ -45,5 +47,18 @@ router.delete('/:id', async function (req, res) {
     const result = await deletarOrdemServico(id)
     res.send(result)
 })
+
+router.delete('/servico/:ossuuid', async function (req, res) {
+    const ossuuid = req.params.ossuuid
+    const result = await removerServicoDaOrdemServico(ossuuid)
+    res.send(result)
+})
+router.post('/servico/', async function (req, res) {
+    const oss = req.body
+    const result = await adicionarServicoDaOrdemServico(oss)
+    res.json(result)
+})
+
+
 
 export default router

@@ -179,6 +179,7 @@ CREATE TABLE os_servicos (
     FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE
 );
 
+/*
 -- Inserir associação de serviços para cada ordem de serviço
 INSERT INTO os_servicos (os_id, servico_id, situacao, observacao)
 VALUES
@@ -192,6 +193,7 @@ VALUES
     (8, 8, 1, 'Realizar Pintura Externa'),
     (9, 9, 1, 'Realizar Limpeza Pós-Obra'),
     (10, 10, 1, 'Realizar Serviço de Paisagismo');
+*/
 
 -- Tabela: os_configuracao_atributos
 CREATE TABLE os_configuracao_atributos (
