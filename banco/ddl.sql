@@ -1,6 +1,6 @@
-drop database if exists agilmax_erp;
-create database if not exists agilmax_erp;
-use agilmax_erp;
+drop database if exists erp;
+create database if not exists erp;
+use erp;
 -- Tabela: setores
 CREATE TABLE setores (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -11,7 +11,7 @@ CREATE TABLE setores (
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-INSERT INTO agilmax_erp.setores (uuid,descricao,situacao,data_cadastro,data_atualizacao) VALUES
+INSERT INTO erp.setores (uuid,descricao,situacao,data_cadastro,data_atualizacao) VALUES
 	 ('02074b20-bd21-11ee-8c1d-641c679a799a','Meio Ambiente',1,'2024-01-27 11:33:16','2024-01-27 11:33:16'),
 	 ('1bc514ff-bd21-11ee-8c1d-641c679a799a','Segurança do Trabalho',1,'2024-01-27 11:33:59','2024-01-27 11:33:59'),
 	 ('2627230a-bd21-11ee-8c1d-641c679a799a','Engenharia civil',1,'2024-01-27 11:34:16','2024-01-27 11:34:16');
@@ -36,7 +36,7 @@ CREATE TABLE clientes (
 
 
 -- Inserir clientes vinculados ao setor 1
-INSERT INTO clientes (nome, email, documento, estado, cidade, endereco, complemento, setor_id)
+/* INSERT INTO clientes (nome, email, documento, estado, cidade, endereco, complemento, setor_id)
 VALUES
     ('Cliente1', 'cliente1@email.com', '123456789', 'SP', 'Sao Paulo', 'Rua A', 'Complemento A', 1),
     ('Cliente2', 'cliente2@email.com', '987654321', 'RJ', 'Rio de Janeiro', 'Rua B', 'Complemento B', 1),
@@ -48,6 +48,7 @@ VALUES
     ('Cliente8', 'cliente8@email.com', '777666555', 'CE', 'Fortaleza', 'Rua H', 'Complemento H', 3),
     ('Cliente9', 'cliente9@email.com', '444333222', 'AM', 'Manaus', 'Rua I', 'Complemento I', 3),
     ('Cliente10', 'cliente10@email.com', '111000999', 'SC', 'Florianopolis', 'Rua J', 'Complemento J', 3);
+*/
 
 -- Tabela: clientes_atributos
 CREATE TABLE clientes_atributos (
@@ -60,9 +61,11 @@ CREATE TABLE clientes_atributos (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
 );
 
-INSERT INTO agilmax_erp.clientes_atributos (uuid,cliente_id,chave,valor,situacao) VALUES
+/*
+INSERT INTO erp.clientes_atributos (uuid,cliente_id,chave,valor,situacao) VALUES
 	 ('64567cfd-bd57-11ee-8c1d-641c679a799a',1,'Telefone','83991732800',1),
 	 ('801f6f1c-bd57-11ee-8c1d-641c679a799a',1,'E-mail','fulano@teste.com',1);
+*/
 
 /*
  * Um contrato possui N serviços vinculados a ele
@@ -80,7 +83,7 @@ CREATE TABLE contratos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
+/*
 INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
 VALUES 
 (UUID(), 'Contrato de Manutenção', 1, 1500.00, '2024-01-10', '2024-12-31'),
@@ -88,6 +91,7 @@ VALUES
 (UUID(), 'Contrato de Consturção', 1, 3500.00, '2024-03-01', '2024-09-30'),
 (UUID(), 'Contrato de Treinamento', 1, 2000.00, '2024-04-10', '2024-08-15'),
 (UUID(), 'Contrato de Suporte', 1, 1800.00, '2024-05-20', '2024-11-30');
+*/
 
 
 CREATE TABLE cliente_contratos (
@@ -121,7 +125,7 @@ CREATE TABLE servicos (
 );
 
 -- Inserir serviços relacionados à construção civil associados ao contrato_id = 3
-INSERT INTO servicos (descricao, situacao, valor, contrato_id)
+/*INSERT INTO servicos (descricao, situacao, valor, contrato_id)
 VALUES
     ('Serviço de Fundação', 1, 5000.00, 3),
     ('Instalação Elétrica', 1, 3000.00, 3),
@@ -133,7 +137,7 @@ VALUES
     ('Pintura Externa', 1, 2200.00, 3),
     ('Limpeza Pós-Obra', 1, 1200.00, 3),
     ('Serviço de Paisagismo', 1, 1800.00, 3);
-
+*/
 
 -- Tabela: os
 CREATE TABLE os (
@@ -152,7 +156,7 @@ CREATE TABLE os (
 
 
 -- Inserir 10 ordens de serviços
-INSERT INTO os (cliente_id, descricao, prazo, situacao, setor_id)
+/*INSERT INTO os (cliente_id, descricao, prazo, situacao, setor_id)
 VALUES
     (FLOOR(1 + RAND() * 5), 'Serviço de Manutenção Elétrica', '2024-02-10', 1, 3),
     (FLOOR(1 + RAND() * 5), 'Instalação de Sistemas de Segurança', '2024-02-15', 1, 3),
@@ -164,13 +168,14 @@ VALUES
     (FLOOR(1 + RAND() * 5), 'Manutenção de Elevadores', '2024-03-20', 1, 3),
     (FLOOR(1 + RAND() * 5), 'Serviço de Limpeza Geral', '2024-03-25', 1, 3),
     (FLOOR(1 + RAND() * 5), 'Reparo em Telhado', '2024-04-01', 1, 3);
-
+*/
 -- Tabela: servicos
 CREATE TABLE os_servicos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     uuid CHAR(36) DEFAULT (UUID()),
     os_id INT,
     servico_id INT,
+    quantidade INT,
     situacao INT(1) DEFAULT 1,
     observacao TEXT,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

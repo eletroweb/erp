@@ -1,0 +1,952 @@
+{
+	"info": {
+		"_postman_id": "0eeb7d6e-3058-421d-8f38-9ddf39aa826f",
+		"name": "ERP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "384675"
+	},
+	"item": [
+		{
+			"name": "Setores",
+			"item": [
+				{
+					"name": "Listar setores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/setores/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar setor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"descricao\": \"Meio Ambiente\",\r\n        \"situacao\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/setores",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar setor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"descricao\": \"Meio Ambiente\",\r\n        \"situacao\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/setores/894690c5-bd27-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores",
+								"894690c5-bd27-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar lista setores",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"uuid\": \"1bc514ff-bd21-11ee-8c1d-641c679a799a\",\r\n        \"descricao\": \"Segurança do Trabalho\",\r\n        \"situacao\": 1\r\n    },\r\n    {\r\n        \"uuid\": \"2627230a-bd21-11ee-8c1d-641c679a799a\",\r\n        \"descricao\": \"Engenharia civil\",\r\n        \"situacao\": 1\r\n    },\r\n    {\r\n        \"uuid\": \"894690c5-bd27-11ee-8c1d-641c679a799a\",\r\n        \"descricao\": \"Meio Ambiente\",\r\n        \"situacao\": 1\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/setores/editarLista/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores",
+								"editarLista",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir setor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/setores/1bc514ff-bd21-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores",
+								"1bc514ff-bd21-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar situacao do setor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"situacao\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/setores/situacao/1bc514ff-bd21-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores",
+								"situacao",
+								"1bc514ff-bd21-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar setor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/setores/02074b20-bd21-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores",
+								"02074b20-bd21-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Serviços",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/servicos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"servicos"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "quantidade",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Serviço de Fundação\",\r\n    \"situacao\": 1,\r\n    \"valor\": \"5100.00\",\r\n    \"contrato_id\": \"a53c4e66-bd7b-11ee-8c1d-641c679a799a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/servicos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"servicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Serviço de Fundação\",\r\n    \"situacao\": 1,\r\n    \"valor\": \"5100.00\",\r\n    \"contrato_id\": \"a53c4e66-bd7b-11ee-8c1d-641c679a799a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/servicos/3a51f095-be21-11ee-a210-00155d010300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"servicos",
+								"3a51f095-be21-11ee-a210-00155d010300"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/servicos/95cd9956-be1c-11ee-a210-00155d010300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"servicos",
+								"95cd9956-be1c-11ee-a210-00155d010300"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/servicos/3a51f095-be21-11ee-a210-00155d010300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"servicos",
+								"3a51f095-be21-11ee-a210-00155d010300"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ordem Serviço",
+			"item": [
+				{
+					"name": "OSS",
+					"item": [
+						{
+							"name": "Deletar OSS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/os/servico/223d42a8-bea4-11ee-a210-00155d010300",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"os",
+										"servico",
+										"223d42a8-bea4-11ee-a210-00155d010300"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adcionar OSS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"os_uuid\": \"02811928-be23-11ee-a210-00155d010300\",\r\n    \"servico_uuid\": \"0274564e-be23-11ee-a210-00155d010300\",\r\n    \"observacao\": \"Exemplo\",\r\n    \"quantidade\": 1,\r\n    \"situacao\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/os/servico/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"os",
+										"servico",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/os",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"os"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "quantidade",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/os/02811928-be23-11ee-a210-00155d010300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"os",
+								"02811928-be23-11ee-a210-00155d010300"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Serviço de Fundação\",\r\n    \"situacao\": 1,\r\n    \"valor\": \"5100.00\",\r\n    \"contrato_id\": \"a53c4e66-bd7b-11ee-8c1d-641c679a799a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/os",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"os"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Serviço de Fundação\",\r\n    \"situacao\": 1,\r\n    \"valor\": \"5100.00\",\r\n    \"contrato_id\": \"a53c4e66-bd7b-11ee-8c1d-641c679a799a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/os/3a51f095-be21-11ee-a210-00155d010300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"os",
+								"3a51f095-be21-11ee-a210-00155d010300"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/os/3a51f095-be21-11ee-a210-00155d010300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"os",
+								"3a51f095-be21-11ee-a210-00155d010300"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contratos",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/contratos/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contratos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Contrato de Exemplo\",\r\n    \"situacao\": 1,\r\n    \"orcamento\": \"1500.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contratos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contratos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Contrato de Exemplo 123\",\r\n    \"situacao\": 0,\r\n    \"orcamento\": \"1700.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contratos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contratos",
+								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/contratos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contratos",
+								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/contratos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contratos",
+								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Atributos do Cliente",
+					"item": [
+						{
+							"name": "Adicionar Atributo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"clienteUuid\": \"54a88f23-bd57-11ee-8c1d-641c679a799a\",\r\n        \"chave\": \"E-mail\",\r\n        \"valor\": \"fulano@teste.com\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/clientes/atributos/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"clientes",
+										"atributos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Exibir Atributos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/clientes/atributos/54a88f23-bd57-11ee-8c1d-641c679a799a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"clientes",
+										"atributos",
+										"54a88f23-bd57-11ee-8c1d-641c679a799a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Atributo",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"uuid\": \"801f6f1c-bd57-11ee-8c1d-641c679a799a\",\r\n        \"chave\": \"E-mail\",\r\n        \"valor\": \"fulano@teste.com\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/clientes/atributos/801f6f1c-bd57-11ee-8c1d-641c679a799a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"clientes",
+										"atributos",
+										"801f6f1c-bd57-11ee-8c1d-641c679a799a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar Atributos",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/clientes/atributos/6e0c7598-bd5f-11ee-8c1d-641c679a799a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"clientes",
+										"atributos",
+										"6e0c7598-bd5f-11ee-8c1d-641c679a799a"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cliente Contratos",
+					"item": [
+						{
+							"name": "Listar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/clientesContratos/a533e35d-bd7b-11ee-8c1d-641c679a799a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"clientesContratos",
+										"a533e35d-bd7b-11ee-8c1d-641c679a799a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adicionar",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"cliente\": \"025dc41d-be23-11ee-a210-00155d010300\",\r\n        \"contrato\": \"0269a9a2-be23-11ee-a210-00155d010300\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/clientesContratos/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"clientesContratos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/clientesContratos/047a319b-bd82-11ee-8c1d-641c679a799a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"clientesContratos",
+										"047a319b-bd82-11ee-8c1d-641c679a799a"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Listar clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clientes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "quantidade",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"XPTO\",\r\n    \"email\": \"XPTO@email.com\",\r\n    \"documento\": \"123\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": 1,\r\n    \"setor_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/clientes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Cliente1\",\r\n    \"email\": \"cliente1@email.com\",\r\n    \"documento\": \"123456789\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": 1,\r\n    \"data_cadastro\": \"2024-01-27T20:07:09.000Z\",\r\n    \"data_atualizacao\": \"2024-01-27T20:07:09.000Z\",\r\n    \"setor_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/clientes/a70cc475-bd4f-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes",
+								"a70cc475-bd4f-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar lista clientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"uuid\": \"1bc514ff-bd21-11ee-8c1d-641c679a799a\",\r\n        \"descricao\": \"Segurança do Trabalho\",\r\n        \"situacao\": 1\r\n    },\r\n    {\r\n        \"uuid\": \"2627230a-bd21-11ee-8c1d-641c679a799a\",\r\n        \"descricao\": \"Engenharia civil\",\r\n        \"situacao\": 1\r\n    },\r\n    {\r\n        \"uuid\": \"894690c5-bd27-11ee-8c1d-641c679a799a\",\r\n        \"descricao\": \"Meio Ambiente\",\r\n        \"situacao\": 1\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/clientes/editarLista/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes",
+								"editarLista",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clientes/025dc41d-be23-11ee-a210-00155d010300",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes",
+								"025dc41d-be23-11ee-a210-00155d010300"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir cliente Sem atributos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clientes/54a89443-bd57-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes",
+								"54a89443-bd57-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar situacao do cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"situacao\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/clientes/situacao/a70cc475-bd4f-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes",
+								"situacao",
+								"a70cc475-bd4f-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clientes/4cc559d5-bd82-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes",
+								"4cc559d5-bd82-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
