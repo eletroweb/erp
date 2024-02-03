@@ -8,12 +8,18 @@
         </template>
         <el-table :data="setorStore.setores" stripe style="width: 700px%">
             <el-table-column prop="uuid" label="ID" width="300" />
-            <el-table-column prop="descricao" label="Descrição" width="400" />
+            <el-table-column prop="descricao" label="Descrição" width="300" />
 
             <el-table-column prop="situacao" label="Situação" width="150">
                 <template #default="setor">
                     <el-tag v-if="setor.row.situacao === 1" type="success">Ativado</el-tag>
                     <el-tag v-else type="info">Desativado</el-tag>
+                </template>
+            </el-table-column>
+
+            <el-table-column prop="situacao" label="">
+                <template #default="setor">
+                    <el-button type="primary" size="small" plain>Editar</el-button>
                 </template>
             </el-table-column>
         </el-table>
