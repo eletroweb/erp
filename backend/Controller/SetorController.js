@@ -47,7 +47,11 @@ router.put(`/situacao/:uuid`, async function (req, res) {
 router.post('/', async function (req, res) {
     const setor = req.body
     const result = await cadastrarSetor(setor)
-    res.json(result)
+    res.json({
+        title: 'Cadastro de setor',
+        message: result,
+        type: 'success',
+    })
 })
 
 router.delete('/:id', async function (req, res) {

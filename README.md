@@ -21,3 +21,7 @@ npm run dev
 
 8. Realize chamadas a API através da collection do postamn importada no passo 4.
 
+
+# Git
+excluindo uma branch remota
+git push origin -d nomebranch
