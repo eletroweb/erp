@@ -3,7 +3,6 @@
         <template #header>
             <div class="card-header">
                 <span>Cadastrar Setor</span>
-                <el-button type="success">Cadastrar</el-button>
             </div>
         </template>
 
@@ -15,31 +14,34 @@
                 <el-switch v-model="setorStore.setor.situacao" />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="setorStore.cadastrar()">Salvar</el-button>
-                <el-button @click="setorStore.cancelar()">Cancelar</el-button>
+
+                <el-button v-if="this.$route.params.id == null" type="primary" @click="setorStore.cadastrar()">
+                    Salvar
+                </el-button>
+
+                <el-button v-else type="primary" @click="setorStore.editar(setorStore.setor.uuid)">
+                    Salvar alterações
+                </el-button>
+
+                <el-button class="btn" @click="setorStore.cancelar()">Cancelar</el-button>
             </el-form-item>
         </el-form>
     </el-card>
 </template>
 
 <script>
-import {useSetorStore } from '../../store/SetorStore'
+import { useSetorStore } from '../../store/SetorStore'
 
 export default {
     setup() {
         const setorStore = useSetorStore()
-        return {setorStore}
+        return { setorStore }
     },
     async mounted() {
-    },
-    data: () => {
-        return {
-            setor: {
-                descricao: '',
-                situacao: true,
-            }
-        }
-    },
+        const id = this.$route.params.id
+        if (id)
+            this.setorStore.carregarSetor(id)
+    }
 }
 </script>
 
