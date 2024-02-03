@@ -16,7 +16,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="setorStore.cadastrar()">Salvar</el-button>
-                <el-button>Cancelar</el-button>
+                <el-button @click="setorStore.cancelar()">Cancelar</el-button>
             </el-form-item>
         </el-form>
     </el-card>
@@ -40,14 +40,6 @@ export default {
             }
         }
     },
-    components: {
-    },
-    methods: {
-        OnSubmit() {
-            cadastrarSetor(this.setor)
-            listarSetores();
-        }
-    }
 }
 </script>
 

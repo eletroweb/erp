@@ -34,5 +34,13 @@ export const useSetorStore = defineStore('setorStore', {
                 console.error("Erro ao cadastrar setor:", error);
             }
         },
+        async cancelar() {
+            /*
+            TODO verificar se o formulario esta preenchido e perguntar 
+            se o usuário deseja descartar as informações cotnidas no fomrulario
+            */
+            router.push('/setores');
+
+        },
     },
 })
