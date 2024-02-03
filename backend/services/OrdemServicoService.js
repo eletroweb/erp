@@ -74,16 +74,16 @@ function calcularValorTotalOs(servicos) {
 }
 
 export async function cadastrarOrdemServico(os) {
-    const { descricao, situacao, valor, contrato_id } = os
+    const { observacao, situacao, contrato_id } = os
     const contrato = await localizarContratoPorUuid(contrato_id)
 
     if (!contrato)
         return "Ordem Serviço não localizada"
 
     return new Promise((resolve, reject) => {
-        const query = `INSERT INTO oss (descricao, situacao, valor, contrato_id) VALUES (?,?,?,?)`
+        const query = `INSERT INTO os_servicos (observacao, situacao) VALUES (?,?)`
         db.query(query, [
-            descricao, situacao, valor, contrato.id
+            observacao, situacao
         ], function (error) {
             if (error)
                 reject(error)
