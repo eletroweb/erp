@@ -21,6 +21,11 @@ const router = createRouter({
       name: 'cadastrar-setor',
       component: FormularioSetores
     },
+    {
+      path: '/setores/:id',
+      name: 'editar-setor',
+      component: FormularioSetores
+    },
   ]
 })
 

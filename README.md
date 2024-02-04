@@ -25,3 +25,6 @@ npm run dev
 # Git
 excluindo uma branch remota
 git push origin -d nomebranch
+
+
+<el-button type="success" @click="$router.push({ name: 'cadastrar-setor' })">Cadastrar</el-button>
