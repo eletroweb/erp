@@ -3,10 +3,13 @@
         <template #header>
             <div class="card-header">
                 <span>Setores</span>
-                <el-button type="success" @click="setorStore.novo()">Cadastrar</el-button>
+                <el-button type="success" @click="setorStore.novo()">
+                    <el-icon><Select /></el-icon>
+                    Cadastrar
+                </el-button>
             </div>
         </template>
-        <el-table :data="setorStore.setores" stripe style="width: 700px%">
+        <el-table v-if="setorStore.setores.length > 0" :data="setorStore.setores" stripe style="width: 700px%">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
             <el-table-column prop="descricao" label="Descrição" width="500" />
 
@@ -23,6 +26,9 @@
                 </template>
             </el-table-column>
         </el-table>
+
+        <el-empty v-else description="Nenhum setor cadastrado" />
+
     </el-card>
 </template>
 

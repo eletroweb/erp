@@ -74,5 +74,17 @@ export const useSetorStore = defineStore('setorStore', {
             this.carregarSetor(id)
             router.push(`/setores/${id}`);
         },
+        async excluir(id) {
+            try {
+                const response = await api.delete(`setores/${id}`);
+                this.setor = response.data;
+                const notificacaoStore = NotificacaoStore();
+                notificacaoStore.exibirNotificacao("Setor", response.data, 'success');
+                router.push('/setores');
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+        },
     },
 })
