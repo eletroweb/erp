@@ -43,7 +43,9 @@ export async function exibir(uuid) {
 }
 
 export async function cadastrar(contrato) {
-    const { descricao, situacao, orcamento, data_inicio, data_fim } = contrato;
+    const { descricao, situacao, orcamento} = contrato;
+    const data_inicio = formatarData(contrato.data_inicio)
+    const data_fim = formatarData(contrato.data_fim)
 
     return new Promise((resolve, reject) => {
         const query = `

@@ -1,4 +1,5 @@
 import express from 'express'
+import moment from 'moment';
 
 const router = express.Router()
 
@@ -15,8 +16,9 @@ router.get('/', async function (req, res) {
 
     const contratosFormatados = contratos.map(contrato => ({
         ...contrato,
-        "data_inicio": formatarData(contrato["data_cadastro"]),
-        "data_fim": formatarData(contrato["data_atualizacao"])
+        "data_inicio": formatarData(contrato["data_inicio"]),
+        "data_fim": formatarData(contrato["data_fim"]),
+        "resumo": resumoDias(contrato["data_inicio"], contrato["data_fim"])
     }));
 
     res.json(contratosFormatados)
@@ -25,6 +27,7 @@ router.get('/', async function (req, res) {
 router.get('/:uuid', async function (req, res) {
     const uuid = req.params.uuid
     let contrato = await exibir(uuid)
+    contrato.resumo = resumoDias(contrato["data_inicio"], contrato["data_fim"])
 
     /* const contratoFormatado = {
         ...contrato,
@@ -60,14 +63,37 @@ router.delete('/:id', async function (req, res) {
     res.send(result)
 })
 
+
+/* TODO mover essas funções para um um utilitário
+verificar com Erick sobre a necessidade de implementar achecagem de dias úteis
+e criar uma tabela de configurações para definir isso e feriados
+ */ 
+function resumoDias(d1, d2) {
+    const total_dias = diferencaEmDias(d1, d2)
+    const dias_restantes = diferencaEmDias(new Date(), d2)
+    const dias_corridos = total_dias - dias_restantes
+    const percentual_decorrido = calcularPercentual(dias_corridos, total_dias)
+
+    return {
+        total_dias,
+        dias_restantes,
+        dias_corridos,
+        percentual_decorrido
+    }
+}
+
+function calcularPercentual(dias_corridos, total_dias) {
+    return parseFloat(((dias_corridos / total_dias) * 100)).toFixed(2)
+}
+
 function formatarData(dataString) {
-    const data = new Date(dataString);
-    
-    const ano = data.getFullYear();
-    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
-    const dia = data.getDate().toString().padStart(2, '0');
-    
-    return `${dia}/${mes}/${ano}`;
+    return moment(String(dataString)).format('MM/DD/YYYY')
+}
+
+function diferencaEmDias(d1, d2) {
+    const data1 = moment(d1);
+    const data2 = moment(d2);
+    return data2.diff(data1, 'days');
 }
 
 export default router
