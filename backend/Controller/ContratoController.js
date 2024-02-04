@@ -11,13 +11,27 @@ import {
 } from "../services/ContratoService.js"
 
 router.get('/', async function (req, res) {
-    const contratoes = await listar()
-    res.json(contratoes)
+    const contratos = await listar()
+
+    const contratosFormatados = contratos.map(contrato => ({
+        ...contrato,
+        "data_inicio": formatarData(contrato["data_cadastro"]),
+        "data_fim": formatarData(contrato["data_atualizacao"])
+    }));
+
+    res.json(contratosFormatados)
 })
 
 router.get('/:uuid', async function (req, res) {
     const uuid = req.params.uuid
     let contrato = await exibir(uuid)
+
+    /* const contratoFormatado = {
+        ...contrato,
+        "data_inicio": formatarData(contrato["data_cadastro"]),
+        "data_fim": formatarData(contrato["data_atualizacao"])
+    };*/
+
     res.send(contrato)
 })
 
@@ -45,5 +59,15 @@ router.delete('/:id', async function (req, res) {
     const result = await deletar(id)
     res.send(result)
 })
+
+function formatarData(dataString) {
+    const data = new Date(dataString);
+    
+    const ano = data.getFullYear();
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const dia = data.getDate().toString().padStart(2, '0');
+    
+    return `${dia}/${mes}/${ano}`;
+}
 
 export default router

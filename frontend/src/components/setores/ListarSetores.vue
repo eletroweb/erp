@@ -4,7 +4,6 @@
             <div class="card-header">
                 <span>Setores</span>
                 <el-button type="success" @click="setorStore.novo()">
-                    <el-icon><Select /></el-icon>
                     Cadastrar
                 </el-button>
             </div>
