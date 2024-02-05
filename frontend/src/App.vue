@@ -57,7 +57,7 @@
           </el-menu-item-group>
         </el-sub-menu>
 
-        <el-menu-item index="3" disabled>
+        <el-menu-item index="/clientes">
           <el-icon>
             <UserFilled />
           </el-icon>

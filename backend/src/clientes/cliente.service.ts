@@ -33,9 +33,10 @@ export class ClienteService {
     return this.clienteRepository.save(createdCliente);
   }
 
-  async update(uuid: string, clienteEntity: ClienteEntity): Promise<ClienteEntity> {
-    await this.findOneByUuid(uuid); // Verifica se o cliente existe
-    const updatedCliente = await this.clienteRepository.save({ ...clienteEntity, uuid });
+  async update(uuid: string, request: ClienteEntity): Promise<ClienteEntity> {
+    const setor = await this.findOneByUuid(uuid);
+    const updatedCliente = this.clienteRepository.merge(setor, request);
+    await this.clienteRepository.save(updatedCliente);
     return updatedCliente;
   }
 
