@@ -9,6 +9,7 @@ import { ClienteModule } from '../clientes/cliente.module';
 import { ClienteEntity } from '../clientes/cliente.entity';
 import { ProjetoEntity } from 'src/projetos/projeto.entity';
 import { ProjetoModule } from 'src/projetos/projeto.module';
+import { UsuarioModule } from 'src/usuarios/usuario.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -18,12 +19,14 @@ import { ProjetoModule } from 'src/projetos/projeto.module';
       username: 'root',
       password: '123456',
       database: 'erp',
-      entities: [SetorEntity, ClienteEntity, ProjetoEntity],
+      //entities: [SetorEntity, ClienteEntity, ProjetoEntity],
+      autoLoadEntities: true,
       synchronize: true, // Sincronizar automaticamente o esquema (apenas para ambiente de desenvolvimento)
     }),
     SetorModule,
     ClienteModule,
-    ProjetoModule
+    ProjetoModule,
+    UsuarioModule
   ],
   controllers: [AppController],
   providers: [AppService],

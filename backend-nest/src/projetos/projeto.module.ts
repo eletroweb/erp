@@ -6,12 +6,14 @@ import { ProjetoController } from './projeto.controller';
 import { ProjetoService } from './projeto.service';
 import { SetorModule } from 'src/setores/setor.module';
 import { ClienteModule } from 'src/clientes/cliente.module';
+import { UsuarioModule } from 'src/usuarios/usuario.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([ProjetoEntity]),
     SetorModule,
     ClienteModule,
+    UsuarioModule
   ],
   controllers: [ProjetoController],
   providers: [ProjetoService, ProjetoRepository],

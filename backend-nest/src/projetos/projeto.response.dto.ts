@@ -1,11 +1,8 @@
-import { ClienteResponseDto } from 'src/clientes/cliente.response.dto';
-import { SetorResponseDto } from 'src/setores/setor.response.dto';
-
 export class ProjetoResponseDto {
   uuid: string;
-  cliente: ClienteResponseDto;
-  setor: SetorResponseDto;
-  responsavel: ClienteResponseDto;
+  cliente: string;
+  setor: string;
+  responsavel: string;
   situacao: number;
   orcamento: number;
   data_inicio: Date;

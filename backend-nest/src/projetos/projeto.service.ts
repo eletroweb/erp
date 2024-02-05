@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { ProjetoRequestDto } from './projeto.request.dto';
 import { SetorService } from 'src/setores/setor.service';
 import { ClienteService } from 'src/clientes/cliente.service';
+import { UsuarioService } from 'src/usuarios/usuario.service';
 
 @Injectable()
 export class ProjetoService {
@@ -14,6 +15,7 @@ export class ProjetoService {
     private projetoRepository: Repository<ProjetoEntity>,
     private setorService: SetorService,
     private clienteService: ClienteService,
+    private usuarioService: UsuarioService,
   ) { }
 
   async findAll(): Promise<ProjetoEntity[]> {
@@ -31,8 +33,9 @@ export class ProjetoService {
   async create(request: ProjetoRequestDto): Promise<ProjetoEntity> {
     const setor = await this.setorService.findOneByUuid(request.setor)
     const cliente = await this.clienteService.findOneByUuid(request.cliente)
+    const responsavel = await this.usuarioService.findOneByUuid(request.responsavel)
 
-    const projeto = ProjetoEntity.fromRequestDto(request, setor, cliente);
+    const projeto = ProjetoEntity.fromRequestDto(request, setor, cliente, responsavel);
     const createdProjeto = this.projetoRepository.create(projeto);
     return this.projetoRepository.save(createdProjeto);
   }
