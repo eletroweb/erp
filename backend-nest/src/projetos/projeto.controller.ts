@@ -20,7 +20,7 @@ export class ProjetoController {
   async findOne(@Param('uuid') uuid: string): Promise<ProjetoResponseDto> {
     const projeto = await this.projetoService.findOneByUuid(uuid);
     if (!projeto)
-      throw new NotFoundException('Projeto not found');
+      throw new NotFoundException('Projeto não localizado');
     
     return projeto.toDto();
   }

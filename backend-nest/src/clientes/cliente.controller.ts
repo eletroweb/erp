@@ -21,7 +21,7 @@ export class ClienteController {
   async findOne(@Param('uuid') uuid: string): Promise<ClienteResponseDto> {
     const cliente = await this.clienteService.findOneByUuid(uuid);
     if (!cliente)
-      throw new NotFoundException('Cliente not found');
+      throw new NotFoundException('Cliente não localizado');
     
     return cliente.toDto();
   }

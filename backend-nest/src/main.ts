@@ -7,7 +7,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:5173'
     ],
-    methods: ["*"],
+    //methods: ["GET", "POST"],
     credentials: true,
   });
   await app.listen(3000);

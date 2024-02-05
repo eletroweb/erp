@@ -26,7 +26,7 @@ export class UsuarioController {
   async findOne(@Param('uuid') uuid: string): Promise<UsuarioResponseDto> {
     const usuario = await this.usuarioService.findOneByUuid(uuid);
     if (!usuario)
-      throw new NotFoundException('Usuario not found');
+      throw new NotFoundException('Usuario não localizado');
     
     return usuario.toDto();
   }

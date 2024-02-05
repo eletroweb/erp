@@ -15,13 +15,11 @@ export class SetorController {
     return setoresDto;
   }
 
-  
-
   @Get(':uuid')
   async findOne(@Param('uuid') uuid: string): Promise<SetorResponseDto> {
     const setor = await this.setorService.findOneByUuid(uuid);
     if (!setor)
-      throw new NotFoundException('Setor not found');
+      throw new NotFoundException('Setor não localizado');
     
     return setor.toDto();
   }
@@ -33,13 +31,13 @@ export class SetorController {
   }
 
   @Put(':uuid')
-  async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() setorEntity: SetorEntity): Promise<string> {
+  async update(@Param('uuid') uuid: string, @Body() setorEntity: SetorEntity): Promise<string> {
     const updatedSetor = await this.setorService.update(uuid, setorEntity);
     return JSON.stringify(updatedSetor);
   }
 
   @Delete(':uuid')
-  async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<string> {
+  async remove(@Param('uuid') uuid: string): Promise<string> {
     const deletedSetor = await this.setorService.remove(uuid);
     return JSON.stringify(deletedSetor);
   }

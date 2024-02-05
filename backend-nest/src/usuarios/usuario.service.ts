@@ -19,7 +19,7 @@ export class UsuarioService {
   async findOneByUuid(uuid: string): Promise<UsuarioEntity> {
     const usuario = await this.usuarioRepository.findOne({ where: { uuid } });
     if (!usuario) {
-      throw new NotFoundException('Usuario not found');
+      throw new NotFoundException('Usuario não localizado');
     }
     return usuario;
   }

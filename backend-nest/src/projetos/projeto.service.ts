@@ -25,7 +25,7 @@ export class ProjetoService {
   async findOneByUuid(uuid: string): Promise<ProjetoEntity> {
     const projeto = await this.projetoRepository.findOne({ where: { uuid } });
     if (!projeto) {
-      throw new NotFoundException('Projeto not found');
+      throw new NotFoundException('Projeto não localizado');
     }
     return projeto;
   }
