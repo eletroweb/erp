@@ -3,7 +3,7 @@ import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
 
-export const useSetorStore = defineStore('setorStore', {
+export const SetorStore = defineStore('setorStore', {
     state: () => ({
         setores: [],
         setor: {}

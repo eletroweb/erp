@@ -20,6 +20,7 @@ export const useClienteStore = defineStore('clienteStore', {
         },
         async novo() {
             this.cliente = {}
+            console.log("12361253421534");
             router.push('/clientes/cadastrar-clientes');
         },
         async cadastrar() {
@@ -65,7 +66,6 @@ export const useClienteStore = defineStore('clienteStore', {
             try {
                 const response = await api.get(`clientes/${id}`);
                 this.cliente = response.data;
-                console.log(this.cliente);
             } catch (error) {
                 console.log(error);
                 throw error;

@@ -49,12 +49,12 @@
 </template>
 
 <script>
-import { useSetorStore } from '../../store/SetorStore'
+import { SetorStore } from '../../store/SetorStore'
 import { ref } from 'vue'
 
 export default {
     setup() {
-        const setorStore = useSetorStore()
+        const setorStore = SetorStore()
         return { setorStore }
     },
     data() {

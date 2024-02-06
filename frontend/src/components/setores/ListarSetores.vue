@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import { useSetorStore } from '@/store/SetorStore'
+import { SetorStore } from '@/store/SetorStore'
 
 export default {
     setup() {
-        const setorStore = useSetorStore()
+        const setorStore = SetorStore()
         setorStore.listar()
         return { setorStore }
     },

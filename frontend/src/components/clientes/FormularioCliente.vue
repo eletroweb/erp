@@ -28,9 +28,15 @@
                 <el-input v-model="clienteStore.cliente.nome" />
             </el-form-item>
             <el-form-item label="Estado">
-                <el-select v-model="clienteStore.cliente.estado" placeholder="Selecione o Estado">
-                    <el-option label="PB" value="PB" />
-                </el-select>
+                <el-col :span="11">
+                    <el-select v-model="clienteStore.cliente.estado" placeholder="Selecione o Estado">
+                        <el-option label="PB" value="PB" />
+                    </el-select>
+                </el-col>
+                <el-col :span="13">
+                    <el-form-item label="Cidade">
+                        <el-input v-model="clienteStore.cliente.cidade" />
+                    </el-form-item></el-col>
             </el-form-item>
             <el-form-item label="E-mail">
                 <el-col :span="11">
@@ -38,7 +44,7 @@
                         <el-input v-model="clienteStore.cliente.email" />
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="13">
                     <el-form-item label="Telefone">
                         <el-input v-model="clienteStore.cliente.telefone" />
                     </el-form-item>
@@ -47,11 +53,14 @@
 
             <!-- TODO CARREGAR OS SETORES DINAMICAMENTE -->
             <el-form-item label="Área">
-                <el-checkbox-group v-model="clienteStore.cliente.setor">
-                    <el-checkbox label="Engneharia Civil" name="type" />
-                    <el-checkbox label="Segurança do Trabalho" name="type" />
-                    <el-checkbox label="Meio Ambiente" name="type" />
-                </el-checkbox-group>
+                <el-radio-group v-model="clienteStore.cliente.setor" class="ml-4">
+                    <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
+                        <el-radio :label="setor.uuid" size="large">
+                            {{ setor.descricao }}
+                        </el-radio>
+                    </div>
+                </el-radio-group>
+
             </el-form-item>
 
             <el-form-item label="Endereço">
@@ -74,13 +83,14 @@
 
                 <el-button class="btn" @click="clienteStore.cancelar()">Cancelar</el-button>
             </el-form-item>
-            
+
         </el-form>
     </el-card>
 </template>
 
 <script>
 import { useClienteStore } from '../../store/ClienteStore'
+import { SetorStore } from '../../store/SetorStore'
 
 export default {
     setup() {
@@ -90,18 +100,21 @@ export default {
     data() {
         return {
             confirmacaoVisivel: false,
-            id: null
+            id: null,
+            setores: null
         }
     },
     async mounted() {
         // TODO mover isso para um utilitário
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-
-        console.log(this.$route.params.id);
         if (uuidPattern.test(this.$route.params.id)) {
             this.id = this.$route.params.id
             this.clienteStore.carregarCliente(this.id)
         }
+
+        const setorStore = SetorStore()
+        await setorStore.listar()
+        this.setores = setorStore.setores
     }
 }
 </script>
