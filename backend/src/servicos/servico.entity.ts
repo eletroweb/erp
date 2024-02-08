@@ -1,5 +1,5 @@
 import { SetorEntity } from 'src/setores/setor.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn, ManyToOne, Decimal128 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ServicoResponseDto } from './servico.response.dto';
 import { ServicoRequestDto } from './servico.request.dto';
@@ -13,28 +13,16 @@ export class ServicoEntity {
   uuid: string;
 
   @Column({ type: 'varchar', length: 255 })
-  nome: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  email: string;
-
-  @Column({ type: 'varchar', length: 20 })
-  documento: string;
-
-  @Column({ type: 'varchar', length: 2, nullable: true })
-  estado: string;
-
-  @Column({ type: 'varchar', length: 100, nullable: true })
-  cidade: string;
-
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  endereco: string;
-
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  complemento: string;
+  descricao: string;
 
   @Column({ type: 'int', default: 1 })
   situacao: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  valor: number;
+
+  @Column ({type: 'int'})
+  contrato_id: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_cadastro?: Date;
@@ -54,27 +42,17 @@ export class ServicoEntity {
   toDto(): ServicoResponseDto {
     return {
       uuid: this.uuid,
-      nome: this.nome,
-      email: this.email,
-      documento: this.documento,
-      estado: this.estado,
-      cidade: this.cidade,
-      endereco: this.endereco,
-      complemento: this.complemento,
+      descricao: this.descricao,
       situacao: this.situacao,
+      valor: this.valor,
+      contrato_id: this.contrato_id,
       setor: this.setor
     };
   }
 
   static fromRequestDto(dto: ServicoRequestDto, setor: SetorEntity): ServicoEntity {
     const entity = new ServicoEntity();
-    entity.nome = dto.nome;
-    entity.email = dto.email;
-    entity.documento = dto.documento;
-    entity.estado = dto.estado;
-    entity.cidade = dto.cidade;
-    entity.endereco = dto.endereco;
-    entity.complemento = dto.complemento;
+    entity.descricao = dto.descricao;    
     entity.situacao = dto.situacao || 1;
     entity.setor = setor
     return entity;

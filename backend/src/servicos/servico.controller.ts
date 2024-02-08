@@ -13,9 +13,7 @@ export class ServicoController {
     const servicos = await this.servicoService.findAll();
     const servicosDto: ServicoResponseDto[] = servicos.map(servico => servico.toDto());
     return servicosDto;
-  }
-
-  
+  }  
 
   @Get(':uuid')
   async findOne(@Param('uuid') uuid: string): Promise<ServicoResponseDto> {
