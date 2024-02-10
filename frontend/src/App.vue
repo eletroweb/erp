@@ -64,6 +64,11 @@
           <template #title>Clientes</template>
         </el-menu-item>
 
+        <el-menu-item index="/servicos">
+          <el-icon><CopyDocument /></el-icon>
+          <template #title>Serviços</template>
+        </el-menu-item>
+
         <el-menu-item index="4">
           <el-icon>
             <setting />

@@ -2,6 +2,7 @@ import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
+import { ValidarCPF, ValidarCNPJ } from '@/common/util'
 
 export const useClienteStore = defineStore('clienteStore', {
     state: () => ({
@@ -87,5 +88,12 @@ export const useClienteStore = defineStore('clienteStore', {
                 throw error;
             }
         },
+        handleDocumento() {
+            const notificacaoStore = NotificacaoStore();
+            const { documento } = this.cliente;
+            const isValid = ValidarCPF(documento) || ValidarCNPJ(documento);
+            if (!isValid)
+                notificacaoStore.exibirNotificacao(isValid ? 'Sucesso' : 'Erro', 'CPF ou CNPJ inválido', 'warning');
+        }
     },
 })

@@ -15,8 +15,6 @@ export class ClienteController {
     return clientesDto;
   }
 
-  
-
   @Get(':uuid')
   async findOne(@Param('uuid') uuid: string): Promise<ClienteResponseDto> {
     const cliente = await this.clienteService.findOneByUuid(uuid);

@@ -22,8 +22,6 @@ CREATE table usuarios (
     nome VARCHAR(100),
     situacao INT(1) DEFAULT 1
 );
-	
-
 
 -- Tabela: projetos
 CREATE TABLE projetos (
@@ -134,6 +132,10 @@ CREATE TABLE contratos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+INSERT INTO erp.contratos (uuid,descricao,situacao,orcamento,data_inicio,data_fim,data_cadastro,data_atualizacao) VALUES
+	 ('6e2e96bb-c36c-11ee-a1ba-641c679a799a','Contrato 1',1,25000.00,'2024-01-01','2024-12-31','2024-02-04 11:48:16','2024-02-06 19:29:42');
+
 /*
 INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
 VALUES 

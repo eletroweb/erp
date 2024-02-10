@@ -24,19 +24,31 @@
         </template>
 
         <el-form :model="clienteStore.cliente" label-width="120px">
+
             <el-form-item label="Nome">
-                <el-input v-model="clienteStore.cliente.nome" />
-            </el-form-item>
-            <el-form-item label="Estado">
                 <el-col :span="11">
+                    <el-form-item label="">
+                        <el-input v-model="clienteStore.cliente.nome" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="13">
+                    <el-form-item label="CPF ou CNPJ">
+                        <el-input v-model="clienteStore.cliente.documento" @blur="clienteStore.handleDocumento" />
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="Estado">
+                <el-col :span="6">
                     <el-select v-model="clienteStore.cliente.estado" placeholder="Selecione o Estado">
                         <el-option label="PB" value="PB" />
                     </el-select>
                 </el-col>
-                <el-col :span="13">
+                <el-col :span="18">
                     <el-form-item label="Cidade">
                         <el-input v-model="clienteStore.cliente.cidade" />
-                    </el-form-item></el-col>
+                    </el-form-item>
+                </el-col>
             </el-form-item>
             <el-form-item label="E-mail">
                 <el-col :span="11">
@@ -115,6 +127,9 @@ export default {
         const setorStore = SetorStore()
         await setorStore.listar()
         this.setores = setorStore.setores
+    },
+    methods: {
+  
     }
 }
 </script>
