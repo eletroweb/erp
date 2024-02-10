@@ -7,7 +7,8 @@ import { ValidarCPF, ValidarCNPJ } from '@/common/util'
 export const useClienteStore = defineStore('clienteStore', {
     state: () => ({
         clientes: [],
-        cliente: {}
+        cliente: {},
+        btnSalvarValido: true
     }),
     actions: {
         async listar() {
@@ -92,8 +93,26 @@ export const useClienteStore = defineStore('clienteStore', {
             const notificacaoStore = NotificacaoStore();
             const { documento } = this.cliente;
             const isValid = ValidarCPF(documento) || ValidarCNPJ(documento);
-            if (!isValid)
+            if (!isValid){
                 notificacaoStore.exibirNotificacao(isValid ? 'Sucesso' : 'Erro', 'CPF ou CNPJ inválido', 'warning');
+                this.btnSalvarValido = false
+                return
+            } else {
+                this.btnSalvarValido = true
+            }
+
+            this.ValidarDocumentoExiste(documento)
+
+            this.btnSalvarValido = true
+        },
+        async ValidarDocumentoExiste(documento) {
+            const response = await api.get(`clientes/findByDocumento/${documento}`);
+            const notificacaoStore = NotificacaoStore();
+            if (response.data){
+                notificacaoStore.exibirNotificacao('Erro', `Já existe um cliente cadastrado com o CPF/CNPJ ${documento}`, 'warning');
+                this.btnSalvarValido = false
+                return
+            }
         }
     },
 })

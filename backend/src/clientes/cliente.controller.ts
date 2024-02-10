@@ -24,6 +24,15 @@ export class ClienteController {
     return cliente.toDto();
   }
 
+  @Get('/findByDocumento/:documento')
+  async findByDocumento(@Param('documento') documento: string): Promise<ClienteResponseDto> {
+    const cliente = await this.clienteService.findByDocumento(documento);
+    if (!cliente)
+      throw new NotFoundException('Cliente não localizado');
+    
+    return cliente.toDto();
+  }
+
   @Post()
   async create(@Body() request: ClienteRequestDto): Promise<string> {
     const createdCliente = await this.clienteService.create(request);

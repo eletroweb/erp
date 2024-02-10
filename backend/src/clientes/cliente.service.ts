@@ -24,6 +24,14 @@ export class ClienteService {
       throw new NotFoundException('Cliente não localizado');
     }
     return cliente;
+  }  
+  
+  async findByDocumento(documento: string): Promise<ClienteEntity> {
+    const cliente = await this.clienteRepository.findOne({ where: { documento } });
+    if (!cliente) {
+      throw new NotFoundException(`CPF/CNPJ ${documento} não localizado`);
+    }
+    return cliente;
   }
 
   async create(request: ClienteRequestDto): Promise<ClienteEntity> {

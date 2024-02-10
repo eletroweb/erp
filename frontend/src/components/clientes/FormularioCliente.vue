@@ -85,7 +85,9 @@
 
             <el-form-item>
 
-                <el-button v-if="this.id == null" type="primary" @click="clienteStore.cadastrar()">
+                <el-button 
+                :disabled="!clienteStore.btnSalvarValido"
+                v-if="this.id == null" type="primary" @click="clienteStore.cadastrar()">
                     Salvar
                 </el-button>
 
