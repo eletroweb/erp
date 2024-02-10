@@ -21,7 +21,7 @@ export class ClienteController {
     if (!cliente)
       throw new NotFoundException('Cliente não localizado');
     
-    return cliente.toDto();
+    return cliente.toDto()
   }
 
   @Get('/findByDocumento/:documento')

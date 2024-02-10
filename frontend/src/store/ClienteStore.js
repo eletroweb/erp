@@ -7,7 +7,11 @@ import { ValidarCPF, ValidarCNPJ } from '@/common/util'
 export const useClienteStore = defineStore('clienteStore', {
     state: () => ({
         clientes: [],
-        cliente: {},
+        cliente: {
+            setor: {
+                uuid: null
+            }
+        },
         btnSalvarValido: true
     }),
     actions: {
@@ -22,7 +26,6 @@ export const useClienteStore = defineStore('clienteStore', {
         },
         async novo() {
             this.cliente = {}
-            console.log("12361253421534");
             router.push('/clientes/cadastrar-clientes');
         },
         async cadastrar() {
@@ -74,6 +77,8 @@ export const useClienteStore = defineStore('clienteStore', {
             }
         },
         async exibir(id) {
+            this.cliente.setor = this.cliente.setor.uuid
+            console.log(this.cliente.setor);
             this.carregarCliente(id)
             router.push(`/clientes/${id}`);
         },
@@ -93,7 +98,7 @@ export const useClienteStore = defineStore('clienteStore', {
             const notificacaoStore = NotificacaoStore();
             const { documento } = this.cliente;
             const isValid = ValidarCPF(documento) || ValidarCNPJ(documento);
-            if (!isValid){
+            if (!isValid) {
                 notificacaoStore.exibirNotificacao(isValid ? 'Sucesso' : 'Erro', 'CPF ou CNPJ inválido', 'warning');
                 this.btnSalvarValido = false
                 return
@@ -101,14 +106,15 @@ export const useClienteStore = defineStore('clienteStore', {
                 this.btnSalvarValido = true
             }
 
-            this.ValidarDocumentoExiste(documento)
+            if (!this.cliente.uuid)
+                this.ValidarDocumentoExiste(documento)
 
             this.btnSalvarValido = true
         },
         async ValidarDocumentoExiste(documento) {
             const response = await api.get(`clientes/findByDocumento/${documento}`);
             const notificacaoStore = NotificacaoStore();
-            if (response.data){
+            if (response.data) {
                 notificacaoStore.exibirNotificacao('Erro', `Já existe um cliente cadastrado com o CPF/CNPJ ${documento}`, 'warning');
                 this.btnSalvarValido = false
                 return

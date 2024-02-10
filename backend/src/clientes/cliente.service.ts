@@ -19,7 +19,10 @@ export class ClienteService {
   }
 
   async findOneByUuid(uuid: string): Promise<ClienteEntity> {
-    const cliente = await this.clienteRepository.findOne({ where: { uuid } });
+    const cliente = await this.clienteRepository.findOne({
+      where: { uuid },
+      relations: ['setor']
+    });
     if (!cliente) {
       throw new NotFoundException('Cliente não localizado');
     }

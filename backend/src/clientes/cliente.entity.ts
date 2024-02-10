@@ -62,7 +62,7 @@ export class ClienteEntity {
       endereco: this.endereco,
       complemento: this.complemento,
       situacao: this.situacao,
-      setor: this.setor
+      setor: this.setor?.toDto()
     };
   }
 

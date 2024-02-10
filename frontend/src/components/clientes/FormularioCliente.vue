@@ -63,16 +63,14 @@
                 </el-col>
             </el-form-item>
 
-            <!-- TODO CARREGAR OS SETORES DINAMICAMENTE -->
             <el-form-item label="Área">
-                <el-radio-group v-model="clienteStore.cliente.setor" class="ml-4">
+                <el-radio-group v-model="setorSelecionado" class="ml-4">
                     <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
-                        <el-radio :label="setor.uuid" size="large">
+                        <el-radio ce :label="setor.uuid" size="large">
                             {{ setor.descricao }}
                         </el-radio>
                     </div>
                 </el-radio-group>
-
             </el-form-item>
 
             <el-form-item label="Endereço">
@@ -85,9 +83,8 @@
 
             <el-form-item>
 
-                <el-button 
-                :disabled="!clienteStore.btnSalvarValido"
-                v-if="this.id == null" type="primary" @click="clienteStore.cadastrar()">
+                <el-button :disabled="!clienteStore.btnSalvarValido" v-if="this.id == null" type="primary"
+                    @click="clienteStore.cadastrar()">
                     Salvar
                 </el-button>
 
@@ -109,13 +106,15 @@ import { SetorStore } from '../../store/SetorStore'
 export default {
     setup() {
         const clienteStore = useClienteStore()
+
         return { clienteStore }
     },
     data() {
         return {
             confirmacaoVisivel: false,
             id: null,
-            setores: null
+            setores: null,
+            setorSelecionado: null
         }
     },
     async mounted() {
@@ -127,11 +126,18 @@ export default {
         }
 
         const setorStore = SetorStore()
-        await setorStore.listar()
-        this.setores = setorStore.setores
+        const setores = await setorStore.listar()
+        this.setores = setores;
+        this.getSetor()
     },
     methods: {
-  
+        getSetor() {
+            if (this.clienteStore.cliente.setor && this.clienteStore.cliente.setor.uuid) {
+                this.setorSelecionado = this.clienteStore.cliente.setor.uuid
+            } else {
+                this.setorSelecionado = this.setores[0].uuid
+            }
+        }
     }
 }
 </script>
