@@ -11,8 +11,8 @@
         <el-table v-if="clienteStore.clientes.length > 0" :data="clienteStore.clientes" stripe style="width: 700px%">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
             <el-table-column prop="nome" label="Nome" width="200" />
+            <el-table-column prop="telefone" label="Telefone" width="100" />
             <el-table-column prop="email" label="E-mail" width="200" />
-            <el-table-column prop="estado" label="Estado" width="75" />
             <el-table-column prop="cidade" label="Cidade" width="150" />
 
             <el-table-column prop="situacao" label="Situação" width="100">
