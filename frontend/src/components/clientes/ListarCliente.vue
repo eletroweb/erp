@@ -3,7 +3,7 @@
         <template #header>
             <div class="card-header">
                 <span>Clientes</span>
-                <el-button type="success" @click="clienteStore.novo()">
+                <el-button class="btnCadastrar" type="success" @click="clienteStore.novo()" name="btnCadastrar">
                     Cadastrar
                 </el-button>
             </div>
@@ -12,10 +12,10 @@
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
             <el-table-column prop="nome" label="Nome" width="200" />
             <el-table-column prop="email" label="E-mail" width="200" />
-            <el-table-column prop="estado" label="Estado" width="80" />
+            <el-table-column prop="estado" label="Estado" width="75" />
             <el-table-column prop="cidade" label="Cidade" width="150" />
 
-            <el-table-column prop="situacao" label="Situação" width="150">
+            <el-table-column prop="situacao" label="Situação" width="100">
                 <template #default="cliente">
                     <el-tag v-if="cliente.row.situacao === 1" type="success">Ativado</el-tag>
                     <el-tag v-else type="info">Desativado</el-tag>

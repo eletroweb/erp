@@ -34,9 +34,9 @@ export class ClienteController {
   }
 
   @Post()
-  async create(@Body() request: ClienteRequestDto): Promise<string> {
+  async create(@Body() request: ClienteRequestDto): Promise<ClienteResponseDto> {
     const createdCliente = await this.clienteService.create(request);
-    return JSON.stringify(createdCliente);
+    return createdCliente.toDto();
   }
 
   @Put(':uuid')
@@ -46,8 +46,8 @@ export class ClienteController {
   }
 
   @Delete(':uuid')
-  async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<string> {
-    const deletedCliente = await this.clienteService.remove(uuid);
-    return JSON.stringify(deletedCliente);
+  async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<ClienteResponseDto> {
+    const cliente = await this.clienteService.remove(uuid);
+    return cliente.toDto();
   }
 }
