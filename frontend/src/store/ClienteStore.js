@@ -86,7 +86,7 @@ export const useClienteStore = defineStore('clienteStore', {
                 const response = await api.delete(`clientes/${id}`);
                 this.cliente = response.data;
                 const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Exclusão de cliente", `Cliente ${this.cliente.nome} excluído com sucesso`, 'success');
+                notificacaoStore.exibirNotificacao("Excluir de cliente", `Cliente ${this.cliente.nome} excluído com sucesso`, 'success');
                 router.push('/clientes');
             } catch (error) {
                 console.log(error);

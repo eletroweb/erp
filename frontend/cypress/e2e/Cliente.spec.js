@@ -1,11 +1,11 @@
 describe('Cliente', () => {
-  it('Abrir tela de listagem de clientes', () => {
+  it('Listar Clientes', () => {
     cy.visit('http://localhost:5173/')
     cy.contains('Clientes').click()
     cy.contains('Cadastrar')
   })
 
-  it('Cadastrar um cliente', () => {
+  it('Cadastrar cliente', () => {
     cy.visit('http://localhost:5173/clientes')
     cy.get('.btnCadastrar').click()
     cy.get('input[name="nome"').type('Cliente 1')
@@ -20,5 +20,14 @@ describe('Cliente', () => {
     cy.contains("Situação").click()
     cy.contains("Salvar").click()
     cy.contains("Cliente cadastrado com sucesso")
+  })
+
+  it('Excluir cliente', () => {
+    cy.visit('http://localhost:5173/')
+    cy.contains('Clientes').click()
+    cy.contains('Editar').click()
+    cy.contains('Excluir').click()
+    cy.contains('Confirmar').click()
+    cy.contains('Excluir de cliente')
   })
 })
