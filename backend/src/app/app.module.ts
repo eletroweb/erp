@@ -12,6 +12,8 @@ import { ProjetoModule } from 'src/projetos/projeto.module';
 import { UsuarioModule } from 'src/usuarios/usuario.module';
 import { AuthGuard, KeycloakConnectModule, ResourceGuard } from 'src/keycloak/src';
 import { APP_GUARD } from '@nestjs/core';
+import * as session from 'express-session';
+
 @Module({
   imports: [
     KeycloakConnectModule.register({

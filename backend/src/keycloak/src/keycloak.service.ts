@@ -8,7 +8,7 @@ import { KeycloakConnectOptions } from './interface/keycloak-connect-options.int
 import { KEYCLOAK_CONNECT_OPTIONS, KEYCLOAK_INSTANCE } from './constants';
 import { KeycloakedRequest } from './keycloaked-request';
 import { REQUEST } from '@nestjs/core';
-import { Keycloak } from 'keycloak-connect';
+import { Grant, GrantType, Keycloak } from 'keycloak-connect';
 
 @Injectable({ scope: Scope.REQUEST })
 export class KeycloakService {
@@ -16,7 +16,7 @@ export class KeycloakService {
     @Inject(KEYCLOAK_INSTANCE) private keycloak: Keycloak,
     @Inject(KEYCLOAK_CONNECT_OPTIONS) private options: KeycloakConnectOptions,
     @Inject(REQUEST) private request: KeycloakedRequest<Request>
-  ) {}
+  ) { }
   async login(
     username: string,
     password: string,
@@ -37,14 +37,17 @@ export class KeycloakService {
         strictSSL: false,
       },
     );
+    
 
+
+    return JSON.parse(res)
+
+    /*
     if (typeof res === 'string' && res.indexOf('access_token') !== -1) {
       this.request.grant = await this.keycloak.grantManager.createGrant({
         "access_token": JSON.parse(res).access_token
       }) as any;
       return this.request.grant;
-    }
-
-    return false;
+    }*/
   }
 }
