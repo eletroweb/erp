@@ -3,12 +3,14 @@ import { ClienteService } from './cliente.service';
 import { ClienteEntity } from './cliente.entity';
 import { ClienteResponseDto } from './cliente.response.dto';
 import { ClienteRequestDto } from './cliente.request.dto';
+import { Roles } from 'nest-keycloak-connect';
 
 @Controller('clientes')
 export class ClienteController {
   constructor(private readonly clienteService: ClienteService) { }
 
   @Get()
+  @Roles({ roles: ['admin'] })
   async findAll(): Promise<ClienteResponseDto[]> {
     const clientes = await this.clienteService.findAll();
     const clientesDto: ClienteResponseDto[] = clientes.map(cliente => cliente.toDto());
