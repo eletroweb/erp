@@ -61,26 +61,23 @@ export class AuthGuard implements CanActivate {
       }
 
       request.user = user;
-      return this.hasAutrhorizedRole(request, roles);
+      return this.hasAuthorizedRole(request, roles);
     }
     return false;
   }
 
-  private hasAutrhorizedRole(request: KeycloakedRequest, roles: (string | string[])[]): boolean {
-    if (roles && request.grant) {
-      if ("roles" in roles) {
-        const rolesArray = roles.roles as string[];
-        const hasPermission = rolesArray.some(role =>
-          Array.isArray(role)
-            ? role.every(innerRole => request.grant?.access_token?.content?.realm_access?.roles.includes(innerRole))
-            : request.grant?.access_token?.content?.realm_access?.roles.includes(role)
-        );
-
-        return hasPermission;
-      }
-    }
-
-    return false
+  private hasAuthorizedRole(request: KeycloakedRequest, roles: (string | string[])[]): boolean {
+    if (!roles || !request.grant || !("roles" in roles))
+      return false;
+  
+    const rolesArray = roles.roles as string[];
+    const hasPermission = rolesArray.some(role =>
+      Array.isArray(role)
+        ? role.every(innerRole => request.grant?.access_token?.content?.realm_access?.roles.includes(innerRole))
+        : request.grant?.access_token?.content?.realm_access?.roles.includes(role)
+    );
+  
+    return hasPermission;
   }
 
   extractJwt(headers: Headers) {
