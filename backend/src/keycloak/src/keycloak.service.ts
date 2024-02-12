@@ -37,8 +37,6 @@ export class KeycloakService {
         strictSSL: false,
       },
     );
-    
-
 
     return JSON.parse(res)
 

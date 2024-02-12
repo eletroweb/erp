@@ -16,7 +16,6 @@ export class AppController {
   @Get('login')
   @Render('login.hbs')
   login(@Res() resp: FastifyReply<any>, req: KeycloakedRequest<FastifyRequest>) {
-    console.log('/login');
     if (req.grant) {
       resp.status(302).redirect('/notifications/direct');
       return {}

@@ -10,7 +10,7 @@ export class ClienteController {
   constructor(private readonly clienteService: ClienteService) { }
 
   @Get()
-  @Roles({ roles: ['admin'] })
+  @Roles({ roles: ["CLIENTE_LISTAR"] })
   async findAll(): Promise<ClienteResponseDto[]> {
     const clientes = await this.clienteService.findAll();
     const clientesDto: ClienteResponseDto[] = clientes.map(cliente => cliente.toDto());
@@ -18,11 +18,12 @@ export class ClienteController {
   }
 
   @Get(':uuid')
+  @Roles({ roles: ["CLIENTE_EDITAR"] })
   async findOne(@Param('uuid') uuid: string): Promise<ClienteResponseDto> {
     const cliente = await this.clienteService.findOneByUuid(uuid);
     if (!cliente)
       throw new NotFoundException('Cliente não localizado');
-    
+
     return cliente.toDto()
   }
 
@@ -31,23 +32,26 @@ export class ClienteController {
     const cliente = await this.clienteService.findByDocumento(documento);
     if (!cliente)
       throw new NotFoundException('Cliente não localizado');
-    
+
     return cliente.toDto();
   }
 
   @Post()
+  @Roles({ roles: ["CLIENTE_CADASTRAR"] })
   async create(@Body() request: ClienteRequestDto): Promise<ClienteResponseDto> {
     const createdCliente = await this.clienteService.create(request);
     return createdCliente.toDto();
   }
 
   @Put(':uuid')
+  @Roles({ roles: ["CLIENTE_EDITAR"] })
   async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() clienteEntity: ClienteEntity): Promise<string> {
     const updatedCliente = await this.clienteService.update(uuid, clienteEntity);
     return JSON.stringify(updatedCliente);
   }
 
   @Delete(':uuid')
+  @Roles({ roles: ["CLIENTE_EXCLUIR"] })
   async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<ClienteResponseDto> {
     const cliente = await this.clienteService.remove(uuid);
     return cliente.toDto();
