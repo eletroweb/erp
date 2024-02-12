@@ -7,6 +7,9 @@ import FormularioContrato from '../components/contratos/FormularioContrato.vue'
 
 import ListarCliente from '../components/clientes/ListarCliente.vue'
 import FormularioCliente from '../components/clientes/FormularioCliente.vue'
+import ListarServicos from '../components/servicos/ListarServicos.vue'
+import FormularioServicos from '../components/servicos/FormularioServicos.vue'
+
 
 
 const router = createRouter({
@@ -63,6 +66,21 @@ const router = createRouter({
       name: 'editar-contratos',
       component: FormularioContrato
     },
+    {
+      path: '/servicos',
+      nome: 'servicos',
+      component: ListarServicos
+    },
+    {
+      path: '/servicos/cadastrar',
+      name: 'cadastrar-servico',
+      component: FormularioServicos
+    },
+    {
+      path: '/servicos/:id',
+      name: 'editar-servico',
+      component: FormularioServicos
+    }
   ]
 })
 

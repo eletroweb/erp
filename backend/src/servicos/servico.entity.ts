@@ -54,7 +54,9 @@ export class ServicoEntity {
     const entity = new ServicoEntity();
     entity.descricao = dto.descricao;    
     entity.situacao = dto.situacao || 1;
-    entity.setor = setor
+    entity.setor = setor;
+    entity.valor = dto.valor;
+    entity.contrato_id = dto.contrato_id
     return entity;
   }
 }
