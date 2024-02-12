@@ -57,15 +57,20 @@ export class AuthGuard implements CanActivate {
       request.grant = (grant as any) as KeycloakConnect.GrantType;
 
       if (!grant.isExpired()) {
-        user = grant.access_token && await this.keycloak.grantManager.userInfo(grant.access_token);
+        user = grant?.access_token && await this.keycloak.grantManager.userInfo(grant.access_token);
       }
 
       request.user = user;
-
       if (roles && request.grant) {
         if ("roles" in roles) {
           const rolesArray = roles.roles as string[];
-          return rolesArray.some(role => Array.isArray(role) ? role.every(innerRole => request.grant?.access_token?.content?.realm_access?.roles.includes(innerRole)) : request.grant?.access_token?.content?.realm_access?.roles.includes(role));
+          const hasPermission = rolesArray.some(role =>
+            Array.isArray(role)
+              ? role.every(innerRole => request.grant?.access_token?.content?.realm_access?.roles.includes(innerRole))
+              : request.grant?.access_token?.content?.realm_access?.roles.includes(role)
+          );
+
+          return hasPermission;
         }
       }
     }
