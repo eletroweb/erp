@@ -27,14 +27,14 @@
             <el-form-item label="Descrição">
                 <el-col :span="13">
                     <el-form-item label="">
-                        <el-input v-model="servicoStore.servico.descricao" />
+                        <el-input v-model="servicoStore.servico.descricao" name="descricao" />
                     </el-form-item></el-col>
             </el-form-item>
 
             <el-form-item label="Valor">
                 <el-col :span="13">
                     <el-form-item label="">
-                        <el-input v-model="servicoStore.servico.valor" />
+                        <el-input v-model="servicoStore.servico.valor" name="valor" />
                     </el-form-item></el-col>
             </el-form-item>
             

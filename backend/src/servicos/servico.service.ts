@@ -27,6 +27,7 @@ export class ServicoService {
   }
 
   async create(request: ServicoRequestDto): Promise<ServicoEntity> {
+    request.setor="a53c4e66-bd7b-11ee-8c1d-641c679a799a"
     const setor = await this.setorService.findOneByUuid(request.setor)
     const servico = ServicoEntity.fromRequestDto(request, setor);
     const createdServico = this.servicoRepository.create(servico);

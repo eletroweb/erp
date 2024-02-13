@@ -3,7 +3,7 @@
         <template #header>
             <div class="card-header">
                 <span>Serviços</span>
-                <el-button type="success" @click="servicoStore.novo()">
+                <el-button type="success" @click="servicoStore.novo()" class="btnCadastrar">
                     Cadastrar
                 </el-button>
             </div>
