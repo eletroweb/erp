@@ -6,7 +6,11 @@ import { NotificacaoStore } from "./NotificacaoStore"
 export const useServicoStore = defineStore('servicoStore', {
     state: () => ({
         servicos: [],
-        servico: {}
+        servico: {
+            setor: {
+                uuid: null
+            }
+        }
     }),
     actions: {
         async listar() {
@@ -27,9 +31,8 @@ export const useServicoStore = defineStore('servicoStore', {
             try {
                 const response = await api.post("servicos", this.servico);
                 const notificacaoStore = NotificacaoStore();
-                if (response.status === 200) {
-                    const { title, message, type } = response.data
-                    notificacaoStore.exibirNotificacao(title, message, type);
+                if (response.status === 201) {
+                    notificacaoStore.exibirNotificacao("Serviço", "Serviço cadastrado com sucesso", 'success');
                     this.servico = {}
                     router.push('/servicos');
                 } else {

@@ -23,6 +23,13 @@
         </template>
 
         <el-form :model="servicoStore.servico" label-width="120px">
+
+            <el-form-item label="Contrato">
+                <el-col :span="13">
+                    <el-form-item label="">
+                        <el-input v-model="servicoStore.servico.contrato" name="contrato" disabled />
+                    </el-form-item></el-col>
+            </el-form-item>
                         
             <el-form-item label="Descrição">
                 <el-col :span="13">
@@ -36,6 +43,16 @@
                     <el-form-item label="">
                         <el-input v-model="servicoStore.servico.valor" name="valor" />
                     </el-form-item></el-col>
+            </el-form-item>
+
+            <el-form-item label="Área">
+                <el-radio-group v-model="servicoStore.servico.setor" class="ml-4" name="setor">
+                    <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
+                        <el-radio ce :label="setor.uuid" size="large">
+                            {{ setor.descricao }}
+                        </el-radio>
+                    </div>
+                </el-radio-group>
             </el-form-item>
             
             <el-form-item label="Situação">
@@ -61,6 +78,7 @@
 
 <script>
 import { useServicoStore } from '../../store/ServicoStore'
+import { SetorStore } from '../../store/SetorStore'
 
 export default {
     setup() {
@@ -70,6 +88,8 @@ export default {
     data() {
         return {
             id: null,
+            setores: [],
+            setorSelecionado: null
         }
     },
 
@@ -79,6 +99,19 @@ export default {
         if (uuidPattern.test(this.$route.params.id)) {
             this.id = this.$route.params.id
             this.servicoStore.carregarServico(this.id)
+        }
+
+        const setorStore = SetorStore()
+        this.setores = await setorStore.listar();
+        this.getSetor()
+    },
+    methods: {
+        getSetor() {
+            if (this.servicoStore.servico.setor && this.servicoStore.servico.setor.uuid) {
+                this.setorSelecionado = this.servicoStore.servico.setor.uuid
+            } else {
+                this.setorSelecionado = this.setores[0].uuid
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ export class ServicoEntity {
     entity.situacao = dto.situacao || 1;
     entity.setor = setor;
     entity.valor = dto.valor;
-    entity.contrato_id = dto.contrato_id
+    entity.contrato_id = 1 // TODO quando Lucas implementar o service do controle removermos este mock
     return entity;
   }
 }
