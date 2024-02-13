@@ -4,6 +4,7 @@ export class ClienteResponseDto {
   uuid: string;
   nome: string;
   email: string;
+  telefone: string;
   documento: string;
   estado?: string;
   cidade?: string;

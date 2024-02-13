@@ -17,6 +17,7 @@ export const SetorStore = defineStore('setorStore', {
                 console.log(error);
                 throw error;
             }
+            return this.setores
         },
         async novo() {
             this.setor = {}

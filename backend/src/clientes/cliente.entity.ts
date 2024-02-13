@@ -12,11 +12,14 @@ export class ClienteEntity {
   @Column({ type: 'char', length: 36 })
   uuid: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 100 })
   nome: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 50 })
   email: string;
+
+  @Column({ type: 'varchar', length: 50 })
+  telefone: string;
 
   @Column({ type: 'varchar', length: 20 })
   documento: string;
@@ -27,7 +30,7 @@ export class ClienteEntity {
   @Column({ type: 'varchar', length: 100, nullable: true })
   cidade: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ type: 'varchar', length: 100, nullable: true })
   endereco: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
@@ -55,6 +58,7 @@ export class ClienteEntity {
     return {
       uuid: this.uuid,
       nome: this.nome,
+      telefone: this.telefone,
       email: this.email,
       documento: this.documento,
       estado: this.estado,
@@ -62,7 +66,7 @@ export class ClienteEntity {
       endereco: this.endereco,
       complemento: this.complemento,
       situacao: this.situacao,
-      setor: this.setor
+      setor: this.setor?.toDto()
     };
   }
 
@@ -70,6 +74,7 @@ export class ClienteEntity {
     const entity = new ClienteEntity();
     entity.nome = dto.nome;
     entity.email = dto.email;
+    entity.telefone = dto.telefone;
     entity.documento = dto.documento;
     entity.estado = dto.estado;
     entity.cidade = dto.cidade;

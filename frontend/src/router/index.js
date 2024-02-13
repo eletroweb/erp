@@ -10,8 +10,6 @@ import FormularioCliente from '../components/clientes/FormularioCliente.vue'
 import ListarServicos from '../components/servicos/ListarServicos.vue'
 import FormularioServicos from '../components/servicos/FormularioServicos.vue'
 
-
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

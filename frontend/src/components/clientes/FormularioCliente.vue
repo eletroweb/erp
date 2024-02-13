@@ -24,47 +24,57 @@
         </template>
 
         <el-form :model="clienteStore.cliente" label-width="120px">
+
             <el-form-item label="Nome">
-                <el-input v-model="clienteStore.cliente.nome" />
-            </el-form-item>
-            <el-form-item label="Estado">
                 <el-col :span="11">
-                    <el-select v-model="clienteStore.cliente.estado" placeholder="Selecione o Estado">
+                    <el-form-item label="">
+                        <el-input v-model="clienteStore.cliente.nome" name="nome" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="13">
+                    <el-form-item label="CPF ou CNPJ">
+                        <el-input v-model="clienteStore.cliente.documento" @blur="clienteStore.handleDocumento" name="documento" />
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="Estado">
+                <el-col :span="6">
+                    <el-select v-model="clienteStore.cliente.estado" placeholder="Selecione o Estado" name="uf">
                         <el-option label="PB" value="PB" />
                     </el-select>
                 </el-col>
-                <el-col :span="13">
+                <el-col :span="18">
                     <el-form-item label="Cidade">
-                        <el-input v-model="clienteStore.cliente.cidade" />
-                    </el-form-item></el-col>
+                        <el-input v-model="clienteStore.cliente.cidade" name="cidade"/>
+                    </el-form-item>
+                </el-col>
             </el-form-item>
             <el-form-item label="E-mail">
                 <el-col :span="11">
                     <el-form-item label="">
-                        <el-input v-model="clienteStore.cliente.email" />
+                        <el-input v-model="clienteStore.cliente.email" name="email"/>
                     </el-form-item>
                 </el-col>
                 <el-col :span="13">
                     <el-form-item label="Telefone">
-                        <el-input v-model="clienteStore.cliente.telefone" />
+                        <el-input v-model="clienteStore.cliente.telefone" name="telefone"/>
                     </el-form-item>
                 </el-col>
             </el-form-item>
 
-            <!-- TODO CARREGAR OS SETORES DINAMICAMENTE -->
             <el-form-item label="Área">
-                <el-radio-group v-model="clienteStore.cliente.setor" class="ml-4">
+                <el-radio-group v-model="clienteStore.cliente.setor" class="ml-4" name="setor">
                     <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
-                        <el-radio :label="setor.uuid" size="large">
+                        <el-radio ce :label="setor.uuid" size="large">
                             {{ setor.descricao }}
                         </el-radio>
                     </div>
                 </el-radio-group>
-
             </el-form-item>
 
             <el-form-item label="Endereço">
-                <el-input v-model="clienteStore.cliente.endereco" type="textarea" />
+                <el-input v-model="clienteStore.cliente.endereco" type="textarea" id="endereco" />
             </el-form-item>
 
             <el-form-item label="Situação">
@@ -73,7 +83,8 @@
 
             <el-form-item>
 
-                <el-button v-if="this.id == null" type="primary" @click="clienteStore.cadastrar()">
+                <el-button :disabled="!clienteStore.btnSalvarValido" v-if="this.id == null" type="primary"
+                    @click="clienteStore.cadastrar()">
                     Salvar
                 </el-button>
 
@@ -95,13 +106,15 @@ import { SetorStore } from '../../store/SetorStore'
 export default {
     setup() {
         const clienteStore = useClienteStore()
+
         return { clienteStore }
     },
     data() {
         return {
             confirmacaoVisivel: false,
             id: null,
-            setores: null
+            setores: null,
+            setorSelecionado: null
         }
     },
     async mounted() {
@@ -113,8 +126,18 @@ export default {
         }
 
         const setorStore = SetorStore()
-        await setorStore.listar()
-        this.setores = setorStore.setores
+        const setores = await setorStore.listar()
+        this.setores = setores;
+        this.getSetor()
+    },
+    methods: {
+        getSetor() {
+            if (this.clienteStore.cliente.setor && this.clienteStore.cliente.setor.uuid) {
+                this.setorSelecionado = this.clienteStore.cliente.setor.uuid
+            } else {
+                this.setorSelecionado = this.setores[0].uuid
+            }
+        }
     }
 }
 </script>

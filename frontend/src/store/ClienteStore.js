@@ -2,11 +2,17 @@ import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
+import { ValidarCPF, ValidarCNPJ } from '@/common/util'
 
 export const useClienteStore = defineStore('clienteStore', {
     state: () => ({
         clientes: [],
-        cliente: {}
+        cliente: {
+            setor: {
+                uuid: null
+            }
+        },
+        btnSalvarValido: true
     }),
     actions: {
         async listar() {
@@ -20,16 +26,14 @@ export const useClienteStore = defineStore('clienteStore', {
         },
         async novo() {
             this.cliente = {}
-            console.log("12361253421534");
             router.push('/clientes/cadastrar-clientes');
         },
         async cadastrar() {
             try {
                 const response = await api.post("clientes", this.cliente);
                 const notificacaoStore = NotificacaoStore();
-                if (response.status === 200) {
-                    const { title, message, type } = response.data
-                    notificacaoStore.exibirNotificacao(title, message, type);
+                if (response.status === 201) {
+                    notificacaoStore.exibirNotificacao("Novo cliente", "Cliente cadastrado com sucesso", 'success');
                     this.cliente = {}
                     router.push('/clientes');
                 } else {
@@ -72,6 +76,8 @@ export const useClienteStore = defineStore('clienteStore', {
             }
         },
         async exibir(id) {
+            this.cliente.setor = this.cliente.setor.uuid
+            console.log(this.cliente.setor);
             this.carregarCliente(id)
             router.push(`/clientes/${id}`);
         },
@@ -80,12 +86,46 @@ export const useClienteStore = defineStore('clienteStore', {
                 const response = await api.delete(`clientes/${id}`);
                 this.cliente = response.data;
                 const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Cliente", response.data, 'success');
+                notificacaoStore.exibirNotificacao("Excluir de cliente", `Cliente ${this.cliente.nome} excluído com sucesso`, 'success');
                 router.push('/clientes');
             } catch (error) {
                 console.log(error);
                 throw error;
             }
         },
+        handleDocumento() {
+            try {
+                const notificacaoStore = NotificacaoStore();
+                const { documento } = this.cliente;
+                const isValid = ValidarCPF(documento) || ValidarCNPJ(documento);
+                if (!isValid) {
+                    notificacaoStore.exibirNotificacao(isValid ? 'Sucesso' : 'Erro', 'CPF ou CNPJ inválido', 'warning');
+                    this.btnSalvarValido = false
+                    return
+                } else {
+                    this.btnSalvarValido = true
+                }
+
+                if (!this.cliente.uuid)
+                    this.ValidarDocumentoExiste(documento)
+
+                this.btnSalvarValido = true
+            } catch (error) {
+                console.log(error.message);
+            }
+        },
+        async ValidarDocumentoExiste(documento) {
+            try {
+                const response = await api.get(`clientes/findByDocumento/${documento}`);
+                const notificacaoStore = NotificacaoStore();
+                if (response.data) {
+                    notificacaoStore.exibirNotificacao('Erro', `Já existe um cliente cadastrado com o CPF/CNPJ ${documento}`, 'warning');
+                    this.btnSalvarValido = false
+                    return
+                } 
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
     },
 })

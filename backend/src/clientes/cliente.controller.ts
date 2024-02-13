@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, Res, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException } from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { ClienteEntity } from './cliente.entity';
 import { ClienteResponseDto } from './cliente.response.dto';
@@ -15,21 +15,28 @@ export class ClienteController {
     return clientesDto;
   }
 
-  
-
   @Get(':uuid')
   async findOne(@Param('uuid') uuid: string): Promise<ClienteResponseDto> {
     const cliente = await this.clienteService.findOneByUuid(uuid);
     if (!cliente)
       throw new NotFoundException('Cliente não localizado');
-    
+
+    return cliente.toDto()
+  }
+
+  @Get('/findByDocumento/:documento')
+  async findByDocumento(@Param('documento') documento: string): Promise<ClienteResponseDto> {
+    const cliente = await this.clienteService.findByDocumento(documento);
+    if (!cliente)
+      throw new NotFoundException('Cliente não localizado');
+
     return cliente.toDto();
   }
 
   @Post()
-  async create(@Body() request: ClienteRequestDto): Promise<string> {
+  async create(@Body() request: ClienteRequestDto): Promise<ClienteResponseDto> {
     const createdCliente = await this.clienteService.create(request);
-    return JSON.stringify(createdCliente);
+    return createdCliente.toDto();
   }
 
   @Put(':uuid')
@@ -39,8 +46,8 @@ export class ClienteController {
   }
 
   @Delete(':uuid')
-  async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<string> {
-    const deletedCliente = await this.clienteService.remove(uuid);
-    return JSON.stringify(deletedCliente);
+  async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<ClienteResponseDto> {
+    const cliente = await this.clienteService.remove(uuid);
+    return cliente.toDto();
   }
 }
