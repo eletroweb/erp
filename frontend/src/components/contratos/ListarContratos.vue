@@ -32,7 +32,7 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="data_fim" label="% Dias" width="120">
+            <!-- el-table-column prop="data_fim" label="% Dias" width="120">
                 <template #default="datas">
                     <el-popover :width="300"
                         popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
@@ -64,11 +64,8 @@
                             </div>
                         </template>
                     </el-popover>
-
-
-
                 </template>
-            </el-table-column>
+            </el-table-column -->
 
             <el-table-column prop="situacao" label="Situação" width="100">
                 <template #default="contrato">
