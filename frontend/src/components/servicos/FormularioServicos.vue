@@ -6,7 +6,7 @@
                 <el-popover :visible="confirmacaoVisivel" placement="top" :width="200" v-if="id">
                     <p>Deseja confirma a exclusão do Serviço
                         <el-tag type="danger">
-                            {{ servicoStore.servico.uuid }}
+                            {{ servicoStore.servico.descricao }}
                         </el-tag>
                     </p>
                     <div style="text-align: right; margin: 0; display: flex;">
@@ -66,6 +66,11 @@ export default {
     setup() {
         const servicoStore = useServicoStore()
         return { servicoStore }
+    },
+    data() {
+        return {
+            id: null,
+        }
     },
 
     async mounted() {

@@ -45,7 +45,7 @@ export const useServicoStore = defineStore('servicoStore', {
                 const response = await api.put(`servicos/${id}`, this.servico);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
-                    notificacaoStore.exibirNotificacao("Serviço", response.data, 'success');
+                    notificacaoStore.exibirNotificacao("Serviço", 'Serviço atualizado com sucesso', 'success');
                     this.servico = {}
                     router.push('/servicos');
                 } else {
@@ -80,7 +80,7 @@ export const useServicoStore = defineStore('servicoStore', {
                 const response = await api.delete(`servicos/${id}`);
                 this.servico = response.data;
                 const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Servico", response.data, 'success');
+                notificacaoStore.exibirNotificacao("Servico", 'Serviço excluido com sucesso', 'success');
                 router.push('/servicos');
             } catch (error) {
                 console.log(error);
