@@ -65,7 +65,7 @@
         </el-menu-item>
 
         <el-menu-item index="/servicos">
-          <el-icon><CopyDocument /></el-icon>
+          <el-icon><Box /></el-icon>
           <template #title>Serviços</template>
         </el-menu-item>
 

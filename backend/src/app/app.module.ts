@@ -7,8 +7,7 @@ import { SetorModule } from '../setores/setor.module';
 import { ClienteModule } from '../clientes/cliente.module';
 import { ProjetoModule } from 'src/projetos/projeto.module';
 import { UsuarioModule } from 'src/usuarios/usuario.module';
-import { AuthGuard, ResourceGuard } from 'src/keycloak/src';
-import { APP_GUARD } from '@nestjs/core';
+import { ServicoModule } from 'src/servicos/servico.module';
 
 @Module({
   imports: [
@@ -17,28 +16,21 @@ import { APP_GUARD } from '@nestjs/core';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '123456',
+      password: '@fabio052',
       database: 'erp',
-      //entities: [SetorEntity, ClienteEntity, ProjetoEntity],
+      //entities: [SetorEntity, ClienteEntity, ProjetoEntity, ContatoEntity],
       autoLoadEntities: true,
       synchronize: true, // Sincronizar automaticamente o esquema (apenas para ambiente de desenvolvimento)
     }),
     SetorModule,
     ClienteModule,
     ProjetoModule,
-    UsuarioModule
+    UsuarioModule,
+    ServicoModule
   ],
   controllers: [AppController],
   providers: [
-    AppService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: ResourceGuard,
-    },
+    AppService,    
   ],
 })
 export class AppModule {}
