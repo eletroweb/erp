@@ -55,4 +55,10 @@ export class ClienteService {
     const cliente = await this.findOneByUuid(uuid); // Verifica se o cliente existe
     return this.clienteRepository.remove(cliente);
   }
+
+  async findByEmail(email: string): Promise<string> {
+    const cliente = await this.clienteRepository.findOne({where: {email}})
+    if (cliente)
+      return  `Já existe um cliente com este email ${cliente.email}`
+  }
 }

@@ -50,4 +50,9 @@ export class ClienteController {
     const cliente = await this.clienteService.remove(uuid);
     return cliente.toDto();
   }
+
+  @Get('/findByEmail/:email')
+  async findByEmail(@Param('email') email: string): Promise<string> {
+    return await this.clienteService.findByEmail(email)
+  }
 }

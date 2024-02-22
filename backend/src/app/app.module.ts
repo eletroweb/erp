@@ -16,7 +16,7 @@ import { ServicoModule } from 'src/servicos/servico.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '@fabio052',
+      password: '123456',
       database: 'erp',
       //entities: [SetorEntity, ClienteEntity, ProjetoEntity, ContatoEntity],
       autoLoadEntities: true,
