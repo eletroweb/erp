@@ -2,18 +2,19 @@
     <el-card class="box-card">
         <template #header>
             <div class="card-header">
-                <span>Servicos</span>
-                <el-button type="success" @click="servicoStore.novo()">
+                <span>Serviços</span>
+                <el-button type="success" @click="servicoStore.novo()" class="btnCadastrar">
                     Cadastrar
                 </el-button>
             </div>
         </template>
         <el-table v-if="servicoStore.servicos.length > 0" :data="servicoStore.servicos" stripe style="width: 700px%">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
-            <el-table-column prop="nome" label="Nome" width="200" />
-            <el-table-column prop="email" label="E-mail" width="200" />
-            <el-table-column prop="estado" label="Estado" width="70" />
-            <el-table-column prop="cidade" label="Cidade" width="150" />
+            <el-table-column prop="descricao" label="Descrição" width="200" />
+            <el-table-column prop="situacao" label="Situação" width="70" />
+            <el-table-column prop="valor" label="Valor" width="150" />
+            <el-table-column prop="contrato_id" label="Contrato" width="150" />
+
 
             <el-table-column prop="situacao" label="Situação" width="150">
                 <template #default="servico">
@@ -29,7 +30,7 @@
             </el-table-column>
         </el-table>
 
-        <el-empty v-else description="Nenhum servico cadastrado" />
+        <el-empty v-else description="Nenhum serviço cadastrado" />
 
     </el-card>
 </template>

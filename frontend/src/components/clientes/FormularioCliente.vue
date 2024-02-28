@@ -53,7 +53,7 @@
             <el-form-item label="E-mail">
                 <el-col :span="11">
                     <el-form-item label="">
-                        <el-input v-model="clienteStore.cliente.email" name="email"/>
+                        <el-input v-model="clienteStore.cliente.email" name="email" @blur="clienteStore.validarEmail()"/>
                     </el-form-item>
                 </el-col>
                 <el-col :span="13">

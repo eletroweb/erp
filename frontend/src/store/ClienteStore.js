@@ -126,6 +126,16 @@ export const useClienteStore = defineStore('clienteStore', {
             } catch (error) {
                 console.log(error.message);
             }
+        },
+        async validarEmail(){
+            const response = await api.get(`clientes/findByEmail/${this.cliente.email}`)
+            console.log(response.data);
+            if (response.data.length > 0) {
+                const notificacaoStore = NotificacaoStore();
+                notificacaoStore.exibirNotificacao('Atenção', response.data, 'warning');
+                this.btnSalvarValido = false
+                return
+            }
         }
     },
 })

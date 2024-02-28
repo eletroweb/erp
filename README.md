@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-8. Realize chamadas a API através da collection do postamn importada no passo 4.
+8. Realize chamadas a API através da collection do postman importada no passo 4.
 
 
 # Git
@@ -28,3 +28,9 @@ git push origin -d nomebranch
 
 
 <el-button type="success" @click="$router.push({ name: 'cadastrar-setor' })">Cadastrar</el-button>
+
+
+# Keycloak
+ bin\kc.bat start-dev
+
+http://localhost:8080/

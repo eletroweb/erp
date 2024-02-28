@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, Res, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException } from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { ClienteEntity } from './cliente.entity';
 import { ClienteResponseDto } from './cliente.response.dto';
@@ -20,7 +20,7 @@ export class ClienteController {
     const cliente = await this.clienteService.findOneByUuid(uuid);
     if (!cliente)
       throw new NotFoundException('Cliente não localizado');
-    
+
     return cliente.toDto()
   }
 
@@ -29,7 +29,7 @@ export class ClienteController {
     const cliente = await this.clienteService.findByDocumento(documento);
     if (!cliente)
       throw new NotFoundException('Cliente não localizado');
-    
+
     return cliente.toDto();
   }
 
@@ -49,5 +49,10 @@ export class ClienteController {
   async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<ClienteResponseDto> {
     const cliente = await this.clienteService.remove(uuid);
     return cliente.toDto();
+  }
+
+  @Get('/findByEmail/:email')
+  async findByEmail(@Param('email') email: string): Promise<string> {
+    return await this.clienteService.findByEmail(email)
   }
 }
