@@ -15,6 +15,53 @@ INSERT INTO erp.setores (uuid,descricao,situacao,data_cadastro,data_atualizacao)
 	 ('02074b20-bd21-11ee-8c1d-641c679a799a','Meio Ambiente',1,'2024-01-27 11:33:16','2024-01-27 11:33:16'),
 	 ('1bc514ff-bd21-11ee-8c1d-641c679a799a','Segurança do Trabalho',1,'2024-01-27 11:33:59','2024-01-27 11:33:59'),
 	 ('2627230a-bd21-11ee-8c1d-641c679a799a','Engenharia civil',1,'2024-01-27 11:34:16','2024-01-27 11:34:16');
+	
+CREATE table usuarios (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid CHAR(36) DEFAULT (UUID()),
+    nome VARCHAR(100),
+    situacao INT(1) DEFAULT 1
+);
+
+-- Tabela: projetos
+CREATE TABLE projetos (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid CHAR(36) DEFAULT (UUID()),
+    cliente_id INT,
+    setor_id INT,
+    responsavel_id INT,
+    situacao INT(1) DEFAULT 1,
+    orcamento DECIMAL(10,2),
+    data_inicio DATE,
+    data_fim DATE,
+    observacao TEXT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    
+    FOREIGN KEY (setor_id) REFERENCES setores(id) ON DELETE cascade,
+    FOREIGN KEY (responsavel_id) REFERENCES clientes(id) ON DELETE cascade,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE projetos_atividades (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid CHAR(36) DEFAULT (UUID()),
+    descricao varchar(255),
+    cliente_id INT,
+    responsavel_id INT,
+    setor_id INT,
+    situacao INT(1) DEFAULT 0,
+    orcamento DECIMAL(10,2),
+    data_inicio DATE,
+    data_fim DATE,
+    prazo DATE,
+    observacao TEXT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    
+    FOREIGN KEY (setor_id) REFERENCES setores(id) ON DELETE cascade,
+    FOREIGN KEY (responsavel_id) REFERENCES clientes(id) ON DELETE cascade,
+    FOREIGN KEY (responsavel_id) REFERENCES setores(id) ON DELETE cascade
+);
+	
 
 -- Tabela: clientes
 CREATE TABLE clientes (
@@ -67,6 +114,8 @@ INSERT INTO erp.clientes_atributos (uuid,cliente_id,chave,valor,situacao) VALUES
 	 ('801f6f1c-bd57-11ee-8c1d-641c679a799a',1,'E-mail','fulano@teste.com',1);
 */
 
+
+
 /*
  * Um contrato possui N serviços vinculados a ele
  * */
@@ -83,6 +132,10 @@ CREATE TABLE contratos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+INSERT INTO erp.contratos (uuid,descricao,situacao,orcamento,data_inicio,data_fim,data_cadastro,data_atualizacao) VALUES
+	 ('6e2e96bb-c36c-11ee-a1ba-641c679a799a','Contrato 1',1,25000.00,'2024-01-01','2024-12-31','2024-02-04 11:48:16','2024-02-06 19:29:42');
+
 /*
 INSERT INTO contratos (uuid, descricao, situacao, orcamento, data_inicio, data_fim)
 VALUES 

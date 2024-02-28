@@ -4,7 +4,6 @@
             <div class="card-header">
                 <span>Setores</span>
                 <el-button type="success" @click="setorStore.novo()">
-                    <el-icon><Select /></el-icon>
                     Cadastrar
                 </el-button>
             </div>
@@ -33,11 +32,11 @@
 </template>
 
 <script>
-import { useSetorStore } from '@/store/SetorStore'
+import { SetorStore } from '@/store/SetorStore'
 
 export default {
     setup() {
-        const setorStore = useSetorStore()
+        const setorStore = SetorStore()
         setorStore.listar()
         return { setorStore }
     },

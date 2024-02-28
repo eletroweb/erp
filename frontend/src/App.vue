@@ -23,7 +23,7 @@
                 <Expand />
               </el-icon>
               Listar</el-menu-item>
-            <el-menu-item index="1-2">
+            <el-menu-item index="/setores/cadastrar-setor">
               <el-icon>
                 <Plus />
               </el-icon>
@@ -31,7 +31,12 @@
           </el-menu-item-group>
         </el-sub-menu>
 
-        <el-sub-menu index="3">
+        <el-menu-item index="/contratos">
+          <el-icon><Tickets /></el-icon>
+          <template #title>Contratos</template>
+        </el-menu-item>
+
+        <el-sub-menu index="3" disabled>
           <template #title>
             <el-icon>
               <Document />
@@ -52,12 +57,18 @@
           </el-menu-item-group>
         </el-sub-menu>
 
-        <el-menu-item index="3" disabled>
+        <el-menu-item index="/clientes">
           <el-icon>
             <UserFilled />
           </el-icon>
           <template #title>Clientes</template>
         </el-menu-item>
+
+        <el-menu-item index="/servicos">
+          <el-icon><Box /></el-icon>
+          <template #title>Serviços</template>
+        </el-menu-item>
+
         <el-menu-item index="4">
           <el-icon>
             <setting />

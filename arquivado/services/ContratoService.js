@@ -12,7 +12,7 @@ export async function listar() {
             }
 
             const contratosSemId = contratos.map(({ id: _, ...setor }) => setor);
-            
+
             resolve(contratosSemId);
         });
     });
@@ -43,7 +43,9 @@ export async function exibir(uuid) {
 }
 
 export async function cadastrar(contrato) {
-    const { descricao, situacao, orcamento, data_inicio, data_fim } = contrato;
+    const { descricao, situacao, orcamento} = contrato;
+    const data_inicio = formatarData(contrato.data_inicio)
+    const data_fim = formatarData(contrato.data_fim)
 
     return new Promise((resolve, reject) => {
         const query = `
@@ -95,7 +97,10 @@ export async function deletar(uuid) {
 }
 
 export async function editar(uuid, contrato) {
-    const { descricao, situacao, orcamento, data_inicio, data_fim } = contrato;
+    const { descricao, situacao, orcamento } = contrato;
+
+    const data_inicio = formatarData(contrato.data_inicio)
+    const data_fim = formatarData(contrato.data_fim)
 
     const contratoCadastrado = await localizarContratoPorUuid(uuid);
     if (!contratoCadastrado)
@@ -115,4 +120,14 @@ export async function editar(uuid, contrato) {
             }
         });
     });
+}
+
+function formatarData(dataString) {
+    const data = new Date(dataString);
+
+    const ano = data.getFullYear();
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const dia = data.getDate().toString().padStart(2, '0');
+
+    return `${ano}-${mes}-${dia}`;
 }
