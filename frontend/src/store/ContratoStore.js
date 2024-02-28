@@ -26,9 +26,8 @@ export const useContratoStore = defineStore('contratoStore', {
             try {
                 const response = await api.post("contratos", this.contrato);
                 const notificacaoStore = NotificacaoStore();
-                if (response.status === 200) {
-                    const { title, message, type } = response.data
-                    notificacaoStore.exibirNotificacao(title, message, type);
+                if (response.status === 201) {
+                    notificacaoStore.exibirNotificacao("Novo contrato", "Contrato cadastrado com sucesso", 'success');
                     this.contrato = {}
                     router.push('/contratos');
                 } else {
@@ -44,7 +43,7 @@ export const useContratoStore = defineStore('contratoStore', {
                 const response = await api.put(`contratos/${id}`, this.contrato);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
-                    notificacaoStore.exibirNotificacao("Contrato", response.data, 'success');
+                    notificacaoStore.exibirNotificacao("Contrato", "Contrato editado com sucesso", 'success');
                     this.contrato = {}
                     router.push('/contratos');
                 } else {
@@ -79,7 +78,7 @@ export const useContratoStore = defineStore('contratoStore', {
                 const response = await api.delete(`contratos/${id}`);
                 this.contrato = response.data;
                 const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Contrato", response.data, 'success');
+                notificacaoStore.exibirNotificacao("Contrato", "Contrato excluido com sucesso", 'success');
                 router.push('/contratos');
             } catch (error) {
                 console.log(error);

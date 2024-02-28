@@ -21,10 +21,10 @@ export class ContratoEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   orcamento: number;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0  })
   data_inicio: Date;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0 })
   data_fim: Date;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0 })
@@ -52,7 +52,6 @@ export class ContratoEntity {
 toDto(): ContratoResponseDto {
   const contratoDto = new ContratoResponseDto();
   contratoDto.uuid = this.uuid;
-  // contratoDto.contrato = this.contrato ? this.contrato.toDto() : null;
   contratoDto.descricao = this.descricao;
   contratoDto.situacao = this.situacao;
   contratoDto.orcamento = this.orcamento;

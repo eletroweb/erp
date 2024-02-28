@@ -58,7 +58,7 @@
             </el-form-item>
             <el-form-item>
 
-                <el-button v-if="this.id == null" type="primary" @click="contratoStore.cadastrar()">
+                <el-button :disabled="contratoStore.btnSalvarValido" v-if="this.id == null" type="primary" @click="contratoStore.cadastrar()">
                     Salvar
                 </el-button>
 

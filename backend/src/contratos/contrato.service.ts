@@ -2,15 +2,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SetorService } from 'src/setores/setor.service';
 import { ContratoEntity } from './contrato.entity';
+import { ContratoRequestDto } from './contrato.request.dto';
 
 @Injectable()
 export class ContratoService {
   constructor(
     @InjectRepository(ContratoEntity) 
-    private contratoRepository: Repository<ContratoEntity>,
-    private setorService: SetorService,
+    private contratoRepository: Repository<ContratoEntity>
   ) { }
 
   async findAll(): Promise<ContratoEntity[]> {
@@ -19,15 +18,14 @@ export class ContratoService {
 
   async findOneByUuid(uuid: string): Promise<ContratoEntity> {
     const contrato = await this.contratoRepository.findOne({
-      where: { uuid },
-      relations: ['setor']
+      where: { uuid }
     });
     if (!contrato) {
       throw new NotFoundException('Contrato não localizado');
     }
     return contrato;
   }  
-/*  
+ 
   async findByDocumento(documento: string): Promise<ContratoEntity> {
     const contrato = await this.contratoRepository.findOne({ where: { documento } });
     if (!contrato) {
@@ -37,12 +35,11 @@ export class ContratoService {
   }
 
   async create(request: ContratoRequestDto): Promise<ContratoEntity> {
-    const setor = await this.setorService.findOneByUuid(request.setor)
-    const contrato = ContratoEntity.fromRequestDto(request, setor);
+    const contrato = ContratoEntity.fromRequestDto(request);
     const createdContrato = this.contratoRepository.create(contrato);
     return this.contratoRepository.save(createdContrato);
   }
-*/
+
   async update(uuid: string, request: ContratoEntity): Promise<ContratoEntity> {
     const setor = await this.findOneByUuid(uuid);
     const updatedContrato = this.contratoRepository.merge(setor, request);
