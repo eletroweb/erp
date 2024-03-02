@@ -3,6 +3,6 @@ export class ServicoRequestDto {
     descricao: string;
     situacao: number;
     valor: number;
-    contrato_id: number;
+    contrato: string;
     setor: string;
   }

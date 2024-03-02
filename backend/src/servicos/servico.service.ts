@@ -5,6 +5,7 @@ import { ServicoEntity } from './servico.entity';
 import { Repository } from 'typeorm';
 import { ServicoRequestDto } from './servico.request.dto';
 import { SetorService } from 'src/setores/setor.service';
+import { ContratoService } from 'src/contratos/contrato.service';
 
 @Injectable()
 export class ServicoService {
@@ -12,6 +13,7 @@ export class ServicoService {
     @InjectRepository(ServicoEntity) 
     private servicoRepository: Repository<ServicoEntity>,
     private setorService: SetorService,
+    private contratoService: ContratoService
   ) { }
 
   async findAll(): Promise<ServicoEntity[]> {
@@ -28,7 +30,8 @@ export class ServicoService {
 
   async create(request: ServicoRequestDto): Promise<ServicoEntity> {
     const setor = await this.setorService.findOneByUuid(request.setor)
-    const servico = ServicoEntity.fromRequestDto(request, setor);
+    const contrato = await this.contratoService.findOneByUuid(request.contrato)
+    const servico = ServicoEntity.fromRequestDto(request, setor, contrato);
     const createdServico = this.servicoRepository.create(servico);
     return this.servicoRepository.save(createdServico);
   }

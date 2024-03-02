@@ -88,11 +88,11 @@
 </template>
 
 <script>
-import { useContratoStore } from '@/store/ContratoStore'
+import { ContratoStore } from '@/store/ContratoStore'
 
 export default {
     setup() {
-        const contratoStore = useContratoStore()
+        const contratoStore = ContratoStore()
         contratoStore.listar()
         return { contratoStore }
     },

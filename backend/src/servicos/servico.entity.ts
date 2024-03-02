@@ -3,6 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { v4 as uuidv4 } from 'uuid';
 import { ServicoResponseDto } from './servico.response.dto';
 import { ServicoRequestDto } from './servico.request.dto';
+import { ContratoEntity } from 'src/contratos/contrato.entity';
 
 @Entity('servicos')
 export class ServicoEntity {
@@ -21,8 +22,9 @@ export class ServicoEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   valor: number;
 
-  @Column ({type: 'int'})
-  contrato_id: number;
+  @ManyToOne(() => ContratoEntity, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'contrato_id' })
+  contrato: ContratoEntity;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_cadastro?: Date;
@@ -45,18 +47,18 @@ export class ServicoEntity {
       descricao: this.descricao,
       situacao: this.situacao,
       valor: this.valor,
-      contrato_id: this.contrato_id,
+      contrato: this.contrato,
       setor: this.setor
     };
   }
 
-  static fromRequestDto(dto: ServicoRequestDto, setor: SetorEntity): ServicoEntity {
+  static fromRequestDto(dto: ServicoRequestDto, setor: SetorEntity, contrato: ContratoEntity): ServicoEntity {
     const entity = new ServicoEntity();
     entity.descricao = dto.descricao;    
     entity.situacao = dto.situacao || 1;
     entity.setor = setor;
     entity.valor = dto.valor;
-    entity.contrato_id = 1 // TODO quando Lucas implementar o service do controle removermos este mock
+    entity.contrato = contrato;
     return entity;
   }
 }

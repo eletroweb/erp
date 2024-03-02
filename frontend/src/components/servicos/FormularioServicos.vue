@@ -23,12 +23,17 @@
         </template>
 
         <el-form :model="servicoStore.servico" label-width="120px">
-
             <el-form-item label="Contrato">
                 <el-col :span="13">
-                    <el-form-item label="">
-                        <el-input v-model="servicoStore.servico.contrato" name="contrato" disabled />
-                    </el-form-item></el-col>
+                    <el-select v-model="servicoStore.servico.contrato" placeholder="Selecionar o contrato..." style="width: 240px">
+                        <el-option
+                        v-for="item in contratos"
+                        :key="item.uuid"
+                        :label="item.descricao"
+                        :value="item.uuid"
+                        />
+                    </el-select>
+                </el-col>
             </el-form-item>
                         
             <el-form-item label="Descrição">
@@ -79,6 +84,7 @@
 <script>
 import { useServicoStore } from '../../store/ServicoStore'
 import { SetorStore } from '../../store/SetorStore'
+import { ContratoStore } from '../../store/ContratoStore'
 
 export default {
     setup() {
@@ -89,10 +95,10 @@ export default {
         return {
             id: null,
             setores: [],
-            setorSelecionado: null
+            setorSelecionado: null,
+            contratos: []
         }
     },
-
     async mounted() {
         // TODO mover isso para um utilitário
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
@@ -101,9 +107,14 @@ export default {
             this.servicoStore.carregarServico(this.id)
         }
 
+        // Carrega os setores
         const setorStore = SetorStore()
         this.setores = await setorStore.listar();
         this.getSetor()
+
+        // Carrega os Contratos
+        const contratoStore = ContratoStore()
+        this.contratos = await contratoStore.listar();
     },
     methods: {
         getSetor() {
