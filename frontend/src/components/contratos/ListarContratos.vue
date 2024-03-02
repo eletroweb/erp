@@ -22,13 +22,13 @@
 
             <el-table-column prop="data_inicio" label="Data Início" width="100">
                 <template #default="data_inicio">
-                    {{ data_inicio.row.data_inicio }}
+                  {{ $filters.format(data_inicio.row.data_inicio) }}
                 </template>
             </el-table-column>
 
             <el-table-column prop="data_fim" label="Data Fim" width="100">
                 <template #default="data_fim">
-                    {{ data_fim.row.data_fim }}
+                  {{ $filters.format(data_fim.row.data_fim) }}
                 </template>
             </el-table-column>
 
