@@ -16,7 +16,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 const pinia = createPinia()
 
-app.config.globalProperties.$filters = {
+app.config.globalProperties.$moment = {
   timeAgo(date) {
     return moment(date).fromNow()
   },
