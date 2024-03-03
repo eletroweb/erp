@@ -1,7 +1,7 @@
 export class ServicoRequestDto {
     uuid: string;
     descricao: string;
-    situacao: number;
+    situacao: boolean;
     valor: number;
     contrato: string;
     setor: string;

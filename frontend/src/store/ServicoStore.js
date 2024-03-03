@@ -46,9 +46,13 @@ export const useServicoStore = defineStore('servicoStore', {
             }
         },
         async editar(id) {
-            console.log("Editando", this.servico);
             try {
-                const response = await api.put(`servicos/${id}`, this.servico);
+                const payload = {
+                    ...this.servico,
+                    contrato: this.servico.contrato.uuid,
+                    setor: this.servico.setor.uuid,
+                };
+                const response = await api.put(`servicos/${id}`, payload);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
                     notificacaoStore.exibirNotificacao("Serviço", 'Serviço atualizado com sucesso', 'success');
