@@ -1,9 +1,11 @@
 describe('Servico', () => {
-    it('Cadastrar serviço', () => {
+    it('RF5 Cadastrar Serviço', () => {
         cy.visit('http://localhost:5173/')
         cy.contains('Serviços').click()
         cy.contains('Cadastrar')
         cy.get('.btnCadastrar').click()
+        cy.contains('Selecionar o contrato').click()
+        cy.contains('Contrato 1').click()
         cy.get('input[name="descricao"').type('Pintura')
         cy.get('input[name="valor"').type('3400')
         cy.contains("Engenharia Cívil").click()
@@ -12,16 +14,17 @@ describe('Servico', () => {
         cy.contains("Serviço cadastrado com sucesso")
     })
 
-    it('Editar serviço', () => {
+    it('RF6 Editar Serviço', () => {
         cy.visit('http://localhost:5173/')
         cy.contains('Serviços').click()
         cy.contains('Editar').click()
-        //cy.get('.btnEditar').click()      
+        cy.contains('Contrato 1').click()
+        cy.contains('Contrato 2').click()
         cy.get('input[name="descricao"').clear().type('Parte Elétrica')
         cy.get('input[name="valor"').clear().type('6800')
         cy.contains("Segurança do Trabalho").click()
-        //cy.contains("Situação")
+        cy.contains("Situação").click()
         cy.contains("Salvar alterações").click()
-        //cy.contains("Serviço alterado com sucesso")
+        cy.contains("Serviço atualizado com sucesso")
     })
 })

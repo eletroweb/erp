@@ -1,5 +1,5 @@
 describe('Servico', () => {
-  it('Cadastrar serviço', () => {
+  it('RF5 Cadastrar Serviço', () => {
     cy.visit('http://localhost:5173/')
     cy.contains('Serviços').click()
     cy.contains('Cadastrar')
