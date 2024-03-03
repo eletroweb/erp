@@ -3,6 +3,8 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { v4 as uuidv4 } from 'uuid';
 import { ServicoResponseDto } from './servico.response.dto';
 import { ServicoRequestDto } from './servico.request.dto';
+import { ContratoEntity } from 'src/contratos/contrato.entity';
+import { Situacao } from 'src/enum/situacao.enum';
 
 @Entity('servicos')
 export class ServicoEntity {
@@ -15,14 +17,19 @@ export class ServicoEntity {
   @Column({ type: 'varchar', length: 255 })
   descricao: string;
 
-  @Column({ type: 'int', default: 1 })
-  situacao: number;
+  @Column({
+    type: 'enum',
+    enum: Situacao,
+    //default: Situacao.ATIVO
+  })
+  situacao: Situacao;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   valor: number;
 
-  @Column ({type: 'int'})
-  contrato_id: number;
+  @ManyToOne(() => ContratoEntity, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'contrato_id' })
+  contrato: ContratoEntity;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_cadastro?: Date;
@@ -43,20 +50,20 @@ export class ServicoEntity {
     return {
       uuid: this.uuid,
       descricao: this.descricao,
-      situacao: this.situacao,
+      situacao: this.situacao == Situacao.ATIVO,
       valor: this.valor,
-      contrato_id: this.contrato_id,
+      contrato: this.contrato,
       setor: this.setor
     };
   }
 
-  static fromRequestDto(dto: ServicoRequestDto, setor: SetorEntity): ServicoEntity {
+  static fromRequestDto(dto: ServicoRequestDto, setor: SetorEntity, contrato: ContratoEntity): ServicoEntity {
     const entity = new ServicoEntity();
-    entity.descricao = dto.descricao;    
-    entity.situacao = dto.situacao || 1;
+    entity.descricao = dto.descricao;
+    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
     entity.setor = setor;
     entity.valor = dto.valor;
-    entity.contrato_id = 1 // TODO quando Lucas implementar o service do controle removermos este mock
+    entity.contrato = contrato;
     return entity;
   }
 }

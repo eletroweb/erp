@@ -30,8 +30,7 @@ import { ServicoModule } from 'src/servicos/servico.module';
     ClienteModule,
     ProjetoModule,
     UsuarioModule,
-    ContratoModule
-    UsuarioModule,
+    ContratoModule,
     ServicoModule
   ],
   controllers: [AppController],

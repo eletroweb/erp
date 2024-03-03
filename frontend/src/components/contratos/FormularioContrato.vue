@@ -73,13 +73,13 @@
 </template>
 
 <script>
-import { useContratoStore } from '../../store/ContratoStore'
+import { ContratoStore } from '../../store/ContratoStore'
 import { ElConfigProvider } from 'element-plus'
 import ptBR from 'element-plus/dist/locale/pt-br.mjs'
 
 export default {
     setup() {
-        const contratoStore = useContratoStore()
+        const contratoStore = ContratoStore()
         return { contratoStore, locale: ptBR, }
     },
     components: {

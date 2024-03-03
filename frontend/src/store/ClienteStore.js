@@ -129,7 +129,6 @@ export const useClienteStore = defineStore('clienteStore', {
         },
         async validarEmail(){
             const response = await api.get(`clientes/findByEmail/${this.cliente.email}`)
-            console.log(response.data);
             if (response.data.length > 0) {
                 const notificacaoStore = NotificacaoStore();
                 notificacaoStore.exibirNotificacao('Atenção', response.data, 'warning');

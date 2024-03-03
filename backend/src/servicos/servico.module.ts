@@ -5,11 +5,13 @@ import { ServicoRepository } from './servico.repository';
 import { ServicoController } from './servico.controller';
 import { ServicoService } from './servico.service';
 import { SetorModule } from 'src/setores/setor.module';
+import { ContratoModule } from 'src/contratos/contrato.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([ServicoEntity]),
-    SetorModule
+    SetorModule,
+    ContratoModule
   ],
   controllers: [ServicoController],
   providers: [ServicoService, ServicoRepository],

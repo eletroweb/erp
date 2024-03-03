@@ -22,13 +22,13 @@
 
             <el-table-column prop="data_inicio" label="Data Início" width="100">
                 <template #default="data_inicio">
-                    {{ data_inicio.row.data_inicio }}
+                  {{ $moment.format(data_inicio.row.data_inicio) }}
                 </template>
             </el-table-column>
 
             <el-table-column prop="data_fim" label="Data Fim" width="100">
                 <template #default="data_fim">
-                    {{ data_fim.row.data_fim }}
+                  {{ $moment.format(data_fim.row.data_fim) }}
                 </template>
             </el-table-column>
 
@@ -88,11 +88,11 @@
 </template>
 
 <script>
-import { useContratoStore } from '@/store/ContratoStore'
+import { ContratoStore } from '@/store/ContratoStore'
 
 export default {
     setup() {
-        const contratoStore = useContratoStore()
+        const contratoStore = ContratoStore()
         contratoStore.listar()
         return { contratoStore }
     },

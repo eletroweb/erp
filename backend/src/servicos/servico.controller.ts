@@ -31,13 +31,13 @@ export class ServicoController {
   }
 
   @Put(':uuid')
-  async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() servicoEntity: ServicoEntity): Promise<string> {
-    const updatedServico = await this.servicoService.update(uuid, servicoEntity);
+  async update(@Param('uuid') uuid: string, @Body() request: ServicoRequestDto): Promise<string> {
+    const updatedServico = await this.servicoService.update(uuid, request);
     return JSON.stringify(updatedServico);
   }
 
   @Delete(':uuid')
-  async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<string> {
+  async remove(@Param('uuid') uuid: string): Promise<string> {
     const deletedServico = await this.servicoService.remove(uuid);
     return JSON.stringify(deletedServico);
   }

@@ -3,7 +3,7 @@ import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
 
-export const useContratoStore = defineStore('contratoStore', {
+export const ContratoStore = defineStore('contratoStore', {
     state: () => ({
         contratos: [],
         contrato: {}
@@ -17,6 +17,7 @@ export const useContratoStore = defineStore('contratoStore', {
                 console.log(error);
                 throw error;
             }
+            return this.contratos
         },
         async novo() {
             this.contrato = {}

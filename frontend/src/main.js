@@ -7,6 +7,7 @@ import {createPinia} from 'pinia'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import moment from 'moment'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -14,6 +15,15 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 const pinia = createPinia()
+
+app.config.globalProperties.$moment = {
+  timeAgo(date) {
+    return moment(date).fromNow()
+  },
+  format(date) {
+    return moment(date).format("DD/MM/YYYY")
+  },
+}
 
 app.use(router)
 app.use(ElementPlus)
