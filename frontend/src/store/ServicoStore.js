@@ -9,6 +9,9 @@ export const useServicoStore = defineStore('servicoStore', {
         servico: {
             setor: {
                 uuid: null
+            },
+            contrato: {
+                uuid: null
             }
         }
     }),

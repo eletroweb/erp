@@ -96,6 +96,7 @@ export default {
             id: null,
             setores: [],
             setorSelecionado: null,
+            contratoSelecionado: null,
             contratos: []
         }
     },
@@ -110,18 +111,27 @@ export default {
         // Carrega os setores
         const setorStore = SetorStore()
         this.setores = await setorStore.listar();
-        this.getSetor()
+        this.getSetorAtual()
 
         // Carrega os Contratos
         const contratoStore = ContratoStore()
         this.contratos = await contratoStore.listar();
+        this.getContratoAtual()
     },
     methods: {
-        getSetor() {
+        getSetorAtual() {
             if (this.servicoStore.servico.setor && this.servicoStore.servico.setor.uuid) {
                 this.setorSelecionado = this.servicoStore.servico.setor.uuid
             } else {
                 this.setorSelecionado = this.setores[0].uuid
+            }
+        },
+        getContratoAtual() {
+            console.log(this.servicoStore.servico.contrato);
+            if (this.servicoStore.servico.contrato && this.servicoStore.servico.contrato.uuid) {
+                this.contratoSelecionado = this.servicoStore.servico.contrato.uuid
+            } else {
+                this.contratoSelecionado = this.contratos[0].uuid
             }
         }
     }
