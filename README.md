@@ -34,3 +34,38 @@ git push origin -d nomebranch
  bin\kc.bat start-dev
 
 http://localhost:8080/
+
+
+# Requisitos
+
+## Setor 
+RF1 Cadastrar Setor
+RF2 Editar Setor
+RF3 Excluir Setor
+RF4 Listar Setor
+RF7 Desativar/Ativar Setor
+
+## Serviços
+RF5 Cadastrar Serviço
+RF6 Editar Serviço
+RF7 Excluir Serviço
+RF8 Listar Serviço
+RF9 Associar contrato ao serviço
+RF10 Asscoiar setor ao Serviço
+RF1 Desativar/Ativar Serviço
+
+## Cliente
+RF12 Cadastrar Cliente
+RF13 Editar Cliente
+RF14 Excluir Cliente
+RF15 Listar Cliente
+RF16 Associar contrato ao serviço
+RF17 Asscoiar setor ao Cliente
+RF18 Desativar/Ativar Cliente
+
+## Contrato 
+RF19 Cadastrar Contrato
+RF20 Editar Contrato
+RF21 Excluir Contrato
+RF22 Listar Contrato
+RF23 Desativar/Ativar Contrato

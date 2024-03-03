@@ -13,5 +13,10 @@ export default defineConfig({
       framework: 'vue',
       bundler: 'vite'
     }
+  },
+  screenshotsFolder:"TestResults/assets",
+  reporter: "cypress-multi-reporters",
+  reporterOptions: {
+    configFile: "reporter-config.json"
   }
 })
