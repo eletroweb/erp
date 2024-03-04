@@ -1,5 +1,5 @@
 describe('Cliente', () => {
-  it('Editar cliente', () => {
+  it('RF2.13 Editar Cliente', () => {
     cy.visit('http://localhost:5173/clientes')
     cy.contains('Editar').click()
     cy.contains('Editar Cliente')

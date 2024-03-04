@@ -1,5 +1,5 @@
 describe('Cliente', () => {
-  it('Tentar cadastrar um cliente com email existente', () => {
+  it('Validar duplicidade de email', () => {
     const emailMock = 'cliente1@gmail.com'
     cy.visit('http://localhost:5173/')
     cy.contains('Clientes').click()

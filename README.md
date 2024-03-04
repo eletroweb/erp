@@ -52,20 +52,22 @@ RF7 Excluir Serviço
 RF8 Listar Serviço
 RF9 Associar contrato ao serviço
 RF10 Asscoiar setor ao Serviço
-RF1 Desativar/Ativar Serviço
+RF11 Desativar/Ativar Serviço
 
 ## Cliente
-RF12 Cadastrar Cliente
-RF13 Editar Cliente
-RF14 Excluir Cliente
-RF15 Listar Cliente
-RF16 Associar contrato ao serviço
-RF17 Asscoiar setor ao Cliente
-RF18 Desativar/Ativar Cliente
+RF2.12 Cadastrar Cliente
+RF2.13 Editar Cliente
+RF2.14 Excluir Cliente
+RF2.15 Listar Cliente
+RF2.16 Associar contrato ao serviço
+RF2.17 Asscoiar setor ao Cliente
+RF2.18 Desativar/Ativar Cliente
+RF2.19 Validar duplicidade de email
+RF2.20 Validar duplicidade de CPF/CNPJ
 
 ## Contrato 
-RF19 Cadastrar Contrato
-RF20 Editar Contrato
-RF21 Excluir Contrato
-RF22 Listar Contrato
-RF23 Desativar/Ativar Contrato
+RF3.21 Cadastrar Contrato
+RF3.22 Editar Contrato
+RF3.23 Excluir Contrato
+RF3.24 Listar Contrato
+RF3.25 Desativar/Ativar Contrato
