@@ -53,7 +53,7 @@ export const useServicoStore = defineStore('servicoStore', {
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
                     notificacaoStore.exibirNotificacao("Serviço", 'Serviço atualizado com sucesso', 'success');
-                    this.reset()
+                    this.servico = this.reset()
                     router.push('/servicos');
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');

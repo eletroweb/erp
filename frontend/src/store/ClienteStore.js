@@ -9,8 +9,8 @@ export const useClienteStore = defineStore('clienteStore', {
         clientes: [],
         cliente: {
             setor: {
-                uuid: null
-            }
+                uuid: ""
+            },
         },
         btnSalvarValido: true
     }),
@@ -25,16 +25,17 @@ export const useClienteStore = defineStore('clienteStore', {
             }
         },
         async novo() {
-            this.cliente = {}
+            this.reset()
             router.push('/clientes/cadastrar-clientes');
         },
         async cadastrar() {
             try {
-                const response = await api.post("clientes", this.cliente);
+                const request = this.requestBuild()
+                const response = await api.post("clientes", request);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 201) {
                     notificacaoStore.exibirNotificacao("Novo cliente", "Cliente cadastrado com sucesso", 'success');
-                    this.cliente = {}
+                    this.reset()
                     router.push('/clientes');
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
@@ -44,13 +45,13 @@ export const useClienteStore = defineStore('clienteStore', {
             }
         },
         async editar(id) {
-            console.log("Editando", this.cliente);
             try {
-                const response = await api.put(`clientes/${id}`, this.cliente);
+                const request = this.requestBuild()
+                const response = await api.put(`clientes/${id}`, request);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
-                    notificacaoStore.exibirNotificacao("Cliente", response.data, 'success');
-                    this.cliente = {}
+                    notificacaoStore.exibirNotificacao("Cliente", "Cliente atualizado com sucesso", 'success');
+                    this.reset()
                     router.push('/clientes');
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
@@ -76,8 +77,6 @@ export const useClienteStore = defineStore('clienteStore', {
             }
         },
         async exibir(id) {
-            this.cliente.setor = this.cliente.setor.uuid
-            console.log(this.cliente.setor);
             this.carregarCliente(id)
             router.push(`/clientes/${id}`);
         },
@@ -127,6 +126,12 @@ export const useClienteStore = defineStore('clienteStore', {
                 console.log(error.message);
             }
         },
+        requestBuild() {
+            return {
+                ...this.cliente,
+                setor: this.cliente.setor.uuid,
+            };
+        },
         async validarEmail(){
             const response = await api.get(`clientes/findByEmail/${this.cliente.email}`)
             if (response.data.length > 0) {
@@ -135,6 +140,13 @@ export const useClienteStore = defineStore('clienteStore', {
                 this.btnSalvarValido = false
                 return
             }
+        },
+        reset() {
+            this.cliente = {
+                setor: {
+                    uuid: ""
+                },
+            };
         }
     },
 })

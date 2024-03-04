@@ -3,6 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { v4 as uuidv4 } from 'uuid';
 import { ClienteResponseDto } from './cliente.response.dto';
 import { ClienteRequestDto } from './cliente.request.dto';
+import { Situacao } from 'src/enum/situacao.enum';
 
 @Entity('clientes')
 export class ClienteEntity {
@@ -36,8 +37,11 @@ export class ClienteEntity {
   @Column({ type: 'varchar', length: 255, nullable: true })
   complemento: string;
 
-  @Column({ type: 'int', default: 1 })
-  situacao: number;
+  @Column({
+    type: 'enum',
+    enum: Situacao,
+  })
+  situacao: Situacao;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_cadastro?: Date;
@@ -65,7 +69,7 @@ export class ClienteEntity {
       cidade: this.cidade,
       endereco: this.endereco,
       complemento: this.complemento,
-      situacao: this.situacao,
+      situacao: this.situacao == Situacao.ATIVO,
       setor: this.setor?.toDto()
     };
   }
@@ -80,7 +84,7 @@ export class ClienteEntity {
     entity.cidade = dto.cidade;
     entity.endereco = dto.endereco;
     entity.complemento = dto.complemento;
-    entity.situacao = dto.situacao || 1;
+    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
     entity.setor = setor
     return entity;
   }
