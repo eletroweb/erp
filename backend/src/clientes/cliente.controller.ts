@@ -40,8 +40,8 @@ export class ClienteController {
   }
 
   @Put(':uuid')
-  async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() clienteEntity: ClienteEntity): Promise<string> {
-    const updatedCliente = await this.clienteService.update(uuid, clienteEntity);
+  async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() request: ClienteRequestDto): Promise<string> {
+    const updatedCliente = await this.clienteService.update(uuid, request);
     return JSON.stringify(updatedCliente);
   }
 

@@ -2,7 +2,9 @@
     <el-card class="box-card">
         <template #header>
             <div class="card-header">
-                <span>Cadastrar Cliente</span>
+                <span>
+                    {{ this.id ? "Editar" : "Cadastrar" }}
+                    Cliente</span>
                 <el-popover :visible="confirmacaoVisivel" placement="top" :width="200" v-if="id">
                     <p>Deseja confirma a exclusão do cliente
                         <el-tag type="danger">
@@ -64,7 +66,7 @@
             </el-form-item>
 
             <el-form-item label="Área">
-                <el-radio-group v-model="clienteStore.cliente.setor" class="ml-4" name="setor">
+                <el-radio-group v-model="clienteStore.cliente.setor.uuid" class="ml-4" name="setor">
                     <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
                         <el-radio ce :label="setor.uuid" size="large">
                             {{ setor.descricao }}
@@ -74,7 +76,11 @@
             </el-form-item>
 
             <el-form-item label="Endereço">
-                <el-input v-model="clienteStore.cliente.endereco" type="textarea" id="endereco" />
+                <el-input v-model="clienteStore.cliente.endereco" name="endereco" id="endereco"/>
+            </el-form-item>
+
+            <el-form-item label="Complemento">
+                <el-input v-model="clienteStore.cliente.complemento" type="textarea" name="complemento" id="complemento" />
             </el-form-item>
 
             <el-form-item label="Situação">
@@ -128,16 +134,8 @@ export default {
         const setorStore = SetorStore()
         const setores = await setorStore.listar()
         this.setores = setores;
-        this.getSetor()
     },
     methods: {
-        getSetor() {
-            if (this.clienteStore.cliente.setor && this.clienteStore.cliente.setor.uuid) {
-                this.setorSelecionado = this.clienteStore.cliente.setor.uuid
-            } else {
-                this.setorSelecionado = this.setores[0].uuid
-            }
-        }
     }
 }
 </script>
