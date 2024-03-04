@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0eeb7d6e-3058-421d-8f38-9ddf39aa826f",
+		"_postman_id": "46cf5a25-de45-44c0-ac58-8642697f4749",
 		"name": "ERP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "384675"
@@ -15,13 +15,30 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/setores/",
+							"raw": "{{baseUrl}}/setores",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"setores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir setor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/setores/fe37791e-c2f2-11ee-a1ba-641c679a799a",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"setores",
-								""
+								"fe37791e-c2f2-11ee-a1ba-641c679a799a"
 							]
 						}
 					},
@@ -60,7 +77,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n        \"descricao\": \"Meio Ambiente\",\r\n        \"situacao\": 1\r\n}",
+							"raw": "{\r\n  \"uuid\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n  \"descricao\": \"Setor de testes\",\r\n  \"situacao\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,13 +85,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/setores/894690c5-bd27-11ee-8c1d-641c679a799a",
+							"raw": "{{baseUrl}}/setores/d7a497c8-c2f5-11ee-a1ba-641c679a799a",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"setores",
-								"894690c5-bd27-11ee-8c1d-641c679a799a"
+								"d7a497c8-c2f5-11ee-a1ba-641c679a799a"
 							]
 						}
 					},
@@ -103,24 +120,6 @@
 								"setores",
 								"editarLista",
 								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Exibir setor",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/setores/1bc514ff-bd21-11ee-8c1d-641c679a799a",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"setores",
-								"1bc514ff-bd21-11ee-8c1d-641c679a799a"
 							]
 						}
 					},
@@ -213,7 +212,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"descricao\": \"Serviço de Fundação\",\r\n    \"situacao\": 1,\r\n    \"valor\": \"5100.00\",\r\n    \"contrato_id\": \"a53c4e66-bd7b-11ee-8c1d-641c679a799a\"\r\n}",
+							"raw": "{\r\n    \"setor\": {\r\n        \"uuid\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\"\r\n    },\r\n    \"contrato\": {\r\n        \"uuid\": \"b1e3123c-d8bb-4095-b3ab-ec5dd79e7e71\"\r\n    },\r\n    \"descricao\": \"Pintura\",\r\n    \"valor\": \"5500\",\r\n    \"situacao\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -239,7 +238,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"descricao\": \"Serviço de Fundação\",\r\n    \"situacao\": 1,\r\n    \"valor\": \"5100.00\",\r\n    \"contrato_id\": \"a53c4e66-bd7b-11ee-8c1d-641c679a799a\"\r\n}",
+							"raw": "{\r\n    \"uuid\": \"ed5bde04-880f-4fdd-b87c-d6e9356943aa\",\r\n    \"descricao\": \"Parte Elétrica 1\",\r\n    \"situacao\": true,\r\n    \"valor\": \"6800.00\",\r\n    \"contrato\": \"b1e3123c-d8bb-4095-b3ab-ec5dd79e7e71\",\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -247,13 +246,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/servicos/3a51f095-be21-11ee-a210-00155d010300",
+							"raw": "{{baseUrl}}/servicos/ed5bde04-880f-4fdd-b87c-d6e9356943aa",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"servicos",
-								"3a51f095-be21-11ee-a210-00155d010300"
+								"ed5bde04-880f-4fdd-b87c-d6e9356943aa"
 							]
 						}
 					},
@@ -265,13 +264,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/servicos/95cd9956-be1c-11ee-a210-00155d010300",
+							"raw": "{{baseUrl}}/servicos/4df95d61-ef1c-4620-9ef5-2f5774ad7d65",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"servicos",
-								"95cd9956-be1c-11ee-a210-00155d010300"
+								"4df95d61-ef1c-4620-9ef5-2f5774ad7d65"
 							]
 						}
 					},
@@ -329,7 +328,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"os_uuid\": \"02811928-be23-11ee-a210-00155d010300\",\r\n    \"servico_uuid\": \"0274564e-be23-11ee-a210-00155d010300\",\r\n    \"observacao\": \"Exemplo\",\r\n    \"quantidade\": 1,\r\n    \"situacao\": 1\r\n}",
+									"raw": "{\r\n    \"os_uuid\": \"4c0f2783-bfc3-11ee-a5de-00155d42d8db\",\r\n    \"servico_uuid\": \"4bfef98c-bfc3-11ee-a5de-00155d42d8db\",\r\n    \"observacao\": \"\",\r\n    \"quantidade\": 1,\r\n    \"situacao\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -387,13 +386,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/os/02811928-be23-11ee-a210-00155d010300",
+							"raw": "{{baseUrl}}/os/4c0f2783-bfc3-11ee-a5de-00155d42d8db",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"os",
-								"02811928-be23-11ee-a210-00155d010300"
+								"4c0f2783-bfc3-11ee-a5de-00155d42d8db"
 							]
 						}
 					},
@@ -552,13 +551,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/contratos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"raw": "{{baseUrl}}/contratos/6e2e96bb-c36c-11ee-a1ba-641c679a799a",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"contratos",
-								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+								"6e2e96bb-c36c-11ee-a1ba-641c679a799a"
 							]
 						}
 					},
@@ -576,6 +575,229 @@
 							],
 							"path": [
 								"contratos",
+								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projetos",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projetos/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cliente\": \"216e9443-c1a4-4d24-a5b8-3237dbc5f7c5\",\r\n  \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n  \"responsavel\": \"dd6ae8dd-d146-41be-811c-9c5fa1cf86da\",\r\n  \"situacao\": 1,\r\n  \"orcamento\": \"1500.00\",\r\n  \"data_inicio\": \"2024-01-10\",\r\n  \"data_fim\": \"2024-12-31\",\r\n  \"observacao\": \"N/A\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Contrato de Exemplo 123\",\r\n    \"situacao\": 0,\r\n    \"orcamento\": \"1700.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projetos/6e2e96bb-c36c-11ee-a1ba-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"6e2e96bb-c36c-11ee-a1ba-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projetos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/usuarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Fulano Sobrenome\",\r\n  \"situacao\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Contrato de Exemplo 123\",\r\n    \"situacao\": 0,\r\n    \"orcamento\": \"1700.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projetos/6e2e96bb-c36c-11ee-a1ba-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"6e2e96bb-c36c-11ee-a1ba-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projetos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
 								"0126c661-bd7c-11ee-8c1d-641c679a799a"
 							]
 						}
@@ -757,6 +979,26 @@
 				{
 					"name": "Listar clientes",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -790,7 +1032,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"XPTO\",\r\n    \"email\": \"XPTO@email.com\",\r\n    \"documento\": \"123\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": 1,\r\n    \"setor_id\": 1\r\n}",
+							"raw": "{\r\n    \"nome\": \"Cliente 2\",\r\n    \"email\": \"cliente2@email.com\",\r\n    \"documento\": \"456\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": 1,\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -816,7 +1058,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Cliente1\",\r\n    \"email\": \"cliente1@email.com\",\r\n    \"documento\": \"123456789\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": 1,\r\n    \"data_cadastro\": \"2024-01-27T20:07:09.000Z\",\r\n    \"data_atualizacao\": \"2024-01-27T20:07:09.000Z\",\r\n    \"setor_id\": 1\r\n}",
+							"raw": "{\r\n    \"uuid\": \"9d90076d-b6bc-4f66-8965-4be70d0fefab\",\r\n    \"nome\": \"Yonatha Alves Almeida\",\r\n    \"telefone\": \"83991732814\",\r\n    \"email\": \"yonathalmeida@gmail.com\",\r\n    \"documento\": \"06713832482\",\r\n    \"estado\": \"PB\",\r\n    \"cidade\": \"João Pessoa\",\r\n    \"endereco\": \"1\",\r\n    \"complemento\": \"2\",\r\n    \"situacao\": false,\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -824,13 +1066,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/clientes/a70cc475-bd4f-11ee-8c1d-641c679a799a",
+							"raw": "{{baseUrl}}/clientes/9d90076d-b6bc-4f66-8965-4be70d0fefab",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"clientes",
-								"a70cc475-bd4f-11ee-8c1d-641c679a799a"
+								"9d90076d-b6bc-4f66-8965-4be70d0fefab"
 							]
 						}
 					},
@@ -870,13 +1112,32 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/clientes/025dc41d-be23-11ee-a210-00155d010300",
+							"raw": "{{baseUrl}}/clientes/9d90076d-b6bc-4f66-8965-4be70d0fefab",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"clientes",
-								"025dc41d-be23-11ee-a210-00155d010300"
+								"9d90076d-b6bc-4f66-8965-4be70d0fefab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByDocumento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clientes/findByDocumento/06713832482",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clientes",
+								"findByDocumento",
+								"06713832482"
 							]
 						}
 					},
@@ -941,6 +1202,578 @@
 							"path": [
 								"clientes",
 								"4cc559d5-bd82-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticar",
+			"item": [
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									" postman.setEnvironmentVariable(\"token\", response.access_token);\r",
+									" postman.setEnvironmentVariable(\"refresh_token\", response.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"yonatha\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									" postman.setEnvironmentVariable(\"token\", response.access_token);\r",
+									" postman.setEnvironmentVariable(\"refresh_token\", response.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"yonatha\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									" postman.setEnvironmentVariable(\"token\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"yonatha\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Funcionario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									" postman.setEnvironmentVariable(\"token\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"funcionario\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "quantidade",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Keycloak",
+			"item": [
+				{
+					"name": "KeyCloak Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									" postman.setEnvironmentVariable(\"token\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "erp-web",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "34bj1W9wNVBYQsP9bkaUxV6JwwVBosxb",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "yonatha",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{keycloak}}/realms/agilmax/protocol/openid-connect/token",
+							"host": [
+								"{{keycloak}}"
+							],
+							"path": [
+								"realms",
+								"agilmax",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeyCloak Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "client_id",
+								"value": "erp-web",
+								"type": "text"
+							},
+							{
+								"key": "refresh_token",
+								"value": "{{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{keycloak}}/realms/agilmax/protocol/openid-connect/logout",
+							"host": [
+								"{{keycloak}}"
+							],
+							"path": [
+								"realms",
+								"agilmax",
+								"protocol",
+								"openid-connect",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeyCloak Logout Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "client_id",
+								"value": "erp-web",
+								"type": "text"
+							},
+							{
+								"key": "refresh_token",
+								"value": "{{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"client_id\" : \"{{client_id}}\",\r\n    \"client_secret\" : \"{{client_secret}}\",\r\n    \"refresh_token\" : \"{{refresh_token}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{keycloak}}/realms/agilmax/protocol/openid-connect/logout",
+							"host": [
+								"{{keycloak}}"
+							],
+							"path": [
+								"realms",
+								"agilmax",
+								"protocol",
+								"openid-connect",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeyCloak configuration",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{keycloak}}/realms/agilmax/.well-known/openid-configuration",
+							"host": [
+								"{{keycloak}}"
+							],
+							"path": [
+								"realms",
+								"agilmax",
+								".well-known",
+								"openid-configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeyCloak User Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "client_id",
+								"value": "{{client_id}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "client_secret",
+								"value": "{{client_secret}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "scope",
+								"value": "openid",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "grant_type",
+								"value": "client_credentials",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{keycloak}}/realms/agilmax/protocol/openid-connect/userinfo",
+							"host": [
+								"{{keycloak}}"
+							],
+							"path": [
+								"realms",
+								"agilmax",
+								"protocol",
+								"openid-connect",
+								"userinfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeyCloak User Info Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "client_id",
+								"value": "{{client_id}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "client_secret",
+								"value": "{{client_secret}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "scope",
+								"value": "openid",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "grant_type",
+								"value": "client_credentials",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{keycloak}}/realms/agilmax/account",
+							"host": [
+								"{{keycloak}}"
+							],
+							"path": [
+								"realms",
+								"agilmax",
+								"account"
 							]
 						}
 					},
