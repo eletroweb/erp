@@ -64,6 +64,7 @@ RF2.17 Asscoiar setor ao Cliente
 RF2.18 Desativar/Ativar Cliente
 RF2.19 Validar duplicidade de email
 RF2.20 Validar duplicidade de CPF/CNPJ
+RF2.21 Validar telefone
 
 ## Contrato 
 RF3.21 Cadastrar Contrato
