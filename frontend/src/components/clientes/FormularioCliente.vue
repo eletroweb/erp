@@ -65,7 +65,7 @@
                 </el-col>
             </el-form-item>
 
-            <el-form-item label="Área">
+            <el-form-item label="Setor">
                 <el-radio-group v-model="clienteStore.cliente.setor.uuid" class="ml-4" name="setor">
                     <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
                         <el-radio ce :label="setor.uuid" size="large">
