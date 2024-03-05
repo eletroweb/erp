@@ -3,15 +3,14 @@
         <template #header>
             <div class="card-header">
                 <span>Gestão de Contratos</span>
-                <el-button type="success" @click="contratoStore.novo()">
+                <el-button type="success" @click="contratoStore.novo()" class="btnCadastrar" >
                     Cadastrar
                 </el-button>
             </div>
         </template>
-        <el-table v-if="contratoStore.contratos.length > 0" :data="contratoStore.contratos" stripe style="width: 700px%">
+        <el-table v-if="contratoStore.contratos.length > 0" :data="contratoStore.contratos" stripe style="width: 700px">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
             <el-table-column prop="descricao" label="Descrição" width="200" />
-
 
             <el-table-column prop="orcamento" label="Orçamento" width="150">
                 <template #default="orcamento">
@@ -20,10 +19,10 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="data_inicio" label="Data Início" width="100">
+            <el-table-column prop="data_inicio" label="Data Início" width="100" >
                 <template #default="data_inicio">
-                  {{ $moment.format(data_inicio.row.data_inicio) }}
-                </template>
+                        {{ $moment.format(data_inicio.row.data_inicio) }}
+                </template> 
             </el-table-column>
 
             <el-table-column prop="data_fim" label="Data Fim" width="100">

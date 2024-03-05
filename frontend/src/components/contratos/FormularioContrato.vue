@@ -25,7 +25,7 @@
 
         <el-form :model="contratoStore.contrato" label-width="120px">
             <el-form-item label="Nome">
-                <el-input v-model="contratoStore.contrato.descricao" />
+                <el-input v-model="contratoStore.contrato.descricao" name="nome" />
             </el-form-item>
 
             <el-form-item label="Orçamento">
@@ -34,8 +34,6 @@
                     <template #prepend>R$</template>
                 </el-input>
             </el-form-item>
-
-
 
             <el-form-item label="Início">
                 <el-col :span="5">
