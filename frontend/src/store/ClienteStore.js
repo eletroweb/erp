@@ -29,10 +29,17 @@ export const useClienteStore = defineStore('clienteStore', {
             router.push('/clientes/cadastrar-clientes');
         },
         async cadastrar() {
+            const notificacaoStore = NotificacaoStore();
+            if(this.cliente.telefone==null || this.cliente.telefone.length==0){
+                notificacaoStore.exibirNotificacao("Atenção", "O telefone deve ser informado", 'warning');
+                this.btnSalvarValido=false
+                return
+            }  
+            this.btnSalvarValido=true
+        
             try {
                 const request = this.requestBuild()
                 const response = await api.post("clientes", request);
-                const notificacaoStore = NotificacaoStore();
                 if (response.status === 201) {
                     notificacaoStore.exibirNotificacao("Novo cliente", "Cliente cadastrado com sucesso", 'success');
                     this.reset()
