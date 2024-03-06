@@ -64,6 +64,12 @@
           <template #title>Clientes</template>
         </el-menu-item>
 
+        
+        <el-menu-item index="/projetos">
+          <el-icon><GoldMedal /></el-icon>
+          <template #title>Projetos</template>
+        </el-menu-item>
+
         <el-menu-item index="/servicos">
           <el-icon><Box /></el-icon>
           <template #title>Serviços</template>
