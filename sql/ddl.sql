@@ -29,7 +29,7 @@ CREATE TABLE projetos (
     uuid CHAR(36) DEFAULT (UUID()),
     cliente_id INT,
     setor_id INT,
-    responsavel_id INT,
+    responsavel varchar(100),
     situacao INT(1) DEFAULT 1,
     orcamento DECIMAL(10,2),
     data_inicio DATE,
@@ -38,7 +38,6 @@ CREATE TABLE projetos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    
     FOREIGN KEY (setor_id) REFERENCES setores(id) ON DELETE cascade,
-    FOREIGN KEY (responsavel_id) REFERENCES clientes(id) ON DELETE cascade,
     FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
 );
 

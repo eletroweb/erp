@@ -9,6 +9,8 @@ import ListarCliente from '../components/clientes/ListarCliente.vue'
 import FormularioCliente from '../components/clientes/FormularioCliente.vue'
 import ListarServicos from '../components/servicos/ListarServicos.vue'
 import FormularioServicos from '../components/servicos/FormularioServicos.vue'
+import ListarProjeto from '@/components/projetos/ListarProjeto.vue'
+import FormularioProjeto from '@/components/projetos/FormularioProjeto.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,7 +20,6 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-
     {
       path: '/clientes',
       name: 'clientes',
@@ -78,7 +79,22 @@ const router = createRouter({
       path: '/servicos/:id',
       name: 'editar-servico',
       component: FormularioServicos
-    }
+    },
+    {
+      path: '/projetos',
+      nome: 'projetos',
+      component: ListarProjeto
+    },
+    {
+      path: '/projetos/cadastrar',
+      name: 'cadastrar-projeto',
+      component: FormularioProjeto
+    },
+    {
+      path: '/projetos/:id',
+      name: 'editar-projeto',
+      component: FormularioProjeto
+    },
   ]
 })
 

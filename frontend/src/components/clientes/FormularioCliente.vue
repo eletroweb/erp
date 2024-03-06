@@ -106,12 +106,12 @@
 </template>
 
 <script>
-import { useClienteStore } from '../../store/ClienteStore'
+import { ClienteStore } from '../../store/ClienteStore'
 import { SetorStore } from '../../store/SetorStore'
 
 export default {
     setup() {
-        const clienteStore = useClienteStore()
+        const clienteStore = ClienteStore()
 
         return { clienteStore }
     },

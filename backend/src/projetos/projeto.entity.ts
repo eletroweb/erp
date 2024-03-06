@@ -5,6 +5,7 @@ import { ProjetoResponseDto } from './projeto.response.dto';
 import { ProjetoRequestDto } from './projeto.request.dto';
 import { ClienteEntity } from 'src/clientes/cliente.entity';
 import { UsuarioEntity } from 'src/usuarios/usuario.entity';
+import { Situacao } from 'src/enum/situacao.enum';
 
 @Entity('projetos')
 export class ProjetoEntity {
@@ -22,9 +23,8 @@ export class ProjetoEntity {
   @JoinColumn({ name: 'setor_id' })
   setor: SetorEntity;
 
-  @ManyToOne(() => UsuarioEntity, { eager: true, nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'responsavel_id' })
-  responsavel: UsuarioEntity;
+  @Column({ type: 'text', nullable: true })
+  responsavel: string;
 
   @Column({ type: 'int', default: 1 })
   situacao: number;
@@ -55,30 +55,28 @@ export class ProjetoEntity {
   static fromRequestDto(
     dto: ProjetoRequestDto,
     setor: SetorEntity,
-    cliente: ClienteEntity,
-    responsavel: UsuarioEntity
+    cliente: ClienteEntity
   ): ProjetoEntity {
-    const projetoEntity = new ProjetoEntity();
-    projetoEntity.cliente = cliente;
-    projetoEntity.setor = setor;
-    projetoEntity.responsavel = responsavel;
-    projetoEntity.situacao = dto.situacao || 1;
-    projetoEntity.orcamento = dto.orcamento;
-    projetoEntity.data_inicio = dto.data_inicio;
-    projetoEntity.data_fim = dto.data_fim;
-    projetoEntity.observacao = dto.observacao;
+    const entity = new ProjetoEntity();
+    entity.cliente = cliente;
+    entity.setor = setor;
+    entity.responsavel = dto.responsavel;
+    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.orcamento = dto.orcamento;
+    entity.data_inicio = dto.data_inicio;
+    entity.data_fim = dto.data_fim;
+    entity.observacao = dto.observacao;
 
-    return projetoEntity;
+    return entity;
   }
 
   toDto(): ProjetoResponseDto {
     const projetoDto = new ProjetoResponseDto();
     projetoDto.uuid = this.uuid;
-    // projetoDto.cliente = this.cliente ? this.cliente.toDto() : null;
-    projetoDto.cliente = this.cliente ? this.cliente.nome : null;
-    projetoDto.setor = this.setor ? this.setor.descricao : null;
-    projetoDto.responsavel = this.responsavel ? this.responsavel.nome : null;
-    projetoDto.situacao = this.situacao;
+    projetoDto.cliente =  this.cliente?.toDto()
+    projetoDto.setor = this.setor.toDto()
+    projetoDto.responsavel = this.responsavel;
+    projetoDto.situacao = this.situacao == Situacao.ATIVO;
     projetoDto.orcamento = this.orcamento;
     projetoDto.data_inicio = this.data_inicio;
     projetoDto.data_fim = this.data_fim;

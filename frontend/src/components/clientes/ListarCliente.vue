@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import { useClienteStore } from '@/store/ClienteStore'
+import { ClienteStore } from '@/store/ClienteStore'
 
 export default {
     setup() {
-        const clienteStore = useClienteStore()
+        const clienteStore = ClienteStore()
         clienteStore.listar()
         return { clienteStore }
     },

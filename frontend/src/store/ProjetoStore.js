@@ -3,11 +3,15 @@ import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
 import { ValidarCPF, ValidarCNPJ } from '@/common/util'
+import moment from 'moment'
 
-export const ClienteStore = defineStore('clienteStore', {
+export const useProjetoStore = defineStore('projetoStore', {
     state: () => ({
-        clientes: [],
-        cliente: {
+        projetos: [],
+        projeto: {
+            cliente: {
+                uuid: null
+            },
             setor: {
                 uuid: ""
             },
@@ -17,84 +21,73 @@ export const ClienteStore = defineStore('clienteStore', {
     actions: {
         async listar() {
             try {
-                const response = await api.get(`clientes`);
-                this.clientes = response.data;
+                const response = await api.get(`projetos`);
+                this.projetos = response.data;
             } catch (error) {
                 console.log(error);
                 throw error;
             }
-            return this.clientes
         },
         async novo() {
             this.reset()
-            router.push('/clientes/cadastrar-clientes');
+            router.push('/projetos/cadastrar-projetos');
         },
         async cadastrar() {
             const notificacaoStore = NotificacaoStore();
-            if(this.cliente.telefone==null || this.cliente.telefone.length==0){
-                notificacaoStore.exibirNotificacao("Atenção", "O telefone deve ser informado", 'warning');
-                this.btnSalvarValido=false
-                return
-            }  
-            this.btnSalvarValido=true
-        
             try {
                 const request = this.requestBuild()
-                const response = await api.post("clientes", request);
+                const response = await api.post("projetos", request);
                 if (response.status === 201) {
-                    notificacaoStore.exibirNotificacao("Novo cliente", "Cliente cadastrado com sucesso", 'success');
+                    notificacaoStore.exibirNotificacao("Novo projeto", "Projeto cadastrado com sucesso", 'success');
                     this.reset()
-                    router.push('/clientes');
+                    router.push('/projetos');
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
                 }
             } catch (error) {
-                console.error("Erro ao cadastrar cliente:", error);
+                console.error("Erro ao cadastrar projeto:", error);
             }
         },
         async editar(id) {
             try {
                 const request = this.requestBuild()
-                const response = await api.put(`clientes/${id}`, request);
+                const response = await api.put(`projetos/${id}`, request);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
-                    notificacaoStore.exibirNotificacao("Cliente", "Cliente atualizado com sucesso", 'success');
+                    notificacaoStore.exibirNotificacao("Projeto", "Projeto atualizado com sucesso", 'success');
                     this.reset()
-                    router.push('/clientes');
+                    router.push('/projetos');
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
                 }
             } catch (error) {
-                console.error("Erro ao cadastrar cliente:", error);
+                console.error("Erro ao cadastrar projeto:", error);
             }
         },
         async cancelar() {
-            /*
-            TODO verificar se o formulario esta preenchido e perguntar 
-            se o usuário deseja descartar as informações cotnidas no fomrulario
-            */
-            router.push('/clientes');
+            router.push('/projetos');
         },
-        async carregarCliente(id) {
+        async carregarProjeto(id) {
             try {
-                const response = await api.get(`clientes/${id}`);
-                this.cliente = response.data;
+                const response = await api.get(`projetos/${id}`);
+                this.projeto = response.data;
+                console.log("OI", this.projeto)
             } catch (error) {
                 console.log(error);
                 throw error;
             }
         },
         async exibir(id) {
-            this.carregarCliente(id)
-            router.push(`/clientes/${id}`);
+            this.carregarProjeto(id)
+            router.push(`/projetos/${id}`);
         },
         async excluir(id) {
             try {
-                const response = await api.delete(`clientes/${id}`);
-                this.cliente = response.data;
+                const response = await api.delete(`projetos/${id}`);
+                this.projeto = response.data;
                 const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Excluir de cliente", `Cliente ${this.cliente.nome} excluído com sucesso`, 'success');
-                router.push('/clientes');
+                notificacaoStore.exibirNotificacao("Excluir de projeto", `Projeto ${this.projeto.nome} excluído com sucesso`, 'success');
+                router.push('/projetos');
             } catch (error) {
                 console.log(error);
                 throw error;
@@ -103,7 +96,7 @@ export const ClienteStore = defineStore('clienteStore', {
         handleDocumento() {
             try {
                 const notificacaoStore = NotificacaoStore();
-                const { documento } = this.cliente;
+                const { documento } = this.projeto;
                 const isValid = ValidarCPF(documento) || ValidarCNPJ(documento);
                 if (!isValid) {
                     notificacaoStore.exibirNotificacao(isValid ? 'Sucesso' : 'Erro', 'CPF ou CNPJ inválido', 'warning');
@@ -113,7 +106,7 @@ export const ClienteStore = defineStore('clienteStore', {
                     this.btnSalvarValido = true
                 }
 
-                if (!this.cliente.uuid)
+                if (!this.projeto.uuid)
                     this.ValidarDocumentoExiste(documento)
 
                 this.btnSalvarValido = true
@@ -123,10 +116,10 @@ export const ClienteStore = defineStore('clienteStore', {
         },
         async ValidarDocumentoExiste(documento) {
             try {
-                const response = await api.get(`clientes/findByDocumento/${documento}`);
+                const response = await api.get(`projetos/findByDocumento/${documento}`);
                 const notificacaoStore = NotificacaoStore();
                 if (response.data) {
-                    notificacaoStore.exibirNotificacao('Erro', `Já existe um cliente cadastrado com o CPF/CNPJ ${documento}`, 'warning');
+                    notificacaoStore.exibirNotificacao('Erro', `Já existe um projeto cadastrado com o CPF/CNPJ ${documento}`, 'warning');
                     this.btnSalvarValido = false
                     return
                 } 
@@ -136,12 +129,15 @@ export const ClienteStore = defineStore('clienteStore', {
         },
         requestBuild() {
             return {
-                ...this.cliente,
-                setor: this.cliente.setor.uuid,
+                ...this.projeto,
+                setor: this.projeto.setor.uuid,
+                cliente: this.projeto.cliente.uuid,
+                data_inicio: moment(this.projeto.data_inicio).format('YYYY-MM-DD'),
+                data_fim: moment(this.projeto.data_fim).format('YYYY-MM-DD')
             };
         },
         async validarEmail(){
-            const response = await api.get(`clientes/findByEmail/${this.cliente.email}`)
+            const response = await api.get(`projetos/findByEmail/${this.projeto.email}`)
             if (response.data.length > 0) {
                 const notificacaoStore = NotificacaoStore();
                 notificacaoStore.exibirNotificacao('Atenção', response.data, 'warning');
@@ -150,11 +146,14 @@ export const ClienteStore = defineStore('clienteStore', {
             }
         },
         reset() {
-            this.cliente = {
+            this.projeto = {
+                cliente: {
+                    uuid: null
+                },
                 setor: {
                     uuid: ""
                 },
-            };
+            }
         }
     },
 })
