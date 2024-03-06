@@ -9,7 +9,11 @@
             </div>
         </template>
         <el-table v-if="projetoStore.projetos.length > 0" :data="projetoStore.projetos" stripe style="width: 700%">
-            <el-table-column prop="cliente" label="Nome" width="240" />
+            <el-table-column prop="cliente" label="Orçamento" width="240">
+                <template #default="cliente">
+                 {{ cliente.row.cliente.nome }}
+                </template>
+            </el-table-column>
             <el-table-column prop="responsavel" label="Responsável" width="240" />
 
             <el-table-column prop="orcamento" label="Orçamento" width="100">
@@ -30,7 +34,11 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="setor" label="Setor" width="150" />
+            <el-table-column prop="setor" label="Setor" width="150">
+                <template #default="setor">
+                 {{ setor.row.setor.descricao }}
+                </template>
+            </el-table-column>
 
             <el-table-column prop="situacao" label="Situação" width="110">
                 <template #default="projeto">

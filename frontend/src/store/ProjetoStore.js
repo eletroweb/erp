@@ -3,11 +3,15 @@ import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
 import { ValidarCPF, ValidarCNPJ } from '@/common/util'
+import moment from 'moment'
 
 export const useProjetoStore = defineStore('projetoStore', {
     state: () => ({
         projetos: [],
         projeto: {
+            cliente: {
+                uuid: null
+            },
             setor: {
                 uuid: ""
             },
@@ -30,13 +34,6 @@ export const useProjetoStore = defineStore('projetoStore', {
         },
         async cadastrar() {
             const notificacaoStore = NotificacaoStore();
-            if(this.projeto.telefone==null || this.projeto.telefone.length==0){
-                notificacaoStore.exibirNotificacao("Atenção", "O telefone deve ser informado", 'warning');
-                this.btnSalvarValido=false
-                return
-            }  
-            this.btnSalvarValido=true
-        
             try {
                 const request = this.requestBuild()
                 const response = await api.post("projetos", request);
@@ -74,6 +71,7 @@ export const useProjetoStore = defineStore('projetoStore', {
             try {
                 const response = await api.get(`projetos/${id}`);
                 this.projeto = response.data;
+                console.log("OI", this.projeto)
             } catch (error) {
                 console.log(error);
                 throw error;
@@ -133,6 +131,9 @@ export const useProjetoStore = defineStore('projetoStore', {
             return {
                 ...this.projeto,
                 setor: this.projeto.setor.uuid,
+                cliente: this.projeto.cliente.uuid,
+                data_inicio: moment(this.projeto.data_inicio).format('YYYY-MM-DD'),
+                data_fim: moment(this.projeto.data_fim).format('YYYY-MM-DD')
             };
         },
         async validarEmail(){
@@ -146,10 +147,13 @@ export const useProjetoStore = defineStore('projetoStore', {
         },
         reset() {
             this.projeto = {
+                cliente: {
+                    uuid: null
+                },
                 setor: {
                     uuid: ""
                 },
-            };
+            }
         }
     },
 })

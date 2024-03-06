@@ -4,7 +4,7 @@ import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
 import { ValidarCPF, ValidarCNPJ } from '@/common/util'
 
-export const useClienteStore = defineStore('clienteStore', {
+export const ClienteStore = defineStore('clienteStore', {
     state: () => ({
         clientes: [],
         cliente: {
@@ -23,6 +23,7 @@ export const useClienteStore = defineStore('clienteStore', {
                 console.log(error);
                 throw error;
             }
+            return this.clientes
         },
         async novo() {
             this.reset()

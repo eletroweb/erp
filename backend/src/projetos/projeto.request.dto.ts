@@ -2,7 +2,7 @@ export class ProjetoRequestDto {
   cliente: string;
   setor: string;
   responsavel: string;
-  situacao?: number;
+  situacao?: boolean;
   orcamento?: number;
   data_inicio?: Date;
   data_fim?: Date;

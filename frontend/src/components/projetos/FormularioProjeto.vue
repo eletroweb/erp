@@ -6,16 +6,16 @@
                     {{ this.id ? "Editar" : "Cadastrar" }}
                     Cliente</span>
                 <el-popover :visible="confirmacaoVisivel" placement="top" :width="200" v-if="id">
-                    <p>Deseja confirma a exclusão do cliente
+                    <p>Deseja confirma a exclusão do projeto
                         <el-tag type="danger">
-                            {{ clienteStore.cliente.nome }}
+                            {{ projetoStore.projeto.uuid }}
                         </el-tag>
                     </p>
                     <div style="text-align: right; margin: 0; display: flex;">
                         <el-button size="small" type="primary" plain
                             @click="confirmacaoVisivel = false">Cancelar</el-button>
                         <el-button size="small" type="danger"
-                            @click="clienteStore.excluir(clienteStore.cliente.uuid)">Confirmar</el-button>
+                            @click="projetoStore.excluir(projetoStore.projeto.uuid)">Confirmar</el-button>
                     </div>
                     <template #reference>
                         <el-button type="danger" @click="confirmacaoVisivel = true">Excluir</el-button>
@@ -25,48 +25,29 @@
             </div>
         </template>
 
-        <el-form :model="clienteStore.cliente" label-width="120px">
+        <el-form :model="projetoStore.projeto" label-width="120px">
 
-            <el-form-item label="Nome">
-                <el-col :span="11">
-                    <el-form-item label="">
-                        <el-input v-model="clienteStore.cliente.nome" name="nome" />
-                    </el-form-item>
-                </el-col>
+            <el-form-item label="Cliente">
                 <el-col :span="13">
-                    <el-form-item label="CPF ou CNPJ">
-                        <el-input v-model="clienteStore.cliente.documento" @blur="clienteStore.handleDocumento" name="documento" />
-                    </el-form-item>
-                </el-col>
-            </el-form-item>
-
-            <el-form-item label="Estado">
-                <el-col :span="6">
-                    <el-select v-model="clienteStore.cliente.estado" placeholder="Selecione o Estado" name="uf">
-                        <el-option label="PB" value="PB" />
+                    <el-select v-model="projetoStore.projeto.cliente.uuid" 
+                    name="contrato"
+                    placeholder="Selecionar o cliente..." style="width: 240px">
+                        <el-option
+                        v-for="item in clientes"
+                        :key="item.uuid"
+                        :label="item.nome"
+                        :value="item.uuid"
+                        />
                     </el-select>
                 </el-col>
-                <el-col :span="18">
-                    <el-form-item label="Cidade">
-                        <el-input v-model="clienteStore.cliente.cidade" name="cidade"/>
-                    </el-form-item>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="E-mail">
-                <el-col :span="11">
-                    <el-form-item label="">
-                        <el-input v-model="clienteStore.cliente.email" name="email" @blur="clienteStore.validarEmail()"/>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="13">
-                    <el-form-item label="Telefone">
-                        <el-input v-model="clienteStore.cliente.telefone" name="telefone"/>
-                    </el-form-item>
-                </el-col>
             </el-form-item>
 
+            <el-form-item label="Responsável">
+                <el-input v-model="projetoStore.projeto.responsavel" name="responsavel" id="responsavel"/>
+            </el-form-item >
+
             <el-form-item label="Setor">
-                <el-radio-group v-model="clienteStore.cliente.setor.uuid" class="ml-4" name="setor">
+                <el-radio-group v-model="projetoStore.projeto.setor.uuid" class="ml-4" name="setor">
                     <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
                         <el-radio ce :label="setor.uuid" size="large">
                             {{ setor.descricao }}
@@ -75,30 +56,49 @@
                 </el-radio-group>
             </el-form-item>
 
-            <el-form-item label="Endereço">
-                <el-input v-model="clienteStore.cliente.endereco" name="endereco" id="endereco"/>
+            <el-form-item label="Orçamento">
+                <el-input v-model="projetoStore.projeto.orcamento" placeholder="Orçamento">
+                    <template #prepend>R$</template>
+                </el-input>
             </el-form-item>
 
-            <el-form-item label="Complemento">
-                <el-input v-model="clienteStore.cliente.complemento" type="textarea" name="complemento" id="complemento" />
+            
+            <el-form-item label="Início">
+                <el-col :span="5">
+                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_inicio"
+                        type="date" placeholder="Data Início" style="width: 100%" />
+                </el-col>
+                <el-col :span="2">
+                    <span style=" margin-left: 18px;">
+                        Fim
+                    </span>
+                </el-col>
+                <el-col :span="5">
+                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_fim" type="date"
+                        placeholder="Data Fim" style="width: 100%" />
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="Observação">
+                <el-input v-model="projetoStore.projeto.observacao" type="textarea" name="observacao" id="observacao" />
             </el-form-item>
 
             <el-form-item label="Situação">
-                <el-switch v-model="clienteStore.cliente.situacao" />
+                <el-switch v-model="projetoStore.projeto.situacao" />
             </el-form-item>
 
             <el-form-item>
 
-                <el-button :disabled="!clienteStore.btnSalvarValido" v-if="this.id == null" type="primary"
-                    @click="clienteStore.cadastrar()">
+                <el-button :disabled="!projetoStore.btnSalvarValido" v-if="this.id == null" type="primary"
+                    @click="projetoStore.cadastrar()">
                     Salvar
                 </el-button>
 
-                <el-button v-else type="primary" @click="clienteStore.editar(clienteStore.cliente.uuid)">
+                <el-button v-else type="primary" @click="projetoStore.editar(projetoStore.projeto.uuid)">
                     Salvar alterações
                 </el-button>
 
-                <el-button class="btn" @click="clienteStore.cancelar()">Cancelar</el-button>
+                <el-button class="btn" @click="projetoStore.cancelar()">Cancelar</el-button>
             </el-form-item>
 
         </el-form>
@@ -106,20 +106,22 @@
 </template>
 
 <script>
-import { useClienteStore } from '../../store/ClienteStore'
+import { useProjetoStore } from '@/store/ProjetoStore'
+import { ClienteStore } from '../../store/ClienteStore'
 import { SetorStore } from '../../store/SetorStore'
 
 export default {
     setup() {
-        const clienteStore = useClienteStore()
+        const projetoStore = useProjetoStore()
 
-        return { clienteStore }
+        return { projetoStore }
     },
     data() {
         return {
             confirmacaoVisivel: false,
             id: null,
-            setores: null,
+            setores: [],
+            clientes: [],
             setorSelecionado: null
         }
     },
@@ -128,12 +130,14 @@ export default {
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
         if (uuidPattern.test(this.$route.params.id)) {
             this.id = this.$route.params.id
-            this.clienteStore.carregarCliente(this.id)
+            this.projetoStore.carregarProjeto(this.id)
         }
 
         const setorStore = SetorStore()
-        const setores = await setorStore.listar()
-        this.setores = setores;
+        this.setores = await setorStore.listar();      
+        
+        const clienteStore = ClienteStore()
+        this.clientes = await clienteStore.listar();
     },
     methods: {
     }
