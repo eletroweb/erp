@@ -4,7 +4,7 @@
             <div class="card-header">
                 <span>
                     {{ this.id ? "Editar" : "Cadastrar" }}
-                    Cliente</span>
+                    Projeto</span>
                 <el-popover :visible="confirmacaoVisivel" placement="top" :width="200" v-if="id">
                     <p>Deseja confirma a exclusão do projeto
                         <el-tag type="danger">
@@ -102,6 +102,14 @@
             </el-form-item>
 
         </el-form>
+    </el-card>
+    <br>
+    <el-card class="box-card">
+        <template #header>
+            <div class="card-header">
+                <span>Atividades do Projeto</span>
+            </div>
+        </template>
     </el-card>
 </template>
 
