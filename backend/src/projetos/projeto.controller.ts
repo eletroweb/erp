@@ -1,6 +1,5 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, Res, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, Res, NotFoundException } from '@nestjs/common';
 import { ProjetoService } from './projeto.service';
-import { ProjetoEntity } from './projeto.entity';
 import { ProjetoResponseDto } from './projeto.response.dto';
 import { ProjetoRequestDto } from './projeto.request.dto';
 

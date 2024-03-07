@@ -71,6 +71,10 @@ RF4.3 Excluir Projeto
 RF4.4 Listar Projeto
 RF4.5 Desativar/Ativar Projeto
 RF4.6 Vincular cliente ao projeto
+RF4.7 Adicionar atividade ao projeto
+RF4.8 Remover atividade do projeto
+RF4.9 Editar atividade do projeto
+RF4.10 Listar atividades do projeto
 
 ## Serviços
 RF5.1 Cadastrar Serviço
