@@ -37,7 +37,7 @@
 
             <el-form-item label="Início">
                 <el-col :span="5">
-                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_inicio"
+                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_inicio" name="data_inicio"
                         type="date" placeholder="Data Início" style="width: 100%" />
                 </el-col>
                 <el-col :span="2">
@@ -46,7 +46,7 @@
                     </span>
                 </el-col>
                 <el-col :span="5">
-                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_fim" type="date"
+                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_fim" type="date" name="data_fim"
                         placeholder="Data Fim" style="width: 100%" />
                 </el-col>
             </el-form-item>
