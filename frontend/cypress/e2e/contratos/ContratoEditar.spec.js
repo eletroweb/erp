@@ -23,6 +23,5 @@ describe('Contratos', () => {
         cy.get('input[name="data_fim"]').clear().type('29/03/2024')
         cy.contains("Situação").click()
         cy.contains("Salvar alterações").click()
-
     })
 })
