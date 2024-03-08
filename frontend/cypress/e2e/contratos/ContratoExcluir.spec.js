@@ -1,24 +1,22 @@
 describe('Contrato', () => {
-    it('Listar Contratos', () => {
-        cy.visit('http://localhost:5173/')
-        cy.contains('Contratos').click()
-   })
-   it('Cadastrar Contrato', () => {
-        cy.visit('http://localhost:5173/')
-        cy.contains('Contratos').click()
-        cy.get('.btnCadastrar').click()
-        cy.get('input[name="nome"]').type('Serviço Elétrico')
-        cy.get('input[placeholder="Orçamento"]').type('8900')
-        cy.get('input[name="data_inicio"]').click()
-        cy.get('.el-date-table').contains('.available', '4').click()
-        cy.get('input[name="data_fim"]').type('21/03/2024')
-        cy.contains("Situação").click()
-        cy.contains("Salvar").click()
-        cy.contains('Contratos').click()       
-    })
+    it('Cadastrar contrato', () => {
+        cy.fixture('contrato.json').then((contrato) => {
+            cy.visit('http://localhost:5173/');
+            cy.contains('Contratos').click();
+            cy.get('.btnCadastrar').click();
+            cy.preencherFormularioContrato({
+                nome: 'Contrato 1',
+                orcamento: '20000',
+                data_fim: '21/03/2024'
+              });
+            cy.contains("Situação").click();
+            cy.contains("Salvar").click();
+        });
+    });
+
     it('Excluir contrato', () => {
-        cy.visit('http://localhost:5173/contratos')
-        cy.contains('Contratos').click()
+        cy.visit('http://localhost:5173/');
+        cy.contains('Contratos').click();
         cy.contains('Editar').click()
         cy.contains('Excluir').click()
         cy.contains('Confirmar').click()
