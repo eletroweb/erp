@@ -30,7 +30,7 @@
 
             <el-form-item label="Orçamento">
 
-                <el-input v-model="contratoStore.contrato.orcamento" placeholder="Orçamento">
+                <el-input v-model="contratoStore.contrato.orcamento" placeholder="Orçamento" name="orcamento">
                     <template #prepend>R$</template>
                 </el-input>
             </el-form-item>
@@ -45,7 +45,7 @@
                         Fim
                     </span>
                 </el-col>
-                <el-col :span="5">
+                <el-col :span="10">
                     <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_fim" type="date" name="data_fim"
                         placeholder="Data Fim" style="width: 100%" />
                 </el-col>

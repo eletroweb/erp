@@ -16,13 +16,12 @@ describe('Servico', () => {
     it('Editar serviço', () => {
         cy.visit('http://localhost:5173/')
         cy.contains('Serviços').click()
-        cy.contains('Editar').click()
-        //cy.get('.btnEditar').click()      
+        cy.contains('Editar').click()    
         cy.get('input[name="descricao"').clear().type('Parte Elétrica')
         cy.get('input[name="valor"').clear().type('6800')
         cy.contains("Segurança do Trabalho").click()
         //cy.contains("Situação")
         cy.contains("Salvar alterações").click()
-        //cy.contains("Serviço alterado com sucesso")
+
     })
 })
