@@ -1,0 +1,17 @@
+describe('Cliente', () => {
+  it('RF2.13 Editar Cliente', () => {
+    cy.visit('http://localhost:5173/clientes')
+    cy.contains('Editar').click()
+    cy.contains('Editar Cliente')
+    cy.get('input[name="nome"').clear().type('Cliente 1 Editado')
+    cy.get('input[name="documento"').clear().type('56.437.025/0001-01')
+    cy.contains("PB").click()
+    cy.get('input[name="cidade"').clear().type('João Pessoa Editado')
+    cy.contains("Engenharia Cívil").click()
+    cy.get('#endereco').clear().type('Rua Exemplo Editado')
+    cy.get('#complemento').type('N 123, próximo do XPTO Editado')
+    cy.contains("Situação").click()
+    cy.contains("Salvar").click()
+    cy.contains("Cliente atualizado com sucesso")
+  })
+})

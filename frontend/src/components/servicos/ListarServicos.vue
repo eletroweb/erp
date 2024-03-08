@@ -18,7 +18,7 @@
 
             <el-table-column prop="situacao" label="Situação" width="150">
                 <template #default="servico">
-                    <el-tag v-if="servico.row.situacao === 1" type="success">Ativado</el-tag>
+                    <el-tag v-if="servico.row.situacao" type="success">Ativado</el-tag>
                     <el-tag v-else type="info">Desativado</el-tag>
                 </template>
             </el-table-column>
@@ -68,6 +68,6 @@ export default {
  }
 
  .box-card {
-     width: 900px;
+     width: 99%;
  }
 </style>

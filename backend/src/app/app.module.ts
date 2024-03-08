@@ -3,25 +3,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SetorModule } from '../setores/setor.module';
-import { SetorEntity } from '../setores/setor.entity';
 
 import { ClienteModule } from '../clientes/cliente.module';
-import { ClienteEntity } from '../clientes/cliente.entity';
-import { ProjetoEntity } from 'src/projetos/projeto.entity';
 import { ProjetoModule } from 'src/projetos/projeto.module';
 import { UsuarioModule } from 'src/usuarios/usuario.module';
 import { ContratoModule } from 'src/contratos/contrato.module';
 import { ServicoModule } from 'src/servicos/servico.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.DB_HOST,
       port: 3306,
-      username: 'root',
-      password: '@fabio052',
-      database: 'erp',
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       //entities: [SetorEntity, ClienteEntity, ProjetoEntity, ContatoEntity],
       autoLoadEntities: true,
       synchronize: true, // Sincronizar automaticamente o esquema (apenas para ambiente de desenvolvimento)

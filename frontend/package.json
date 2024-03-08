@@ -10,14 +10,18 @@
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "test:unit": "cypress run --component",
-    "test:unit:dev": "cypress open --component"
+    "test:unit:dev": "cypress open --component",
+    "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.6.7",
+    "cypress-multi-reporters": "^1.6.4",
     "element-plus": "^2.5.4",
+    "mocha-junit-reporter": "^2.2.1",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",
+    "save-dev": "^0.0.1-security",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },

@@ -2,9 +2,10 @@
     "name": "erp",
     "version": "1.0.0",
     "scripts": {
-      "start:backend": "cd backend && npm run start:dev",
-      "start:frontend": "cd frontend && npm run dev",
-      "start:e2e": "cd frontend && npm run test:e2e:dev"
+      "backend": "cd backend && npm run start:dev",
+      "frontend": "cd frontend && npm run dev",
+      "e2e": "cd frontend && npm run test:e2e:dev",
+      "e2e-report": "cd frontend && npm run report"
     }
   }
   

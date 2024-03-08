@@ -10,7 +10,7 @@ import { ContratoService } from 'src/contratos/contrato.service';
 @Injectable()
 export class ServicoService {
   constructor(
-    @InjectRepository(ServicoEntity) 
+    @InjectRepository(ServicoEntity)
     private servicoRepository: Repository<ServicoEntity>,
     private setorService: SetorService,
     private contratoService: ContratoService
@@ -21,7 +21,27 @@ export class ServicoService {
   }
 
   async findOneByUuid(uuid: string): Promise<ServicoEntity> {
-    const servico = await this.servicoRepository.findOne({ where: { uuid } });
+    const servico = await this.servicoRepository
+      .findOne(
+        {
+          where: { uuid },
+          relations: ['contrato', 'setor'],
+          select: {
+            id: true,
+            uuid: true,
+            descricao: true,
+            situacao: true,
+            valor: true,
+            contrato: {
+              uuid: true,
+              descricao: true,
+            },
+            setor: {
+              uuid: true,
+              descricao: true,
+            },
+          },
+        });
     if (!servico) {
       throw new NotFoundException('Serviço não localizado');
     }
@@ -36,9 +56,12 @@ export class ServicoService {
     return this.servicoRepository.save(createdServico);
   }
 
-  async update(uuid: string, request: ServicoEntity): Promise<ServicoEntity> {
-    const setor = await this.findOneByUuid(uuid);
-    const updatedServico = this.servicoRepository.merge(setor, request);
+  async update(uuid: string, request: ServicoRequestDto): Promise<ServicoEntity> {
+    const servicoOrigin = await this.findOneByUuid(uuid);
+    const setor = await this.setorService.findOneByUuid(request.setor)
+    const contrato = await this.contratoService.findOneByUuid(request.contrato)
+    const servicoTarget = ServicoEntity.fromRequestDto(request, setor, contrato);
+    const updatedServico = this.servicoRepository.merge(servicoOrigin, servicoTarget);
     await this.servicoRepository.save(updatedServico);
     return updatedServico;
   }

@@ -25,7 +25,9 @@
         <el-form :model="servicoStore.servico" label-width="120px">
             <el-form-item label="Contrato">
                 <el-col :span="13">
-                    <el-select v-model="servicoStore.servico.contrato" placeholder="Selecionar o contrato..." style="width: 240px">
+                    <el-select v-model="servicoStore.servico.contrato.uuid" 
+                    name="contrato"
+                    placeholder="Selecionar o contrato..." style="width: 240px">
                         <el-option
                         v-for="item in contratos"
                         :key="item.uuid"
@@ -51,7 +53,7 @@
             </el-form-item>
 
             <el-form-item label="Área">
-                <el-radio-group v-model="servicoStore.servico.setor" class="ml-4" name="setor">
+                <el-radio-group v-model="servicoStore.servico.setor.uuid" class="ml-4" name="setor">
                     <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
                         <el-radio ce :label="setor.uuid" size="large">
                             {{ setor.descricao }}
@@ -96,6 +98,7 @@ export default {
             id: null,
             setores: [],
             setorSelecionado: null,
+            contratoSelecionado: null,
             contratos: []
         }
     },
@@ -110,20 +113,12 @@ export default {
         // Carrega os setores
         const setorStore = SetorStore()
         this.setores = await setorStore.listar();
-        this.getSetor()
 
         // Carrega os Contratos
         const contratoStore = ContratoStore()
         this.contratos = await contratoStore.listar();
     },
     methods: {
-        getSetor() {
-            if (this.servicoStore.servico.setor && this.servicoStore.servico.setor.uuid) {
-                this.setorSelecionado = this.servicoStore.servico.setor.uuid
-            } else {
-                this.setorSelecionado = this.setores[0].uuid
-            }
-        }
     }
 }
 </script>

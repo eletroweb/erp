@@ -10,7 +10,7 @@ export class ClienteResponseDto {
   cidade?: string;
   endereco?: string;
   complemento?: string;
-  situacao: number;
+  situacao: boolean;
   data_cadastro?: Date;
   data_atualizacao?: Date;
   setor?: SetorResponseDto;

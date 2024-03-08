@@ -4,7 +4,7 @@ import { SetorResponseDto } from '../setores/setor.response.dto';
 export class ServicoResponseDto {
   uuid: string;
   descricao: string;
-  situacao: number;
+  situacao: boolean;
   valor: number;
   contrato?: ContratoResponseDto;
   data_cadastro?: Date;
