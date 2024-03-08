@@ -17,7 +17,7 @@ export class ServicoService {
   ) { }
 
   async findAll(): Promise<ServicoEntity[]> {
-    return this.servicoRepository.find();
+    return this.servicoRepository.find({relations: ['contrato', 'setor']});
   }
 
   async findOneByUuid(uuid: string): Promise<ServicoEntity> {

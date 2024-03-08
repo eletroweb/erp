@@ -3,7 +3,7 @@ describe('Contratos', () => {
         cy.visit('http://localhost:5173/')
         cy.contains('Contratos').click()
         cy.get('.btnCadastrar').click()
-        cy.get('input[name="nome"]').type('Serviço de Fundação')
+        cy.get('input[name="nome"]').type('Contrato 1')
         cy.get('input[name="orcamento"]').type('20000')
         cy.get('input[name="data_inicio"]').click()
         cy.get('.el-date-table').contains('.available', '4').click()

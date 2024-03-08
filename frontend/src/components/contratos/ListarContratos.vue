@@ -8,11 +8,11 @@
                 </el-button>
             </div>
         </template>
-        <el-table v-if="contratoStore.contratos.length > 0" :data="contratoStore.contratos" stripe style="width: 700px">
+        <el-table v-if="contratoStore.contratos.length > 0" :data="contratoStore.contratos" stripe style="width: 100%">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
-            <el-table-column prop="descricao" label="Descrição" width="200" />
+            <el-table-column prop="descricao" label="Descrição" width="400" />
 
-            <el-table-column prop="orcamento" label="Orçamento" width="150">
+            <el-table-column prop="orcamento" label="Orçamento" width="300">
                 <template #default="orcamento">
                     <el-tag type="info">
                         R$ {{ orcamento.row.orcamento }}</el-tag>
@@ -119,6 +119,6 @@ export default {
  }
 
  .box-card {
-     width: 900px;
+     width: 99%;
  }
 </style>
