@@ -45,6 +45,30 @@ RF5.5 Associar contrato ao serviço
 RF5.6 Asscoiar setor ao Serviço
 RF5.7 Desativar/Ativar Serviço
 
+# Padrão de nomeclatura de branch e de commit
+Branches devem possui os seguintes prefixos para cada caso
+
+feature 
+    caso seja implementação de uma nova funcionalidade
+bug
+    Caso seja um bug
+test
+    Caso seja implementação de teste
+
+Além o prefixo deve-se usar o sufixo com o numero do card que gerou essa demanda,
+exemplo:
+
+feature/1
+bug/2
+test/3
+
+## Mensagens dos commits
+As mensagens dos commits devem possui o exemplo
+
+git commit -m "feature/1 RF3.1 Cadastrar Contrato"
+git commit -m "test/3 RF3.1 Cadastrar Contrato"
+git commit -m "bug/6 RF3.1 Cadastrar Contrato"
+
 ## Como configurar o ambiente
 
 1. Instale o mysql/mariadb
