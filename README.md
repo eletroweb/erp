@@ -45,6 +45,12 @@ RF5.5 Associar contrato ao serviço
 RF5.6 Asscoiar setor ao Serviço
 RF5.7 Desativar/Ativar Serviço
 
+# Atividades do Projeto
+RF6.1 Listar Atividades do projeto
+RF6.2 Associar atividade ao projeto
+RF6.3 Remover associação de atividade do projeto
+RF6.4 Editar Atividade do projeto
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 
@@ -65,7 +71,7 @@ test/3
 ## Mensagens dos commits
 As mensagens dos commits devem possui o exemplo
 
-git commit -m "feature/1 RF3.1 Cadastrar Contrato"
+git commit -m "feature/32 RF3.1 Cadastrar Contrato"
 git commit -m "test/3 RF3.1 Cadastrar Contrato"
 git commit -m "bug/6 RF3.1 Cadastrar Contrato"
 
