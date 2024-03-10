@@ -1,12 +1,8 @@
-// projeto.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SetorService } from 'src/setores/setor.service';
-import { ClienteService } from 'src/clientes/cliente.service';
-import { UsuarioService } from 'src/usuarios/usuario.service';
 import { ProjetoAtividadesEntity } from './projeto.atividade.entity';
-import { ProjetoEntity } from '../projeto.entity';
 import { ProjetoAtividadeRequestDto } from './projeto.atividade.request';
 import { ProjetoService } from '../projeto.service';
 import { BaseEntity } from 'src/app/base.entity';
@@ -30,6 +26,17 @@ export class ProjetoAtividadeService {
     const projetoAtividade = ProjetoAtividadesEntity.fromRequestDto(request, projeto, setor);
     const createdProjeto = this.repository.create(projetoAtividade);
     return this.repository.save(createdProjeto);
+  }
+
+  async update(uuid: string, request: ProjetoAtividadeRequestDto): Promise<ProjetoAtividadesEntity> {
+    const atividadeOrigin = await this.findOneByUuid(uuid);
+    const setor = await this.setorService.findOneByUuid(request.setor)
+    const projeto = await this.projetoService.findOneByUuid(request.projeto)
+    const atividadeTarget = ProjetoAtividadesEntity.fromRequestDto(request, projeto, setor);
+    const updatedAtividade = this.repository.merge(atividadeOrigin, atividadeTarget);
+    await this.repository.save(updatedAtividade);
+
+    return updatedAtividade;
   }
 
   async delete(uuid: string){
