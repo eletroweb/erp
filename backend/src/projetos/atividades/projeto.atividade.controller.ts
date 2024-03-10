@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ProjetoAtividadesEntity } from './projeto.atividade.entity';
 import { ProjetoAtividadeService } from './projeto.atividade.service';
 import { ProjetoAtividadeRequestDto } from './projeto.atividade.request';
@@ -16,6 +16,12 @@ export class ProjetoAtividadeController {
   @Post()
   async create(@Body() request: ProjetoAtividadeRequestDto): Promise<string> {
     const response = await this.service.create(request);
+    return JSON.stringify(response);
+  }
+
+  @Delete(':uuid')
+  async delete(@Param('uuid') uuid: string): Promise<string> {
+    const response = await this.service.delete(uuid);
     return JSON.stringify(response);
   }
 }
