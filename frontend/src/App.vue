@@ -1,7 +1,7 @@
 <template>
   <el-container class="layout-container-demo">
     <el-aside width="200px">
-      <!-- img src="/images/logo.png" style="margin-left: 20px;" -->
+      <img src="/images/logo.png" style="margin-left: 20px;">
       <el-menu default-active="1" class="el-menu-vertical-demo" :router="true">
         <el-menu-item index="/">
           <el-icon>

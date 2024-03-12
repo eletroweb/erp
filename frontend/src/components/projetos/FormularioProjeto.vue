@@ -104,21 +104,19 @@
         </el-form>
     </el-card>
     <br>
-    <el-card class="box-card">
-        <template #header>
-            <div class="card-header">
-                <span>Atividades do Projeto</span>
-            </div>
-        </template>
-    </el-card>
+    <AtividadesProjeto />
 </template>
 
 <script>
 import { useProjetoStore } from '@/store/ProjetoStore'
 import { ClienteStore } from '../../store/ClienteStore'
 import { SetorStore } from '../../store/SetorStore'
+import AtividadesProjeto from './projeto.atividades.vue'
 
 export default {
+    components: {
+        AtividadesProjeto,
+    },
     setup() {
         const projetoStore = useProjetoStore()
 
@@ -169,4 +167,4 @@ export default {
  .box-card {
      width: 900px;
  }
-</style>
+</style>./projeto.atividades.vue
