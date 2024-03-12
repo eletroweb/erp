@@ -587,6 +587,117 @@
 			"name": "Projetos",
 			"item": [
 				{
+					"name": "Atividades",
+					"item": [
+						{
+							"name": "Listar Atividade",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/projetos-atividades",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projetos-atividades"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Atividade",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"projeto\": \"b943709e-cd25-4a07-9f96-b556b8e770ad\",\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": true,\r\n    \"data_inicio\": \"2024-03-06\",\r\n    \"data_fim\": \"2024-03-06\",\r\n    \"descricao\": \"Atividade B\",\r\n    \"observacao\": \"NA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/projetos-atividades",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projetos-atividades"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar atividade",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/projetos-atividades/6021babc-9cbd-43ac-84c7-f078c5a0952b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projetos-atividades",
+										"6021babc-9cbd-43ac-84c7-f078c5a0952b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Exibir atividade",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/projetos-atividades/9b3ef4d0-4714-49a5-a605-05684bed1ef8",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projetos-atividades",
+										"9b3ef4d0-4714-49a5-a605-05684bed1ef8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar atividade",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"projeto\": \"b943709e-cd25-4a07-9f96-b556b8e770ad\",\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": true,\r\n    \"data_inicio\": \"2024-03-06\",\r\n    \"data_fim\": \"2024-03-06\",\r\n    \"descricao\": \"Atividade C\",\r\n    \"observacao\": \"NA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/projetos-atividades/9b3ef4d0-4714-49a5-a605-05684bed1ef8",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projetos-atividades",
+										"9b3ef4d0-4714-49a5-a605-05684bed1ef8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Listar",
 					"request": {
 						"method": "GET",
@@ -611,7 +722,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"cliente\": \"216e9443-c1a4-4d24-a5b8-3237dbc5f7c5\",\r\n  \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n  \"responsavel\": \"dd6ae8dd-d146-41be-811c-9c5fa1cf86da\",\r\n  \"situacao\": 1,\r\n  \"orcamento\": \"1500.00\",\r\n  \"data_inicio\": \"2024-01-10\",\r\n  \"data_fim\": \"2024-12-31\",\r\n  \"observacao\": \"N/A\"\r\n}",
+							"raw": "{\r\n    \"uuid\": \"4e20b675-0f19-4487-bede-9d683d4afab8\",\r\n    \"cliente\": {\r\n        \"uuid\": \"be9bb3f7-4ba8-4375-bfa6-8b42ca991d64\",\r\n        \"nome\": \"Cliente 1\",\r\n        \"telefone\": \"839999999\",\r\n        \"email\": \"cliente12@gmail.com\",\r\n        \"documento\": \"123.914.130-09\",\r\n        \"estado\": \"PB\",\r\n        \"cidade\": \"João Pessoa\",\r\n        \"endereco\": \"Rua Exemplo\",\r\n        \"complemento\": \"N 123, próximo do XPTO\",\r\n        \"situacao\": true\r\n    },\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n    \"responsavel\": \"Alguem\",\r\n    \"situacao\": true,\r\n    \"orcamento\": \"1500.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\",\r\n    \"observacao\": \"N/A\",\r\n    \"data_cadastro\": \"2024-03-06T14:27:16.000Z\",\r\n    \"data_atualizacao\": \"2024-03-06T14:27:16.000Z\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -637,7 +748,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"descricao\": \"Contrato de Exemplo 123\",\r\n    \"situacao\": 0,\r\n    \"orcamento\": \"1700.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\"\r\n}",
+							"raw": "{\r\n    \"uuid\": \"4e20b675-0f19-4487-bede-9d683d4afab8\",\r\n    \"cliente\": \"be9bb3f7-4ba8-4375-bfa6-8b42ca991d64\",\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n    \"responsavel\": \"Alguem\",\r\n    \"situacao\": true,\r\n    \"orcamento\": \"1500.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\",\r\n    \"observacao\": \"N/A\",\r\n    \"data_cadastro\": \"2024-03-06T14:27:16.000Z\",\r\n    \"data_atualizacao\": \"2024-03-06T14:27:16.000Z\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -645,13 +756,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"raw": "{{baseUrl}}/projetos/4e20b675-0f19-4487-bede-9d683d4afab8",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+								"4e20b675-0f19-4487-bede-9d683d4afab8"
 							]
 						}
 					},
@@ -663,13 +774,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/projetos/6e2e96bb-c36c-11ee-a1ba-641c679a799a",
+							"raw": "{{baseUrl}}/projetos/4e20b675-0f19-4487-bede-9d683d4afab8",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"6e2e96bb-c36c-11ee-a1ba-641c679a799a"
+								"4e20b675-0f19-4487-bede-9d683d4afab8"
 							]
 						}
 					},
