@@ -9,15 +9,12 @@
             </div>
         </template>
         <el-table v-if="clienteStore.clientes.length > 0" :data="clienteStore.clientes" stripe style="width: 700px%">
-            <!-- el-table-column prop="uuid" label="ID" width="300" / -->
-            <el-table-column prop="nome" label="Nome" width="200" />
-            <el-table-column prop="telefone" label="Telefone" width="100" />
-            <el-table-column prop="email" label="E-mail" width="200" />
-            <el-table-column prop="cidade" label="Cidade" width="150" />
-
+            <el-table-column prop="nome" label="Nome" width="250" />
+            <el-table-column prop="telefone" label="Telefone" width="120" />
+            <el-table-column prop="email" label="E-mail" width="250" />
             <el-table-column prop="situacao" label="Situação" width="100">
                 <template #default="cliente">
-                    <el-tag v-if="cliente.row.situacao === 1" type="success">Ativado</el-tag>
+                    <el-tag v-if="cliente.row.situacao" type="success">Ativado</el-tag>
                     <el-tag v-else type="info">Desativado</el-tag>
                 </template>
             </el-table-column>
@@ -35,11 +32,11 @@
 </template>
 
 <script>
-import { useClienteStore } from '@/store/ClienteStore'
+import { ClienteStore } from '@/store/ClienteStore'
 
 export default {
     setup() {
-        const clienteStore = useClienteStore()
+        const clienteStore = ClienteStore()
         clienteStore.listar()
         return { clienteStore }
     },

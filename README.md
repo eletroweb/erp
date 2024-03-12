@@ -1,5 +1,80 @@
 # ERP - Enterprise Resource Planning
 
+# Requisitos
+
+## Setor 
+RF1.1 Cadastrar Setor
+RF1.2 Editar Setor
+RF1.3 Excluir Setor
+RF1.4 Listar Setor
+RF1.7 Desativar/Ativar Setor
+
+## Cliente
+RF2.1 Cadastrar Cliente
+RF2.2 Editar Cliente
+RF2.3 Excluir Cliente
+RF2.4 Listar Clientes
+RF2.5 Associar contrato ao serviço
+RF2.6 Asscoiar setor ao Cliente
+RF2.7 Desativar/Ativar Cliente
+RF2.8 Validar duplicidade de email
+RF2.9 Validar duplicidade de CPF/CNPJ
+RF2.10 Validar telefone
+
+## Contrato 
+RF3.1 Cadastrar Contrato
+RF3.2 Editar Contrato
+RF3.3 Excluir Contrato
+RF3.4 Listar Contrato
+RF3.5 Desativar/Ativar Contrato
+
+## Projeto
+RF4.1 Cadastrar Projeto
+RF4.2 Editar Projeto
+RF4.3 Excluir Projeto
+RF4.4 Listar Projeto
+RF4.5 Desativar/Ativar Projeto
+RF4.6 Vincular cliente ao projeto
+
+## Serviços
+RF5.1 Cadastrar Serviço
+RF5.2 Editar Serviço
+RF5.3 Excluir Serviço
+RF5.4 Listar Serviço
+RF5.5 Associar contrato ao serviço
+RF5.6 Asscoiar setor ao Serviço
+RF5.7 Desativar/Ativar Serviço
+
+# Atividades do Projeto
+RF6.1 Listar Atividades do projeto
+RF6.2 Associar atividade ao projeto
+RF6.3 Remover associação de atividade do projeto
+RF6.4 Editar Atividade do projeto
+
+# Padrão de nomeclatura de branch e de commit
+Branches devem possui os seguintes prefixos para cada caso
+
+feature 
+    caso seja implementação de uma nova funcionalidade
+bug
+    Caso seja um bug
+test
+    Caso seja implementação de teste
+
+Além o prefixo deve-se usar o sufixo com o numero do card que gerou essa demanda,
+exemplo:
+
+feature/1
+bug/2
+test/3
+
+## Mensagens dos commits
+As mensagens dos commits devem possui o exemplo
+
+git commit -m "feature/32 RF3.1 Cadastrar Contrato"
+git commit -m "test/3 RF3.1 Cadastrar Contrato"
+git commit -m "bug/6 RF3.1 Cadastrar Contrato"
+
 ## Como configurar o ambiente
 
 1. Instale o mysql/mariadb
@@ -34,3 +109,73 @@ git push origin -d nomebranch
  bin\kc.bat start-dev
 
 http://localhost:8080/
+
+# Backend
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+# Frontend
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Run Headed Component Tests with [Cypress Component Testing](https://on.cypress.io/component)
+
+```sh
+npm run test:unit:dev # or `npm run test:unit` for headless testing
+```
+
+### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+
+```sh
+npm run test:e2e:dev
+```
+
+This runs the end-to-end tests against the Vite development server.
+It is much faster than the production build.
+
+But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+
+```sh
+npm run build
+npm run test:e2e
+```

@@ -1,0 +1,20 @@
+describe('Cliente', () => {
+  it('Validar duplicidade de email', () => {
+    const emailMock = 'fulano@gmail.com'
+    cy.visit('http://localhost:5173/')
+    cy.contains('Clientes').click()
+    cy.get('.btnCadastrar').click()
+    cy.get('input[name="nome"').type('Cliente 1')
+    cy.get('input[name="documento"').type('56.876.713/0001-78')
+    cy.contains("Selecione o Estado").click()
+    cy.contains("PB").click()
+    cy.get('input[name="cidade"').type('João Pessoa')
+    cy.get('input[name="email"').type(emailMock)
+  //  cy.get('input[name="telefone"').type('')
+    cy.contains("Engenharia Cívil").click()
+    cy.get('#endereco').type('Rua Exemplo')
+    cy.contains("Situação").click()
+    cy.contains("Salvar").click()
+    cy.contains("O telefone deve ser informado")
+  })
+})

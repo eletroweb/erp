@@ -32,13 +32,13 @@ export class ProjetoController {
   }
 
   @Put(':uuid')
-  async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() projetoEntity: ProjetoEntity): Promise<string> {
-    const updatedProjeto = await this.projetoService.update(uuid, projetoEntity);
+  async update(@Param('uuid') uuid: string, @Body() request: ProjetoRequestDto): Promise<string> {
+    const updatedProjeto = await this.projetoService.update(uuid, request);
     return JSON.stringify(updatedProjeto);
   }
 
   @Delete(':uuid')
-  async remove(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string): Promise<string> {
+  async remove(@Param('uuid') uuid: string): Promise<string> {
     const deletedProjeto = await this.projetoService.remove(uuid);
     return JSON.stringify(deletedProjeto);
   }

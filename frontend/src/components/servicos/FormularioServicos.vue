@@ -26,6 +26,7 @@
             <el-form-item label="Contrato">
                 <el-col :span="13">
                     <el-select v-model="servicoStore.servico.contrato.uuid" 
+                    name="contrato"
                     placeholder="Selecionar o contrato..." style="width: 240px">
                         <el-option
                         v-for="item in contratos"

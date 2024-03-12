@@ -25,21 +25,19 @@
 
         <el-form :model="contratoStore.contrato" label-width="120px">
             <el-form-item label="Nome">
-                <el-input v-model="contratoStore.contrato.descricao" />
+                <el-input v-model="contratoStore.contrato.descricao" name="nome" />
             </el-form-item>
 
             <el-form-item label="Orçamento">
 
-                <el-input v-model="contratoStore.contrato.orcamento" placeholder="Orçamento">
+                <el-input v-model="contratoStore.contrato.orcamento" placeholder="Orçamento" name="orcamento">
                     <template #prepend>R$</template>
                 </el-input>
             </el-form-item>
 
-
-
             <el-form-item label="Início">
                 <el-col :span="5">
-                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_inicio"
+                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_inicio" name="data_inicio"
                         type="date" placeholder="Data Início" style="width: 100%" />
                 </el-col>
                 <el-col :span="2">
@@ -47,8 +45,8 @@
                         Fim
                     </span>
                 </el-col>
-                <el-col :span="5">
-                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_fim" type="date"
+                <el-col :span="10">
+                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="contratoStore.contrato.data_fim" type="date" name="data_fim"
                         placeholder="Data Fim" style="width: 100%" />
                 </el-col>
             </el-form-item>

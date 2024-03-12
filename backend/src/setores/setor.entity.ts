@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { SetorResponseDto } from './setor.response.dto';
+import { Situacao } from 'src/enum/situacao.enum';
 
 @Entity('setores')
 export class SetorEntity {
@@ -31,7 +32,7 @@ export class SetorEntity {
     return {
       uuid: this.uuid,
       descricao: this.descricao,
-      situacao: this.situacao,
+      situacao: this.situacao == Situacao.ATIVO,
     };
   }
 }

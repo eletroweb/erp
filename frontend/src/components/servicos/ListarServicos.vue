@@ -8,9 +8,13 @@
                 </el-button>
             </div>
         </template>
-        <el-table v-if="servicoStore.servicos.length > 0" :data="servicoStore.servicos" stripe style="width: 700px%">
-            <el-table-column prop="descricao" label="Descrição" width="400" />
+        <el-table v-if="servicoStore.servicos.length > 0" :data="servicoStore.servicos" stripe style="width: 700px">
+            <!-- el-table-column prop="uuid" label="ID" width="300" / -->
+            <el-table-column prop="descricao" label="Descrição" width="200" />
+            <el-table-column prop="situacao" label="Situação" width="70" />
             <el-table-column prop="valor" label="Valor" width="150" />
+            <el-table-column prop="contrato_id" label="Contrato" width="150" />
+
 
             <el-table-column prop="situacao" label="Situação" width="150">
                 <template #default="servico">
@@ -64,6 +68,6 @@ export default {
  }
 
  .box-card {
-     width: 900px;
+     width: 99%;
  }
 </style>

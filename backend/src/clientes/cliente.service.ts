@@ -21,7 +21,13 @@ export class ClienteService {
   async findOneByUuid(uuid: string): Promise<ClienteEntity> {
     const cliente = await this.clienteRepository.findOne({
       where: { uuid },
-      relations: ['setor']
+      relations: ['setor'],
+      select: {
+        setor: {
+          uuid: true,
+          descricao: true,
+        },
+      },
     });
     if (!cliente) {
       throw new NotFoundException('Cliente não localizado');
@@ -44,9 +50,11 @@ export class ClienteService {
     return this.clienteRepository.save(createdCliente);
   }
 
-  async update(uuid: string, request: ClienteEntity): Promise<ClienteEntity> {
-    const setor = await this.findOneByUuid(uuid);
-    const updatedCliente = this.clienteRepository.merge(setor, request);
+  async update(uuid: string, request: ClienteRequestDto): Promise<ClienteEntity> {
+    const clienteOrigin = await this.findOneByUuid(uuid);
+    const setor = await this.setorService.findOneByUuid(request.setor)
+    const clienteTarget = ClienteEntity.fromRequestDto(request, setor);
+    const updatedCliente = this.clienteRepository.merge(clienteOrigin, clienteTarget);
     await this.clienteRepository.save(updatedCliente);
     return updatedCliente;
   }

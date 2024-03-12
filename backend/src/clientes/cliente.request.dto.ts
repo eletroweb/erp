@@ -7,6 +7,6 @@ export class ClienteRequestDto {
     cidade?: string;
     endereco?: string;
     complemento?: string;
-    situacao?: number;
+    situacao?: boolean;
     setor?: string;
   }

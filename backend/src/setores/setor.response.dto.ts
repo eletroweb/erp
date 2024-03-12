@@ -2,5 +2,5 @@
 export class SetorResponseDto {
     readonly uuid: string;
     readonly descricao: string;
-    readonly situacao: number;
+    readonly situacao: boolean;
   }  
