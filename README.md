@@ -49,6 +49,18 @@ RF5.5 Associar contrato ao serviço
 RF5.6 Asscoiar setor ao Serviço
 RF5.7 Desativar/Ativar Serviço
 
+## Atividade do projeto
+RF6.1 Cadastrar Ordem Serviço
+RF6.2 Editar Atividade do projeto
+RF6.3 Excluir Atividade do projeto
+RF6.4 Listar Atividades do projeto
+
+## Ordem Serviços
+RF7.1 Cadastrar Ordem Serviço
+RF7.2 Editar Ordem Serviço
+RF7.3 Excluir Ordem Serviço
+RF7.4 Listar Ordem Serviço
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 
