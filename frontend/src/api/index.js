@@ -10,6 +10,7 @@ const api = axios.create({
     }
 })
 
+const token = `Bearer ${sessionStorage.getItem("token")}`
 const plainAxiosInstance = axios.create({
     baseURL: API_URL,
     withCredentials: true,
@@ -18,37 +19,36 @@ const plainAxiosInstance = axios.create({
     }
 })
 
-api.interceptors.request.use(config => {
-    const method = config.method.toUpperCase()
-    if (method !== 'OPTIONS' && method !== 'GET') {
-        config.headers = {
-            ...config.headers,
-            'X-CSRF-TOKEN': localStorage.csrf
-        }
+api.interceptors.request.use(async (config) => {
+    const method = config.method.toUpperCase();
+    if (token && method !== 'OPTIONS' && method !== 'GET') {
+      config.headers.authorization = `Bearer ${token}`;
     }
-    return config
-})
+  
+    return config;
+  });
 
 api.interceptors.response.use(null, error => {
-    if (error.response && error.response.config && error.response.status === 401) {
-        return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': localStorage.csrf } })
+    console.log(error.response);
+    /*if (error.response && error.response.config && error.response.status === 401) {
+        return plainAxiosInstance.post('/refresh', {}, { headers: { 'Authorization': token }})
             .then(response => {
-                localStorage.csrf = response.data.csrf
+                sessionStorage.getItem("token") = response.data.csrf
                 localStorage.signedIn = true
 
                 let retryConfig = error.response.config
-                retryConfig.headers['X-CSRF-TOKEN'] = localStorage.csrf
+                retryConfig.headers['Authorization'] = sessionStorage.getItem("token")
                 return plainAxiosInstance.request(retryConfig)
             }).catch(error => {
-                delete localStorage.csrf
+                delete sessionStorage.getItem("token")
                 delete localStorage.signedIn
 
-                location.replace('/')
+                //location.replace('/')
                 return Promise.reject(error)
             })
     } else {
         return Promise.reject(error)
-    }
+    }*/
 })
 
 export { api, plainAxiosInstance }

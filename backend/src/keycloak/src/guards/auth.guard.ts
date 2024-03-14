@@ -69,20 +69,16 @@ export class AuthGuard implements CanActivate {
   private hasAuthorizedRole(request: KeycloakedRequest, roles: (string | string[])[]): boolean {
     if (!roles || !request.grant || !("roles" in roles))
       return false;
-  
+
     const rolesArray = roles.roles as string[];
     const hasPermission = rolesArray.some(role =>
       Array.isArray(role)
-        ? role.every(innerRole => 
-            request.grant?.access_token?.content?.realm_access?.roles?.includes(innerRole)
-          )
+        ? role.every(innerRole =>
+          request.grant?.access_token?.content?.realm_access?.roles?.includes(innerRole)
+        )
         : request.grant?.access_token?.content?.realm_access?.roles?.includes(role)
-  );
-  
-  
+    );
 
-    console.log(request.grant?.access_token);
-  
     return hasPermission;
   }
 

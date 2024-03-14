@@ -11,13 +11,19 @@ import ListarServicos from '../components/servicos/ListarServicos.vue'
 import FormularioServicos from '../components/servicos/FormularioServicos.vue'
 import ListarProjeto from '@/components/projetos/ListarProjeto.vue'
 import FormularioProjeto from '@/components/projetos/FormularioProjeto.vue'
+import Login from '@/components/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
       component: HomeView
     },
     {
