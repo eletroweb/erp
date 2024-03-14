@@ -14,6 +14,7 @@ import {ContratoService} from "./contrato.service";
 import {ContratoResponseDto} from "./contrato.response.dto";
 import {ContratoRequestDto} from "./contrato.request.dto";
 import {ContratoEntity} from "./contrato.entity";
+import { Roles } from "nest-keycloak-connect";
 
 @Controller('contratos')
 export class ContratoController {
@@ -21,6 +22,7 @@ export class ContratoController {
     }
 
     @Get()
+    @Roles({ roles: ["CLIENTE_LISTAR"] })
     async findAll(): Promise<ContratoResponseDto[]> {
         const contratos = await this.contratoService.findAll();
         const contratosDto: ContratoResponseDto[] = contratos.map(contrato => contrato.toDto());
