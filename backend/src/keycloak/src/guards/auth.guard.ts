@@ -71,12 +71,15 @@ export class AuthGuard implements CanActivate {
       return false;
   
     const rolesArray = roles.roles as string[];
-    const hasPermission = true
-    /* const hasPermission = rolesArray.some(role =>
+    const hasPermission = rolesArray.some(role =>
       Array.isArray(role)
-        ? role.every(innerRole => request.grant?.access_token?.content?.realm_access?.roles.includes(innerRole))
-        : request.grant?.access_token?.content?.realm_access?.roles.includes(role)
-    );*/
+        ? role.every(innerRole => 
+            request.grant?.access_token?.content?.realm_access?.roles?.includes(innerRole)
+          )
+        : request.grant?.access_token?.content?.realm_access?.roles?.includes(role)
+  );
+  
+  
 
     console.log(request.grant?.access_token);
   

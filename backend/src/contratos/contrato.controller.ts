@@ -7,8 +7,7 @@ import {
     Post,
     ParseUUIDPipe,
     Delete,
-    Put,
-    UseFilters
+    Put
 } from "@nestjs/common";
 import {ContratoService} from "./contrato.service";
 import {ContratoResponseDto} from "./contrato.response.dto";
@@ -22,7 +21,7 @@ export class ContratoController {
     }
 
     @Get()
-    @Roles({ roles: ["CLIENTE_LISTAR"] })
+    @Roles({ roles: ["CONTRATO_LISTAR"] })
     async findAll(): Promise<ContratoResponseDto[]> {
         const contratos = await this.contratoService.findAll();
         const contratosDto: ContratoResponseDto[] = contratos.map(contrato => contrato.toDto());
