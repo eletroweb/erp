@@ -10,14 +10,7 @@
     </el-container>
   </el-container>
 
-
-  <el-container class="layout-container-demo" v-else>
-    <el-container>
-      <el-main>
-        <Login />
-      </el-main>
-    </el-container>
-  </el-container>
+  <Login  v-else />
 </template>
 
 <style scoped></style>
