@@ -1,30 +1,34 @@
 import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
+import { NotificacaoStore } from "../store/NotificacaoStore"
 
 export const LoginStore = defineStore('LoginStore', {
     state: () => ({
         authenticaded:  localStorage.getItem("authenticaded"),
-        login: {
-            username: "yonatha",
-            password: "123456"
+        user: {
+            username: null,
+            password: null
         }
     }),
     actions: {
-        async handleSubmit() {
+        async login() {
+            const notificacaoStore = NotificacaoStore();
             try {
-                const response = await api.post("/login", this.login);
+                const response = await api.post("/login", this.user);
                 if (response.status === 201) {
                     const {access_token} = response.data
                     localStorage.setItem("token", access_token);
                     localStorage.setItem("authenticaded", true);
                     this.login = {}
                     location.replace('/dashboard')
+                    notificacaoStore.exibirNotificacao("Seja Bem Vindo", "Autenticação realizada com sucesso", 'success');
                 } else {
-                    console.error(response.statusText);
+                    notificacaoStore.exibirNotificacao("Erro", response.statusText, 'warning');
                 }
             } catch (error) {
                 console.error("Erro ao tentar efetuar login:", error);
+                notificacaoStore.exibirNotificacao("Erro", "Serviço indisponível.", 'error');
             }
         },
         async logout() {
