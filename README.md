@@ -123,6 +123,8 @@ git push origin -d nomebranch
 # Keycloak
  bin\kc.bat start-dev
 
+C:\Program Files\keycloak-23.0.6\bin
+
 http://localhost:8080/
 
 # Backend

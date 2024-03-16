@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { NotificacaoStore } from "../store/NotificacaoStore"
 
 const API_URL = `http://localhost:3000/`
 
@@ -10,7 +11,6 @@ const api = axios.create({
     }
 })
 
-const token = `Bearer ${sessionStorage.getItem("token")}`
 const plainAxiosInstance = axios.create({
     baseURL: API_URL,
     withCredentials: true,
@@ -20,18 +20,15 @@ const plainAxiosInstance = axios.create({
 })
 
 api.interceptors.request.use(async (config) => {
-    const method = config.method.toUpperCase();
-    if (token && method !== 'OPTIONS' && method !== 'GET') {
-      config.headers.authorization = `Bearer ${token}`;
-    }
-  
+    config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
     return config;
-  });
+});
 
 api.interceptors.response.use(null, error => {
-    console.log(error.response);
-    /*if (error.response && error.response.config && error.response.status === 401) {
-        return plainAxiosInstance.post('/refresh', {}, { headers: { 'Authorization': token }})
+    const notificacaoStore = NotificacaoStore();
+    if (error.response && error.response.config && error.response.status === 401) {
+        notificacaoStore.exibirNotificacao("Atenção", "Você não possui permissão para acessar este recurso", 'warning');
+        /*return plainAxiosInstance.post('/refresh', {}, { headers: { 'Authorization': token }})
             .then(response => {
                 sessionStorage.getItem("token") = response.data.csrf
                 localStorage.signedIn = true
@@ -45,10 +42,11 @@ api.interceptors.response.use(null, error => {
 
                 //location.replace('/')
                 return Promise.reject(error)
-            })
+            })*/
+
     } else {
         return Promise.reject(error)
-    }*/
+    }
 })
 
 export { api, plainAxiosInstance }

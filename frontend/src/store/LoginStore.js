@@ -15,8 +15,10 @@ export const LoginStore = defineStore('LoginStore', {
                 const response = await api.post("/login", this.login);
                 if (response.status === 201) {
                     const {access_token} = response.data
-                    console.log(access_token);
-                    sessionStorage.setItem('token', access_token);
+
+
+                    console.log(response.data);
+                    localStorage.setItem("token", access_token);
                     this.login = {}
                     //router.push('/dashboard');
                 } else {

@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    if (jwt) {
+    if (jwt && jwt != 'null') {
       grant = await this.keycloak.grantManager.createGrant({
         "access_token": jwt
       });

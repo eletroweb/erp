@@ -12,7 +12,8 @@ export const ContratoStore = defineStore('contratoStore', {
         async listar() {
             try {
                 const response = await api.get(`contratos`);
-                this.contratos = response.data;
+                if (response)
+                    this.contratos = response.data;    
             } catch (error) {
                 console.log(error);
                 throw error;
