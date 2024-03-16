@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { LoginStore } from '@/store/LoginStore'
+import HomeView from '../views/DashboardView.vue'
 import ListarSetores from '../components/setores/ListarSetores.vue'
 import FormularioSetores from '../components/setores/FormularioSetores.vue'
 import ListarContratos from '../components/contratos/ListarContratos.vue'
@@ -11,14 +12,21 @@ import ListarServicos from '../components/servicos/ListarServicos.vue'
 import FormularioServicos from '../components/servicos/FormularioServicos.vue'
 import ListarProjeto from '@/components/projetos/ListarProjeto.vue'
 import FormularioProjeto from '@/components/projetos/FormularioProjeto.vue'
+import Login from '@/components/app/Login.vue'
+import DashboardView from '@/views/DashboardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/clientes',
@@ -96,6 +104,14 @@ const router = createRouter({
       component: FormularioProjeto
     },
   ]
+})
+
+
+
+router.beforeEach((to, from, next) => {
+ const login = LoginStore()
+  if (login.isLoggedIn()) next()
+  else next('/login')
 })
 
 export default router

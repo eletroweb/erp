@@ -7,13 +7,13 @@ import {
     Post,
     ParseUUIDPipe,
     Delete,
-    Put,
-    UseFilters
+    Put
 } from "@nestjs/common";
 import {ContratoService} from "./contrato.service";
 import {ContratoResponseDto} from "./contrato.response.dto";
 import {ContratoRequestDto} from "./contrato.request.dto";
 import {ContratoEntity} from "./contrato.entity";
+import { Roles } from "nest-keycloak-connect";
 
 @Controller('contratos')
 export class ContratoController {
@@ -21,6 +21,7 @@ export class ContratoController {
     }
 
     @Get()
+    @Roles({ roles: ["CONTRATO_LISTAR"] })
     async findAll(): Promise<ContratoResponseDto[]> {
         const contratos = await this.contratoService.findAll();
         const contratosDto: ContratoResponseDto[] = contratos.map(contrato => contrato.toDto());
@@ -28,6 +29,7 @@ export class ContratoController {
     }
 
     @Get(':uuid')
+    @Roles({ roles: ["CONTRATO_EXIBIR"] })
     async findOne(@Param('uuid') uuid: string): Promise<ContratoResponseDto> {
         const contrato = await this.contratoService.findOneByUuid(uuid);
         if (!contrato)
@@ -36,18 +38,21 @@ export class ContratoController {
     }
 
     @Post()
+    @Roles({ roles: ["CONTRATO_CADASTRAR"] })
     async create(@Body() request: ContratoRequestDto): Promise<string> {
         const createdContrato = await this.contratoService.create(request);
         return JSON.stringify(createdContrato);
     }
 
     @Put(':uuid')
+    @Roles({ roles: ["CONTRATO_EDITAR"] })
     async update(@Param('uuid', new ParseUUIDPipe({version: '4'})) uuid: string, @Body() contratoEntity: ContratoEntity): Promise<string> {
         const updatedContrato = await this.contratoService.update(uuid, contratoEntity);
         return JSON.stringify(updatedContrato);
     }
 
     @Delete(':uuid')
+    @Roles({ roles: ["CONTRATO_EXCLUIR"] })
     async remove(@Param('uuid') uuid: string): Promise<string> {
         const deletedContrato = await this.contratoService.remove(uuid);
         return JSON.stringify(deletedContrato);

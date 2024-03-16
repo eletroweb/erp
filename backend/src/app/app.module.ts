@@ -10,9 +10,17 @@ import { UsuarioModule } from 'src/usuarios/usuario.module';
 import { ContratoModule } from 'src/contratos/contrato.module';
 import { ServicoModule } from 'src/servicos/servico.module';
 import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard, KeycloakConnectModule, ResourceGuard } from 'src/keycloak/src';
 
 @Module({
   imports: [
+    KeycloakConnectModule.register({
+      authServerUrl: 'http://localhost:8080/',
+      realm: 'agilmax',
+      clientId: 'erp-web',
+      secret: '34bj1W9wNVBYQsP9bkaUxV6JwwVBosxb',
+    }),
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -33,6 +41,16 @@ import { ConfigModule } from '@nestjs/config';
     ServicoModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ResourceGuard,
+    },
+  ],
 })
 export class AppModule {}

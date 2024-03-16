@@ -62,6 +62,10 @@ RF7.2 Editar Ordem Serviço
 RF7.3 Excluir Ordem Serviço
 RF7.4 Listar Ordem Serviço
 
+## Autenticação
+RF8.1 Login de usuário
+RF8.2 Cadastro de usuário
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 
@@ -118,6 +122,8 @@ git push origin -d nomebranch
 
 # Keycloak
  bin\kc.bat start-dev
+
+C:\Program Files\keycloak-23.0.6\bin
 
 http://localhost:8080/
 
