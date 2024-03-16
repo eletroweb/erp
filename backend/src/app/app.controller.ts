@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Render, Req, Res, Session } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Post, Render, Req, Res, Session, UnauthorizedException } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { PublicPath } from 'src/keycloak/src/decorators/public-path.decorator';
 import { KeycloakService } from 'src/keycloak/src/keycloak.service';
@@ -32,10 +32,16 @@ export class AppController {
         return res;
       }
     } catch (e) {
-      throw new HttpException({
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
-        error: e.message,
-      }, HttpStatus.INTERNAL_SERVER_ERROR);
+      const statusCode = e.statusCode
+      switch (statusCode) {
+        case HttpStatus.UNAUTHORIZED:
+          throw new UnauthorizedException();
+        default:
+          throw new HttpException({
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            error: e.message,
+          }, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
   }
 
