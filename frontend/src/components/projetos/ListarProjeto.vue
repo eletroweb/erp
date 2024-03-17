@@ -8,13 +8,13 @@
                 </el-button>
             </div>
         </template>
-        <el-table v-if="projetoStore.projetos.length > 0" :data="projetoStore.projetos" stripe style="width: 700%">
-            <el-table-column prop="cliente" label="Orçamento" width="240">
+        <el-table v-if="projetoStore.projetos.length > 0" :data="projetoStore.projetos" stripe style="width: 99%">
+            <el-table-column prop="cliente" label="Cliente" width="250">
                 <template #default="cliente">
                  {{ cliente.row.cliente.nome }}
                 </template>
             </el-table-column>
-            <el-table-column prop="responsavel" label="Responsável" width="240" />
+            <el-table-column prop="responsavel" label="Responsável" width="200" />
 
             <el-table-column prop="orcamento" label="Orçamento" width="100">
                 <template #default="projeto">
@@ -31,12 +31,6 @@
             <el-table-column prop="data_fim" label="Data Fim" width="100">
                 <template #default="projeto">
                  {{ $moment.format(projeto.row.data_fim) }}
-                </template>
-            </el-table-column>
-
-            <el-table-column prop="setor" label="Setor" width="150">
-                <template #default="setor">
-                 {{ setor.row.setor.descricao }}
                 </template>
             </el-table-column>
 

@@ -21,7 +21,7 @@ export class ContratoController {
     }
 
     @Get()
-    @Roles({ roles: ["CONTRATO_LISTAR"] })
+    @Roles({ roles: ["MASTER","CONTRATO_LISTAR"] })
     async findAll(): Promise<ContratoResponseDto[]> {
         const contratos = await this.contratoService.findAll();
         const contratosDto: ContratoResponseDto[] = contratos.map(contrato => contrato.toDto());
@@ -29,7 +29,7 @@ export class ContratoController {
     }
 
     @Get(':uuid')
-    @Roles({ roles: ["CONTRATO_EXIBIR"] })
+    @Roles({ roles: ["MASTER","CONTRATO_EXIBIR"] })
     async findOne(@Param('uuid') uuid: string): Promise<ContratoResponseDto> {
         const contrato = await this.contratoService.findOneByUuid(uuid);
         if (!contrato)
@@ -38,21 +38,21 @@ export class ContratoController {
     }
 
     @Post()
-    @Roles({ roles: ["CONTRATO_CADASTRAR"] })
+    @Roles({ roles: ["MASTER","CONTRATO_CADASTRAR"] })
     async create(@Body() request: ContratoRequestDto): Promise<string> {
         const createdContrato = await this.contratoService.create(request);
         return JSON.stringify(createdContrato);
     }
 
     @Put(':uuid')
-    @Roles({ roles: ["CONTRATO_EDITAR"] })
+    @Roles({ roles: ["MASTER","CONTRATO_EDITAR"] })
     async update(@Param('uuid', new ParseUUIDPipe({version: '4'})) uuid: string, @Body() contratoEntity: ContratoEntity): Promise<string> {
         const updatedContrato = await this.contratoService.update(uuid, contratoEntity);
         return JSON.stringify(updatedContrato);
     }
 
     @Delete(':uuid')
-    @Roles({ roles: ["CONTRATO_EXCLUIR"] })
+    @Roles({ roles: ["MASTER","CONTRATO_EXCLUIR"] })
     async remove(@Param('uuid') uuid: string): Promise<string> {
         const deletedContrato = await this.contratoService.remove(uuid);
         return JSON.stringify(deletedContrato);

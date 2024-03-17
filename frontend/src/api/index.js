@@ -26,7 +26,8 @@ api.interceptors.request.use(async (config) => {
 
 api.interceptors.response.use(null, error => {
     const notificacaoStore = NotificacaoStore();
-    if (error.response && error.response.config && error.response.status === 401) {
+    const {statusCode} = error.response.data
+    if (error.response && error.response.config && [401,403].includes(statusCode)) {
         notificacaoStore.exibirNotificacao("Atenção", "Você não possui permissão para acessar este recurso", 'warning');
         /*return plainAxiosInstance.post('/refresh', {}, { headers: { 'Authorization': token }})
             .then(response => {
@@ -45,6 +46,10 @@ api.interceptors.response.use(null, error => {
             })*/
 
     } else {
+        console.log("ERRO", error);
+        
+        console.log("statusCode", error.response.data);
+        console.log("statusCode", statusCode);
         return Promise.reject(error)
     }
 })

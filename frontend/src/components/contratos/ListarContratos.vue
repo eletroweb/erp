@@ -10,9 +10,9 @@
         </template>
         <el-table v-if="contratoStore.contratos.length > 0" :data="contratoStore.contratos" stripe style="width: 100%">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
-            <el-table-column prop="descricao" label="Descrição" width="400" />
+            <el-table-column prop="descricao" label="Descrição" width="350" />
 
-            <el-table-column prop="orcamento" label="Orçamento" width="300">
+            <el-table-column prop="orcamento" label="Orçamento" width="200">
                 <template #default="orcamento">
                     <el-tag type="info">
                         R$ {{ orcamento.row.orcamento }}</el-tag>

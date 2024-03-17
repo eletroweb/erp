@@ -3,13 +3,20 @@
         <template #header>
             <div class="card-header">
                 <span>Clientes</span>
-                <el-button class="btnCadastrar" type="success" @click="clienteStore.novo()" name="btnCadastrar">
-                    Cadastrar
-                </el-button>
+                
+            <el-button 
+                class="btnCadastrar" 
+                type="success" 
+                @click="clienteStore.novo()" 
+                name="btnCadastrar"
+                v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_CADASTRAR)">
+                Cadastrar
+            </el-button>
+
             </div>
         </template>
-        <el-table v-if="clienteStore.clientes.length > 0" :data="clienteStore.clientes" stripe style="width: 700px%">
-            <el-table-column prop="nome" label="Nome" width="250" />
+        <el-table v-if="clienteStore.clientes.length > 0" :data="clienteStore.clientes" stripe style="width: 99%">
+            <el-table-column prop="nome" label="Nome" width="400" />
             <el-table-column prop="telefone" label="Telefone" width="120" />
             <el-table-column prop="email" label="E-mail" width="250" />
             <el-table-column prop="situacao" label="Situação" width="100">
@@ -19,9 +26,16 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="situacao" label="">
+            <el-table-column prop="acao" label="">
                 <template #default="cliente">
-                    <el-button type="primary" size="small" @click="clienteStore.exibir(cliente.row.uuid)" plain>Editar</el-button>
+                    <el-button 
+                    type="primary" 
+                    size="small"
+                     @click="clienteStore.exibir(cliente.row.uuid)" 
+                     plain
+                     v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EDITAR)">
+                     Editar
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -33,12 +47,15 @@
 
 <script>
 import { ClienteStore } from '@/store/ClienteStore'
+import { AuthorizationStore } from '@/store/AuthorizationStore'
+import { RolesEnum } from '@/enum/RolesEnum'
 
 export default {
     setup() {
         const clienteStore = ClienteStore()
+        const authorizationStore = AuthorizationStore()
         clienteStore.listar()
-        return { clienteStore }
+        return { clienteStore, authorizationStore, RolesEnum }
     },
     mounted() {
     },
@@ -64,6 +81,6 @@ export default {
  }
 
  .box-card {
-     width: 900px;
+     width: 99%;
  }
-</style>
+</style>@/enum/SystemEnum@/enum/RolesEnum

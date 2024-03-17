@@ -2,7 +2,9 @@
   <el-menu  :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false">
     <div class="flex-grow" />
     <el-sub-menu index="1">
-      <template #title>Yonatha A Almeida</template>
+      <template #title>
+        {{ login.getUserInfo().fullName }}
+      </template>
       <el-menu-item index="2-1" @click="login.logout()">
         <el-link href="#">Sair</el-link>
       </el-menu-item>

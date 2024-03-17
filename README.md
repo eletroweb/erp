@@ -64,7 +64,9 @@ RF7.4 Listar Ordem Serviço
 
 ## Autenticação
 RF8.1 Login de usuário
-RF8.2 Cadastro de usuário
+
+## Autorização
+RF9.1 Impedir que usuário que não possui role, acesse funcionalidades não permitidas
 
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso

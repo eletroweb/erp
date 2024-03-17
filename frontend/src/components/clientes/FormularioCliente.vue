@@ -5,7 +5,9 @@
                 <span>
                     {{ this.id ? "Editar" : "Cadastrar" }}
                     Cliente</span>
-                <el-popover :visible="confirmacaoVisivel" placement="top" :width="200" v-if="id">
+                <el-popover 
+                :visible="confirmacaoVisivel" placement="top" :width="200" 
+                v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EXCLUIR) && id">
                     <p>Deseja confirma a exclusão do cliente
                         <el-tag type="danger">
                             {{ clienteStore.cliente.nome }}
@@ -88,13 +90,12 @@
             </el-form-item>
 
             <el-form-item>
-
-                <el-button :disabled="!clienteStore.btnSalvarValido" v-if="this.id == null" type="primary"
+                <el-button :disabled="!clienteStore.btnSalvarValido" v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_CADASTRAR) && this.id == null" type="primary"
                     @click="clienteStore.cadastrar()">
                     Salvar
                 </el-button>
 
-                <el-button v-else type="primary" @click="clienteStore.editar(clienteStore.cliente.uuid)">
+                <el-button v-else-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EDITAR)" type="primary" @click="clienteStore.editar(clienteStore.cliente.uuid)">
                     Salvar alterações
                 </el-button>
 
@@ -108,12 +109,14 @@
 <script>
 import { ClienteStore } from '../../store/ClienteStore'
 import { SetorStore } from '../../store/SetorStore'
+import { RolesEnum } from '@/enum/RolesEnum'
+import { AuthorizationStore } from '@/store/AuthorizationStore'
 
 export default {
     setup() {
         const clienteStore = ClienteStore()
-
-        return { clienteStore }
+        const authorizationStore = AuthorizationStore()
+        return { clienteStore, authorizationStore, RolesEnum }
     },
     data() {
         return {

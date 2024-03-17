@@ -3,12 +3,14 @@
         <template #header>
             <div class="card-header">
                 <span>Setores</span>
-                <el-button type="success" @click="setorStore.novo()">
+                <el-button 
+                type="success" @click="setorStore.novo()"
+                v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.SETOR_CADASTRAR)">
                     Cadastrar
                 </el-button>
             </div>
         </template>
-        <el-table v-if="setorStore.setores.length > 0" :data="setorStore.setores" stripe style="width: 700px%">
+        <el-table v-if="setorStore.setores.length > 0" :data="setorStore.setores" stripe style="width: 99%">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
             <el-table-column prop="descricao" label="Descrição" width="500" />
 
@@ -19,9 +21,12 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="situacao" label="">
+            <el-table-column prop="acao" label="">
                 <template #default="setor">
-                    <el-button type="primary" size="small" @click="setorStore.exibir(setor.row.uuid)" plain>Editar</el-button>
+                    <el-button type="primary" size="small" @click="setorStore.exibir(setor.row.uuid)" plain
+                    v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.SETOR_EDITAR)">
+                        Editar
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -33,12 +38,16 @@
 
 <script>
 import { SetorStore } from '@/store/SetorStore'
+import { AuthorizationStore } from '@/store/AuthorizationStore'
+import { RolesEnum } from '@/enum/RolesEnum'
 
 export default {
     setup() {
         const setorStore = SetorStore()
         setorStore.listar()
-        return { setorStore }
+
+        const authorizationStore = AuthorizationStore()
+        return { setorStore, authorizationStore, RolesEnum }
     },
     mounted() {
     },
@@ -64,6 +73,6 @@ export default {
  }
 
  .box-card {
-     width: 900px;
+     width: 99%;
  }
 </style>

@@ -36,11 +36,11 @@ export const ClienteStore = defineStore('clienteStore', {
                 this.btnSalvarValido=false
                 return
             }  
-            if(this.cliente.emailMock==null || this.cliente.emailMock.length==0){
+            /*if(this.cliente.emailMock==null || this.cliente.emailMock.length==0){
                 notificacaoStore.exibirNotificacao("Atenção", "O email deve ser informado", 'warning');
                 this.btnSalvarValido=false
                 return
-            } 
+            } */
             this.btnSalvarValido=true
         
             try {
