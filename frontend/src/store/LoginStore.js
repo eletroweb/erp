@@ -13,6 +13,7 @@ export const LoginStore = defineStore('LoginStore', {
         }
     }),
     actions: {
+        // RF8.1 Login de usuário
         async login() {
             const notificacaoStore = NotificacaoStore();
             const response = await api.post("/login", this.user);

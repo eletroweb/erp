@@ -64,6 +64,7 @@ RF7.4 Listar Ordem Serviço
 
 ## Autenticação
 RF8.1 Login de usuário
+O sistema deverá permitir que o usuário realize a autenticação através do email e senha
 
 ## Autorização
 RF9.1 Impedir que usuário que não possui role, acesse funcionalidades não permitidas
