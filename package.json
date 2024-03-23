@@ -5,7 +5,8 @@
       "backend": "cd backend && npm run start:dev",
       "frontend": "cd frontend && npm run dev",
       "e2e": "cd frontend && npm run test:e2e:dev",
-      "e2e-report": "cd frontend && npm run report"
+      "e2e-report": "cd frontend && npm run report",
+      "keycloak": "start \"Keycloak\" /D \"C:\\keycloak\\bin\" kc.bat start-dev"
     }
   }
   
