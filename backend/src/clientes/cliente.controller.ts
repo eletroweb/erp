@@ -44,7 +44,7 @@ export class ClienteController {
   }
 
   @Put(':uuid')
-  @Roles({ roles: ['MASTER','CLIENTE_EXIBIR'] })
+  @Roles({ roles: ['MASTER','CLIENTE_EDITAR'] })
   async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() request: ClienteRequestDto): Promise<string> {
     const updatedCliente = await this.clienteService.update(uuid, request);
     return JSON.stringify(updatedCliente);
