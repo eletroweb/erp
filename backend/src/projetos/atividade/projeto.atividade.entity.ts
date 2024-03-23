@@ -1,61 +1,70 @@
-import { SetorEntity } from 'src/setores/setor.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
-import { Situacao } from 'src/enum/situacao.enum';
-import { ProjetoEntity } from '../projeto.entity';
-import { ProjetoAtividadeResponseDto } from './projeto.atividade.response.dto';
+import { SetorEntity } from "src/setores/setor.entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { ProjetoEntity } from "../projeto.entity";
+import { Situacao } from "src/enum/situacao.enum";
+import { ProjetoAtividadesResponseDto } from "./projeto.atividade.response";
+import { ProjetoAtividadeRequestDto } from "./projeto.atividade.request";
+import { BaseEntity } from "src/app/base.entity";
 
 @Entity('projetos_atividades')
-export class ProjetoAtividadeEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class ProjetoAtividadesEntity extends BaseEntity {
 
-  @Column({ type: 'char', length: 36 })
-  uuid: string;
-
-  @Column({ nullable: false, length: 100 })
+  @Column({ type: 'varchar', length: 255 })
   descricao: string;
+
+  @ManyToOne(() => ProjetoEntity, { eager: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'projeto_id' })
+  projeto: ProjetoEntity;
+
+  @ManyToOne(() => SetorEntity, { eager: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'setor_id' })
+  setor: SetorEntity;
+
+  @Column({
+    type: 'enum',
+    enum: Situacao,
+  })
+  situacao: Situacao;
+
+  @Column({ type: 'date' })
+  data_inicio: Date;
+
+  @Column({ type: 'date' })
+  data_fim: Date;
 
   @Column({ type: 'text', nullable: true })
   observacao: string;
 
-  @ManyToOne(() => ProjetoEntity, { eager: true, nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'projeto_id' })
-  projeto: ProjetoEntity;
+  toDto(): ProjetoAtividadesResponseDto {
+    const dto = new ProjetoAtividadesResponseDto();
+    dto.uuid = this.uuid;
+    dto.descricao = this.descricao;
+    dto.projeto = this.projeto.toDto();
+    dto.setor = this.setor.toDto();
+    dto.situacao = this.situacao == Situacao.ATIVO;
+    dto.data_inicio = this.data_inicio;
+    dto.data_fim = this.data_fim;
+    dto.observacao = this.observacao;
+    dto.data_cadastro = this.data_cadastro;
+    dto.data_atualizacao = this.data_atualizacao;
+  
+    return dto;
+  }
 
-  @ManyToOne(() => SetorEntity, { eager: true, nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'setor_id' })
-  setor: SetorEntity;
-
-  @Column({ nullable: false, default: 0 })
-  situacao: Situacao;
-
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-  orcamento: number;
-
-  @Column({ nullable: true, type: 'date' })
-  data_inicio: Date;
-
-  @Column({ nullable: true, type: 'date' })
-  data_fim: Date;
-
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0 })
-  data_cadastro: Date;
-
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0 })
-  data_atualizacao: Date;
-
-  toDto(): ProjetoAtividadeResponseDto {
-    const projetoDto = new ProjetoAtividadeResponseDto();
-    projetoDto.uuid = this.uuid;
-    projetoDto.projeto =  this.projeto?.uuid
-    projetoDto.setor = this.setor.toDto()
-    projetoDto.situacao = this.situacao == Situacao.ATIVO;
-    projetoDto.data_inicio = this.data_inicio;
-    projetoDto.data_fim = this.data_fim;
-    projetoDto.observacao = this.observacao;
-    projetoDto.data_cadastro = this.data_cadastro;
-    projetoDto.data_atualizacao = this.data_atualizacao;
-
-    return projetoDto;
+  static fromRequestDto(
+    dto: ProjetoAtividadeRequestDto,
+    projeto: ProjetoEntity,
+    setor: SetorEntity,
+  ): ProjetoAtividadesEntity {
+    const entity = new ProjetoAtividadesEntity();
+    entity.descricao = dto.descricao;
+    entity.projeto = projeto;
+    entity.setor = setor;
+    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.data_inicio = dto.data_inicio;
+    entity.data_fim = dto.data_fim;
+    entity.observacao = dto.observacao;
+  
+    return entity;
   }
 }
