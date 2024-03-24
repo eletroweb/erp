@@ -16,21 +16,25 @@ export const LoginStore = defineStore('LoginStore', {
         // RF8.1 Login de usuário
         async login() {
             const notificacaoStore = NotificacaoStore();
-            const response = await api.post("/login", this.user);
-            if (response.status === 201) {
-                const { access_token } = response.data
-                if (!this.haveRoles(access_token)) {
-                    notificacaoStore.exibirNotificacao("Atenção", "Seu usuário não possui nenhuma permissão associada", 'warning');
+            try {
+                const response = await api.post("/login", this.user);
+                if (response.status === 201) {
+                    const { access_token } = response.data
+                    if (!this.haveRoles(access_token)) {
+                        notificacaoStore.exibirNotificacao("Atenção", "Seu usuário não possui nenhuma permissão associada", 'warning');
+                    } else {
+                        localStorage.setItem("token", access_token);
+                        localStorage.setItem("authenticaded", true);
+                        this.setUserinfoFromToken(access_token)
+                        this.login = {}
+                        location.replace('/dashboard')
+                        notificacaoStore.exibirNotificacao("Seja Bem Vindo", "Autenticação realizada com sucesso", 'success');
+                    }
                 } else {
-                    localStorage.setItem("token", access_token);
-                    localStorage.setItem("authenticaded", true);
-                    this.setUserinfoFromToken(access_token)
-                    this.login = {}
-                    location.replace('/dashboard')
-                    notificacaoStore.exibirNotificacao("Seja Bem Vindo", "Autenticação realizada com sucesso", 'success');
+                    notificacaoStore.exibirNotificacao("Erro", response.statusText, 'warning');
                 }
-            } else {
-                notificacaoStore.exibirNotificacao("Erro", response.statusText, 'warning');
+            } catch (e) {
+                console.log(e.message);
             }
         },
         haveRoles(token) {

@@ -193,7 +193,6 @@ CREATE TABLE os (
     uuid CHAR(36) DEFAULT (UUID()),
     cliente_id INT,
     descricao TEXT,
-    prazo DATE,
     situacao INT(1) DEFAULT 1,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

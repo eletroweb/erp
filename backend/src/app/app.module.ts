@@ -12,6 +12,7 @@ import { ServicoModule } from 'src/servicos/servico.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard, KeycloakConnectModule, ResourceGuard } from 'src/keycloak/src';
+import { OrdemServicoModule } from 'src/ordemServicos/ordemServico.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { AuthGuard, KeycloakConnectModule, ResourceGuard } from 'src/keycloak/sr
     ProjetoModule,
     UsuarioModule,
     ContratoModule,
-    ServicoModule
+    ServicoModule,
+    OrdemServicoModule
   ],
   controllers: [AppController],
   providers: [

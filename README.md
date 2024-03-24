@@ -69,6 +69,9 @@ O sistema deverá permitir que o usuário realize a autenticação através do e
 ## Autorização
 RF9.1 Impedir que usuário que não possui role, acesse funcionalidades não permitidas
 
+## Serviços da OS
+RF10.1 Associar Serviço a OS
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 
@@ -126,7 +129,7 @@ git push origin -d nomebranch
 # Keycloak
  bin\kc.bat start-dev
 
-C:\Program Files\keycloak-23.0.6\bin
+C:\Program Files\keycloak-23.0.6\bin\kc.bat start-dev
 
 http://localhost:8080/
 

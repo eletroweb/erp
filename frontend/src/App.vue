@@ -1,4 +1,4 @@
-<template>
+visibility: 'disabled'<template>
 
   <el-container class="layout-container-demo" v-if="login.isLoggedIn()">
     <MenuLateral />

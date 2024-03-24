@@ -46,10 +46,9 @@ api.interceptors.response.use(null, error => {
             })*/
 
     } else {
-        console.log("ERRO", error);
-        
-        console.log("statusCode", error.response.data);
-        console.log("statusCode", statusCode);
+        if (error.response.data.statusCode == 500) {
+            notificacaoStore.exibirNotificacao("Erro Interno", "Tente novamente mais tarde", 'error');
+        }
         return Promise.reject(error)
     }
 })

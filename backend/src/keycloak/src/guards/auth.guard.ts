@@ -41,7 +41,7 @@ export class AuthGuard implements CanActivate {
     let grant: KeycloakConnect.Grant | undefined;
     let user;
 
-    if (isPublic) {
+    if (isPublic || grant == undefined) {
       return true;
     }
 
