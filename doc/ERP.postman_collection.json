@@ -10,8 +10,28 @@
 			"name": "Setores",
 			"item": [
 				{
-					"name": "Setores Listar",
+					"name": "Setor Listar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -27,8 +47,28 @@
 					"response": []
 				},
 				{
-					"name": "Exibir setor",
+					"name": "Setor Exibir",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -45,8 +85,28 @@
 					"response": []
 				},
 				{
-					"name": "Cadastrar setor",
+					"name": "Setor Cadastrar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -71,8 +131,28 @@
 					"response": []
 				},
 				{
-					"name": "Editar setor",
+					"name": "Setor Editar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -98,8 +178,28 @@
 					"response": []
 				},
 				{
-					"name": "Editar lista setores",
+					"name": "Setor Editar lista",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -128,6 +228,26 @@
 				{
 					"name": "Alterar situacao do setor",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -154,8 +274,28 @@
 					"response": []
 				},
 				{
-					"name": "Deletar setor",
+					"name": "Setor Deletar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -620,8 +760,28 @@
 					"name": "Atividades",
 					"item": [
 						{
-							"name": "Listar Atividade",
+							"name": "Atividade Listar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "type",
+											"value": "string",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -637,13 +797,33 @@
 							"response": []
 						},
 						{
-							"name": "Cadastrar Atividade",
+							"name": "Atividade Cadastrar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "type",
+											"value": "string",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"projeto\": \"b9efbe05-b89c-469f-81d3-37ef14d96ed4\",\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": true,\r\n    \"data_inicio\": \"2024-03-01\",\r\n    \"data_fim\": \"2024-04-01\",\r\n    \"descricao\": \"Terra planagem\",\r\n    \"observacao\": \"NA\"\r\n}",
+									"raw": "{\r\n    \"projeto\": \"2b68b6e0-4b5d-4b7e-b14b-93f8592d8062\",\r\n    \"setor\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": true,\r\n    \"data_inicio\": \"2024-03-01\",\r\n    \"data_fim\": \"2024-04-01\",\r\n    \"descricao\": \"Revestimentos\",\r\n    \"observacao\": \"NA\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -663,49 +843,117 @@
 							"response": []
 						},
 						{
-							"name": "Deletar atividade",
+							"name": "Atividade Deletar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "type",
+											"value": "string",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/projetos-atividades/6021babc-9cbd-43ac-84c7-f078c5a0952b",
+									"raw": "{{baseUrl}}/projetos-atividades/a9450e1f-619e-489f-b84f-3daa5dc3dd2d",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"projetos-atividades",
-										"6021babc-9cbd-43ac-84c7-f078c5a0952b"
+										"a9450e1f-619e-489f-b84f-3daa5dc3dd2d"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Exibir atividade",
+							"name": "Atividade Exibir Por Projeto",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "type",
+											"value": "string",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/projetos-atividades/9b3ef4d0-4714-49a5-a605-05684bed1ef8",
+									"raw": "{{baseUrl}}/projetos-atividades/find-by-projeto/2b68b6e0-4b5d-4b7e-b14b-93f8592d8062",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"projetos-atividades",
-										"9b3ef4d0-4714-49a5-a605-05684bed1ef8"
+										"find-by-projeto",
+										"2b68b6e0-4b5d-4b7e-b14b-93f8592d8062"
+									],
+									"query": [
+										{
+											"key": "projetoUuid",
+											"value": "2b68b6e0-4b5d-4b7e-b14b-93f8592d8062",
+											"disabled": true
+										}
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Editar atividade",
+							"name": "Atividade Editar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "type",
+											"value": "string",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"projeto\": \"b943709e-cd25-4a07-9f96-b556b8e770ad\",\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": true,\r\n    \"data_inicio\": \"2024-03-06\",\r\n    \"data_fim\": \"2024-03-06\",\r\n    \"descricao\": \"Atividade C\",\r\n    \"observacao\": \"NA\"\r\n}",
+									"raw": "{\r\n    \"projeto\": \"2b68b6e0-4b5d-4b7e-b14b-93f8592d8062\",\r\n    \"setor\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": false,\r\n    \"data_inicio\": \"2024-03-01\",\r\n    \"data_fim\": \"2024-04-01\",\r\n    \"descricao\": \"Elétrica\",\r\n    \"observacao\": \"NA\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -713,13 +961,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/projetos-atividades/9b3ef4d0-4714-49a5-a605-05684bed1ef8",
+									"raw": "{{baseUrl}}/projetos-atividades/b206eec3-5813-4e20-b275-bf99205e19c2",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"projetos-atividades",
-										"9b3ef4d0-4714-49a5-a605-05684bed1ef8"
+										"b206eec3-5813-4e20-b275-bf99205e19c2"
 									]
 								}
 							},
@@ -728,8 +976,28 @@
 					]
 				},
 				{
-					"name": "Listar",
+					"name": "Projeto Listar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -746,13 +1014,33 @@
 					"response": []
 				},
 				{
-					"name": "Cadastrar",
+					"name": "Projeto Cadastrar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"uuid\": \"4e20b675-0f19-4487-bede-9d683d4afab8\",\r\n    \"cliente\": \"332190b8-3497-4ca1-9af8-1ea10d00ade5\",\r\n    \"setor\": \"dea04438-c2f3-11ee-a1ba-641c679a799a\",\r\n    \"responsavel\": \"Fulano\",\r\n    \"situacao\": true,\r\n    \"orcamento\": \"1500.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\",\r\n    \"observacao\": \"N/A\",\r\n    \"data_cadastro\": \"2024-03-06T14:27:16.000Z\",\r\n    \"data_atualizacao\": \"2024-03-06T14:27:16.000Z\"\r\n}",
+							"raw": "{\r\n    \"cliente\": \"bb6e45f6-1cf6-4fc9-95f6-4a8bc3574829\",\r\n    \"setor\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n    \"responsavel\": \"Fulano\",\r\n    \"situacao\": true,\r\n    \"orcamento\": \"1500.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\",\r\n    \"observacao\": \"N/A\",\r\n    \"data_cadastro\": \"2024-03-06T14:27:16.000Z\",\r\n    \"data_atualizacao\": \"2024-03-06T14:27:16.000Z\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -772,8 +1060,28 @@
 					"response": []
 				},
 				{
-					"name": "Editar",
+					"name": "Projeto Editar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -799,26 +1107,66 @@
 					"response": []
 				},
 				{
-					"name": "Exibir",
+					"name": "Projeto Exibir",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/projetos/b9efbe05-b89c-469f-81d3-37ef14d96ed4",
+							"raw": "{{baseUrl}}/projetos/2b68b6e0-4b5d-4b7e-b14b-93f8592d8062",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"b9efbe05-b89c-469f-81d3-37ef14d96ed4"
+								"2b68b6e0-4b5d-4b7e-b14b-93f8592d8062"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Deletar",
+					"name": "Projeto Deletar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -1118,7 +1466,7 @@
 					]
 				},
 				{
-					"name": "Listar clientes",
+					"name": "Cliente Listar",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1167,7 +1515,7 @@
 					"response": []
 				},
 				{
-					"name": "Cadastrar cliente",
+					"name": "Cliente Cadastrar",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1193,7 +1541,7 @@
 					"response": []
 				},
 				{
-					"name": "Editar cliente",
+					"name": "Cliente Editar",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -1220,7 +1568,7 @@
 					"response": []
 				},
 				{
-					"name": "Editar lista clientes",
+					"name": "Cliente Editar lista",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1248,7 +1596,7 @@
 					"response": []
 				},
 				{
-					"name": "Exibir cliente",
+					"name": "Cliente Exibir",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1286,7 +1634,7 @@
 					"response": []
 				},
 				{
-					"name": "findByDocumento",
+					"name": "Cliente findByDocumento",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1305,7 +1653,7 @@
 					"response": []
 				},
 				{
-					"name": "Exibir cliente Sem atributos",
+					"name": "Cliente  Exibir Sem atributos",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1323,7 +1671,7 @@
 					"response": []
 				},
 				{
-					"name": "Alterar situacao do cliente",
+					"name": "Cliente Alterar situação",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -1351,7 +1699,7 @@
 					"response": []
 				},
 				{
-					"name": "Deletar cliente",
+					"name": "Cliente Deletar",
 					"request": {
 						"method": "DELETE",
 						"header": [],
