@@ -1,5 +1,5 @@
 import { SetorEntity } from "src/setores/setor.entity";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 import { ProjetoEntity } from "../projeto.entity";
 import { Situacao } from "src/enum/situacao.enum";
 import { ProjetoAtividadesResponseDto } from "./projeto.atividade.response";

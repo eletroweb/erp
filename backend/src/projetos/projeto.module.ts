@@ -10,15 +10,14 @@ import { UsuarioModule } from 'src/usuarios/usuario.module';
 import { ProjetoAtividadeService } from './atividade/projeto.atividade.service';
 import { ProjetoAtividadeRepository } from './atividade/projeto.atividade.repository';
 import { ProjetoAtividadeController } from './atividade/projeto.atividade.controller';
-import { ProjetoAtividadeEntity } from './atividade/projeto.atividade.entity';
+import { ProjetoAtividadesEntity } from './atividade/projeto.atividade.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProjetoEntity, ProjetoAtividadeEntity]),
+    TypeOrmModule.forFeature([ProjetoEntity, ProjetoAtividadesEntity]),
     SetorModule,
     ClienteModule,
     UsuarioModule,
-    ProjetoAtividadeRepository
   ],
   controllers: [ProjetoController, ProjetoAtividadeController],
   providers: [
