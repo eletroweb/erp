@@ -4,6 +4,7 @@ import { ProjetoAtividadeRequestDto } from './projeto.atividade.request';
 import { BaseEntity } from 'src/app/base.entity';
 import { ProjetoAtividadesResponseDto } from './projeto.atividade.response';
 import { Roles } from 'nest-keycloak-connect';
+import { ProjetoAtividadesExibirResponseDto } from './projeto.atividade.exibir.response';
 
 @Controller('projetos-atividades')
 export class ProjetoAtividadeController {
@@ -30,6 +31,18 @@ export class ProjetoAtividadeController {
       throw new NotFoundException('Atividade não localizada');
     
     return response.toDto();
+  }
+
+  @Get('/find-by-projeto/:uuid')
+  @Roles({ roles: ["MASTER","ATIVIDADE_PROJETO_EXIBIR"] })
+  async findByProject(@Param('uuid') projetoUuid: string): Promise<ProjetoAtividadesExibirResponseDto[]> {
+    const projetoAtividadesEntityList = await this.service.findByProject(projetoUuid);
+    const response: ProjetoAtividadesExibirResponseDto[] = projetoAtividadesEntityList.map(atividade => atividade.toDtoSimpleificado());
+
+    if (!response)
+      throw new NotFoundException('Atividade não localizada');
+    
+    return response;
   }
 
   @Put(':uuid')

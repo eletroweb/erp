@@ -5,6 +5,7 @@ import { Situacao } from "src/enum/situacao.enum";
 import { ProjetoAtividadesResponseDto } from "./projeto.atividade.response";
 import { ProjetoAtividadeRequestDto } from "./projeto.atividade.request";
 import { BaseEntity } from "src/app/base.entity";
+import { ProjetoAtividadesExibirResponseDto } from "./projeto.atividade.exibir.response";
 
 @Entity('projetos_atividades')
 export class ProjetoAtividadesEntity extends BaseEntity {
@@ -47,7 +48,23 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     dto.observacao = this.observacao;
     dto.data_cadastro = this.data_cadastro;
     dto.data_atualizacao = this.data_atualizacao;
-  
+
+    return dto;
+  }
+
+  toDtoSimpleificado(): ProjetoAtividadesExibirResponseDto {
+    const dto = new ProjetoAtividadesExibirResponseDto();
+    dto.uuid = this.uuid;
+    dto.descricao = this.descricao;
+    dto.projeto = this.projeto.uuid;
+    dto.setor = this.setor.toDto();
+    dto.situacao = this.situacao == Situacao.ATIVO;
+    dto.data_inicio = this.data_inicio;
+    dto.data_fim = this.data_fim;
+    dto.observacao = this.observacao;
+    dto.data_cadastro = this.data_cadastro;
+    dto.data_atualizacao = this.data_atualizacao;
+
     return dto;
   }
 
@@ -64,7 +81,7 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     entity.data_inicio = dto.data_inicio;
     entity.data_fim = dto.data_fim;
     entity.observacao = dto.observacao;
-  
+
     return entity;
   }
 }

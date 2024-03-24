@@ -56,4 +56,30 @@ export class ProjetoAtividadeService {
     
     return atividade;
   }
+
+  async findByProject(projectUuid: string): Promise<ProjetoAtividadesEntity[]> {
+    const atividade = await this.repository.find({
+      where: { projeto: { uuid: projectUuid } },
+      relations: ['setor'],
+      select: {
+        projeto: {
+          uuid: true,
+        },
+        setor: {
+          uuid: true,
+          descricao: true,
+        },
+        uuid: true,
+        descricao: true,
+        situacao: true,
+        data_inicio: true,
+        data_fim: true,
+        observacao: true,
+        data_cadastro: true,
+        data_atualizacao: true,
+      },
+    });
+    
+    return atividade;
+  }  
 }
