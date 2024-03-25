@@ -25,6 +25,15 @@
             </div>
         </template>
 
+    <el-progress type="dashboard" :percentage="80" class="percentage">
+      <template #default="{ percentage }">
+        <span class="percentage-value">{{ percentage }}%</span>
+        <span class="percentage-label">Progresso</span>
+      </template>
+    </el-progress>
+
+    <br>
+    <br>
         <el-form :model="projetoStore.projeto" label-width="120px">
 
             <el-form-item label="Cliente">
@@ -166,5 +175,31 @@ export default {
 
  .box-card {
      width: 900px;
+     position: relative;
  }
-</style>./projeto.atividades.vue
+
+ .percentage-value {
+  display: block;
+  margin-top: 10px;
+  font-size: 28px;
+}
+.percentage-label {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+}
+.demo-progress .el-progress--line {
+  margin-bottom: 15px;
+  max-width: 600px;
+}
+.demo-progress .el-progress--circle {
+  margin-right: 15px;
+}
+
+.percentage {
+    position: absolute;
+    left: 14%;
+    top: 15px;
+    background: #ffffff;
+}
+</style>

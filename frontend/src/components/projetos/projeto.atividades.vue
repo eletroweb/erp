@@ -8,7 +8,9 @@
                 </el-button>
             </div>
 
-            <el-table :data="atividadesStore.atividades" stripe style="width: 99%">
+            <el-table 
+            :row-class-name="tableRowClassName"
+            :data="atividadesStore.atividades" stripe style="width: 99%">
                 <el-table-column prop="descricao" label="Descrição" width="300" />
 
                 <el-table-column prop="area" label="Área" width="220">
@@ -31,8 +33,8 @@
 
                 <el-table-column prop="situacao" label="Situação" width="100">
                     <template #default="atividade">
-                        <el-tag v-if="atividade.row.situacao" type="success">Ativado</el-tag>
-                        <el-tag v-else type="info">Desativado</el-tag>
+                        <el-tag v-if="atividade.row.situacao" type="success">Concluída</el-tag>
+                        <el-tag v-else type="info">Pendente</el-tag>
                     </template>
                 </el-table-column>
 
@@ -44,6 +46,7 @@
 
 <script>
 import { projetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
+
 
 export default {
     name: "ProjetoAtividades",
@@ -57,16 +60,24 @@ export default {
     components: {
     },
     methods: {
+        tableRowClassName(rowIndex) {
+            if (rowIndex === 1) {
+                return 'warning-row'
+            } else if (rowIndex === 3) {
+                return 'success-row'
+            }
+            return ''
+        }
     }
 }
 </script>
 
 <style>
-
 .card-header {
     position: relative;
     height: 50px;
 }
+
 .btnCadastrar {
     position: absolute;
     right: 0;
