@@ -1,6 +1,6 @@
 describe('Cliente', () => {
-  it('Validar telefone', () => {
-    const emailMock = 'fulano@gmail.com'
+  it('Validar setor', () => {
+    const emailMock = 'cliente2@gmail.com'
     cy.visit('http://localhost:5173/')
     cy.contains('Clientes').click()
     cy.get('.btnCadastrar').click()
@@ -10,11 +10,11 @@ describe('Cliente', () => {
     cy.contains("PB").click()
     cy.get('input[name="cidade"').type('João Pessoa')
     cy.get('input[name="email"').type(emailMock)
-  //cy.get('input[name="telefone"').type('')
-    cy.contains("Engenharia Cívil").click()
+    cy.get('input[name="telefone"').type('839999999')
+    //cy.contains("Engenharia Cívil").click()
     cy.get('#endereco').type('Rua Exemplo')
     cy.contains("Situação").click()
     cy.contains("Salvar").click()
-    cy.contains("O telefone deve ser informado")
+    cy.contains("O setor deve ser informado")
   })
 })

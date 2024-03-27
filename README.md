@@ -21,6 +21,7 @@ RF2.8 Validar duplicidade de email
 RF2.9 Validar duplicidade de CPF/CNPJ
 RF2.10 Validar telefone
 RF2.11 Validar email
+RF2.12 Validar setor
 
 ## Contrato 
 RF3.1 Cadastrar Contrato

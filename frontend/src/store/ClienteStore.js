@@ -33,14 +33,18 @@ export const ClienteStore = defineStore('clienteStore', {
             const notificacaoStore = NotificacaoStore();
             if(this.cliente.telefone==null || this.cliente.telefone.length==0){
                 notificacaoStore.exibirNotificacao("Atenção", "O telefone deve ser informado", 'warning');
-                this.btnSalvarValido=false
                 return
-            }  
-            /*if(this.cliente.emailMock==null || this.cliente.emailMock.length==0){
+
+            }
+            if(this.cliente.email==null || this.cliente.email.length==0){
                 notificacaoStore.exibirNotificacao("Atenção", "O email deve ser informado", 'warning');
-                this.btnSalvarValido=false
                 return
-            } */
+            }
+            if(this.cliente.setor==null || this.cliente.setor.uuid==0){
+                notificacaoStore.exibirNotificacao("Atenção", "O setor deve ser informado", 'warning');
+                return
+            }
+          
             this.btnSalvarValido=true
         
             try {
