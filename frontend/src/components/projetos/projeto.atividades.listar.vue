@@ -8,6 +8,8 @@
                 </el-button>
             </div>
 
+            <AtividadesFromularioProjeto />
+
             <el-table 
             :row-class-name="tableRowClassName"
             :data="atividadesStore.atividades" stripe style="width: 99%">
@@ -45,19 +47,21 @@
 </template>
 
 <script>
-import { projetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
+import { ProjetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
+import AtividadesFromularioProjeto from './projeto.atividades.formulario.vue'
 
 
 export default {
     name: "ProjetoAtividades",
     setup() {
-        const atividadesStore = projetoAtividadesStore()
+        const atividadesStore = ProjetoAtividadesStore()
         atividadesStore.listar()
         return { atividadesStore }
     },
     mounted() {
     },
     components: {
+        AtividadesFromularioProjeto
     },
     methods: {
         tableRowClassName(rowIndex) {

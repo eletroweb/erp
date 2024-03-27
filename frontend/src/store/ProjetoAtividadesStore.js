@@ -1,19 +1,48 @@
 import { defineStore } from "pinia"
 import { api } from "@/api/index"
+import { NotificacaoStore } from "./NotificacaoStore"
 
-export const projetoAtividadesStore = defineStore('projetoAtividadesStore', {
+export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
     state: () => ({
+        setores: [],
+        projeto: null,
+        atividade: {
+            projeto: null,
+            setor: {
+                uuid: ""
+            },
+            situacao: true,
+            data_inicio: null,
+            data_fim: null,
+            descricao: null,
+            observacao: null
+        },
         atividades: [],
         btnSalvarValido: true
     }),
     actions: {
         async listar() {
             try {
-                const response = await api.get(`projetos-atividades/find-by-projeto/2b68b6e0-4b5d-4b7e-b14b-93f8592d8062`);
+                const response = await api.get(`projetos-atividades/find-by-projeto/${this.projeto}`);
                 this.atividades = response.data;
             } catch (error) {
                 console.log(error);
                 throw error;
+            }
+        },
+        async cadastrar() {
+            const notificacaoStore = NotificacaoStore();
+            try {
+                const response = await api.post("projetos-atividades", this.atividade);
+                if (response.status === 201) {
+                    notificacaoStore.exibirNotificacao("Nova Atividade", "Atividade cadastrada com sucesso", 'success');
+                    this.reset()
+                    router.push(`/projetos/${this.projeto}`);
+                } else {
+                    notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
+                }
+            } catch (error) {
+                console.error("Erro ao cadastrar atividade:", error);
             }
         },
     },

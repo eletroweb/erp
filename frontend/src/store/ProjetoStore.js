@@ -2,6 +2,7 @@ import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
+import { ProjetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
 import { ValidarCPF, ValidarCNPJ } from '@/common/util'
 import moment from 'moment'
 
@@ -70,8 +71,9 @@ export const useProjetoStore = defineStore('projetoStore', {
         async carregarProjeto(id) {
             try {
                 const response = await api.get(`projetos/${id}`);
+                const projetoAtividadesStore = ProjetoAtividadesStore();
+                projetoAtividadesStore.projeto = id
                 this.projeto = response.data;
-                console.log("OI", this.projeto)
             } catch (error) {
                 console.log(error);
                 throw error;

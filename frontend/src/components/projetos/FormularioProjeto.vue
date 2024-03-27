@@ -32,6 +32,13 @@
       </template>
     </el-progress>
 
+    <el-progress type="dashboard" :percentage="0" class="percentage2">
+      <template #default="{ percentage }">
+        <span class="percentage-value">5</span>
+        <span class="percentage-label">Atividades</span>
+      </template>
+    </el-progress>
+
     <br>
     <br>
         <el-form :model="projetoStore.projeto" label-width="120px">
@@ -113,23 +120,24 @@
         </el-form>
     </el-card>
     <br>
-    <AtividadesProjeto />
+    <ProjetoAtividadesListar/>
 </template>
 
 <script>
 import { useProjetoStore } from '@/store/ProjetoStore'
+import { ProjetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
 import { ClienteStore } from '../../store/ClienteStore'
 import { SetorStore } from '../../store/SetorStore'
-import AtividadesProjeto from './projeto.atividades.vue'
+import ProjetoAtividadesListar from './projeto.atividades.listar.vue'
 
 export default {
     components: {
-        AtividadesProjeto,
+        ProjetoAtividadesListar,
     },
     setup() {
         const projetoStore = useProjetoStore()
-
-        return { projetoStore }
+        const projetoAtividadesStore = ProjetoAtividadesStore()
+        return { projetoStore, projetoAtividadesStore }
     },
     data() {
         return {
@@ -146,6 +154,7 @@ export default {
         if (uuidPattern.test(this.$route.params.id)) {
             this.id = this.$route.params.id
             this.projetoStore.carregarProjeto(this.id)
+            this.projetoAtividadesStore.atividade.projeto = this.id
         }
 
         const setorStore = SetorStore()
@@ -199,6 +208,13 @@ export default {
 .percentage {
     position: absolute;
     left: 14%;
+    top: 15px;
+    background: #ffffff;
+}
+
+.percentage2 {
+    position: absolute;
+    left: 30%;
     top: 15px;
     background: #ffffff;
 }
