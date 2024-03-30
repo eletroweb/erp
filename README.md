@@ -88,13 +88,13 @@ exemplo:
 
 feature/1
 bug/2
-test/3
+test/36
 
 ## Mensagens dos commits
 As mensagens dos commits devem possui o exemplo
 
 git commit -m "feature/1 RF3.1 Cadastrar Contrato"
-git commit -m "test/3 RF3.1 Cadastrar Contrato"
+git commit -m "test/36 RF8.1 Login de usuário"
 git commit -m "bug/6 RF3.1 Cadastrar Contrato"
 
 ## Como configurar o ambiente
