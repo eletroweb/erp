@@ -2,6 +2,7 @@ import { SetorResponseDto } from "src/setores/setor.response.dto";
 
 export class ProjetoAtividadesExibirResponseDto {
     uuid: string;
+    prioridade: number;
     descricao: string;
     projeto: string;
     setor: SetorResponseDto;

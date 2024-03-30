@@ -10,7 +10,7 @@ import { BaseEntity } from 'src/app/base.entity';
 @Injectable()
 export class ProjetoAtividadeService {
   constructor(
-    @InjectRepository(ProjetoAtividadesEntity) 
+    @InjectRepository(ProjetoAtividadesEntity)
     private repository: Repository<ProjetoAtividadesEntity>,
     private projetoService: ProjetoService,
     private setorService: SetorService
@@ -39,7 +39,7 @@ export class ProjetoAtividadeService {
     return updatedAtividade;
   }
 
-  async delete(uuid: string){
+  async delete(uuid: string) {
     const atividade = await this.findOneByUuid(uuid)
     await this.repository.remove(atividade)
   }
@@ -47,19 +47,22 @@ export class ProjetoAtividadeService {
   async findOneByUuid(uuid: string): Promise<ProjetoAtividadesEntity> {
     const atividade = await this.repository.findOne({
       where: { uuid },
-      relations: ['projeto','setor'],
+      relations: ['projeto', 'setor'],
       select: {
       },
     });
     if (!atividade)
       throw new NotFoundException('Atividade não localizada');
-    
+
     return atividade;
   }
 
   async findByProject(projectUuid: string): Promise<ProjetoAtividadesEntity[]> {
     const atividade = await this.repository.find({
       where: { projeto: { uuid: projectUuid } },
+      order: {
+        prioridade: 'ASC',
+      },
       relations: ['setor'],
       select: {
         projeto: {
@@ -70,6 +73,7 @@ export class ProjetoAtividadeService {
           descricao: true,
         },
         uuid: true,
+        prioridade: true,
         descricao: true,
         situacao: true,
         data_inicio: true,
@@ -79,7 +83,7 @@ export class ProjetoAtividadeService {
         data_atualizacao: true,
       },
     });
-    
+
     return atividade;
-  }  
+  }
 }

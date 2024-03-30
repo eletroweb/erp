@@ -13,6 +13,9 @@ export class ProjetoAtividadesEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   descricao: string;
 
+  @Column({ type: 'int', default: 0 })
+  prioridade: number;
+
   @ManyToOne(() => ProjetoEntity, { eager: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'projeto_id' })
   projeto: ProjetoEntity;
@@ -39,6 +42,7 @@ export class ProjetoAtividadesEntity extends BaseEntity {
   toDto(): ProjetoAtividadesResponseDto {
     const dto = new ProjetoAtividadesResponseDto();
     dto.uuid = this.uuid;
+    dto.prioridade = this.prioridade;
     dto.descricao = this.descricao;
     dto.projeto = this.projeto.toDto();
     dto.setor = this.setor.toDto();
@@ -55,6 +59,7 @@ export class ProjetoAtividadesEntity extends BaseEntity {
   toDtoSimpleificado(): ProjetoAtividadesExibirResponseDto {
     const dto = new ProjetoAtividadesExibirResponseDto();
     dto.uuid = this.uuid;
+    dto.prioridade = this.prioridade;
     dto.descricao = this.descricao;
     dto.projeto = this.projeto.uuid;
     dto.setor = this.setor.toDto();
@@ -74,6 +79,7 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     setor: SetorEntity,
   ): ProjetoAtividadesEntity {
     const entity = new ProjetoAtividadesEntity();
+    entity.prioridade = dto.prioridade;
     entity.descricao = dto.descricao;
     entity.projeto = projeto;
     entity.setor = setor;

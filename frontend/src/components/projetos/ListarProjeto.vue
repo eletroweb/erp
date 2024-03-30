@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card">
+    <el-card class="box-card" shadow="never">
         <template #header>
             <div class="card-header">
                 <span>Projetos</span>

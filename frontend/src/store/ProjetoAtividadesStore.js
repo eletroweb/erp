@@ -21,10 +21,11 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
         btnSalvarValido: true
     }),
     actions: {
-        async listar() {
+        async listar(projetoUuid) {
             try {
-                const response = await api.get(`projetos-atividades/find-by-projeto/${this.projeto}`);
+                const response = await api.get(`projetos-atividades/find-by-projeto/${projetoUuid}`);
                 this.atividades = response.data;
+                return this.atividades
             } catch (error) {
                 console.log(error);
                 throw error;

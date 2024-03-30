@@ -71,8 +71,6 @@ export const useProjetoStore = defineStore('projetoStore', {
         async carregarProjeto(id) {
             try {
                 const response = await api.get(`projetos/${id}`);
-                const projetoAtividadesStore = ProjetoAtividadesStore();
-                projetoAtividadesStore.projeto = id
                 this.projeto = response.data;
             } catch (error) {
                 console.log(error);
