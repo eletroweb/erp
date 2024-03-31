@@ -1,6 +1,10 @@
 <template>
-    <el-form :model="atividadeStore.atividade" label-width="120px">
 
+    <el-button id="btnCadastrar" type="success" @click="atividadeStore.novo()" name="btnCadastrar">
+        Adicionar Atividade
+    </el-button>
+
+    <el-form :model="atividadeStore.atividade" label-width="120px" v-if="atividadeStore.exibirFormulario">
         <el-form-item label="Descrição">
             <el-input v-model="atividadeStore.atividade.descricao" name="responsavel" id="responsavel" />
         </el-form-item>
@@ -26,8 +30,8 @@
                 </span>
             </el-col>
             <el-col :span="5">
-                <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="atividadeStore.atividade.data_fim" type="date"
-                    placeholder="Data Fim" style="width: 100%" />
+                <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="atividadeStore.atividade.data_fim"
+                    type="date" placeholder="Data Fim" style="width: 100%" />
             </el-col>
         </el-form-item>
 
@@ -40,7 +44,7 @@
         </el-form-item>
 
         <el-form-item>
-            <el-button  type="primary" @click="atividadeStore.cadastrar()">
+            <el-button type="primary" @click="atividadeStore.cadastrar()">
                 Salvar
             </el-button>
         </el-form-item>
@@ -61,9 +65,13 @@ export default {
     },
     async mounted() {
         const setorStore = SetorStore()
-        this.setores = await setorStore.listar();  
+        this.setores = await setorStore.listar();
     },
     components: {
+    },
+    data() {
+        return {
+        }
     },
     methods: {
         tableRowClassName(rowIndex) {
@@ -87,5 +95,11 @@ export default {
 .btnCadastrar {
     position: absolute;
     right: 0;
+}
+
+#btnCadastrar {
+    position: absolute;
+    top: 32px;
+    right: 37px;
 }
 </style>

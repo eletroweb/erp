@@ -3,15 +3,11 @@
         <template #header>
             <div class="card-header">
                 <span>Atividades do Projeto</span>
-                <el-button class="btnCadastrar" type="success" @click="projetoStore.novo()" name="btnCadastrar">
-                    Adicionar Atividade
-                </el-button>
             </div>
 
             <AtividadesFromularioProjeto />
 
-
-            <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse v-model="activeNames" @change="handleChange" v-if="atividadesStore.atividades.length > 0">
 
                 <table style="width: 100%; border: 0px; padding: 0;">
                     <thead>
@@ -27,7 +23,7 @@
                             </el-tooltip>
 
                         </td>
-                        <td style="width: 400px;">
+                        <td style="width: 476px;">
                             Atividade
                         </td>
                         <td style="width: 131px">
@@ -81,43 +77,13 @@
                         </template>
                         <div>
                             {{ atividade.observacao }}
+                            <el-button type="danger" @click="atividadesStore.deletar(atividade.uuid)">Excluir</el-button>
                         </div>
                     </el-collapse-item>
                 </div>
             </el-collapse>
 
-
-            <div style="display: none;">
-                <el-table :row-class-name="tableRowClassName" :data="atividadesStore.atividades" stripe
-                    style="width: 99%">
-                    <el-table-column prop="descricao" label="Descrição" width="300" />
-
-                    <el-table-column prop="area" label="Área" width="220">
-                        <template #default="area">
-                            {{ area.row.setor.descricao }}
-                        </template>
-                    </el-table-column>
-
-                    <el-table-column prop="data_inicio" label="Início" width="100">
-                        <template #default="data_inicio">
-                            {{ $moment.format(data_inicio.row.data_inicio) }}
-                        </template>
-                    </el-table-column>
-
-                    <el-table-column prop="data_fim" label="Fim" width="130">
-                        <template #default="data_fim">
-                            {{ $moment.format(data_fim.row.data_fim) }}
-                        </template>
-                    </el-table-column>
-
-                    <el-table-column prop="situacao" label="Situação" width="100">
-                        <template #default="atividade">
-                            <el-tag v-if="atividade.row.situacao" type="success">Concluída</el-tag>
-                            <el-tag v-else type="info">Pendente</el-tag>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </div>
+            <el-empty v-else description="Ainda não existem atividades associadas a este projeto" />
         </template>
     </el-card>
 
@@ -138,17 +104,6 @@ export default {
     data() {
         return {
             atividades: [],
-            items: [
-                { content: 'Item 1', top: 50, left: 50 },
-                { content: 'Item 2', top: 150, left: 50 },
-                { content: 'Item 3', top: 250, left: 50 }
-            ],
-            dragging: false,
-            selectedIndex: null,
-            startX: 0,
-            startY: 0,
-            startLeft: 0,
-            startTop: 0
         }
     },
     setup() {
@@ -158,6 +113,7 @@ export default {
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
         if (uuidPattern.test(route.params.id)) {
             atividadesStore.listar(route.params.id)
+            atividadesStore.projeto = route.params.id
         }
 
         return { atividadesStore }
@@ -177,25 +133,6 @@ export default {
             }
             return ''
         },
-        startDrag(index, event) {
-            this.dragging = true;
-            this.selectedIndex = index;
-            this.startX = event.clientX;
-            this.startY = event.clientY;
-            this.startLeft = this.items[index].left;
-            this.startTop = this.items[index].top;
-        },
-        drag(event) {
-            if (this.dragging) {
-                const offsetX = event.clientX - this.startX;
-                const offsetY = event.clientY - this.startY;
-                this.items[this.selectedIndex].left = this.startLeft + offsetX;
-                this.items[this.selectedIndex].top = this.startTop + offsetY;
-            }
-        },
-        endDrag() {
-            this.dragging = false;
-        }
     }
 }
 </script>

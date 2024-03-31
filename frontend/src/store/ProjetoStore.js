@@ -2,7 +2,6 @@ import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
-import { ProjetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
 import { ValidarCPF, ValidarCNPJ } from '@/common/util'
 import moment from 'moment'
 
