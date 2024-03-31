@@ -2,6 +2,7 @@ import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import { NotificacaoStore } from "./NotificacaoStore"
 import moment from 'moment'
+import { AlertStore } from '@/store/AlertStore'
 
 export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
     state: () => ({
@@ -66,8 +67,8 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
         async deletar(uuid) {
             try {
                 const response = await api.delete(`projetos-atividades/${uuid}`);
-                const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Excluir Atividade", `Atividade excluída com sucesso`, 'success');
+                const alertStore = AlertStore();
+                alertStore.show("Atividade excluída com sucesso", "success")
                 this.listar(this.projeto)
             } catch (error) {
                 console.log(error);
