@@ -36,7 +36,9 @@
 
     <el-progress type="dashboard" :percentage="0" class="percentage2">
       <template #default="{ percentage }">
-        <span class="percentage-value">5</span>
+        <span class="percentage-value">
+            {{ projetoAtividadesStore.atividades.length }}
+        </span>
         <span class="percentage-label">Atividades</span>
       </template>
     </el-progress>
