@@ -1,5 +1,5 @@
 <template>
-  <el-alert class="alerta" v-if="alertStore.display" :title="alertStore.title" :type="alertStore.type" show-icon />
+    <el-alert class="alerta" v-if="alertStore.display" :title="alertStore.title" :type="alertStore.type" show-icon />
 </template>
 
 <script>
