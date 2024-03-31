@@ -14,6 +14,7 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
             setor: {
                 uuid: ""
             },
+            periodo: {},
             situacao: true,
             data_inicio: null,
             data_fim: null,
@@ -38,7 +39,7 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
             const alertStore = AlertStore();
             try {
                 const request = this.requestBuild();
-                const response = await api.post("projetos-atividades", request);
+                 const response = await api.post("projetos-atividades", request);
                 if (response.status === 201) {
                     alertStore.show("Atividade cadastrada com sucesso", "success")
                     this.listar(this.projeto)
@@ -82,8 +83,8 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
                 ...this.atividade,
                 setor: this.atividade.setor.uuid,
                 projeto: this.editarRegistro ? this.atividade.projeto.uuid : this.atividade.projeto,
-                data_inicio: moment(this.atividade.data_inicio).format('YYYY-MM-DD'),
-                data_fim: moment(this.atividade.data_fim).format('YYYY-MM-DD')
+                data_inicio: moment(this.atividade.periodo.from).format('YYYY-MM-DD'),
+                data_fim: moment(this.atividade.periodo.to).format('YYYY-MM-DD')
             };
         },
         novo() {
@@ -92,7 +93,13 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
         },
         async editar(uuid) {
             const response = await api.get(`projetos-atividades/${uuid}`);
-            this.atividade = response.data;
+            this.atividade = {
+                ...response.data,
+                periodo: {
+                    from: moment(response.data.data_inicio).format('YYYY/MM/DD'),
+                    to: moment(response.data.data_fim).format('YYYY/MM/DD')
+                }
+            };
             this.exibirFormulario = true
             this.editarRegistro = true
             return this.atividade
