@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { ProjetoAtividadeService } from './projeto.atividade.service';
 import { ProjetoAtividadeRequestDto } from './projeto.atividade.request';
 import { BaseEntity } from 'src/app/base.entity';
@@ -47,15 +47,15 @@ export class ProjetoAtividadeController {
 
   @Put(':uuid')
   @Roles({ roles: ["MASTER","ATIVIDADE_PROJETO_EDITAR"] })
-  async update(@Param('uuid') uuid: string, @Body() request: ProjetoAtividadeRequestDto): Promise<string> {
+  async update(@Param('uuid') uuid: string, @Body() request: ProjetoAtividadeRequestDto): Promise<ProjetoAtividadesResponseDto> {
     const response = await this.service.update(uuid, request);
-    return JSON.stringify(response);
+    return response.toDto();
   }
 
   @Delete(':uuid')
   @Roles({ roles: ["MASTER","ATIVIDADE_PROJETO_DELETAR"] })
-  async delete(@Param('uuid') uuid: string): Promise<string> {
-    const response = await this.service.delete(uuid);
-    return JSON.stringify(response);
+  async delete(@Param('uuid') uuid: string): Promise<HttpStatus> {
+    await this.service.delete(uuid);
+    return HttpStatus.ACCEPTED;
   }
 }

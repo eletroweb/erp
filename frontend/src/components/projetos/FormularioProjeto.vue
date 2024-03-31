@@ -1,5 +1,11 @@
 <template>
   <el-tabs type="border-card">
+
+    <el-tab-pane label="Atividades">
+        <ProjetoAtividadesListar/>
+    </el-tab-pane>
+
+
     <el-tab-pane label="Projeto">
     <el-card class="box-card" shadow="never">
         <template #header>
@@ -126,9 +132,7 @@
     </el-tab-pane>
 
 
-    <el-tab-pane label="Atividades">
-        <ProjetoAtividadesListar/>
-    </el-tab-pane>
+ 
 
   </el-tabs>
 

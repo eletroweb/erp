@@ -11,6 +11,10 @@ export const AlertStore = defineStore('AlertStore', {
             this.display = true
             this.title = title
             this.type = type
+
+            setTimeout(() => {
+                this.display = false;
+              }, 10000);
         },
     },
 })

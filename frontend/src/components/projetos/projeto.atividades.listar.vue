@@ -7,81 +7,45 @@
 
             <AtividadesFromularioProjeto />
 
-            <el-collapse v-model="activeNames" @change="handleChange" v-if="atividadesStore.atividades.length > 0">
+            <el-table v-if="atividadesStore.atividades.length > 0" :data="atividadesStore.atividades" stripe>
+                <el-table-column prop="descricao" label="Descrição" width="350px">
+                    <template #default="atividade">
+                        {{ atividade.row.descricao }}
+                    </template>
+                </el-table-column>
 
-                <table style="width: 100%; border: 0px; padding: 0;">
-                    <thead>
-                        <th>
-                        <td style="width: 5px;">
-                            <el-tooltip placement="top">
-                                <template #content> <b>Prioridade</b>
-                                    <br />Arraste a atividade para cima ou para baixo
-                                    <br /> para ordenar a priorização de execução</template>
-                                <el-icon>
-                                    <InfoFilled />
-                                </el-icon>
-                            </el-tooltip>
+                <el-table-column prop="data_inicio" label="Data Início" width="150">
+                    <template #default="data_inicio">
+                        <ElIcon class="mr-3">
+                            <Timer />
+                        </ElIcon> {{ $moment.format(data_inicio.row.data_inicio) }}
+                    </template>
+                </el-table-column>
 
-                        </td>
-                        <td style="width: 476px;">
-                            Atividade
-                        </td>
-                        <td style="width: 131px">
-                            Data Início
-                        </td>
-                        <td style="width: 131px">
-                            Data Fim
-                        </td>
-                        <td style="width: 149px;">
-                            Situação
-                        </td>
-                        </th>
-                    </thead>
-                </table>
+                <el-table-column prop="data_fim" label="Data Fim" width="150">
+                    <template #default="data_fim">
+                        <ElIcon class="mr-3">
+                            <Timer />
+                        </ElIcon> {{ $moment.format(data_fim.row.data_fim) }}
+                    </template>
+                </el-table-column>
 
-                <div v-for="atividade in atividadesStore.atividades" class="draggable-item">
-                    <el-collapse-item :name="atividade.uuid">
-                        <template #title>
-                            <table style="width: 100%;" id="atividades">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 46px;">
-                                            <el-tooltip class="box-item" effect="dark" content="Prioridade de execução"
-                                                placement="top-start">
-                                                <el-tag type="primary">
-                                                    #{{ atividade.prioridade }}
-                                                </el-tag>
-                                            </el-tooltip>
-                                        </td>
-                                        <td style="width: 200px;">
-                                            {{ atividade.descricao }}
-                                        </td>
-                                        <td style="width: 64px">
-                                            <ElIcon class="mr-3">
-                                                <Timer />
-                                            </ElIcon> {{ $moment.format(atividade.data_inicio) }}
-                                        </td>
-                                        <td style="width: 64px">
-                                            <ElIcon class="mr-3">
-                                                <Timer />
-                                            </ElIcon>
-                                            {{ $moment.format(atividade.data_fim) }}
-                                        </td>
-                                        <td style="width: 55px;">
-                                            <el-tag v-if="atividade.situacao" type="success">Concluída</el-tag>
-                                            <el-tag v-else type="info">Pendente</el-tag>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </template>
-                        <div>
-                            {{ atividade.observacao }}
-                            <el-button type="danger" @click="atividadesStore.deletar(atividade.uuid)">Excluir</el-button>
-                        </div>
-                    </el-collapse-item>
-                </div>
-            </el-collapse>
+
+                <el-table-column prop="situacao" label="Situação" width="150">
+                    <template #default="atividade">
+                        <el-tag v-if="atividade.row.situacao" type="success">Concluída</el-tag>
+                        <el-tag v-else type="info">Pendente</el-tag>
+                    </template>
+                </el-table-column>
+
+                <el-table-column prop="acao" label="">
+                    <template #default="atividade">
+                        <el-button type="primary" plain size="small"
+                            @click="atividadesStore.editar(atividade.row.uuid)">Editar</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+
 
             <el-empty v-else description="Ainda não existem atividades associadas a este projeto" />
         </template>
@@ -103,6 +67,7 @@ export default {
     name: "ProjetoAtividades",
     data() {
         return {
+            confirmacaoVisivel: false,
             atividades: [],
         }
     },

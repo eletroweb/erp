@@ -2,11 +2,14 @@
     "name": "erp",
     "version": "1.0.0",
     "scripts": {
-      "backend": "cd backend && npm run start:dev",
-      "frontend": "cd frontend && npm run dev",
-      "e2e": "cd frontend && npm run test:e2e:dev",
-      "e2e-report": "cd frontend && npm run report",
-      "keycloak": "start \"Keycloak\" /D \"C:\\keycloak\\bin\" kc.bat start-dev"
+        "backend": "cd backend && npm run start:dev",
+        "frontend": "cd frontend && npm run dev",
+        "e2e": "cd frontend && npm run test:e2e:dev",
+        "e2e-report": "cd frontend && npm run report",
+        "keycloak": "start \"Keycloak\" /D \"C:\\keycloak\\bin\" kc.bat start-dev"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "eslint-plugin-vue": "^9.24.0"
     }
-  }
-  
+}
