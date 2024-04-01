@@ -51,8 +51,8 @@ RF5.5 Associar contrato ao serviço
 RF5.6 Asscoiar setor ao Serviço
 RF5.7 Desativar/Ativar Serviço
 
-## Atividade do projeto
-RF6.1 Cadastrar Ordem Serviço
+## Atividade associada ao projeto
+RF6.1 Adicionar Atividade do projeto
 RF6.2 Editar Atividade do projeto
 RF6.3 Excluir Atividade do projeto
 RF6.4 Listar Atividades do projeto

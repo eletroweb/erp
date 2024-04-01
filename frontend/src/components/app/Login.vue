@@ -5,7 +5,6 @@
     </div>
     <div class="overlay-container">
       <form  @submit.prevent="login.login()">
-        <h1>Login</h1>
         <br>
         <span>Informe seu nome de usuário e senha</span>
         <input type="email" v-model="login.user.username" id="username" placeholder="Email" />

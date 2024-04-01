@@ -14,6 +14,14 @@
                     </template>
                 </el-table-column>
 
+                <el-table-column prop="setor" label="Setor" width="210px">
+                    <template #default="setor">
+                        <q-chip outline color="primary" text-color="white" icon="star">
+                            {{ setor.row.setor.descricao }}
+                        </q-chip>      
+                    </template>
+                </el-table-column>
+
                 <el-table-column prop="data_inicio" label="Data Início" width="150">
                     <template #default="data_inicio">
                         <ElIcon class="mr-3">
@@ -40,7 +48,7 @@
 
                 <el-table-column prop="acao" label="">
                     <template #default="atividade">
-                        <el-button type="primary" plain size="small"
+                        <el-button type="primary" plain
                             @click="atividadesStore.editar(atividade.row.uuid)">Editar</el-button>
                     </template>
                 </el-table-column>
