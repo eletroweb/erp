@@ -74,6 +74,8 @@ RF9.1.1 Permitir que o usuário com role master tenha acesso a todas as funcinal
 ## Serviços da OS
 RF10.1 Associar Serviço a OS
 
+RF11 Associar responsável a atividade no projeto
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 
