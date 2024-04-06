@@ -18,7 +18,7 @@
                     <template #default="setor">
                         <q-chip outline color="primary" text-color="white" icon="star">
                             {{ setor.row.setor.descricao }}
-                        </q-chip>      
+                        </q-chip>
                     </template>
                 </el-table-column>
 
@@ -41,8 +41,7 @@
 
                 <el-table-column prop="situacao" label="Situação" width="150">
                     <template #default="atividade">
-                        <el-tag v-if="atividade.row.situacao" type="success">Concluída</el-tag>
-                        <el-tag v-else type="info">Pendente</el-tag>
+                        {{getSituacao(atividade.row.situacao)}}
                     </template>
                 </el-table-column>
 
@@ -76,7 +75,7 @@ export default {
     data() {
         return {
             confirmacaoVisivel: false,
-            atividades: [],
+            atividades: []
         }
     },
     setup() {
@@ -106,6 +105,23 @@ export default {
             }
             return ''
         },
+        getSituacao(value) {
+                    const situacoes = [
+                        { label: 'PENDENTE', value: 'PENDING' },
+                        { label: 'EM ANDAMENTO', value: 'IN_PROGRESS' },
+                        { label: 'CANCELADA', value: 'CANCELLED' },
+                        { label: 'PAUSADA', value: 'PAUSED' },
+                        { label: 'CONCLUÍDA', value: 'COMPLETED' },
+                    ];
+
+                    for (const situacao of situacoes) {
+                    if (situacao.value === value) {
+                        return situacao.label;
+                    }
+            }
+
+            return null;
+        }
     }
 }
 </script>

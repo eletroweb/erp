@@ -1,3 +1,4 @@
+import { ProjetoAtividadeSituacao } from "src/enum/projeto.atividade.situacao.enum";
 import { SetorResponseDto } from "src/setores/setor.response.dto";
 
 export class ProjetoAtividadesExibirResponseDto {
@@ -6,7 +7,7 @@ export class ProjetoAtividadesExibirResponseDto {
     descricao: string;
     projeto: string;
     setor: SetorResponseDto;
-    situacao: boolean;
+    situacao: ProjetoAtividadeSituacao;
     orcamento: number;
     data_inicio: Date;
     data_fim: Date;

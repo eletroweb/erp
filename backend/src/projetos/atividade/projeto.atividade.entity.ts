@@ -1,11 +1,11 @@
 import { SetorEntity } from "src/setores/setor.entity";
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 import { ProjetoEntity } from "../projeto.entity";
-import { Situacao } from "src/enum/situacao.enum";
 import { ProjetoAtividadesResponseDto } from "./projeto.atividade.response";
 import { ProjetoAtividadeRequestDto } from "./projeto.atividade.request";
 import { BaseEntity } from "src/app/base.entity";
 import { ProjetoAtividadesExibirResponseDto } from "./projeto.atividade.exibir.response";
+import { ProjetoAtividadeSituacao } from "src/enum/projeto.atividade.situacao.enum";
 
 @Entity('projetos_atividades')
 export class ProjetoAtividadesEntity extends BaseEntity {
@@ -26,9 +26,9 @@ export class ProjetoAtividadesEntity extends BaseEntity {
 
   @Column({
     type: 'enum',
-    enum: Situacao,
+    enum: ProjetoAtividadeSituacao,
   })
-  situacao: Situacao;
+  situacao: ProjetoAtividadeSituacao;
 
   @Column({ type: 'date' })
   data_inicio: Date;
@@ -46,7 +46,7 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     dto.descricao = this.descricao;
     dto.projeto = this.projeto.toDto();
     dto.setor = this.setor.toDto();
-    dto.situacao = this.situacao == Situacao.ATIVO;
+    dto.situacao = this.situacao;
     dto.data_inicio = this.data_inicio;
     dto.data_fim = this.data_fim;
     dto.observacao = this.observacao;
@@ -63,7 +63,7 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     dto.descricao = this.descricao;
     dto.projeto = this.projeto.uuid;
     dto.setor = this.setor.toDto();
-    dto.situacao = this.situacao == Situacao.ATIVO;
+    dto.situacao = this.situacao;
     dto.data_inicio = this.data_inicio;
     dto.data_fim = this.data_fim;
     dto.observacao = this.observacao;
@@ -83,7 +83,7 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     entity.descricao = dto.descricao;
     entity.projeto = projeto;
     entity.setor = setor;
-    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.situacao = dto.situacao;
     entity.data_inicio = dto.data_inicio;
     entity.data_fim = dto.data_fim;
     entity.observacao = dto.observacao;

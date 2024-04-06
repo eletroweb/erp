@@ -17,11 +17,11 @@
 
                 <q-btn-toggle v-model="atividadeStore.atividade.situacao" class="situacao-toggle" no-caps rounded
                     unelevated toggle-color="primary" color="white" text-color="primary" :options="[
-        { label: 'PENDENTE', value: 0 },
-        { label: 'EM ANDAMENTO', value: 1 },
-        { label: 'CANCELADA', value: 2 },
-        { label: 'PAUSADA', value: 3 },
-        { label: 'CONCLUÍDA', value: 4 },
+        { label: 'PENDENTE', value: 'PENDING' },
+        { label: 'EM ANDAMENTO', value: 'IN_PROGRESS' },
+        { label: 'CANCELADA', value: 'CANCELLED' },
+        { label: 'PAUSADA', value: 'PAUSED' },
+        { label: 'CONCLUÍDA', value: 'COMPLETED' },
     ]" />
 
                 <div class="q-pa-md q-gutter-sm" style="height: 80px;">
