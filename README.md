@@ -70,6 +70,7 @@ O sistema deverá permitir que o usuário realize a autenticação através do e
 ## Autorização
 RF9.1 Impedir que usuário que não possui role, acesse funcionalidades não permitidas
 RF9.1.1 Permitir que o usuário com role master tenha acesso a todas as funcinalidades
+RF9.1.2 Permitir que o usuário com role restrito tenha acesso limitado as funcionalidades
 
 ## Serviços da OS
 RF10.1 Associar Serviço a OS
