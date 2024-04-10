@@ -27,9 +27,10 @@ export const SetorStore = defineStore('setorStore', {
             try {
                 const response = await api.post("setores", this.setor);
                 const notificacaoStore = NotificacaoStore();
-                if (response.status === 200) {
+                if (response.status === 201) {
                     const { title, message, type } = response.data
                     notificacaoStore.exibirNotificacao(title, message, type);
+                    notificacaoStore.exibirNotificacao("Sucesso", "Setor cadastrado", 'sucesso')
                     this.setor = {}
                     router.push('/setores');
                 } else {
@@ -45,7 +46,7 @@ export const SetorStore = defineStore('setorStore', {
                 const response = await api.put(`setores/${id}`, this.setor);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
-                    notificacaoStore.exibirNotificacao("Setor", response.data, 'success');
+                    notificacaoStore.exibirNotificacao("Setor", "Edição realizada com sucesso", 'success');
                     this.setor = {}
                     router.push('/setores');
                 } else {
@@ -56,12 +57,12 @@ export const SetorStore = defineStore('setorStore', {
             }
         },
         async cancelar() {
-            /*
-            TODO verificar se o formulario esta preenchido e perguntar 
-            se o usuário deseja descartar as informações cotnidas no fomrulario
-            */
-            router.push('/setores');
+            // Perguntar ao usuário se ele realmente deseja cancelar a edição
+            if (confirm('Deseja realmente cancelar esta edição?')) {
+                router.push('/setores');
+            }
         },
+        
         async carregarSetor(id) {
             try {
                 const response = await api.get(`setores/${id}`);
@@ -80,11 +81,13 @@ export const SetorStore = defineStore('setorStore', {
                 const response = await api.delete(`setores/${id}`);
                 this.setor = response.data;
                 const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Setor", response.data, 'success');
+                notificacaoStore.exibirNotificacao("Setor", "Excluído com sucesso", 'success');
                 router.push('/setores');
             } catch (error) {
                 console.log(error);
                 throw error;
+            
+                // TODO - Corrigir a mensagem final após deletar o setor, está retornando os dados do DB em forma de mensagem, alterar mensagem na linha 83.
             }
         },
     },

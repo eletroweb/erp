@@ -27,7 +27,7 @@
 
         <el-form :model="setorStore.setor" label-width="120px">
             <el-form-item label="Nome">
-                <el-input v-model="setorStore.setor.descricao" />
+                <el-input v-model="setorStore.setor.descricao" name="nome"/>
             </el-form-item>
             <el-form-item label="Situação">
                 <el-switch v-model="setorStore.setor.situacao" />

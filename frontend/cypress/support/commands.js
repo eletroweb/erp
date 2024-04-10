@@ -32,3 +32,7 @@ Cypress.Commands.add('preencherFormularioContrato', (contrato) => {
     cy.get('.el-date-table').contains('.available', '4').click();
     cy.get('input[name="data_fim"]').clear().type(contrato.data_fim);
 });
+
+Cypress.Commands.add('preencherFormularioSetor', (setor_editar) => {
+    cy.get('input[name="nome"]').clear().type(setor_editar.nome);
+})
