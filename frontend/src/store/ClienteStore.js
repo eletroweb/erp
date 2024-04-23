@@ -12,18 +12,35 @@ export const ClienteStore = defineStore('clienteStore', {
                 uuid: ""
             },
         },
-        btnSalvarValido: true
+        btnSalvarValido: true,
+        pesquisa: {
+            nome: null,
+            documento: null
+        }
     }),
     actions: {
         async listar() {
             try {
-                const response = await api.get(`clientes`);
+                const url = await this.getUrlListar();
+                const response = await api.get(url);
                 this.clientes = response.data;
             } catch (error) {
                 console.log(error);
                 throw error;
             }
             return this.clientes
+        },
+        async getUrlListar() {
+            const queryParams = {};
+            if (this.pesquisa.nome !== null)
+                queryParams.nome = this.pesquisa.nome;
+    
+            if (this.pesquisa.documento !== null)
+                queryParams.documento = this.pesquisa.documento;
+    
+            const queryString = new URLSearchParams(queryParams).toString();
+            const url = `clientes?${queryString}`;
+            return url
         },
         async novo() {
             this.reset()

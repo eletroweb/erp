@@ -3,18 +3,15 @@
         <template #header>
             <div class="card-header">
                 <span>Clientes</span>
-                
-            <el-button 
-                class="btnCadastrar" 
-                type="success" 
-                @click="clienteStore.novo()" 
-                name="btnCadastrar"
-                v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_CADASTRAR)">
-                Cadastrar
-            </el-button>
-
+                <ClienteBarraDePesquisa />
+                <el-button class="btnCadastrar" type="success" @click="clienteStore.novo()" name="btnCadastrar"
+                    v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_CADASTRAR)">
+                    Cadastrar
+                </el-button>
             </div>
         </template>
+
+        <li v-for="clientes in this.clienteStore.clientes.nome" :key="clientes.id">{{ clientes.nome }}</li>
         <el-table v-if="clienteStore.clientes.length > 0" :data="clienteStore.clientes" stripe style="width: 99%">
             <el-table-column prop="nome" label="Nome" width="400" />
             <el-table-column prop="telefone" label="Telefone" width="120" />
@@ -28,27 +25,25 @@
 
             <el-table-column prop="acao" label="">
                 <template #default="cliente">
-                    <el-button 
-                    type="primary" 
-                    size="small"
-                     @click="clienteStore.exibir(cliente.row.uuid)" 
-                     plain
-                     v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EDITAR)">
-                     Editar
+                    <el-button type="primary" size="small" @click="clienteStore.exibir(cliente.row.uuid)" plain
+                        v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EDITAR)">
+                        Editar
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
 
         <el-empty v-else description="Nenhum cliente cadastrado" />
-
     </el-card>
 </template>
 
 <script>
+
 import { ClienteStore } from '@/store/ClienteStore'
 import { AuthorizationStore } from '@/store/AuthorizationStore'
 import { RolesEnum } from '@/enum/RolesEnum'
+import ClienteBarraDePesquisa from './ClienteBarraDePesquisa.vue'
+
 
 export default {
     setup() {
@@ -57,16 +52,22 @@ export default {
         clienteStore.listar()
         return { clienteStore, authorizationStore, RolesEnum }
     },
-    mounted() {
-    },
+
     components: {
+        ClienteBarraDePesquisa
     },
+
     methods: {
-    }
+    },
+
+    computed: {
+    },
+
 }
 </script>
 
-<style scoped> .card-header {
+<style scoped>
+ .card-header {
      display: flex;
      justify-content: space-between;
      align-items: center;
@@ -83,4 +84,5 @@ export default {
  .box-card {
      width: 99%;
  }
+ 
 </style>@/enum/SystemEnum@/enum/RolesEnum

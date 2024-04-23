@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException, Query } from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { ClienteResponseDto } from './cliente.response.dto';
 import { ClienteRequestDto } from './cliente.request.dto';
@@ -10,8 +10,11 @@ export class ClienteController {
 
   @Get()
   @Roles({ roles: ['MASTER','CLIENTE_LISTAR'] })
-  async findAll(): Promise<ClienteResponseDto[]> {
-    const clientes = await this.clienteService.findAll();
+  async findAll(
+    @Query('nome') nome?: string,
+    @Query('documento') documento?: string,
+  ): Promise<ClienteResponseDto[]> {
+    const clientes = await this.clienteService.findAll(nome, documento);
     const clientesDto: ClienteResponseDto[] = clientes.map(cliente => cliente.toDto());
     return clientesDto;
   }

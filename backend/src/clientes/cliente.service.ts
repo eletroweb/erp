@@ -2,7 +2,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClienteEntity } from './cliente.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { ClienteRequestDto } from './cliente.request.dto';
 import { SetorService } from 'src/setores/setor.service';
 
@@ -14,8 +14,16 @@ export class ClienteService {
     private setorService: SetorService,
   ) { }
 
-  async findAll(): Promise<ClienteEntity[]> {
-    return this.clienteRepository.find();
+  async findAll(nome?: string, documento?: string): Promise<ClienteEntity[]> {
+    let queryBuilder = this.clienteRepository.createQueryBuilder("cliente");
+
+    if (nome)
+        queryBuilder = queryBuilder.where("cliente.nome LIKE :nome", { nome: `%${nome}%` });
+
+    if (documento)
+        queryBuilder = queryBuilder.andWhere("cliente.documento LIKE :documento", { documento: `%${documento}%` });
+
+    return queryBuilder.getMany();
   }
 
   async findOneByUuid(uuid: string): Promise<ClienteEntity> {
