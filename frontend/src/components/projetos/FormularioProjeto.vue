@@ -1,11 +1,6 @@
 <template>
   <el-tabs type="border-card">
 
-    <el-tab-pane label="Atividades">
-        <ProjetoAtividadesListar/>
-    </el-tab-pane>
-
-
     <el-tab-pane label="Projeto">
     <el-card class="box-card" shadow="never">
         <template #header>
@@ -56,6 +51,7 @@
             <el-form-item label="Cliente">
                 <el-col :span="13">
                     <el-select v-model="projetoStore.projeto.cliente.uuid" 
+                    id="cliente"
                     name="contrato"
                     placeholder="Selecionar o cliente..." style="width: 240px">
                         <el-option
@@ -83,7 +79,7 @@
             </el-form-item>
 
             <el-form-item label="Orçamento">
-                <el-input v-model="projetoStore.projeto.orcamento" placeholder="Orçamento">
+                <el-input name="orcamento" v-model="projetoStore.projeto.orcamento" placeholder="Orçamento">
                     <template #prepend>R$</template>
                 </el-input>
             </el-form-item>
@@ -91,7 +87,9 @@
             
             <el-form-item label="Início">
                 <el-col :span="5">
-                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_inicio"
+                    <el-date-picker 
+                    name="data_inicio"
+                    :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_inicio"
                         type="date" placeholder="Data Início" style="width: 100%" />
                 </el-col>
                 <el-col :span="2">
@@ -100,7 +98,9 @@
                     </span>
                 </el-col>
                 <el-col :span="5">
-                    <el-date-picker :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_fim" type="date"
+                    <el-date-picker 
+                    name="data_fim"
+                    :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_fim" type="date"
                         placeholder="Data Fim" style="width: 100%" />
                 </el-col>
             </el-form-item>
@@ -132,6 +132,10 @@
     </el-tab-pane>
 
 
+
+    <el-tab-pane label="Atividades">
+        <ProjetoAtividadesListar/>
+    </el-tab-pane>
  
 
   </el-tabs>

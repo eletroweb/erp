@@ -1,0 +1,22 @@
+{
+    "original": {
+        "cliente": "Cliente QA",
+        "setor": "Engenharia civi",
+        "responsavel": "Luís Eduardo",
+        "orcamento": "3500",
+        "data_inicio": "01/01/2024",
+        "data_fim": "31/12/2024",
+        "observacao": "Teste QA",
+        "situacao": "Cancelado"
+    },
+    "editado": {
+        "cliente": "Cliente QA2",
+        "setor": "Meio Ambiente",
+        "responsavel": "Luís Eduardo Editado",
+        "orcamento": "4500",
+        "data_inicio": "01/01/2025",
+        "data_fim": "31/12/2025",
+        "observacao": "Teste QA Editado",
+        "situacao": "Cancelado"
+    }
+}

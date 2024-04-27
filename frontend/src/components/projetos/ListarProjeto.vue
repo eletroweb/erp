@@ -8,7 +8,8 @@
                 </el-button>
             </div>
         </template>
-        <el-table v-if="projetoStore.projetos.length > 0" :data="projetoStore.projetos" stripe style="width: 99%">
+        <el-table 
+        v-if="projetoStore.projetos.length > 0" :data="projetoStore.projetos" stripe style="width: 99%">
             <el-table-column prop="cliente" label="Cliente" width="250">
                 <template #default="cliente">
                  {{ cliente.row.cliente.nome }}

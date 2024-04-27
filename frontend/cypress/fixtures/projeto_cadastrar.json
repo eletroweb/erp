@@ -1,0 +1,10 @@
+{
+    "cliente": "Cliente QA",
+    "setor": "Engenharia civil",
+    "responsavel": "Luís Eduardo",
+    "orcamento": "3500",
+    "data_inicio": "01/01/2024",
+    "data_fim": "31/12/2024",
+    "observacao": "Teste QA",
+    "situacao": "Cancelado"
+}
