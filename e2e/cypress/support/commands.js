@@ -23,16 +23,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
-
-Cypress.Commands.add('preencherFormularioContrato', (contrato) => {
-    cy.get('input[name="nome"]').clear().type(contrato.nome);
-    cy.get('input[name="orcamento"]').clear().type(contrato.orcamento);
-    cy.get('input[name="data_inicio"]').click();
-    cy.get('.el-date-table').contains('.available', '4').click();
-    cy.get('input[name="data_fim"]').clear().type(contrato.data_fim);
-});
-
-Cypress.Commands.add('preencherFormularioSetor', (setor_editar) => {
-    cy.get('input[name="nome"]').clear().type(setor_editar.nome);
-})

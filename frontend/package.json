@@ -4,19 +4,13 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "test:unit": "cypress run --component",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "dev": "vite",
-    "preview": "vite preview",
-    "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
-    "test:unit:dev": "cypress open --component"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@quasar/extras": "^1.0.0",
     "axios": "^1.6.7",
-    "cypress-multi-reporters": "^1.6.4",
     "element-plus": "^2.5.4",
     "mocha-junit-reporter": "^2.2.1",
     "moment": "^2.30.1",
@@ -29,7 +23,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
-    "cypress": "^13.6.3",
     "start-server-and-test": "^2.0.3",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
