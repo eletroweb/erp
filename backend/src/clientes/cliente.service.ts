@@ -14,7 +14,7 @@ export class ClienteService {
     private setorService: SetorService,
   ) { }
 
-  async findAll(nome?: string, documento?: string): Promise<ClienteEntity[]> {
+  async findAll(nome?: string, documento?: string, situacao?: string): Promise<ClienteEntity[]> {
     let queryBuilder = this.clienteRepository.createQueryBuilder("cliente");
 
     if (nome)
@@ -22,6 +22,11 @@ export class ClienteService {
 
     if (documento)
         queryBuilder = queryBuilder.andWhere("cliente.documento LIKE :documento", { documento: `%${documento}%` });
+
+    if (situacao) {
+      const situacaoFiltro = situacao == 'true' ? 1 : 0
+      queryBuilder = queryBuilder.andWhere("cliente.situacao = :situacao", { situacao: `${situacaoFiltro}` });
+    }
 
     return queryBuilder.getMany();
   }

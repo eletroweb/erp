@@ -15,7 +15,8 @@ export const ClienteStore = defineStore('clienteStore', {
         btnSalvarValido: true,
         pesquisa: {
             nome: null,
-            documento: null
+            documento: null,
+            situacao: null
         }
     }),
     actions: {
@@ -37,6 +38,9 @@ export const ClienteStore = defineStore('clienteStore', {
     
             if (this.pesquisa.documento !== null)
                 queryParams.documento = this.pesquisa.documento;
+
+            if (this.pesquisa.situacao !== null)
+                queryParams.situacao = this.pesquisa.situacao;    
     
             const queryString = new URLSearchParams(queryParams).toString();
             const url = `clientes?${queryString}`;
@@ -95,11 +99,16 @@ export const ClienteStore = defineStore('clienteStore', {
             }
         },
         async cancelar() {
-            /*
-            TODO verificar se o formulario esta preenchido e perguntar 
-            se o usuário deseja descartar as informações cotnidas no fomrulario
-            */
             router.push('/clientes');
+        },
+        async limparPesquisa() {
+            this.pesquisa.nome = null
+            this.pesquisa.documento = null
+            this.pesquisa.situacao = null
+            this.listar()
+        },
+        async filtrarPorSituacao(){
+            this.listar()
         },
         async carregarCliente(id) {
             try {

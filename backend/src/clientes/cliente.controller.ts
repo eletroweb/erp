@@ -13,8 +13,9 @@ export class ClienteController {
   async findAll(
     @Query('nome') nome?: string,
     @Query('documento') documento?: string,
+    @Query('situacao') situacao?: string,
   ): Promise<ClienteResponseDto[]> {
-    const clientes = await this.clienteService.findAll(nome, documento);
+    const clientes = await this.clienteService.findAll(nome, documento, situacao);
     const clientesDto: ClienteResponseDto[] = clientes.map(cliente => cliente.toDto());
     return clientesDto;
   }
