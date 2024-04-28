@@ -30,7 +30,7 @@ describe('Pesquisar Cliente', () => {
     cy.contains('Clientes').click();
 
     cy.fixture('cliente.json').then((cliente) => {
-      
+
       cy.get('input[name="pesquisa_documento"]').type(cliente.documento)
       cy.contains('Pesquisar').click()
 
@@ -40,6 +40,25 @@ describe('Pesquisar Cliente', () => {
           cy.get('.el-table__row').contains('td.el-table_1_column_2', cliente.documento);
           cy.get('.el-table__row').contains('td.el-table_1_column_3', cliente.telefone);
           cy.get('.el-table__row').contains('td.el-table_1_column_4', cliente.email);
+        });
+      });
+    })
+  })
+
+  it('RF2.4.1.3 Pesquisar cliente por situação', () => {
+    cy.contains('Clientes').click();
+
+    cy.fixture('cliente.json').then((cliente) => {
+      cy.contains('Situação').click()
+      cy.contains('Desabilitado').click()
+
+      cy.get('table.el-table__body').each(($table) => {
+        cy.wrap($table).within(() => {
+          cy.get('.el-table__row').contains('td.el-table_1_column_1', cliente.nome);
+          cy.get('.el-table__row').contains('td.el-table_1_column_2', cliente.documento);
+          cy.get('.el-table__row').contains('td.el-table_1_column_3', cliente.telefone);
+          cy.get('.el-table__row').contains('td.el-table_1_column_4', cliente.email);
+          cy.get('.el-table__row').contains('td.el-table_1_column_5', 'Desativado');
         });
       });
     })
