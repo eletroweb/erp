@@ -50,7 +50,7 @@ describe('Pesquisar Cliente', () => {
 
     cy.fixture('cliente.json').then((cliente) => {
       cy.contains('Situação').click()
-      cy.contains('Desabilitado').click()
+      cy.contains('Ativado').click()
 
       cy.get('table.el-table__body').each(($table) => {
         cy.wrap($table).within(() => {
@@ -58,7 +58,7 @@ describe('Pesquisar Cliente', () => {
           cy.get('.el-table__row').contains('td.el-table_1_column_2', cliente.documento);
           cy.get('.el-table__row').contains('td.el-table_1_column_3', cliente.telefone);
           cy.get('.el-table__row').contains('td.el-table_1_column_4', cliente.email);
-          cy.get('.el-table__row').contains('td.el-table_1_column_5', 'Desativado');
+          cy.get('.el-table__row').contains('td.el-table_1_column_5', 'Ativado');
         });
       });
     })

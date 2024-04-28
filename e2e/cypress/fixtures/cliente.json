@@ -2,5 +2,10 @@
     "nome": "Cliente QA2",
     "telefone": "83999999992",
     "email": "clienteqa2@email.com",
-    "documento": "06713832485"
+    "documento": "66022596017",
+    "estado": "PB",
+    "cidade": "João Pessoa",
+    "setor": "Engenharia civil",
+    "endereco": "Rua Exemplo",
+    "complemento": "N 123, próximo do XPTO"
 }
