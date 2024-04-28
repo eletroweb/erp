@@ -14,6 +14,7 @@
         <li v-for="clientes in this.clienteStore.clientes.nome" :key="clientes.id">{{ clientes.nome }}</li>
         <el-table v-if="clienteStore.clientes.length > 0" :data="clienteStore.clientes" stripe style="width: 99%">
             <el-table-column prop="nome" label="Nome" width="400" />
+            <el-table-column prop="documento" label="CPF/CNPJ" width="130" />
             <el-table-column prop="telefone" label="Telefone" width="120" />
             <el-table-column prop="email" label="E-mail" width="250" />
             <el-table-column prop="situacao" label="Situação" width="100">

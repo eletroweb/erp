@@ -1,12 +1,13 @@
 <template>
     <el-form-item class="search">
         <el-form-item>
-            <el-input type="text" v-model="clienteStore.pesquisa.nome" placeholder="Nome..."
+            <el-input type="text" name="pesquisa_nome" v-model="clienteStore.pesquisa.nome" placeholder="Nome..."
                 @keyup.enter="clienteStore.listar" />
         </el-form-item>
         <el-form-item>
-            <el-input v-model="clienteStore.pesquisa.documento" placeholder="CPF/CNPJ..."
-                @keyup.enter="clienteStore.listar" name="documento" />
+            <el-input 
+                v-model="clienteStore.pesquisa.documento" placeholder="CPF/CNPJ..."
+                @keyup.enter="clienteStore.listar" name="pesquisa_documento" />
         </el-form-item>
         <el-form-item>
             <el-select 

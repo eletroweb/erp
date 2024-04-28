@@ -30,6 +30,10 @@ RF2.2 Editar Cliente
 RF2.3 Excluir Cliente
 RF2.4 Listar Clientes
 RF2.4.1 Pesquisar cliente
+    RF2.4.1.1 Pesquisar cliente por nome
+    RF2.4.1.2 Pesquisar cliente por CPF/CNPJ
+    RF2.4.1.3 Pesquisar cliente por situação
+    RF2.4.1.4 Limpar pesquisa
 RF2.5 Associar contrato ao serviço
 RF2.6 Asscoiar setor ao Cliente
 RF2.7 Desativar/Ativar Cliente

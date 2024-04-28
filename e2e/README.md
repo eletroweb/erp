@@ -3,7 +3,7 @@ Para a realização dos testes e2e, crie o seguinte usuário com email qa@teste.
 
 Crie um cliente chamado "Cliente QA" e outro "Cliente QA2"
 
-Certifique-se que você possui exatamente os setores "Engenharia civil e "Meio Ambiente" cadastrados
+Certifique-se de que você possui exatamente os setores "Engenharia civil e "Meio Ambiente" cadastrados
 
 Implemente separadamente os testes para cada funcionalidade, exemplo
 projeto.cadastrar.spec.js
