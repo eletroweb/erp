@@ -20,7 +20,7 @@ import { OrdemServicoModule } from 'src/ordemServicos/ordemServico.module';
       authServerUrl: 'http://localhost:8080/',
       realm: 'agilmax',
       clientId: 'erp-web',
-      secret: '34bj1W9wNVBYQsP9bkaUxV6JwwVBosxb',
+      secret: 'rELVikDBFPJ6OqqWF9DbRfAmoeJQSlKD',
     }),
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({

@@ -11,5 +11,9 @@
     "devDependencies": {
         "eslint": "^8.57.0",
         "eslint-plugin-vue": "^9.24.0"
+    },
+    "dependencies": {
+        "cypress": "^13.8.1",
+        "cypress-plugin-xhr-toggle": "^1.2.1"
     }
 }
