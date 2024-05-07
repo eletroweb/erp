@@ -55,11 +55,18 @@ export const MenuLateralStore = defineStore('MenuLateralStore', {
         visibility: 'disabled'
       },
       {
+        label: "Fornecedores",
+        path: "fornecedores",
+        roles: ['MASTER', 'FORNECEDOR_LISTAR', 'FORNECEDOR_CADASTRAR', 'FORNECEDOR_EDITAR', 'FORNECEDOR_EXCLUIR'],
+        icon: 'Avatar',
+        order: 7,
+      },
+      {
         label: "Configurações",
         path: "ordem-servico",
         roles: ['MASTER'],
         icon: 'setting',
-        order: 7
+        order: 8
       },
     ]
   }),

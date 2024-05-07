@@ -14,6 +14,8 @@ import ListarProjeto from '@/components/projetos/ListarProjeto.vue'
 import FormularioProjeto from '@/components/projetos/FormularioProjeto.vue'
 import Login from '@/components/app/Login.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import ListarFornecedores from '@/components/fornecedores/ListarFornecedores.vue'
+import FormularioFornecedor from '@/components/fornecedores/FormularioFornecedor.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -102,6 +104,21 @@ const router = createRouter({
       path: '/projetos/:id',
       name: 'editar-projeto',
       component: FormularioProjeto
+    },
+    {
+      path: '/fornecedores',
+      name: 'fornecedor',
+      component: ListarFornecedores
+    },
+    {
+      path: '/fornecedores/cadastrar',
+      name: 'cadastrar-fornecedor',
+      component: FormularioFornecedor
+    },
+    {
+      path: '/fornecedores/:id',
+      name: 'editar-fornecedor',
+      component: FormularioFornecedor
     },
   ]
 })
