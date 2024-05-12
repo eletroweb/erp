@@ -121,9 +121,6 @@ const router = createRouter({
       path: '/rh/colaborador/:id',
       name: 'editar-colaborador',
       component: FormularioRecursosHumanos
-      path: '/fornecedores',
-      name: 'fornecedor',
-      component: ListarFornecedores
     },
     {
       path: '/fornecedores/cadastrar',

@@ -55,12 +55,13 @@ export const MenuLateralStore = defineStore('MenuLateralStore', {
         visibility: 'disabled'
       },
       {
-        label: " Recursos Humanos",
+        label: "Recursos Humanos",
         path: "rh",
         roles: ['MASTER', 'COLABORADOR_LISTAR', 'COLABORADOR_CADASTRAR', 'COLABORADOR_EDITAR', 'COLABORADOR_EXCLUIR'],
         icon: 'Folder',
         order: 7,
       },
+      {
         label: "Fornecedores",
         path: "fornecedores",
         roles: ['MASTER', 'FORNECEDOR_LISTAR', 'FORNECEDOR_CADASTRAR', 'FORNECEDOR_EDITAR', 'FORNECEDOR_EXCLUIR'],
