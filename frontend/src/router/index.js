@@ -14,6 +14,8 @@ import ListarProjeto from '@/components/projetos/ListarProjeto.vue'
 import FormularioProjeto from '@/components/projetos/FormularioProjeto.vue'
 import Login from '@/components/app/Login.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import ListarRecursosHumanos from '../components/recursosHumanos/ListarRecursosHumanos.vue'
+import FormularioRecursosHumanos from '../components/recursosHumanos/FormularioRecursosHumanos.vue'
 import ListarFornecedores from '@/components/fornecedores/ListarFornecedores.vue'
 import FormularioFornecedor from '@/components/fornecedores/FormularioFornecedor.vue'
 
@@ -106,6 +108,19 @@ const router = createRouter({
       component: FormularioProjeto
     },
     {
+      path: '/rh',
+      name: 'colaborador',
+      component: ListarRecursosHumanos
+    },
+    {
+      path: '/rh/colaborador/cadastrar',
+      name: 'cadastrar-colaborador',
+      component: FormularioRecursosHumanos
+    },
+    {
+      path: '/rh/colaborador/:id',
+      name: 'editar-colaborador',
+      component: FormularioRecursosHumanos
       path: '/fornecedores',
       name: 'fornecedor',
       component: ListarFornecedores

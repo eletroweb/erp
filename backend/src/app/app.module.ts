@@ -13,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard, KeycloakConnectModule, ResourceGuard } from 'src/keycloak/src';
 import { OrdemServicoModule } from 'src/ordemServicos/ordemServico.module';
+import { ColaboradorModule } from 'src/recursosHumanos/colaborador.module';
 import { FornecedorModule } from 'src/fornecedores/fornecedor.module';
 
 @Module({
@@ -21,7 +22,7 @@ import { FornecedorModule } from 'src/fornecedores/fornecedor.module';
       authServerUrl: 'http://localhost:8080/',
       realm: 'agilmax',
       clientId: 'erp-web',
-      secret: '0oyIynqNw2HgUGNhTiXwB67EpPgJ5nfG'
+      secret: '34bj1W9wNVBYQsP9bkaUxV6JwwVBosxb'
     }),
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({
@@ -42,6 +43,7 @@ import { FornecedorModule } from 'src/fornecedores/fornecedor.module';
     ContratoModule,
     ServicoModule,
     OrdemServicoModule,
+    ColaboradorModule,
     FornecedorModule
   ],
   controllers: [AppController],

@@ -69,7 +69,7 @@
             <el-form-item>
 
                 <el-button v-if="this.id == null" type="primary" @click="servicoStore.cadastrar()">
-                    Salvar
+                    salvar
                 </el-button>
 
                 <el-button v-else type="primary" @click="servicoStore.editar(servicoStore.servico.uuid)">

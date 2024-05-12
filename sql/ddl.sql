@@ -441,6 +441,67 @@ INSERT INTO `usuarios` VALUES (1,'dd6ae8dd-d146-41be-811c-9c5fa1cf86da',1,'2024-
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `colaboradores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `colaboradores` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `data_cadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `documento` varchar(20) NOT NULL,
+  `cargo` varchar(100) DEFAULT NULL,
+  `salario` varchar(100) DEFAULT NULL,
+  `observacao` varchar(255) DEFAULT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `telefone` varchar(50) NOT NULL,
+  `evalor_hora` varchar(100) DEFAULT NULL,
+  `situacao` enum('1','0') NOT NULL,
+  PRIMARY KEY (`id`),
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `colaboradores`
+--
+
+LOCK TABLES `colaboradores` WRITE;
+/*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
+INSERT INTO `colaboradores` VALUES (1,'a0df0b5a-a9fc-48e6-bc69-58ec869001b7','2024-03-17 19:46:54','2024-03-17 19:46:54','06713832482','PB','Campina Grande','2',51,'Colaborador 1','colaborador1@gmail.com','83991732817','1','1');
+/*!40000 ALTER TABLE `ccolaboradores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `colaboradores_atributos`
+--
+
+DROP TABLE IF EXISTS `colaboradores_atributos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `colaboradores_atributos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) DEFAULT (uuid()),
+  `colaboradores_id` int DEFAULT NULL,
+  `chave` varchar(255) DEFAULT NULL,
+  `valor` varchar(255) DEFAULT NULL,
+  `situacao` int DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `colaboradores_id` (`colaborador_id`),
+  CONSTRAINT `colaboradores_atributos_ibfk_1` FOREIGN KEY (`colaboradores_id`) REFERENCES `colaboradores` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `colaboradores_atributos`
+--
+
+LOCK TABLES `colaboradores_atributos` WRITE;
+/*!40000 ALTER TABLE `colaboradores_atributos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ccolaboradores_atributos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 --
 -- Dumping routines for database 'erp'
 --

@@ -97,6 +97,12 @@ RF10.1 Associar Serviço a OS
 
 RF11 Associar responsável a atividade no projeto
 
+## Recursos Humanos
+RF12.1 Cadastrar Colaborador
+RF12.2 Listar Colaborador
+RF12.3 Editar Colaborador
+RF12.4 Excluir Colaborador
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 

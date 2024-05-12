@@ -57,7 +57,7 @@ export class SetorEntityMock {
     this.nome = nome;
     this.descricao = descricao;
   }
-}
+};
 
 
 describe('ClienteController', () => {
