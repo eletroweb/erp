@@ -1,5 +1,5 @@
 <template>
-  <el-menu default-active="2" :collapse="menuCollapse" @open="handleOpen" @close="handleClose"
+  <el-menu default-active="2" :collapse="menuCollapse"
     class="el-menu-vertical-demo" :router="true">
 
     <el-menu-item index="1" @click="toggleMenu()" class="first">

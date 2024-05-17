@@ -123,6 +123,11 @@ const router = createRouter({
       component: FormularioRecursosHumanos
     },
     {
+      path: '/fornecedores/',
+      name: 'listar-fornecedor',
+      component: ListarFornecedores
+    },
+    {
       path: '/fornecedores/cadastrar',
       name: 'cadastrar-fornecedor',
       component: FormularioFornecedor

@@ -9,32 +9,36 @@ import { ProjetoModule } from 'src/projetos/projeto.module';
 import { UsuarioModule } from 'src/usuarios/usuario.module';
 import { ContratoModule } from 'src/contratos/contrato.module';
 import { ServicoModule } from 'src/servicos/servico.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard, KeycloakConnectModule, ResourceGuard } from 'src/keycloak/src';
 import { OrdemServicoModule } from 'src/ordemServicos/ordemServico.module';
 import { ColaboradorModule } from 'src/recursosHumanos/colaborador.module';
 import { FornecedorModule } from 'src/fornecedores/fornecedor.module';
+import configuration from 'src/config/configuration';
 
 @Module({
   imports: [
-    KeycloakConnectModule.register({
-      authServerUrl: 'http://localhost:8080/',
-      realm: 'agilmax',
-      clientId: 'erp-web',
-      secret: '34bj1W9wNVBYQsP9bkaUxV6JwwVBosxb'
+    KeycloakConnectModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const keycloakConfig = configService.get('keycloak');
+        return { ...keycloakConfig };
+      },
+      inject: [ConfigService],
+      useClass: undefined
     }),
-    ConfigModule.forRoot({isGlobal: true}),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: 3306,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      //entities: [SetorEntity, ClienteEntity, ProjetoEntity, ContatoEntity],
-      autoLoadEntities: true,
-      synchronize: true, // Sincronizar automaticamente o esquema (apenas para ambiente de desenvolvimento)
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const dbConfig = configService.get('database');
+        return { ...dbConfig };
+      },
+      inject: [ConfigService],
     }),
     SetorModule,
     ClienteModule,
@@ -59,4 +63,4 @@ import { FornecedorModule } from 'src/fornecedores/fornecedor.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
