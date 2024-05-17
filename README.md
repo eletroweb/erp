@@ -70,6 +70,7 @@ RF5.4 Listar Serviço
 RF5.5 Associar contrato ao serviço
 RF5.6 Asscoiar setor ao Serviço
 RF5.7 Desativar/Ativar Serviço
+RF5.8 Pesquisar serviço
 
 ## Atividade associada ao projeto
 RF6.1 Adicionar Atividade do projeto

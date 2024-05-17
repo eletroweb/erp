@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, Res, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, Res, NotFoundException, Query } from '@nestjs/common';
 import { ServicoService } from './servico.service';
 import { ServicoEntity } from './servico.entity';
 import { ServicoResponseDto } from './servico.response.dto';
@@ -11,8 +11,11 @@ export class ServicoController {
 
   @Get()
   @Roles({ roles: ["MASTER","SERVICO_LISTAR"] })
-  async findAll(): Promise<ServicoResponseDto[]> {
-    const servicos = await this.servicoService.findAll();
+  async findAll(
+    @Query('descricao') descricao?: string,
+    @Query('situacao') situacao?: string,
+  ): Promise<ServicoResponseDto[]> {
+    const servicos = await this.servicoService.findAll(descricao, situacao);
     const servicosDto: ServicoResponseDto[] = servicos.map(servico => servico.toDto());
     return servicosDto;
   }  

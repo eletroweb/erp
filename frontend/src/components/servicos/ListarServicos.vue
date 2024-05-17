@@ -3,6 +3,7 @@
         <template #header>
             <div class="card-header">
                 <span>Serviços</span>
+                <ServicosBarraDePesquisa />
                 <el-button type="success" @click="servicoStore.novo()" class="btnCadastrar">
                     Cadastrar
                 </el-button>
@@ -11,7 +12,6 @@
         <el-table v-if="servicoStore.servicos.length > 0" :data="servicoStore.servicos" stripe style="width: 99%">
             <!-- el-table-column prop="uuid" label="ID" width="300" / -->
             <el-table-column prop="descricao" label="Descrição" width="400" />
-            <el-table-column prop="situacao" label="Situação" width="100" />
             <el-table-column prop="valor" label="Valor" width="150" />
 
             <el-table-column prop="situacao" label="Situação" width="150">
@@ -19,8 +19,7 @@
                     <el-tag v-if="servico.row.situacao" type="success">Ativado</el-tag>
                     <el-tag v-else type="info">Desativado</el-tag>
                 </template>
-            </el-table-column>
-
+            </el-table-column>            
             <el-table-column prop="situacao" label="">
                 <template #default="servico">
                     <el-button type="primary" size="small" @click="servicoStore.exibir(servico.row.uuid)" plain>Editar</el-button>
@@ -35,6 +34,8 @@
 
 <script>
 import { useServicoStore } from '@/store/ServicoStore'
+import ServicosBarraDePesquisa from './ServicosBarraDePesquisa.vue'
+
 
 export default {
     setup() {
@@ -45,6 +46,7 @@ export default {
     mounted() {
     },
     components: {
+        ServicosBarraDePesquisa
     },
     methods: {
     }

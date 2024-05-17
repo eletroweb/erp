@@ -53,7 +53,7 @@ export class ServicoEntity {
       situacao: this.situacao == Situacao.ATIVO,
       valor: this.valor,
       contrato: this.contrato,
-      setor: this.setor.toDto()
+      setor: this.setor?.toDto()
     };
   }
 

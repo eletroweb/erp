@@ -13,21 +13,39 @@ export const useServicoStore = defineStore('servicoStore', {
             contrato: {
                 uuid: ""
             }
+        },
+        pesquisa: {
+            descricao: null,
+            situacao: null
         }
     }),
     actions: {
         async listar() {
             try {
-                const response = await api.get(`servicos`);
+                const url = await this.getUrlListar();
+                const response = await api.get(url);
                 this.servicos = response.data;
             } catch (error) {
                 console.log(error);
                 throw error;
             }
+            return this.servicos
         },
+        async getUrlListar() {
+            const queryParams = {};
+            if (this.pesquisa.descricao !== null)
+                queryParams.descricao = this.pesquisa.descricao;
+    
+            if (this.pesquisa.situacao !== null)
+                queryParams.situacao = this.pesquisa.situacao;    
+    
+            const queryString = new URLSearchParams(queryParams).toString();
+            const url = `servicos?${queryString}`;
+            return url
+        },    
+
         async novo() {
             this.servico = this.reset();
-            console.log("12361253421534");
             router.push('/servicos/cadastrar-servicos');
         },
         async cadastrar() {
@@ -63,12 +81,19 @@ export const useServicoStore = defineStore('servicoStore', {
             }
         },
         async cancelar() {
-            /*
-            TODO verificar se o formulario esta preenchido e perguntar 
-            se o usuário deseja descartar as informações cotnidas no fomrulario
-            */
             router.push('/servicos');
         },
+
+        async filtrarPorSituacao() {
+            this.listar()
+        },
+
+        async limparPesquisa() {
+            this.pesquisa.descricao = null;
+            this.pesquisa.situacao = null;
+            this.listar()
+        },
+
         async carregarServico(id) {
             try {
                 const response = await api.get(`servicos/${id}`);

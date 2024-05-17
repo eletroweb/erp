@@ -1,4 +1,4 @@
-// servico.service.ts
+3// servico.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ServicoEntity } from './servico.entity';
@@ -16,8 +16,19 @@ export class ServicoService {
     private contratoService: ContratoService
   ) { }
 
-  async findAll(): Promise<ServicoEntity[]> {
-    return this.servicoRepository.find({relations: ['contrato', 'setor']});
+  async findAll(descricao?: string, situacao?: string): Promise<ServicoEntity[]> {
+    //return this.servicoRepository.find({relations: ['contrato', 'setor']});
+    let queryBuilder = this.servicoRepository.createQueryBuilder("servicos");
+
+    if (descricao)
+      queryBuilder = queryBuilder.where("servicos.descricao LIKE :descricao", { descricao: `%${descricao}%` });
+
+    if (situacao) {
+      const situacaoFiltro = situacao == 'true' ? 1 : 0
+      queryBuilder = queryBuilder.andWhere("servicos.situacao = :situacao", { situacao: `${situacaoFiltro}` });
+    }
+
+    return queryBuilder.getMany();
   }
 
   async findOneByUuid(uuid: string): Promise<ServicoEntity> {
