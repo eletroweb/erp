@@ -5,6 +5,8 @@ Para a realização dos testes e2e, crie o seguinte usuário com email qa@teste.
 
 Crie um cliente chamado "Cliente QA" e outro "Cliente QA2"
 
+Crie um fornecedor chamado "Fornecedor QA3"
+
 Certifique-se que você possui exatamente os setores "Engenharia civil e "Meio Ambiente" cadastrados
 
 Implemente separadamente os testes para cada funcionalidade, exemplo
@@ -120,6 +122,23 @@ RF12.1 Cadastrar Colaborador
 RF12.2 Listar Colaborador
 RF12.3 Editar Colaborador
 RF12.4 Excluir Colaborador
+
+## Fornecedor
+RF13.1 Cadastrar Fornecedor
+RF13.2 Editar Fornecedor
+RF13.3 Excluir Fornecedor
+RF13.4 Listar Fornecedor
+RF13.4.1 Pesquisar fornecedor
+    RF13.4.1.1 Pesquisar fornecedor por nome
+    RF13.4.1.2 Pesquisar fornecedor por CPF/CNPJ
+    RF13.4.1.3 Pesquisar fornecedor por situação
+    RF13.4.1.4 Limpar pesquisa
+RF13.5 Associar contrato ao serviço do fornecedor
+RF13.6 Desativar/Ativar Fornecedor
+RF13.7 Validar duplicidade de email do fornecedor
+RF13.8 Validar duplicidade de CPF/CNPJ do fornecedor
+RF13.9 Validar telefone do fornecedor
+RF13.10 Validar email do fornecedor
 
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso

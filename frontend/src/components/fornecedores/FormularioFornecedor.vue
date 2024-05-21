@@ -36,7 +36,7 @@
                 </el-col>
                 <el-col :span="13">
                     <el-form-item label=" CPF ou CNPJ">
-                        <el-input v-model="fornecedorStore.fornecedor.documento" @blur="fornecedorStore.handleDocumento" name="Documento" />
+                        <el-input v-model="fornecedorStore.fornecedor.documento" @blur="fornecedorStore.handleDocumento" name="documento" />
                     </el-form-item>
                 </el-col>
             </el-form-item>

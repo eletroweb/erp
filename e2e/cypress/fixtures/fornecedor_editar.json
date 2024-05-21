@@ -1,0 +1,22 @@
+{
+    "original": {
+        "nome": "Fornecedor QA3",
+        "documento": "09757808083",
+        "estado": "PB",
+        "cidade": "Monteiro",
+        "email": "fornecedorqa3@email.com",
+        "telefone": "8399999910",
+        "endereco": "Rua Belo Monte",
+        "complemento": "N 321, próximo a maternidade"
+    },
+    "editado": {
+        "nome": "Fornecedor Editado",
+        "telefone": "83999999911",
+        "estado": "PB",
+        "cidade": "Sumé",
+        "email": "fornecedorEditado@email.com",
+        "documento": "05731950059",
+        "endereco": "Rua do Abrigo",
+        "complemento": "N 456, próximo a praça"
+    }
+}

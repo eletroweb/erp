@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FornecedorService } from './fornecedor.service';
-import { FornecedorCortroller } from './fornecedor.controller';
+import { FornecedorController } from './fornecedor.controller';
 import { FornecedorResponseDto } from './fornecedor.response.dto';
 
 const mockFornecedorService = {
@@ -42,7 +42,7 @@ describe('FornecedorController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [FornecedorCortroller],
+      controllers: [FornecedorController],
       providers: [
         {
           provide: FornecedorService,
@@ -51,7 +51,7 @@ describe('FornecedorController', () => {
       ],
     }).compile();
 
-    controller = app.get<FornecedorCortroller>(FornecedorCortroller);
+    controller = app.get<FornecedorController>(FornecedorController);
   });
 
   describe('root', () => {

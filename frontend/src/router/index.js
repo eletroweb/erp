@@ -158,6 +158,11 @@ const router = createRouter({
       name: 'editar-fornecedor',
       component: FormularioFornecedor
     },
+    {
+      path: '/fornecedores',
+      name: 'fornecedor',
+      component: ListarFornecedores
+    },
   ]
 })
 

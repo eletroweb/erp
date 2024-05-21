@@ -10,5 +10,6 @@ describe('Autenticação usuário master', () => {
     cy.contains('Projetos')
     cy.contains('Ordem Serviço')
     cy.contains('Configurações')
+    cy.contains('Fornecedores')
   })
 })

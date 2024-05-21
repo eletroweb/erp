@@ -5,7 +5,7 @@ import { FornecedorRequestDto } from './fornecedor.request.dto';
 import { Roles } from 'nest-keycloak-connect';
 
 @Controller('fornecedores')
-export class FornecedorCortroller {
+export class FornecedorController {
     constructor(private readonly fornecedorService: FornecedorService) { }
 
     @Get()
