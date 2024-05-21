@@ -53,4 +53,28 @@ api.interceptors.response.use(null, error => {
     }
 })
 
-export { api, plainAxiosInstance }
+const upload = async (endpoint, formData) => {
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `http://localhost:3000/${endpoint}`,
+        data: formData
+    };
+
+    try {
+        return await axios.request(config)
+    } catch (error) {
+        const notificacaoStore = NotificacaoStore();
+        if (error.response) {
+            notificacaoStore.exibirNotificacao("Solicitação inválida", error.response.data.message, 'error');
+        } else if (error.request) {
+            console.error('Erro na requisição:', error.request);
+        } else {
+            console.error('Erro:', error.message);
+        }
+        console.error('Configuração da requisição:', error.config);
+        throw error;
+    }
+}
+
+export { api, upload }

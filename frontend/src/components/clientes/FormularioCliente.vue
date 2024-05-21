@@ -127,7 +127,6 @@ export default {
         }
     },
     async mounted() {
-        // TODO mover isso para um utilitário
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
         if (uuidPattern.test(this.$route.params.id)) {
             this.id = this.$route.params.id

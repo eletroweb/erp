@@ -2,7 +2,7 @@ import { SetorEntity } from 'src/setores/setor.entity';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn, ManyToOne } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ClienteResponseDto } from './cliente.response.dto';
-import { ClienteRequestDto } from './cliente.request.dto';
+import { ClienteCreateDto } from './dto/cliente.create.dto';
 import { Situacao } from 'src/enum/situacao.enum';
 
 @Entity('clientes')
@@ -74,7 +74,7 @@ export class ClienteEntity {
     };
   }
 
-  static fromRequestDto(dto: ClienteRequestDto, setor: SetorEntity): ClienteEntity {
+  static fromRequestDto(dto: ClienteCreateDto, setor: SetorEntity): ClienteEntity {
     const entity = new ClienteEntity();
     entity.nome = dto.nome;
     entity.email = dto.email;

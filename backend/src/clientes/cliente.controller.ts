@@ -1,8 +1,9 @@
 import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException, Query } from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { ClienteResponseDto } from './cliente.response.dto';
-import { ClienteRequestDto } from './cliente.request.dto';
+import { ClienteCreateDto } from './dto/cliente.create.dto';
 import { Roles } from 'nest-keycloak-connect';
+import { ClienteUpdateDto } from './dto/cliente.update.dto';
 
 @Controller('clientes')
 export class ClienteController {
@@ -42,14 +43,14 @@ export class ClienteController {
 
   @Post()
   @Roles({ roles: ['MASTER','CLIENTE_CADASTRAR'] })
-  async create(@Body() request: ClienteRequestDto): Promise<ClienteResponseDto> {
+  async create(@Body() request: ClienteCreateDto): Promise<ClienteResponseDto> {
     const createdCliente = await this.clienteService.create(request);
     return createdCliente.toDto();
   }
 
   @Put(':uuid')
   @Roles({ roles: ['MASTER','CLIENTE_EDITAR'] })
-  async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() request: ClienteRequestDto): Promise<string> {
+  async update(@Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string, @Body() request: ClienteUpdateDto): Promise<string> {
     const updatedCliente = await this.clienteService.update(uuid, request);
     return JSON.stringify(updatedCliente);
   }

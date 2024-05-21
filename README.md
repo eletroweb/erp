@@ -95,8 +95,25 @@ RF9.1.2 Permitir que o usuário com role restrito tenha acesso limitado as funci
 
 ## Serviços da OS
 RF10.1 Associar Serviço a OS
-
 RF11 Associar responsável a atividade no projeto
+
+## Despesas
+RF12.1 Listar despesas
+RF12.2 Cadastrar despesa
+RF12.3 Excluir despesa
+    RF12.3.1 Uma despesa não pode ser excluída, e sim arquivada
+RF12.4 Alterar despesa
+        RF12.4.1.1 Salvar a data de pagamento ao realizar o pagamento integral da despesa
+    RF12.4.2 Definir situação de despesa
+        RF12.4.2.1 PAGA Alterar a situação da despesa para PAGA quando todas as parcelas estiverem com situação paga
+        RF12.4.2.2 PENDENTE 
+        RF12.4.2.3 VENCIDA Quando houver uma ou mais parcelas vencidas com data inferior a data atual
+        RF12.4.2.4 ARQUIVADA Todos os campos de uma despesa devem ficar desabilitados
+RF12.5 Listar parcelas de despesa
+RF12.5.1 Realizar pagamento de parcela
+RF12.5.2 Anexar comprovante de pagamento na parcela
+RF12.5.3 Baixar comprovante de pagamento na parcela
+RF12.6.1 Adicionar parcela a despesa
 
 ## Recursos Humanos
 RF12.1 Cadastrar Colaborador

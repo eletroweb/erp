@@ -5,7 +5,7 @@
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
   "refreshTokenMaxReuse": 0,
-  "accessTokenLifespan": 300,
+  "accessTokenLifespan": 1800,
   "accessTokenLifespanForImplicitFlow": 900,
   "ssoSessionIdleTimeout": 1800,
   "ssoSessionMaxLifespan": 36000,
@@ -22,7 +22,7 @@
   "accessCodeLifespanUserAction": 300,
   "accessCodeLifespanLogin": 1800,
   "actionTokenGeneratedByAdminLifespan": 43200,
-  "actionTokenGeneratedByUserLifespan": 300,
+  "actionTokenGeneratedByUserLifespan": 1800,
   "oauth2DeviceCodeLifespan": 600,
   "oauth2DevicePollingInterval": 5,
   "enabled": true,
@@ -45,6 +45,159 @@
   "failureFactor": 30,
   "roles": {
     "realm": [
+      {
+        "id": "b39bb550-0aae-4a3e-8133-5ba6b254c093",
+        "name": "CONTRATO_EXIBIR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "05eb0297-992c-4bc3-8766-fc51fc9332a2",
+        "name": "FUNCIONARIO",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "5dbe724d-409a-44ba-997f-116ffc8242bd",
+        "name": "ATIVIDADE_PROJETO_DELETAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "914156f4-3c55-4707-a840-50af68463561",
+        "name": "CLIENTE_CADASTRAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "37198c9f-7867-42b8-a04c-14c50722613b",
+        "name": "SETOR_EDITAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "52664b7d-4555-46fc-905c-46c7cabdbb99",
+        "name": "uma_authorization",
+        "description": "${role_uma_authorization}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "9aa44299-9ff3-4985-82ab-7ad70d32199a",
+        "name": "CONTRATO_EXCLUIR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "fe662844-6b4c-4151-8b86-4ac51d86ba6f",
+        "name": "ORDEM_SERVICO_LISTAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "2ae6f38c-4ed1-41f9-80d2-32a9119df49d",
+        "name": "SERVICO_EDITAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "94ea5a5a-65d5-43bd-9523-4d562648d170",
+        "name": "ATIVIDADE_PROJETO_EXIBIR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "7cd7f6b2-9f7a-4dd2-84d0-47d8f3df615c",
+        "name": "ATIVIDADE_PROJETO_LISTAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "09fcd380-d5f7-4359-b6a0-3df89314377c",
+        "name": "ATIVIDADE_PROJETO_CADASTRAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "d823915c-bfa9-4dfd-8e21-1895511810b5",
+        "name": "ORDEM_SERVICO_EDITAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "1507561a-0ec1-4907-9b67-a25744eb7364",
+        "name": "CLIENTE_EXIBIR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "13eb50c2-671e-42fc-ba34-b2252d4d9104",
+        "name": "CONTRATO_CADASTRAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "5bb7c59c-9e52-48f8-8064-be40e9fc22b5",
+        "name": "offline_access",
+        "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "676f50d4-7127-4041-8ef0-fd9a69f25802",
+        "name": "SERVICO_CADASTRAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
       {
         "id": "65e052c9-2922-49cf-844c-70621a18de31",
         "name": "CLIENTE_LISTAR",
@@ -73,6 +226,24 @@
         "attributes": {}
       },
       {
+        "id": "8142c413-067f-4b6d-8e2a-acc1f8fb0403",
+        "name": "ORDEM_SERVICO_EXIBIR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "36dd82f3-e76f-4c64-9848-2388de19fad4",
+        "name": "ATIVIDADE_PROJETO_EDITAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
         "id": "ca5953ac-b15c-469d-84c9-47f6bf552535",
         "name": "SETOR_CADASTRAR",
         "description": "",
@@ -82,8 +253,8 @@
         "attributes": {}
       },
       {
-        "id": "914156f4-3c55-4707-a840-50af68463561",
-        "name": "CLIENTE_CADASTRAR",
+        "id": "8c515818-420c-4712-ab1f-5c26c82268b3",
+        "name": "CONTRATO_LISTAR",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -91,8 +262,8 @@
         "attributes": {}
       },
       {
-        "id": "8c515818-420c-4712-ab1f-5c26c82268b3",
-        "name": "CONTRATO_LISTAR",
+        "id": "962f344b-f48a-4be6-a8de-60dfb447cf82",
+        "name": "ORDEM_SERVICO_CADASTRAR",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -121,35 +292,8 @@
         "attributes": {}
       },
       {
-        "id": "37198c9f-7867-42b8-a04c-14c50722613b",
-        "name": "SETOR_EDITAR",
-        "description": "",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
-        "attributes": {}
-      },
-      {
         "id": "4c9df8d2-0d8b-4eca-90d1-599c3d8cac29",
         "name": "SETOR_LISTAR",
-        "description": "",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
-        "attributes": {}
-      },
-      {
-        "id": "52664b7d-4555-46fc-905c-46c7cabdbb99",
-        "name": "uma_authorization",
-        "description": "${role_uma_authorization}",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
-        "attributes": {}
-      },
-      {
-        "id": "9aa44299-9ff3-4985-82ab-7ad70d32199a",
-        "name": "CONTRATO_EXCLUIR",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -166,6 +310,15 @@
         "attributes": {}
       },
       {
+        "id": "79ad6bc0-4d4c-414d-9044-b50af11d278b",
+        "name": "SERVICO_LISTAR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
         "id": "4f6bc7c2-13f5-4aae-96a0-042686fc039c",
         "name": "CLIENTE_EXCLUIR",
         "description": "",
@@ -175,8 +328,8 @@
         "attributes": {}
       },
       {
-        "id": "13eb50c2-671e-42fc-ba34-b2252d4d9104",
-        "name": "CONTRATO_CADASTRAR",
+        "id": "48949fd4-9251-491a-abd6-c5e059db2201",
+        "name": "SERVICO_EXIBIR",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -184,9 +337,27 @@
         "attributes": {}
       },
       {
-        "id": "5bb7c59c-9e52-48f8-8064-be40e9fc22b5",
-        "name": "offline_access",
-        "description": "${role_offline-access}",
+        "id": "3b03490e-efa1-4e58-9903-a35b25ca9c77",
+        "name": "ORDEM_SERVICO_EXCLUIR",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "f12d8d18-682c-43ef-a433-1f894ea3484d",
+        "name": "MASTER",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
+        "attributes": {}
+      },
+      {
+        "id": "3d065394-ac59-419b-8f2b-37dc4a78674b",
+        "name": "SETOR_EXIBIR",
+        "description": "",
         "composite": false,
         "clientRole": false,
         "containerId": "6c1d9267-fec7-4be5-a5b1-86127fe2d2f7",
@@ -550,9 +721,19 @@
       "attributes": {},
       "realmRoles": [
         "CLIENTE_LISTAR",
+        "SETOR_EXCLUIR",
+        "CONTRATO_EXIBIR",
         "CLIENTE_EDITAR",
+        "SETOR_CADASTRAR",
+        "CLIENTE_CADASTRAR",
+        "CONTRATO_LISTAR",
+        "SETOR_EDITAR",
+        "SETOR_LISTAR",
+        "CONTRATO_EXCLUIR",
+        "CONTRATO_EDITAR",
         "CLIENTE_EXCLUIR",
-        "CLIENTE_CADASTRAR"
+        "CONTRATO_CADASTRAR",
+        "SETOR_EXIBIR"
       ],
       "clientRoles": {}
     }
@@ -847,21 +1028,22 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "publicClient": false,
-      "frontchannelLogout": true,
+      "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
-        "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "1707652322",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "true",
+        "use.refresh.tokens": "true",
+        "jwt.credential.certificate": "MIICnTCCAYUCBgGNo7rKujANBgkqhkiG9w0BAQsFADASMRAwDgYDVQQDDAdlcnAtd2ViMB4XDTI0MDIxMzE4MjcyNFoXDTM0MDIxMzE4MjkwNFowEjEQMA4GA1UEAwwHZXJwLXdlYjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMDb6x4olNV/iYbJaJOOleeK0YuMs2JrfIhyAIUHtRJ4aBIBharKKHrmuMLz7Xs19uY+l/2YVmDcvDmQ4Ghqfhs/jq+EJtsRVdIU37XmHGd7Y8x4wBUgb4hnNTx/51iWBzbRJjgATSLSMkFELsnEksUxtpvOslAoCto1U9aPx4VhFfVf/lbGy5Xn/7TW9wQPKQHb3akBWaucpt0XwZsRBjatXnboaQwBfy5wdg1rMcAZ7VelG+cVZ6t0W18jDBqYm3uVxXFkUCA4A1RHCtfyB/ybisclD90SWDsWo+zVgFug+E++WKV+FRNG1hLoVHPi38a2oYboTwqod1hoAA3z4M8CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAXR5GXDcg6LRyiW1irN9k77E2Q3c1/09IKHinUB907xKfDqK6KVNYOmda0qZ42rXGUnNg37+r6qomPcqiQBRul17BuzWH9LEfQC5dCQT9x6cphL/G0XrUY2hwJ/pIR0/jkyL/wSfmJnByR8OMQQm6XHOFw0p44BI7OQbQ9+jOx6idLTlAhUpafBYPoE1va/3ayXhu+Dt8ZCu4t98Fx1R2BLP5nYOcksJitQl7y644+QoXpzPI5YQYbP6FpQo50Xvupl+tR+78xYacspfovaZ0AaQmiFAwfNcDD7cVXrZOd+M78d/Emh27j7DlYNH8qE8AoKOSZmosOeSo/dp1/DMlhQ==",
+        "oidc.ciba.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
         "client_credentials.use_refresh_token": "false",
         "tls.client.certificate.bound.access.tokens": "false",
         "require.pushed.authorization.requests": "false",
         "acr.loa.map": "{}",
-        "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",
-        "backchannel.logout.revoke.offline.tokens": "false",
-        "token.response.type.bearer.lower-case": "false",
-        "use.refresh.tokens": "true"
+        "token.response.type.bearer.lower-case": "false"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
@@ -1617,7 +1799,31 @@
   "enabledEventTypes": [],
   "adminEventsEnabled": false,
   "adminEventsDetailsEnabled": false,
-  "identityProviders": [],
+  "identityProviders": [
+    {
+      "alias": "google",
+      "internalId": "12d8b6ce-2acd-4d64-a5c7-64eb2912a874",
+      "providerId": "google",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": false,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "hideOnLoginPage": "false",
+        "clientId": "640620965751-fvc3s39ogrhk5enn5f53f1r1joq5kp3f.apps.googleusercontent.com",
+        "acceptsPromptNoneForwardFromClient": "false",
+        "disableUserInfo": "false",
+        "hostedDomain": "*",
+        "filteredByClaim": "false",
+        "syncMode": "IMPORT",
+        "clientSecret": "**********"
+      }
+    }
+  ],
   "identityProviderMappers": [],
   "components": {
     "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy": [
@@ -2402,13 +2608,22 @@
   "dockerAuthenticationFlow": "docker auth",
   "attributes": {
     "cibaBackchannelTokenDeliveryMode": "poll",
-    "cibaExpiresIn": "120",
     "cibaAuthRequestedUserHint": "login_hint",
-    "oauth2DeviceCodeLifespan": "600",
     "oauth2DevicePollingInterval": "5",
-    "parRequestUriLifespan": "60",
+    "clientOfflineSessionMaxLifespan": "0",
+    "clientSessionIdleTimeout": "0",
+    "actionTokenGeneratedByUserLifespan.verify-email": "",
+    "actionTokenGeneratedByUserLifespan.idp-verify-account-via-email": "",
+    "clientOfflineSessionIdleTimeout": "0",
+    "actionTokenGeneratedByUserLifespan.execute-actions": "",
     "cibaInterval": "5",
-    "realmReusableOtpCode": "false"
+    "realmReusableOtpCode": "false",
+    "cibaExpiresIn": "120",
+    "oauth2DeviceCodeLifespan": "600",
+    "parRequestUriLifespan": "60",
+    "clientSessionMaxLifespan": "0",
+    "shortVerificationUri": "",
+    "actionTokenGeneratedByUserLifespan.reset-credentials": ""
   },
   "keycloakVersion": "23.0.6",
   "userManagedAccessAllowed": false,

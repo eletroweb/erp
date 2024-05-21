@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { LoginStore } from '@/store/LoginStore'
-import HomeView from '../views/DashboardView.vue'
 import ListarSetores from '../components/setores/ListarSetores.vue'
 import FormularioSetores from '../components/setores/FormularioSetores.vue'
 import ListarContratos from '../components/contratos/ListarContratos.vue'
@@ -14,6 +13,8 @@ import ListarProjeto from '@/components/projetos/ListarProjeto.vue'
 import FormularioProjeto from '@/components/projetos/FormularioProjeto.vue'
 import Login from '@/components/app/Login.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import Financeiro from '@/components/financeiro/Financeiro.vue'
+import DespesaFormulario from '@/components/financeiro/despesas/DespesaFormulario.vue'
 import ListarRecursosHumanos from '../components/recursosHumanos/ListarRecursosHumanos.vue'
 import FormularioRecursosHumanos from '../components/recursosHumanos/FormularioRecursosHumanos.vue'
 import ListarFornecedores from '@/components/fornecedores/ListarFornecedores.vue'
@@ -108,6 +109,26 @@ const router = createRouter({
       component: FormularioProjeto
     },
     {
+      path: '/financeiro/',
+      name: 'financeiro',
+      component: Financeiro
+    },
+    {
+      path: '/financeiro/despesa/:id',
+      name: 'despesa-formulario',
+      component: DespesaFormulario
+    },
+    {
+      path: '/financeiro/despesa/',
+      name: 'nova-despesa',
+      component: DespesaFormulario
+    },   
+     {
+      path: '/financeiro/despesas/novo',
+      name: 'nova-despesa',
+      component: DespesaFormulario
+    },
+    {
       path: '/rh',
       name: 'colaborador',
       component: ListarRecursosHumanos
@@ -139,8 +160,6 @@ const router = createRouter({
     },
   ]
 })
-
-
 
 router.beforeEach((to, from, next) => {
  const login = LoginStore()

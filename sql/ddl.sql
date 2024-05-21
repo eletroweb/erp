@@ -72,7 +72,7 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id`),
   KEY `FK_788e6db8c862f167114a4850603` (`setor_id`),
   CONSTRAINT `FK_788e6db8c862f167114a4850603` FOREIGN KEY (`setor_id`) REFERENCES `setores` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (94,'bb6e45f6-1cf6-4fc9-95f6-4a8bc3574829','2024-03-17 19:46:54','2024-03-17 19:46:54','06713832482','PB','João Pessoa','2',51,'Cliente 1','cliente1@gmail.com','83991732814','1','1');
+INSERT INTO `clientes` VALUES (108,'e0d41f3f-0194-4086-95c9-bfba58b60439','2024-04-21 22:43:04','2024-05-07 23:47:45','06713832482','SP','Sao Paulo','Complemento A',50,'Cliente QA','clienteqa@email.com','83999999991','Rua A','1'),(114,'685e2d41-2853-4ec1-a43b-d0ff637f7181','2024-04-28 21:40:03','2024-05-07 23:47:49','06713832482','PB','João Pessoa','N 123, próximo do XPTO',51,'Cliente QA2','clienteqa2@email.com','83999999992','Rua Exemplo','1');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,6 +112,40 @@ CREATE TABLE `clientes_atributos` (
 LOCK TABLES `clientes_atributos` WRITE;
 /*!40000 ALTER TABLE `clientes_atributos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `clientes_atributos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `colaboradores`
+--
+
+DROP TABLE IF EXISTS `colaboradores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `colaboradores` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `telefone` varchar(50) NOT NULL,
+  `documento` varchar(20) NOT NULL,
+  `cargo` varchar(50) DEFAULT NULL,
+  `salario` varchar(50) DEFAULT NULL,
+  `valor_hora` varchar(50) DEFAULT NULL,
+  `observacao` varchar(255) DEFAULT NULL,
+  `situacao` enum('1','0') NOT NULL,
+  `data_cadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `colaboradores`
+--
+
+LOCK TABLES `colaboradores` WRITE;
+/*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -146,6 +180,103 @@ INSERT INTO `contratos` VALUES (37,'5a89144b-bdd1-4b6a-9034-a4f346b7bbd2',1,2000
 UNLOCK TABLES;
 
 --
+-- Table structure for table `financeiro_despesas`
+--
+
+DROP TABLE IF EXISTS `financeiro_despesas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `financeiro_despesas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `tipo` enum('FIXA','VARIAVEL') NOT NULL DEFAULT 'VARIAVEL',
+  `descricao` varchar(255) NOT NULL,
+  `observacao` varchar(255) DEFAULT NULL,
+  `data_vencimento` datetime DEFAULT NULL,
+  `data_pagamento` datetime DEFAULT NULL,
+  `valor_cobranca` decimal(10,2) NOT NULL,
+  `parcelada` tinyint NOT NULL DEFAULT '0',
+  `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL DEFAULT 'PENDENTE',
+  `numero_parcelas` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `financeiro_despesas`
+--
+
+LOCK TABLES `financeiro_despesas` WRITE;
+/*!40000 ALTER TABLE `financeiro_despesas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financeiro_despesas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `financeiro_despesas_parcelas`
+--
+
+DROP TABLE IF EXISTS `financeiro_despesas_parcelas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `financeiro_despesas_parcelas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `parcela` int NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `data_vencimento` date NOT NULL,
+  `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL,
+  `despesaId` int DEFAULT NULL,
+  `comprovante` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_9379edce1b0d62cb45fc4718166` (`despesaId`),
+  CONSTRAINT `FK_9379edce1b0d62cb45fc4718166` FOREIGN KEY (`despesaId`) REFERENCES `financeiro_despesas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `financeiro_despesas_parcelas`
+--
+
+LOCK TABLES `financeiro_despesas_parcelas` WRITE;
+/*!40000 ALTER TABLE `financeiro_despesas_parcelas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financeiro_despesas_parcelas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fornecedores`
+--
+
+DROP TABLE IF EXISTS `fornecedores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fornecedores` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `telefone` varchar(50) NOT NULL,
+  `complemento` varchar(255) DEFAULT NULL,
+  `situacao` enum('1','0') NOT NULL,
+  `data_cadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `uuid` char(36) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `documento` varchar(20) NOT NULL,
+  `estado` varchar(2) DEFAULT NULL,
+  `cidade` varchar(100) DEFAULT NULL,
+  `endereco` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fornecedores`
+--
+
+LOCK TABLES `fornecedores` WRITE;
+/*!40000 ALTER TABLE `fornecedores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fornecedores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `os`
 --
 
@@ -175,7 +306,6 @@ CREATE TABLE `os` (
 
 LOCK TABLES `os` WRITE;
 /*!40000 ALTER TABLE `os` DISABLE KEYS */;
-INSERT INTO `os` VALUES (1,'ebf66d9f-ec49-47e2-8cfe-73ab817041ba',94,'2024-03-23 14:46:30','2024-03-23 16:22:50',51,'Serviço de Fundação','0');
 /*!40000 ALTER TABLE `os` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +400,6 @@ CREATE TABLE `oss` (
 
 LOCK TABLES `oss` WRITE;
 /*!40000 ALTER TABLE `oss` DISABLE KEYS */;
-INSERT INTO `oss` VALUES (37,'a32559e0-14a5-49b2-8bd1-0c4c49a90ce0',1,64,1,'2024-03-23 17:57:50','2024-03-23 17:59:12','0',NULL),(38,'02f6d6b9-bae0-4696-ae45-e9e977bb6653',1,65,2,'2024-03-23 17:58:04','2024-03-23 17:59:12','0',NULL);
 /*!40000 ALTER TABLE `oss` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +428,7 @@ CREATE TABLE `projetos` (
   KEY `FK_30eea3c64125b15a1170b5c92c6` (`setor_id`),
   CONSTRAINT `FK_30eea3c64125b15a1170b5c92c6` FOREIGN KEY (`setor_id`) REFERENCES `setores` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_9fecf68c32703585c72b8b8ed9f` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +437,6 @@ CREATE TABLE `projetos` (
 
 LOCK TABLES `projetos` WRITE;
 /*!40000 ALTER TABLE `projetos` DISABLE KEYS */;
-INSERT INTO `projetos` VALUES (30,'2b68b6e0-4b5d-4b7e-b14b-93f8592d8062',94,51,1,1500.00,'2024-12-31','N/A','2024-03-24 22:04:53','2024-03-24 22:04:53','2024-01-10','Fulano');
 /*!40000 ALTER TABLE `projetos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,7 +474,6 @@ CREATE TABLE `projetos_atividades` (
 
 LOCK TABLES `projetos_atividades` WRITE;
 /*!40000 ALTER TABLE `projetos_atividades` DISABLE KEYS */;
-INSERT INTO `projetos_atividades` VALUES (73,'b206eec3-5813-4e20-b275-bf99205e19c2','Após a aprovação do projeto, inicia-se a fase de instalação, onde os condutores são passados por dutos e canaletas de forma organizada e segura, respeitando as normas técnicas vigentes. Durante a instalação, devem-se utilizar materiais e equipamentos de qualidade, além de garantir uma adequada proteção contra sobrecargas, curto-circuitos e choques elétricos. Após a conclusão da instalação, é essencial realizar testes e inspeções para verificar a integridade do sistema e garantir que esteja em conformidade com as normas de segurança, antes da energização final.',30,52,'2024-01-01','2024-11-26','2024-03-24 22:07:04','2024-04-06 17:01:42','Elétrica',1,'PENDING'),(75,'492ed226-682f-4c81-9e22-c2aad583c604','Certidões A, Licença B',30,51,'2024-04-01','2024-04-05','2024-03-24 22:09:28','2024-04-06 17:06:15','Levantamento de documentos do cliente',0,'COMPLETED');
 /*!40000 ALTER TABLE `projetos_atividades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,7 +508,7 @@ CREATE TABLE `servicos` (
 
 LOCK TABLES `servicos` WRITE;
 /*!40000 ALTER TABLE `servicos` DISABLE KEYS */;
-INSERT INTO `servicos` VALUES (64,'f59f39d2-6d78-4ce4-b8cc-4b116e0178f1',1500.00,37,'2024-03-16 22:42:52','2024-03-16 22:42:52',51,'Pintura','1'),(65,'9678a798-da16-4745-854b-e9b7de5ec8d1',9000.00,37,'2024-03-23 16:29:14','2024-03-23 16:29:14',51,'Serviço A','1');
+INSERT INTO `servicos` VALUES (64,'f59f39d2-6d78-4ce4-b8cc-4b116e0178f1',1500.00,37,'2024-03-16 22:42:52','2024-03-16 22:42:52',51,'Pintura','1'),(65,'9678a798-da16-4745-854b-e9b7de5ec8d1',9000.00,37,'2024-03-23 16:29:14','2024-05-17 21:05:51',51,'Serviço A','0');
 /*!40000 ALTER TABLE `servicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,7 +555,7 @@ CREATE TABLE `usuarios` (
   `data_atualizacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -437,70 +564,9 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'dd6ae8dd-d146-41be-811c-9c5fa1cf86da',1,'2024-02-05 10:36:23','2024-02-05 10:36:23','Fulano Sobrenome');
+INSERT INTO `usuarios` VALUES (1,'dd6ae8dd-d146-41be-811c-9c5fa1cf86da',1,'2024-02-05 10:36:23','2024-02-05 10:36:23','Fulano Sobrenome'),(2,'e6b1b23c-832c-4d4b-a430-4aa8725fb51c',1,'2024-04-21 14:17:33','2024-04-21 14:17:33','Fulano Sobrenome');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
-
-DROP TABLE IF EXISTS `colaboradores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `colaboradores` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `uuid` char(36) NOT NULL,
-  `data_cadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `documento` varchar(20) NOT NULL,
-  `cargo` varchar(100) DEFAULT NULL,
-  `salario` varchar(100) DEFAULT NULL,
-  `observacao` varchar(255) DEFAULT NULL,
-  `nome` varchar(100) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `telefone` varchar(50) NOT NULL,
-  `evalor_hora` varchar(100) DEFAULT NULL,
-  `situacao` enum('1','0') NOT NULL,
-  PRIMARY KEY (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `colaboradores`
---
-
-LOCK TABLES `colaboradores` WRITE;
-/*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
-INSERT INTO `colaboradores` VALUES (1,'a0df0b5a-a9fc-48e6-bc69-58ec869001b7','2024-03-17 19:46:54','2024-03-17 19:46:54','06713832482','PB','Campina Grande','2',51,'Colaborador 1','colaborador1@gmail.com','83991732817','1','1');
-/*!40000 ALTER TABLE `ccolaboradores` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `colaboradores_atributos`
---
-
-DROP TABLE IF EXISTS `colaboradores_atributos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `colaboradores_atributos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `uuid` char(36) DEFAULT (uuid()),
-  `colaboradores_id` int DEFAULT NULL,
-  `chave` varchar(255) DEFAULT NULL,
-  `valor` varchar(255) DEFAULT NULL,
-  `situacao` int DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `colaboradores_id` (`colaborador_id`),
-  CONSTRAINT `colaboradores_atributos_ibfk_1` FOREIGN KEY (`colaboradores_id`) REFERENCES `colaboradores` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `colaboradores_atributos`
---
-
-LOCK TABLES `colaboradores_atributos` WRITE;
-/*!40000 ALTER TABLE `colaboradores_atributos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ccolaboradores_atributos` ENABLE KEYS */;
-UNLOCK TABLES;
-
 
 --
 -- Dumping routines for database 'erp'
@@ -515,4 +581,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-09 20:06:13
+-- Dump completed on 2024-05-21 15:23:58

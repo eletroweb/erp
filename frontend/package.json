@@ -11,15 +11,21 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@quasar/extras": "^1.0.0",
     "axios": "^1.6.7",
+    "cypress-multi-reporters": "^1.6.4",
+    "dayjs": "^1.11.11",
     "element-plus": "^2.5.4",
     "mocha-junit-reporter": "^2.2.1",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",
     "quasar": "^2.0.0",
     "save-dev": "^0.0.1-security",
+    "vee-validate": "^4.12.6",
     "vue": "^3.4.15",
+    "vue-currency-input": "^3.1.0",
     "vue-jwt-decode": "^0.1.0",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-the-mask": "^0.11.1",
+    "vue3-apexcharts": "^1.5.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",

@@ -13,6 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard, KeycloakConnectModule, ResourceGuard } from 'src/keycloak/src';
 import { OrdemServicoModule } from 'src/ordemServicos/ordemServico.module';
+import { FinanceiroModule } from 'src/financeiro/financeiro.module';
 import { ColaboradorModule } from 'src/recursosHumanos/colaborador.module';
 import { FornecedorModule } from 'src/fornecedores/fornecedor.module';
 import configuration from 'src/config/configuration';
@@ -47,6 +48,7 @@ import configuration from 'src/config/configuration';
     ContratoModule,
     ServicoModule,
     OrdemServicoModule,
+    FinanceiroModule,
     ColaboradorModule,
     FornecedorModule
   ],

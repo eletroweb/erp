@@ -3,6 +3,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import {createPinia} from 'pinia'
+import VueApexCharts from "vue3-apexcharts";
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -30,4 +31,5 @@ app.config.globalProperties.$moment = {
 app.use(router)
 app.use(ElementPlus)
 app.use(pinia)
+app.use(VueApexCharts);
 app.mount('#app')

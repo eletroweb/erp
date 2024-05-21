@@ -2,9 +2,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClienteEntity } from './cliente.entity';
+import { ClienteCreateDto } from './dto/cliente.create.dto';
 import { Like, Repository } from 'typeorm';
-import { ClienteRequestDto } from './cliente.request.dto';
 import { SetorService } from 'src/setores/setor.service';
+import { ClienteUpdateDto } from './dto/cliente.update.dto';
 
 @Injectable()
 export class ClienteService {
@@ -52,14 +53,14 @@ export class ClienteService {
     return await this.clienteRepository.findOne({ where: { documento } });
   }
 
-  async create(request: ClienteRequestDto): Promise<ClienteEntity> {
+  async create(request: ClienteCreateDto): Promise<ClienteEntity> {
     const setor = await this.setorService.findOneByUuid(request.setor)
     const cliente = ClienteEntity.fromRequestDto(request, setor);
     const createdCliente = this.clienteRepository.create(cliente);
     return this.clienteRepository.save(createdCliente);
   }
 
-  async update(uuid: string, request: ClienteRequestDto): Promise<ClienteEntity> {
+  async update(uuid: string, request: ClienteUpdateDto): Promise<ClienteEntity> {
     const clienteOrigin = await this.findOneByUuid(uuid);
     const setor = await this.setorService.findOneByUuid(request.setor)
     const clienteTarget = ClienteEntity.fromRequestDto(request, setor);

@@ -314,6 +314,217 @@
 			]
 		},
 		{
+			"name": "Fornecedor",
+			"item": [
+				{
+					"name": "FornecedorListar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fornecedores",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fornecedores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fornecedor Exibir",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fornecedores/d7a497c8-c2f5-11ee-a1ba-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fornecedores",
+								"d7a497c8-c2f5-11ee-a1ba-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fornecedor Cadastrar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Maria da Silva\",\r\n    \"email\": \"maria@example.com\",\r\n    \"telefone\": \"(00) 9876-5432\",\r\n    \"documento\": \"123.456.789-10\",\r\n    \"estado\": \"São Paulo\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"endereco\": \"Rua Fictícia, 456\",\r\n    \"complemento\": \"Apto 123\",\r\n    \"situacao\": \"Ativo\",\r\n    \"data_cadastro\": \"2024-05-02T12:34:56.789Z\",\r\n    \"data_atualizacao\": \"2024-05-02T15:00:00.000Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/fornecedores",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fornecedores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fornecedor Editar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"uuid\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n  \"descricao\": \"Engenharia civil\",\r\n  \"situacao\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/fornecedores/c8f9fa45-c2f3-11ee-a1ba-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fornecedores",
+								"c8f9fa45-c2f3-11ee-a1ba-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fornecedor Deletar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fornecedores/02074b20-bd21-11ee-8c1d-641c679a799a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fornecedores",
+								"02074b20-bd21-11ee-8c1d-641c679a799a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Serviços",
 			"item": [
 				{
@@ -953,7 +1164,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"projeto\": \"2b68b6e0-4b5d-4b7e-b14b-93f8592d8062\",\r\n    \"setor\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": false,\r\n    \"data_inicio\": \"2024-03-01\",\r\n    \"data_fim\": \"2024-04-01\",\r\n    \"descricao\": \"Elétrica\",\r\n    \"observacao\": \"NA\"\r\n}",
+									"raw": "{\r\n    \"uuid\": \"b206eec3-5813-4e20-b275-bf99205e19c2\",\r\n    \"prioridade\": 0,\r\n    \"descricao\": \"1\",\r\n    \"projeto\": \"2b68b6e0-4b5d-4b7e-b14b-93f8592d8062\",\r\n    \"setor\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n    \"situacao\": true,\r\n    \"data_inicio\": \"2024-03-01\",\r\n    \"data_fim\": \"2024-04-01\",\r\n    \"observacao\": \"2\",\r\n    \"data_cadastro\": \"2024-03-24T22:07:04.000Z\",\r\n    \"data_atualizacao\": \"2024-03-31T15:12:05.000Z\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1491,7 +1702,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/clientes",
+							"raw": "{{baseUrl}}/clientes?documento=06713832485",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1500,13 +1711,22 @@
 							],
 							"query": [
 								{
-									"key": "pagina",
-									"value": "1",
+									"key": "nome",
+									"value": "silva",
 									"disabled": true
 								},
 								{
-									"key": "quantidade",
-									"value": "2",
+									"key": "documento",
+									"value": "06713832485"
+								},
+								{
+									"key": "situacao",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "situacao",
+									"value": "true",
 									"disabled": true
 								}
 							]
@@ -1521,7 +1741,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Cliente 1\",\r\n    \"email\": \"cliente2@email.com\",\r\n    \"telefone\": \"83991732814\",\r\n    \"documento\": \"456\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": true,\r\n    \"setor\": \"fe37791e-c2f2-11ee-a1ba-641c679a799a\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Cliente 1\",\r\n    \"email\": \"cliente2@email.com\",\r\n    \"telefone\": \"83991732814\",\r\n    \"documento\": \"06713832485\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": true,\r\n    \"setor\": \"fe37791e-c2f2-11ee-a1ba-641c679a799a\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1547,7 +1767,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"uuid\": \"9d90076d-b6bc-4f66-8965-4be70d0fefab\",\r\n    \"nome\": \"Yonatha Alves Almeida\",\r\n    \"telefone\": \"83991732814\",\r\n    \"email\": \"yonathalmeida@gmail.com\",\r\n    \"documento\": \"06713832482\",\r\n    \"estado\": \"PB\",\r\n    \"cidade\": \"João Pessoa\",\r\n    \"endereco\": \"1\",\r\n    \"complemento\": \"2\",\r\n    \"situacao\": false,\r\n    \"setor\": \"c8f9fa45-c2f3-11ee-a1ba-641c679a799a\"\r\n}",
+							"raw": "{\r\n    \"uuid\": \"a3c4f039-c2d5-44ba-905a-62bade993af6\",\r\n    \"nome\": \"Cliente QA2\",\r\n    \"telefone\": \"83991732814\",\r\n    \"email\": \"cliente2@email.com\",\r\n    \"documento\": \"06713832485\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": false,\r\n    \"setor\": \"fe37791e-c2f2-11ee-a1ba-641c679a799a\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1555,13 +1775,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/clientes/9d90076d-b6bc-4f66-8965-4be70d0fefab",
+							"raw": "{{baseUrl}}/clientes/a3c4f039-c2d5-44ba-905a-62bade993af6",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"clientes",
-								"9d90076d-b6bc-4f66-8965-4be70d0fefab"
+								"a3c4f039-c2d5-44ba-905a-62bade993af6"
 							]
 						}
 					},
@@ -1621,13 +1841,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/clientes/bb6e45f6-1cf6-4fc9-95f6-4a8bc3574829",
+							"raw": "{{baseUrl}}/clientes/a3c4f039-c2d5-44ba-905a-62bade993af6",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"clientes",
-								"bb6e45f6-1cf6-4fc9-95f6-4a8bc3574829"
+								"a3c4f039-c2d5-44ba-905a-62bade993af6"
 							]
 						}
 					},
@@ -2288,6 +2508,179 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "financeiro",
+			"item": [
+				{
+					"name": "despesas",
+					"item": [
+						{
+							"name": "Parcela",
+							"item": [
+								{
+									"name": "Alterar Situação Parcela",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"despesa_uuid\": \"bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c\",    \r\n    \"parcela\": 4,\r\n    \"situacao\": \"PAGA\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/despesas/parcela/alterar-situacao",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"despesas",
+												"parcela",
+												"alterar-situacao"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Criar Despesa",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descricao\": \"Agua\",\r\n    \"tipo\": \"VARIAVEL\",\r\n    \"observacao\": \"Pedido feito através do fornecedor XYZ.\",\r\n    \"data_vencimento\": \"2024-05-15\",\r\n    \"data_pagamento\": null,\r\n    \"valor_cobranca\": 500.00,\r\n    \"valor_pendente\": 500.00,\r\n    \"parcelada\": false,\r\n    \"situacao\": \"PENDENTE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/despesas",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"despesas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Despesa",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\": \"1329a38d-88bc-4f18-9514-128cc2a41349\",\r\n    \"descricao\": \"Energia\",\r\n    \"tipo\": \"FIXA\",\r\n    \"observacao\": \"1\",\r\n    \"data_vencimento\": \"2024-05-15\",\r\n    \"data_pagamento\": null,\r\n    \"valor_cobranca\": 1.00,\r\n    \"valor_pendente\": 1.00,\r\n    \"parcelada\": true,\r\n    \"situacao\": \"PAGA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/despesas/1329a38d-88bc-4f18-9514-128cc2a41349",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"despesas",
+										"1329a38d-88bc-4f18-9514-128cc2a41349"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar Despesas",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo\": \"VARIAVEL\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/despesas",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"despesas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Exibir Despesas",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo\": \"VARIAVEL\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/despesas/bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"despesas",
+										"bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Excluir Despesas",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/despesas/1329a38d-88bc-4f18-9514-128cc2a41349",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"despesas",
+										"1329a38d-88bc-4f18-9514-128cc2a41349"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

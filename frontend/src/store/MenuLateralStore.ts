@@ -55,6 +55,14 @@ export const MenuLateralStore = defineStore('MenuLateralStore', {
         visibility: 'disabled'
       },
       {
+        label: "Financeiro",
+        path: "financeiro",
+        roles: [RolesEnum.MASTER],
+        icon: 'money',
+        order: 7
+
+      },
+      {
         label: "Recursos Humanos",
         path: "rh",
         roles: ['MASTER', 'COLABORADOR_LISTAR', 'COLABORADOR_CADASTRAR', 'COLABORADOR_EDITAR', 'COLABORADOR_EXCLUIR'],
@@ -73,7 +81,6 @@ export const MenuLateralStore = defineStore('MenuLateralStore', {
         path: "ordem-servico",
         roles: ['MASTER'],
         icon: 'setting',
-        order: 9
       },
     ]
   }),

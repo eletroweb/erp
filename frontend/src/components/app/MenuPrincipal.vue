@@ -2,7 +2,7 @@
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false">
 
       <div class="flex-grow" />
-      <el-popover placement="bottom" :width="400" trigger="hover">
+      <!-- el-popover placement="bottom" :width="400" trigger="hover">
         <template #reference>
           <div class="q-gutter-md q-ml-none notificacoes">
             <el-badge :value="3" class="item">
@@ -19,7 +19,7 @@
             {{ activity.content }}
           </el-timeline-item>
         </el-timeline>
-      </el-popover>
+      </el-popover -->
 
     <el-sub-menu index="1">
       <template #title>
