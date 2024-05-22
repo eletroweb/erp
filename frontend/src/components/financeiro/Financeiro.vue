@@ -1,14 +1,5 @@
 <template>
     <el-tabs type="border-card">
-
-        <el-tab-pane label="Despesas">
-            <DespesaListar />
-        </el-tab-pane>
-
-        <el-tab-pane label="Receitas">
-            Receitas
-        </el-tab-pane>
-
         <el-tab-pane label="Comparativo mensal">
             Comparativo mensal de Receita vs Despesa
             <apexchart width="100%" :type="grafico.tipo" :options="chartOptions" :series="series"></apexchart>
@@ -18,11 +9,9 @@
 </template>
 
 <script>
-import DespesaListar from "./despesas/DespesaListar.vue"
 
 export default {
     components: {
-        DespesaListar,
     },
     setup() {
     },

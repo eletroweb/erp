@@ -45,7 +45,7 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column prop="observacao" label="Observação" width="300" />
+                <el-table-column prop="observacao" label="Observação" width="150" />
 
             </el-table>
         </div>
@@ -55,8 +55,8 @@
 <script>
 import { formatarReal, getCorPorSituacao } from '@/common/util.ts';
 import { FinanceiroSituacaoEnum } from '@/enum/financeiro.enum'
-import DialogoDespesaParcelaPagamento from '@/components/financeiro/despesas/parcela/DialogoDespesaParcelaPagamento.vue'
-import { DespesaStore } from '@/store/DespesaStore.ts'
+import DialogoDespesaParcelaPagamento from '@/components/financeiro/despesa/parcela/DialogoDespesaParcelaPagamento.vue'
+import { DespesaStore } from '@/store/financeiro/DespesaStore.ts'
 
 export default {
     props: {

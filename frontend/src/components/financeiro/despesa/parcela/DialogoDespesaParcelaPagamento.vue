@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { DespesaStore } from '@/store/DespesaStore.ts'
+import { DespesaStore } from '@/store/financeiro/DespesaStore.ts'
 import { FinanceiroSituacaoEnum } from '@/enum/financeiro.enum';
 import { upload } from "@/api/index"
 

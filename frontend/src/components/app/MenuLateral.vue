@@ -1,12 +1,33 @@
 <template>
-  <el-menu default-active="2" :collapse="menuCollapse"
-    class="el-menu-vertical-demo" :router="true">
+  <el-menu default-active="2" :collapse="menuCollapse" class="el-menu-vertical-demo" :router="true">
 
     <el-menu-item index="1" @click="toggleMenu()" class="first">
       <img :class="logoClass" src="/images/logo.png" alt="Agilmax" />
     </el-menu-item>
-    <div v-for="menu in menuLateralStore.load()">
-      <el-menu-item :index="`/${menu.path}`" :disabled="menu.visibility"
+
+    <div v-for="(menu, index) in menuLateralStore.load()" :key="index">
+      <el-sub-menu v-if="menu.submenu" :index="`${index}`">
+        <template #title>
+          <el-icon>
+            <component :is="menu.icon">
+              <template #title>{{ menu.label }}</template>
+            </component>
+          </el-icon>
+          <span>{{ menu.label }}</span>
+        </template>
+        <el-menu-item v-for="(submenuItem, subIndex) in menu.submenu" :key="subIndex" 
+        :index="`/${submenuItem.path}`">
+          <template #title>
+            <el-icon>
+            <component :is="submenuItem.icon">
+              <template #title>{{ submenuItem.label }}</template>
+            </component>
+          </el-icon>
+            {{ submenuItem.label }}
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
+      <el-menu-item v-else :index="`/${menu.path}`" :disabled="menu.visibility"
         v-if="authorizationStore.hasAuthorization(menu.roles)">
         <el-icon>
           <component :is="menu.icon">
@@ -18,10 +39,10 @@
     </div>
 
     <el-menu-item @click="toggleMenu()">
-        <el-icon>
-          <ArrowRight v-if="menuCollapse"/>
-          <ArrowLeft v-else/>
-        </el-icon>
+      <el-icon>
+        <ArrowRight v-if="menuCollapse" />
+        <ArrowLeft v-else />
+      </el-icon>
     </el-menu-item>
   </el-menu>
 </template>

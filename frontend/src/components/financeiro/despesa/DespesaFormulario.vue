@@ -105,7 +105,7 @@
                         <el-date-picker :disabled="situacaoArquivado()" format="DD/MM/YYYY"
                             v-model="despesaStore.despesa.data_pagamento" type="date" style="width: 100%" />
                     </el-col>
-                    <el-col :span="4">
+                    <el-col :span="5">
                         <span style=" margin-left: 18px;">
                             Número de Parcelas
                         </span>
@@ -144,10 +144,10 @@
 </template>
 
 <script>
-import { DespesaStore } from '@/store/DespesaStore.ts'
+import { DespesaStore } from '@/store/financeiro/DespesaStore.ts'
 import dayjs from 'dayjs'
 import { FinanceiroSituacaoEnum } from '@/enum/financeiro.enum'
-import DespesaParcelasLista from '@/components/financeiro/despesas/parcela/DespesaParcelasLista.vue'
+import DespesaParcelasLista from '@/components/financeiro/despesa/parcela/DespesaParcelasLista.vue'
 import { formatarReal, getCorPorSituacao } from '@/common/util.ts';
 
 export default {

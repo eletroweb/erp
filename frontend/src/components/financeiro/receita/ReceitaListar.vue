@@ -1,12 +1,12 @@
 <template>
     <div class="q-pa-md">
-        <q-table id="despesas" virtual-scroll style="height: 700px" :rows-per-page-options="[12]" :filter="filter"
-            :rows="despesaStore.despesas" :columns="columns" flat no-data-label="Não existem despesas lançadas"
-            no-results-label="Nenhum registro localizado" bordered title="Despesas" row-key="name">
+        <q-table id="receitas" virtual-scroll style="height: 700px" :rows-per-page-options="[12]" :filter="filter"
+            :rows="receitaStore.receitas" :columns="columns" flat no-data-label="Não existem receitas lançadas"
+            no-results-label="Nenhum registro localizado" bordered title="Receitas" row-key="name">
 
             <template v-slot:top-right>
 
-                <q-btn size="md" color="primary" label="Cadastrar Despesa" no-caps @click="despesaStore.novo()" />
+                <q-btn size="md" color="primary" label="Cadastrar Receita" no-caps @click="receitaStore.novo()" />
 
                 <q-btn flat size="md" color="primary" icon-right="archive" label="Exportar csv" no-caps
                     @click="exportTable" />
@@ -19,13 +19,13 @@
             </template>
 
             <template v-slot:body="props">
-                <q-tr :props="props" @click="despesaStore.exibir(props.row.uuid)">
+                <q-tr :props="props" @click="receitaStore.exibir(props.row.uuid)">
                     <q-td key="descricao" :props="props">
                         {{ props.row.descricao }}
                     </q-td>
 
                     <q-td key="situacao" :props="props">
-                        <q-badge :color="despesaStore.getCorPorSituacao(props.row.situacao)">{{ props.row.situacao
+                        <q-badge :color="receitaStore.getCorPorSituacao(props.row.situacao)">{{ props.row.situacao
                             }}</q-badge>
                     </q-td>
 
@@ -103,8 +103,8 @@
 <script>
 import { ref, watch } from 'vue';
 import { exportFile } from 'quasar'
-import { DespesaStore } from '@/store/DespesaStore.ts'
-import DespesaFormulario from './DespesaFormulario.vue'
+import { ReceitaStore } from '@/store/financeiro/ReceitaStore.ts'
+import ReceitaFormulario from './ReceitaFormulario.vue'
 
 function wrapCsvValue(val, formatFn, row) {
     let formatted = formatFn !== void 0
@@ -123,8 +123,8 @@ export default {
     components: {
     },
     setup() {
-        const despesaStore = DespesaStore()
-        despesaStore.listar()
+        const receitaStore = ReceitaStore()
+        receitaStore.listar()
 
 
         const valor = ref('');
@@ -146,12 +146,12 @@ export default {
             }
         });
         return {
-            despesaStore, filter: ref(''), valor,
+            receitaStore, filter: ref(''), valor,
             formattedValue
         }
     },
     components: {
-        DespesaFormulario
+        ReceitaFormulario
     },
     data() {
         return {
@@ -199,7 +199,7 @@ export default {
 </script>
 
 <style>
-#despesas table tr {
+#receitas table tr {
     cursor: pointer
 }
 </style>

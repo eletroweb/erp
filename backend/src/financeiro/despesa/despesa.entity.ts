@@ -1,4 +1,4 @@
-import { FinanceiroEnum, FinanceiroTipoEnum } from 'src/enum/financeiro.enum';
+import { FinanceiroCategoriaEnum, FinanceiroEnum, FinanceiroTipoEnum } from 'src/enum/financeiro.enum';
 import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, Double, OneToMany } from 'typeorm';
 import { DespesaRequestDto } from './despesa.request.dto';
 import { DespesaResponseDto } from './despesa.response.dto';

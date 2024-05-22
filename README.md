@@ -140,6 +140,12 @@ RF13.8 Validar duplicidade de CPF/CNPJ do fornecedor
 RF13.9 Validar telefone do fornecedor
 RF13.10 Validar email do fornecedor
 
+## Receita
+RF14.1 Cadastrar receita
+RF14.2 Listar receita
+RF14.3 Editar receita
+RF14.4 Excluir receita
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 

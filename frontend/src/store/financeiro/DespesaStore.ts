@@ -1,9 +1,8 @@
 import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
-import { NotificacaoStore } from "./NotificacaoStore"
-import { DespesaParcelaSituacaoRequest } from "@/components/financeiro/despesas/parcela/despesa.parcela.situacao.request";
 import { FinanceiroSituacaoEnum, FinanceiroTipoEnum } from "@/enum/financeiro.enum";
+import { NotificacaoStore } from "../NotificacaoStore";
 
 const downloadFile = async (response, nome) => {
     const contentType = response.headers.get('Content-Type');
@@ -61,7 +60,7 @@ export const DespesaStore = defineStore('DespesaStore', {
         },
         async novo() {
             this.despesa = {}
-            router.push('/financeiro/despesas/novo');
+            router.push('/financeiro/despesa/novo');
         },
         async cadastrar() {
             const notificacaoStore = NotificacaoStore();
@@ -71,7 +70,7 @@ export const DespesaStore = defineStore('DespesaStore', {
                     const { title, message, type } = response.data
                     notificacaoStore.exibirNotificacao(title, message, type);
                     this.despesa = {}
-                    router.push('/financeiro');
+                    router.push('/financeiro/despesa');
                     this.listar()
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
@@ -87,7 +86,7 @@ export const DespesaStore = defineStore('DespesaStore', {
                 if (response.status === 200) {
                     notificacaoStore.exibirNotificacao("Despesa", response.data, 'success');
                     this.despesa = {}
-                    router.push('/financeiro');
+                    router.push('/financeiro/despesa');
                     this.listar()
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
@@ -97,7 +96,7 @@ export const DespesaStore = defineStore('DespesaStore', {
             }
         },
         async cancelar() {
-            router.push('/financeiro');
+            router.push('/financeiro/despesa');
         },
         async carregarDespesa(id) {
             try {

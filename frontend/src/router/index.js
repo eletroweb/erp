@@ -13,8 +13,14 @@ import ListarProjeto from '@/components/projetos/ListarProjeto.vue'
 import FormularioProjeto from '@/components/projetos/FormularioProjeto.vue'
 import Login from '@/components/app/Login.vue'
 import DashboardView from '@/views/DashboardView.vue'
+
+// Financeiro
 import Financeiro from '@/components/financeiro/Financeiro.vue'
-import DespesaFormulario from '@/components/financeiro/despesas/DespesaFormulario.vue'
+import DespesaListar from '@/components/financeiro/despesa/DespesaListar.vue'
+import DespesaFormulario from '@/components/financeiro/despesa/DespesaFormulario.vue'
+import ReceitaFormulario from '@/components/financeiro/receita/ReceitaFormulario.vue'
+import ReceitaListar from '@/components/financeiro/receita/ReceitaListar.vue'
+
 import ListarRecursosHumanos from '../components/recursosHumanos/ListarRecursosHumanos.vue'
 import FormularioRecursosHumanos from '../components/recursosHumanos/FormularioRecursosHumanos.vue'
 import ListarFornecedores from '@/components/fornecedores/ListarFornecedores.vue'
@@ -113,6 +119,7 @@ const router = createRouter({
       name: 'financeiro',
       component: Financeiro
     },
+    // Despesa
     {
       path: '/financeiro/despesa/:id',
       name: 'despesa-formulario',
@@ -120,13 +127,29 @@ const router = createRouter({
     },
     {
       path: '/financeiro/despesa/',
-      name: 'nova-despesa',
-      component: DespesaFormulario
+      name: 'despesa-listar',
+      component: DespesaListar
     },   
      {
-      path: '/financeiro/despesas/novo',
+      path: '/financeiro/despesa/novo',
       name: 'nova-despesa',
       component: DespesaFormulario
+    },
+    // Receita
+    {
+      path: '/financeiro/receita/:id',
+      name: 'receita-formulario',
+      component: ReceitaFormulario
+    },
+    {
+      path: '/financeiro/receita/',
+      name: 'receita-listar',
+      component: ReceitaListar
+    },   
+     {
+      path: '/financeiro/receitas/novo',
+      name: 'nova-receita',
+      component: ReceitaFormulario
     },
     {
       path: '/rh',
