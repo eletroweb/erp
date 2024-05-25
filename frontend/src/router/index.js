@@ -16,10 +16,8 @@ import DashboardView from '@/views/DashboardView.vue'
 
 // Financeiro
 import Financeiro from '@/components/financeiro/Financeiro.vue'
-import DespesaListar from '@/components/financeiro/despesa/DespesaListar.vue'
-import DespesaFormulario from '@/components/financeiro/despesa/DespesaFormulario.vue'
-import ReceitaFormulario from '@/components/financeiro/receita/ReceitaFormulario.vue'
-import ReceitaListar from '@/components/financeiro/receita/ReceitaListar.vue'
+import FinanceiroListar from '@/components/financeiro/FinanceiroListar.vue'
+import FinanceiroFormulario from '@/components/financeiro/FinanceiroFormulario.vue'
 
 import ListarRecursosHumanos from '../components/recursosHumanos/ListarRecursosHumanos.vue'
 import FormularioRecursosHumanos from '../components/recursosHumanos/FormularioRecursosHumanos.vue'
@@ -119,37 +117,21 @@ const router = createRouter({
       name: 'financeiro',
       component: Financeiro
     },
-    // Despesa
+    // Financeiro
     {
-      path: '/financeiro/despesa/:id',
-      name: 'despesa-formulario',
-      component: DespesaFormulario
+      path: '/financeiro/financeiro/:id',
+      name: 'financeiro-formulario',
+      component: FinanceiroFormulario
     },
     {
-      path: '/financeiro/despesa/',
-      name: 'despesa-listar',
-      component: DespesaListar
+      path: '/financeiro/financeiro/',
+      name: 'financeiro-listar',
+      component: FinanceiroListar
     },   
      {
-      path: '/financeiro/despesa/novo',
-      name: 'nova-despesa',
-      component: DespesaFormulario
-    },
-    // Receita
-    {
-      path: '/financeiro/receita/:id',
-      name: 'receita-formulario',
-      component: ReceitaFormulario
-    },
-    {
-      path: '/financeiro/receita/',
-      name: 'receita-listar',
-      component: ReceitaListar
-    },   
-     {
-      path: '/financeiro/receitas/novo',
-      name: 'nova-receita',
-      component: ReceitaFormulario
+      path: '/financeiro/financeiro/novo',
+      name: 'nova-financeiro',
+      component: FinanceiroFormulario
     },
     {
       path: '/rh',

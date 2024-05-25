@@ -9,3 +9,8 @@ export enum FinanceiroTipoEnum {
     FIXA = "FIXA",
     VARIAVEL = "VARIAVEL"
 }
+
+export enum FinanceiroCategoriaEnum {
+    RECEITA = "RECEITA",
+    DESPESA = "DESPESA"
+}

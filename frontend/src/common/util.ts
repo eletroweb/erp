@@ -1,13 +1,11 @@
 export function formatarReal(valor: number | string): string {
-    const onlyDigits = valor.toString().replace(/[^\d]/g, '');
-    const digitsLength = onlyDigits.length;
+    let valorString = valor.toString();
+    
+    valorString = valorString.replace(/[^\d.]/g, '');
 
-    if (digitsLength < 3)
-        return 'R$ 0,' + onlyDigits.padStart(2, '0');
+    let valorFloat = parseFloat(valorString);
 
-    const valorFormatado = onlyDigits.slice(0, -2) + ',' + onlyDigits.slice(-2);
-
-    const valorEmReais = parseFloat(valorFormatado.replace(',', '.')).toLocaleString('pt-BR', {
+    const valorEmReais = valorFloat.toLocaleString('pt-BR', {
         style: 'currency',
         currency: 'BRL'
     });

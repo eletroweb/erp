@@ -23,30 +23,7 @@ export const MenuLateralStore = defineStore('MenuLateralStore', {
         path: "financeiro",
         roles: [RolesEnum.MASTER],
         icon: 'money',
-        order: 2,
-        submenu: [
-          {
-            label: "Receita",
-            path: "financeiro/receita",
-            roles: [RolesEnum.MASTER],
-            icon: 'DocumentChecked',
-            order: 1,
-          },
-          {
-            label: "Despesa",
-            path: "financeiro/despesa",
-            roles: [RolesEnum.MASTER],
-            icon: 'DocumentDelete',
-            order: 2,
-          },
-          {
-            label: "Relatório",
-            path: "financeiro/",
-            roles: [RolesEnum.MASTER],
-            icon: 'PieChart',
-            order: 3,
-          },
-        ]
+        order: 1
       },
       {
         label: "Recursos Humanos",

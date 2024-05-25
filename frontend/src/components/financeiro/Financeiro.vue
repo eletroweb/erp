@@ -1,7 +1,10 @@
 <template>
     <el-tabs type="border-card">
+        <el-tab-pane label="Receita e Despesas">
+            <FinanceiroListar />
+        </el-tab-pane>
         <el-tab-pane label="Comparativo mensal">
-            Comparativo mensal de Receita vs Despesa
+            Comparativo mensal de Receita vs Financeiro
             <apexchart width="100%" :type="grafico.tipo" :options="chartOptions" :series="series"></apexchart>
         </el-tab-pane>
     </el-tabs>
@@ -10,8 +13,11 @@
 
 <script>
 
+import FinanceiroListar from "@/components/financeiro/FinanceiroListar.vue"
+
 export default {
     components: {
+        FinanceiroListar
     },
     setup() {
     },
@@ -22,7 +28,7 @@ export default {
             tipo: 'bar'
         },
         series: [{
-            name: 'Despesa',
+            name: 'Financeiro',
             data: [44, 55, 57, 56]
         }, {
             name: 'Receita',

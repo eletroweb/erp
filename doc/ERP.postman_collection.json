@@ -2515,7 +2515,7 @@
 			"name": "financeiro",
 			"item": [
 				{
-					"name": "despesas",
+					"name": "financeiro",
 					"item": [
 						{
 							"name": "Parcela",
@@ -2527,7 +2527,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"despesa_uuid\": \"bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c\",    \r\n    \"parcela\": 4,\r\n    \"situacao\": \"PAGA\"\r\n}",
+											"raw": "{\r\n    \"financeiro_uuid\": \"bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c\",    \r\n    \"parcela\": 4,\r\n    \"situacao\": \"PAGA\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2535,12 +2535,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/despesas/parcela/alterar-situacao",
+											"raw": "{{baseUrl}}/financeiro/parcela/alterar-situacao",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"despesas",
+												"financeiro",
 												"parcela",
 												"alterar-situacao"
 											]
@@ -2551,7 +2551,7 @@
 							]
 						},
 						{
-							"name": "Criar Despesa",
+							"name": "Criar Financeiro",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -2565,19 +2565,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/despesas",
+									"raw": "{{baseUrl}}/financeiro",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"despesas"
+										"financeiro"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Editar Despesa",
+							"name": "Editar Financeiro",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -2591,12 +2591,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/despesas/1329a38d-88bc-4f18-9514-128cc2a41349",
+									"raw": "{{baseUrl}}/financeiro/1329a38d-88bc-4f18-9514-128cc2a41349",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"despesas",
+										"financeiro",
 										"1329a38d-88bc-4f18-9514-128cc2a41349"
 									]
 								}
@@ -2604,7 +2604,7 @@
 							"response": []
 						},
 						{
-							"name": "Listar Despesas",
+							"name": "Listar Financeiros",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2621,19 +2621,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/despesas",
+									"raw": "{{baseUrl}}/financeiro",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"despesas"
+										"financeiro"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Exibir Despesas",
+							"name": "Exibir Financeiros",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2650,12 +2650,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/despesas/bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c",
+									"raw": "{{baseUrl}}/financeiro/bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"despesas",
+										"financeiro",
 										"bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c"
 									]
 								}
@@ -2663,17 +2663,17 @@
 							"response": []
 						},
 						{
-							"name": "Excluir Despesas",
+							"name": "Excluir Financeiros",
 							"request": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/despesas/1329a38d-88bc-4f18-9514-128cc2a41349",
+									"raw": "{{baseUrl}}/financeiro/1329a38d-88bc-4f18-9514-128cc2a41349",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"despesas",
+										"financeiro",
 										"1329a38d-88bc-4f18-9514-128cc2a41349"
 									]
 								}

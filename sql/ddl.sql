@@ -180,13 +180,13 @@ INSERT INTO `contratos` VALUES (37,'5a89144b-bdd1-4b6a-9034-a4f346b7bbd2',1,2000
 UNLOCK TABLES;
 
 --
--- Table structure for table `financeiro_despesas`
+-- Table structure for table `financeiro_financeiro`
 --
 
-DROP TABLE IF EXISTS `financeiro_despesas`;
+DROP TABLE IF EXISTS `financeiro_financeiro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `financeiro_despesas` (
+CREATE TABLE `financeiro_financeiro` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
   `tipo` enum('FIXA','VARIAVEL') NOT NULL DEFAULT 'VARIAVEL',
@@ -203,43 +203,43 @@ CREATE TABLE `financeiro_despesas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `financeiro_despesas`
+-- Dumping data for table `financeiro_financeiro`
 --
 
-LOCK TABLES `financeiro_despesas` WRITE;
-/*!40000 ALTER TABLE `financeiro_despesas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `financeiro_despesas` ENABLE KEYS */;
+LOCK TABLES `financeiro_financeiro` WRITE;
+/*!40000 ALTER TABLE `financeiro_financeiro` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financeiro_financeiro` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `financeiro_despesas_parcelas`
+-- Table structure for table `financeiro_financeiro_parcelas`
 --
 
-DROP TABLE IF EXISTS `financeiro_despesas_parcelas`;
+DROP TABLE IF EXISTS `financeiro_financeiro_parcelas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `financeiro_despesas_parcelas` (
+CREATE TABLE `financeiro_financeiro_parcelas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
   `parcela` int NOT NULL,
   `valor` decimal(10,2) NOT NULL,
   `data_vencimento` date NOT NULL,
   `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL,
-  `despesaId` int DEFAULT NULL,
+  `financeiroId` int DEFAULT NULL,
   `comprovante` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_9379edce1b0d62cb45fc4718166` (`despesaId`),
-  CONSTRAINT `FK_9379edce1b0d62cb45fc4718166` FOREIGN KEY (`despesaId`) REFERENCES `financeiro_despesas` (`id`)
+  KEY `FK_9379edce1b0d62cb45fc4718166` (`financeiroId`),
+  CONSTRAINT `FK_9379edce1b0d62cb45fc4718166` FOREIGN KEY (`financeiroId`) REFERENCES `financeiro_financeiro` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `financeiro_despesas_parcelas`
+-- Dumping data for table `financeiro_financeiro_parcelas`
 --
 
-LOCK TABLES `financeiro_despesas_parcelas` WRITE;
-/*!40000 ALTER TABLE `financeiro_despesas_parcelas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `financeiro_despesas_parcelas` ENABLE KEYS */;
+LOCK TABLES `financeiro_financeiro_parcelas` WRITE;
+/*!40000 ALTER TABLE `financeiro_financeiro_parcelas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financeiro_financeiro_parcelas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
