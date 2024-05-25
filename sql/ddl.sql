@@ -72,7 +72,7 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id`),
   KEY `FK_788e6db8c862f167114a4850603` (`setor_id`),
   CONSTRAINT `FK_788e6db8c862f167114a4850603` FOREIGN KEY (`setor_id`) REFERENCES `setores` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (108,'e0d41f3f-0194-4086-95c9-bfba58b60439','2024-04-21 22:43:04','2024-05-07 23:47:45','06713832482','SP','Sao Paulo','Complemento A',50,'Cliente QA','clienteqa@email.com','83999999991','Rua A','1'),(114,'685e2d41-2853-4ec1-a43b-d0ff637f7181','2024-04-28 21:40:03','2024-05-07 23:47:49','06713832482','PB','João Pessoa','N 123, próximo do XPTO',51,'Cliente QA2','clienteqa2@email.com','83999999992','Rua Exemplo','1');
+INSERT INTO `clientes` VALUES (115,'c5631fbb-7ab8-4473-9d97-f197f1bbd70d','2024-05-22 12:31:37','2024-05-22 12:31:37','06713832482','PB','Foz do iguaçu','2',51,'Yonatha Alves Almeida','yonathalmeida@gmail.com','83991732814','1','1');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,13 +180,48 @@ INSERT INTO `contratos` VALUES (37,'5a89144b-bdd1-4b6a-9034-a4f346b7bbd2',1,2000
 UNLOCK TABLES;
 
 --
--- Table structure for table `financeiro_financeiro`
+-- Table structure for table `financeiro`
 --
 
-DROP TABLE IF EXISTS `financeiro_financeiro`;
+DROP TABLE IF EXISTS `financeiro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `financeiro_financeiro` (
+CREATE TABLE `financeiro` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `categoria` enum('RECEITA','DESPESA') NOT NULL DEFAULT 'DESPESA',
+  `descricao` varchar(255) NOT NULL,
+  `fornecedor` varchar(255) NOT NULL DEFAULT '0',
+  `observacao` varchar(255) DEFAULT NULL,
+  `data_vencimento` datetime DEFAULT NULL,
+  `data_pagamento` datetime DEFAULT NULL,
+  `valor_cobranca` varchar(255) NOT NULL,
+  `parcelada` tinyint NOT NULL DEFAULT '0',
+  `numero_parcelas` int NOT NULL,
+  `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL DEFAULT 'PENDENTE',
+  `tipo` enum('FIXA','VARIAVEL') NOT NULL DEFAULT 'VARIAVEL',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `financeiro`
+--
+
+LOCK TABLES `financeiro` WRITE;
+/*!40000 ALTER TABLE `financeiro` DISABLE KEYS */;
+INSERT INTO `financeiro` VALUES (4,'23b997f8-2252-480e-9986-93d78e78354f','DESPESA','Energia','Copel',NULL,'2024-05-25 00:00:00',NULL,'1.00',0,1,'PENDENTE','VARIAVEL'),(5,'dfaf1beb-6711-456c-b04b-e957218aaf42','RECEITA','Pagamento cliente 1','Cliente 1',NULL,'2024-05-31 00:00:00',NULL,'1000.00',0,10,'PENDENTE','FIXA'),(6,'daee39d8-cd61-4b1a-b04f-ce249a6b264d','RECEITA','Pagamento cliente 2','Cliente 1',NULL,'2024-05-31 00:00:00',NULL,'1000.00',1,10,'PENDENTE','FIXA'),(7,'75896f7e-039f-4aa5-92d3-9ef713410000','RECEITA','Pagamento cliente 3','Cliente 1',NULL,'2024-05-31 00:00:00',NULL,'1000.00',1,10,'PAGA','FIXA'),(8,'2fe8db88-39f2-4974-9443-f0906e27b218','RECEITA','Pagamento cliente 4','Cliente 1',NULL,'2024-05-31 00:00:00',NULL,'1000.00',1,10,'PAGA','FIXA'),(9,'273be21e-7be1-461d-a364-c2557947f098','RECEITA','Pagamento cliente 5','Cliente 1',NULL,'2024-05-31 00:00:00',NULL,'1000.00',1,10,'PAGA','FIXA'),(10,'edeef214-e857-44f3-bc63-a5da04833046','DESPESA','Aluguel','0',NULL,'2024-06-05 00:00:00',NULL,'6000.00',1,12,'PAGA','VARIAVEL'),(11,'983749b4-223d-4b1a-a7ca-1f84fe81a40f','DESPESA','Agua','Cagepa',NULL,'2024-06-01 00:00:00','2024-05-25 12:58:00','50.00',0,1,'PAGA','VARIAVEL'),(12,'63ed208d-41d2-4165-8343-ee45ee8f5159','DESPESA','Conta 1','',NULL,'2024-06-01 00:00:00','2024-05-25 12:58:00','50.00',0,1,'PAGA','VARIAVEL'),(13,'5c517c6a-4457-49f5-96b1-be957a9c77ac','RECEITA','Pagamento cliente 6','Cliente 1',NULL,'2024-05-31 00:00:00',NULL,'1000.00',1,10,'PENDENTE','FIXA'),(15,'6cc29511-5dba-4f4f-84ec-782699785aa7','DESPESA','Conta 2','',NULL,'2024-06-01 00:00:00','2024-05-25 12:58:00','50.00',0,1,'PAGA','VARIAVEL'),(16,'d43fba33-ffe1-4997-aec0-93c4d1e4a473','DESPESA','Conta 3','',NULL,'2024-06-01 00:00:00','2024-05-25 12:58:00','50.00',0,1,'PAGA','VARIAVEL');
+/*!40000 ALTER TABLE `financeiro` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `financeiro_despesas`
+--
+
+DROP TABLE IF EXISTS `financeiro_despesas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `financeiro_despesas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
   `tipo` enum('FIXA','VARIAVEL') NOT NULL DEFAULT 'VARIAVEL',
@@ -196,50 +231,82 @@ CREATE TABLE `financeiro_financeiro` (
   `data_pagamento` datetime DEFAULT NULL,
   `valor_cobranca` decimal(10,2) NOT NULL,
   `parcelada` tinyint NOT NULL DEFAULT '0',
-  `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL DEFAULT 'PENDENTE',
   `numero_parcelas` int NOT NULL,
+  `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL DEFAULT 'PENDENTE',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `financeiro_financeiro`
+-- Dumping data for table `financeiro_despesas`
 --
 
-LOCK TABLES `financeiro_financeiro` WRITE;
-/*!40000 ALTER TABLE `financeiro_financeiro` DISABLE KEYS */;
-/*!40000 ALTER TABLE `financeiro_financeiro` ENABLE KEYS */;
+LOCK TABLES `financeiro_despesas` WRITE;
+/*!40000 ALTER TABLE `financeiro_despesas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financeiro_despesas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `financeiro_financeiro_parcelas`
+-- Table structure for table `financeiro_despesas_parcelas`
 --
 
-DROP TABLE IF EXISTS `financeiro_financeiro_parcelas`;
+DROP TABLE IF EXISTS `financeiro_despesas_parcelas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `financeiro_financeiro_parcelas` (
+CREATE TABLE `financeiro_despesas_parcelas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
   `parcela` int NOT NULL,
   `valor` decimal(10,2) NOT NULL,
   `data_vencimento` date NOT NULL,
   `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL,
-  `financeiroId` int DEFAULT NULL,
   `comprovante` varchar(255) DEFAULT NULL,
+  `despesaId` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_9379edce1b0d62cb45fc4718166` (`financeiroId`),
-  CONSTRAINT `FK_9379edce1b0d62cb45fc4718166` FOREIGN KEY (`financeiroId`) REFERENCES `financeiro_financeiro` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK_9379edce1b0d62cb45fc4718166` (`despesaId`),
+  CONSTRAINT `FK_9379edce1b0d62cb45fc4718166` FOREIGN KEY (`despesaId`) REFERENCES `financeiro_despesas` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `financeiro_financeiro_parcelas`
+-- Dumping data for table `financeiro_despesas_parcelas`
 --
 
-LOCK TABLES `financeiro_financeiro_parcelas` WRITE;
-/*!40000 ALTER TABLE `financeiro_financeiro_parcelas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `financeiro_financeiro_parcelas` ENABLE KEYS */;
+LOCK TABLES `financeiro_despesas_parcelas` WRITE;
+/*!40000 ALTER TABLE `financeiro_despesas_parcelas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financeiro_despesas_parcelas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `financeiro_parcelas`
+--
+
+DROP TABLE IF EXISTS `financeiro_parcelas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `financeiro_parcelas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `parcela` int NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `data_vencimento` date NOT NULL,
+  `situacao` enum('PAGA','PENDENTE','VENCIDA','ARQUIVADO') NOT NULL,
+  `comprovante` varchar(255) DEFAULT NULL,
+  `financeiroId` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_caae013a51227ee253bef721795` (`financeiroId`),
+  CONSTRAINT `FK_caae013a51227ee253bef721795` FOREIGN KEY (`financeiroId`) REFERENCES `financeiro` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `financeiro_parcelas`
+--
+
+LOCK TABLES `financeiro_parcelas` WRITE;
+/*!40000 ALTER TABLE `financeiro_parcelas` DISABLE KEYS */;
+INSERT INTO `financeiro_parcelas` VALUES (6,'4969ffc9-ea7e-46ef-addf-f825cb3d11d3',1,1.00,'2024-05-25','PENDENTE',NULL,4),(17,'3a4fc777-0284-4826-a0a7-b67731dd0ddb',1,100.00,'2024-05-31','PENDENTE',NULL,6),(18,'6666e302-06cd-4523-81d1-261af94c45b2',2,100.00,'2024-06-30','PENDENTE',NULL,6),(19,'48a017b6-7905-45fa-8019-a7d167ad688b',3,100.00,'2024-07-30','PENDENTE',NULL,6),(20,'0ef1aa2d-f9af-4772-a93e-8c9f1d9667b9',4,100.00,'2024-08-30','PENDENTE',NULL,6),(21,'45b26203-4a30-44a1-ac69-be46d54299b9',5,100.00,'2024-09-30','PENDENTE',NULL,6),(22,'54557fd5-227c-4b43-8156-23adfad6f81a',6,100.00,'2024-10-30','PENDENTE',NULL,6),(23,'b5e1d6ea-b44e-4160-9c9e-02236ce33514',7,100.00,'2024-11-30','PENDENTE',NULL,6),(24,'cc0662c0-629a-46fe-b436-43bc96d8a58d',8,100.00,'2024-12-30','PENDENTE',NULL,6),(25,'b3014d30-52cd-4f13-94b1-4e6795fa4d50',9,100.00,'2025-01-30','PENDENTE',NULL,6),(26,'b69e3b18-21c2-4200-a5a4-719d05c48918',10,100.00,'2025-02-28','PENDENTE',NULL,6),(27,'45fbe545-7aa5-4bc5-a98d-12fe0d0d07c3',1,100.00,'2024-05-31','PENDENTE',NULL,7),(28,'4559421d-60fa-4094-b731-d4d8b4adbc3c',2,100.00,'2024-06-30','PENDENTE',NULL,7),(29,'ea39f22c-03fa-43fa-b047-57095659d4c8',3,100.00,'2024-07-30','PENDENTE',NULL,7),(30,'85339825-8443-48ef-8940-886cae77bb67',4,100.00,'2024-08-30','PENDENTE',NULL,7),(31,'e1b359fd-7aaf-4fb8-a0f6-b8cc92deea88',5,100.00,'2024-09-30','PENDENTE',NULL,7),(32,'50ee8ae6-c54f-4ad9-a819-6f4e1a16f9da',6,100.00,'2024-10-30','PENDENTE',NULL,7),(33,'228e23c4-b4bd-4b31-af9b-ef09cc81490c',7,100.00,'2024-11-30','PENDENTE',NULL,7),(34,'88c07152-b5ec-4123-aa41-f1248bfc6e1f',8,100.00,'2024-12-30','PENDENTE',NULL,7),(35,'35bbdc8b-1afa-4960-bff7-e98ea0530d24',9,100.00,'2025-01-30','PENDENTE',NULL,7),(36,'bc4882cd-938a-4c61-8258-ee2c868886eb',10,100.00,'2025-02-28','PENDENTE',NULL,7),(37,'af49cee9-9f48-47b2-bf9c-88c893b79af1',1,100.00,'2024-05-31','PENDENTE',NULL,8),(38,'d3cc5b4a-1e69-47fc-bf41-15178ac4a4dc',2,100.00,'2024-06-30','PENDENTE',NULL,8),(39,'e01bcd47-73e3-417f-94a6-007a2d392214',3,100.00,'2024-07-30','PENDENTE',NULL,8),(40,'fceb6b31-090c-4ddb-ac86-c433ea1ddf5c',4,100.00,'2024-08-30','PENDENTE',NULL,8),(41,'751b62cf-b9c5-4ff2-86a1-1eeb0a6d5d7b',5,100.00,'2024-09-30','PENDENTE',NULL,8),(42,'025c438d-9038-467c-b018-fc15964bdb5b',6,100.00,'2024-10-30','PENDENTE',NULL,8),(43,'ed7b9fb1-476e-4c93-819e-b8008446fc0b',7,100.00,'2024-11-30','PENDENTE',NULL,8),(44,'d6fc4695-2d30-4204-9755-77333274f724',8,100.00,'2024-12-30','PENDENTE',NULL,8),(45,'4dddcf39-a3a1-49e2-8339-760ed5574600',9,100.00,'2025-01-30','PENDENTE',NULL,8),(46,'ae5cf851-b3b5-4d85-b81e-94ab51764568',10,100.00,'2025-02-28','PENDENTE',NULL,8),(47,'9d13c340-5c6b-4f6e-a597-106c356a8bbf',1,100.00,'2024-05-31','PENDENTE',NULL,9),(48,'489fee71-f149-4a9a-9ed5-f1fd00ee1b79',2,100.00,'2024-06-30','PENDENTE',NULL,9),(49,'67563874-15fe-47ee-a125-73d0b20e282f',3,100.00,'2024-07-30','PENDENTE',NULL,9),(50,'bb1ee6b5-a8a5-43ef-8cea-e6e2c10b4ba5',4,100.00,'2024-08-30','PENDENTE',NULL,9),(51,'a046c75a-697d-4a04-a3a8-df65e069fc31',5,100.00,'2024-09-30','PENDENTE',NULL,9),(52,'dc0f8471-47fe-46e8-b992-0b0074f7959d',6,100.00,'2024-10-30','PENDENTE',NULL,9),(53,'17ee92d3-de31-4096-85f8-988480cc7dd1',7,100.00,'2024-11-30','PENDENTE',NULL,9),(54,'9088c8ab-fe73-48b6-9ffa-69e024868358',8,100.00,'2024-12-30','PENDENTE',NULL,9),(55,'a3556bfe-ef31-4682-ac69-f7e97ea47542',9,100.00,'2025-01-30','PENDENTE',NULL,9),(56,'ef6e25e1-8ac0-4fc8-9d32-9f0c013ee608',10,100.00,'2025-02-28','PENDENTE',NULL,9),(57,'3eaad6ac-91b2-4089-9f36-835522ee8974',1,500.00,'2024-06-05','PAGA',NULL,10),(58,'ce5444ea-b025-4619-95a1-5fc89e4fa843',2,500.00,'2024-07-05','PAGA',NULL,10),(59,'f7322b39-8bca-428e-90cb-6a63f7885607',3,500.00,'2024-08-05','PAGA',NULL,10),(60,'3ed8b897-9d73-47a7-8c19-e892ffde8550',4,500.00,'2024-09-05','PAGA',NULL,10),(61,'f6f37d0f-bf74-4f5e-84b0-d306c6355185',5,500.00,'2024-10-05','PAGA',NULL,10),(62,'492bc544-ae4b-4aae-b0c7-b0494ca391bb',6,500.00,'2024-11-05','PAGA',NULL,10),(63,'85f9399f-2288-431c-970f-e6df9b7ca160',7,500.00,'2024-12-05','PAGA',NULL,10),(64,'5ce54c4d-312f-414b-bc72-3f554ae2fe58',8,500.00,'2025-01-05','PAGA',NULL,10),(65,'67823c12-eb41-40ba-b6cc-654326c75dc6',9,500.00,'2025-02-05','PAGA',NULL,10),(66,'3b712e26-3a0d-44b2-9b19-89a3104e6fcf',10,500.00,'2025-03-05','PAGA',NULL,10),(67,'e34df10c-edb9-4bea-b58b-1e136cfe8a25',11,500.00,'2025-04-05','PAGA',NULL,10),(68,'df0a0b66-9323-4785-98b3-559b72b93733',12,500.00,'2025-05-05','PAGA',NULL,10),(72,'5e01ebf2-57e6-404f-8f5c-2182af45d64c',1,100.00,'2024-05-31','PAGA',NULL,5),(73,'63501895-598c-4e5e-a866-d3c79c3087e6',2,100.00,'2024-06-30','PAGA',NULL,5),(74,'17fbdbe6-aa98-457e-aca9-488724192e8e',3,100.00,'2024-07-30','PAGA',NULL,5),(75,'e42c027d-e8d6-4aa4-90bc-d46630de5293',4,100.00,'2024-08-30','PAGA',NULL,5),(76,'c1a7d638-c0b1-4638-9b79-116b9c74aa01',5,100.00,'2024-09-30','PENDENTE',NULL,5),(77,'93d29ecc-dcc7-4412-a3dd-c3ce0208185e',6,100.00,'2024-10-30','PENDENTE',NULL,5),(78,'99177217-04de-44b3-a28a-317ffb5e2c3e',7,100.00,'2024-11-30','PENDENTE',NULL,5),(79,'774b3a75-e16f-4179-bcf2-72888c9544ad',8,100.00,'2024-12-30','PENDENTE',NULL,5),(80,'8b9f55c9-2836-44b9-bddb-20c93006baec',9,100.00,'2025-01-30','PENDENTE',NULL,5),(81,'cb41fcbe-10d0-4bbf-b9b9-13f5bf75e24f',10,100.00,'2025-02-28','PENDENTE',NULL,5),(82,'af58199e-8846-4fec-8bfb-d7f7d90ba881',1,50.00,'2024-06-01','PAGA',NULL,11),(83,'8a549e8f-3368-4aa7-8dde-4e877183c15b',1,50.00,'2024-06-01','PAGA',NULL,12),(84,'dd2ac20f-9e17-480c-9e42-62ef50a2b470',1,100.00,'2024-05-31','PENDENTE',NULL,13),(85,'de0e80af-f43d-4b31-bff5-062d6a026bbc',2,100.00,'2024-06-30','PENDENTE',NULL,13),(86,'6497b429-e626-4390-8401-3dfd713a7539',3,100.00,'2024-07-30','PENDENTE',NULL,13),(87,'970992ae-ff44-4f69-a336-3367168511ed',4,100.00,'2024-08-30','PENDENTE',NULL,13),(88,'40736208-8469-44b4-ba27-01a6b8616740',5,100.00,'2024-09-30','PENDENTE',NULL,13),(89,'5ec1f60d-82b9-4731-bd16-7d3c1efad21b',6,100.00,'2024-10-30','PENDENTE',NULL,13),(90,'d13d13f3-e1a2-4768-86da-21b8ba75ec7b',7,100.00,'2024-11-30','PENDENTE',NULL,13),(91,'89d52a36-f6ad-43b6-81f2-ed934ad615ce',8,100.00,'2024-12-30','PENDENTE',NULL,13),(92,'d3dc27b7-2e21-4ef3-91e4-6ceee7d4cd0d',9,100.00,'2025-01-30','PENDENTE',NULL,13),(93,'eb43172b-cc96-485a-af2d-fe659c0f9d42',10,100.00,'2025-02-28','PENDENTE',NULL,13),(104,'7bfee74f-a89d-4858-9bb1-fc485683a439',1,50.00,'2024-06-01','PAGA',NULL,15),(105,'b86ea85d-b28a-446c-8c54-25b8bf81801f',1,50.00,'2024-06-01','PAGA',NULL,16);
+/*!40000 ALTER TABLE `financeiro_parcelas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -264,7 +331,7 @@ CREATE TABLE `fornecedores` (
   `cidade` varchar(100) DEFAULT NULL,
   `endereco` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,6 +340,7 @@ CREATE TABLE `fornecedores` (
 
 LOCK TABLES `fornecedores` WRITE;
 /*!40000 ALTER TABLE `fornecedores` DISABLE KEYS */;
+INSERT INTO `fornecedores` VALUES (14,'8333391924',NULL,'0','2024-05-21 22:24:57','2024-05-21 22:24:57','14419cd4-97ee-4ccc-a872-8093879be326','Energisa','contato@energisa.com.br','00.864.214/0001-06','PB','Campina Grande',NULL);
 /*!40000 ALTER TABLE `fornecedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -581,4 +649,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-21 15:23:58
+-- Dump completed on 2024-05-25 15:02:51
