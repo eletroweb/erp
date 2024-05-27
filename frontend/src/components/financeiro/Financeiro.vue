@@ -1,11 +1,37 @@
 <template>
-    <el-tabs type="border-card">
-        <el-tab-pane label="Receita e Despesas">
+
+    <el-tabs tab-position="top" style="height: 730px" type="border-card">
+        <el-tab-pane label="">
+
+            <template #label>
+                <span class="custom-tabs-label">
+                    <el-icon>
+                        <money />
+                    </el-icon>
+                    <span> Receita e Despesa</span>
+                </span>
+            </template>
+
             <FinanceiroListar />
         </el-tab-pane>
-        <el-tab-pane label="Comparativo mensal">
+        <el-tab-pane label="">
+            <template #label>
+                <span class="custom-tabs-label">
+                    <el-icon><PieChart /></el-icon>
+                    <span> Comparativo</span>
+                </span>
+            </template>      
             Comparativo mensal de Receita vs Financeiro
             <apexchart width="100%" :type="grafico.tipo" :options="chartOptions" :series="series"></apexchart>
+        </el-tab-pane>
+        <el-tab-pane label="">
+            <template #label>
+                <span class="custom-tabs-label">
+                    <el-icon><Aim /></el-icon>
+                    <span> Centro de Custo</span>
+                </span>
+            </template>    
+            ...
         </el-tab-pane>
     </el-tabs>
 

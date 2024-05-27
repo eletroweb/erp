@@ -11,7 +11,7 @@ export class SetorService {
   ) { }
 
   async findAll(): Promise<SetorEntity[]> {
-    return this.setorRepository.find();
+    return this.setorRepository.find({ order: { descricao: 'ASC'}});
   }
 
   async findOneByUuid(uuid: string): Promise<SetorEntity> {

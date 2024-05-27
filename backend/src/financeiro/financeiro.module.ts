@@ -11,10 +11,14 @@ import { FinanceiroParcelaController } from './parcela/financeiro.parcela.contro
 import { FinanceiroParcelasEntity } from './parcela/financeiro.parcela.entity';
 import { FinanceiroParcelaRepository } from './parcela/financeiro.parcela.repository';
 import { FinanceiroParcelaService } from './parcela/financeiro.parcela.service';
+import { SetorModule } from 'src/setores/setor.module';
+import { ContratoModule } from 'src/contratos/contrato.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([FinanceiroEntity, FinanceiroParcelasEntity])
+    TypeOrmModule.forFeature([FinanceiroEntity, FinanceiroParcelasEntity]),
+    SetorModule,
+    ContratoModule
   ],
   controllers: [FinanceiroController, FinanceiroParcelaController],
   providers: [

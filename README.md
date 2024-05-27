@@ -106,6 +106,7 @@ RF12.2 Cadastrar despesa
     RF12.2.1 Adicionar parcela
         RF12.2.1.1 Quanto uma despesa não é parcelada a data de vencimento da parcela deve ser igual a data de vencimento da despesa;
         RF12.2.1.2 Quando uma despesa é parcelada, a data de vencimento da primeira parcela deve ser igual a data de vencimento da despesa e as subsequentes serão mês+1
+        RF12.2.1.3 Adicionar data de pagamento a parcela
 RF12.3 Excluir despesa
 RF12.4 Alterar despesa
         RF12.4.1.1 Salvar a data de pagamento ao realizar o pagamento integral da despesa
@@ -114,11 +115,15 @@ RF12.4 Alterar despesa
         RF12.4.2.2 PENDENTE 
         RF12.4.2.3 VENCIDA Quando houver uma ou mais parcelas vencidas com data inferior a data atual
         RF12.4.2.4 ARQUIVADA Todos os campos de uma despesa devem ficar desabilitados
+    RF12.4.3 Editar centro de custo
+    Quando uma despesa esta definida com o centro de custo por setor e é alterada para centro de custo contrato, a coluna setor_id na tabela financeiro do registro deve ser definida como null; O mesmo ocorrerá caso seja alterado para centro de custo setor, a coluna contrato_id deverá ser definida como null
+
 RF12.5 Listar parcelas de despesa
 RF12.5.1 Realizar pagamento de parcela
 RF12.5.2 Anexar comprovante de pagamento na parcela
 RF12.5.3 Baixar comprovante de pagamento na parcela
 RF12.6.1 Adicionar parcela a despesa
+RF12.7.1 Vincular centro de custo do tipo setor ou contrato a despesa 
 
 ## Recursos Humanos
 RF12.1 Cadastrar Colaborador
@@ -209,6 +214,19 @@ git push origin -d nomebranch
 C:\Program Files\keycloak-23.0.6\bin\kc.bat start-dev
 
 http://localhost:8080/
+
+
+  interface Token {
+    isExpired(): boolean
+    hasRole(roleName: string): boolean
+    hasApplicationRole(appName: string, roleName: string): boolean
+    hasRealmRole(roleName: string): boolean,
+    content: {
+      realm_access: {
+        roles: string[]
+      }
+    }
+  }
 
 # Backend
 

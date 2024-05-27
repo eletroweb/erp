@@ -44,50 +44,66 @@
 
             <q-badge v-if="financeiroStore.financeiro.uuid != null" id="situacao_resumo"
                 :color="getCorPorSituacao(financeiroStore.financeiro.situacao)">{{
-                        financeiroStore.financeiro.situacao
-                    }}</q-badge>
+                    financeiroStore.financeiro.situacao
+                }}</q-badge>
 
+
+            <el-row :gutter="24">
+
+                <el-col :span="5">
+                    <q-btn-toggle v-model="financeiroStore.financeiro.categoria" no-caps rounded unelevated
+                        toggle-color="primary" color="white" text-color="primary" :options="[
+                            { label: 'DESPESA', value: 'DESPESA' },
+                            { label: 'RECEITA', value: 'RECEITA' },
+                        ]" />
+                </el-col>
+
+                <el-col :span="5" v-if="financeiroStore.financeiro.categoria == 'DESPESA'">
+                    <el-select @change="financeiroStore.selecionarTipoCentroDeCusto()"
+                        v-model="financeiroStore.financeiro.centro_custo" placeholder="Centro de Custo..." size="large">
+                        <el-option v-for="item in centroDeCustoLista" :key="item.value" :label="item.label"
+                            :value="item.value" />
+                    </el-select>
+                </el-col>
+                <el-col :span="6" v-if="financeiroStore.financeiro.categoria == 'DESPESA' || centroDeCusto != null">
+                    <SelectSetores v-if="financeiroStore.financeiro.centro_custo == 'SETOR'" v-model="setorUuid" />
+                    <SelectContratos v-else-if="financeiroStore.financeiro.centro_custo == 'CONTRATO'"
+                        v-model="contratoUuid" />
+                </el-col>
+
+                <el-col :span="6">
+                    <q-radio v-model="financeiroStore.financeiro.tipo" val="FIXA" label="Fixa" />
+                    <q-radio v-model="financeiroStore.financeiro.tipo" val="VARIAVEL" label="Variável" />
+                </el-col>
+            </el-row>
 
             <el-form-item label="">
-                <el-col :span="5">
-                    <el-form-item label="">
-                        <q-btn-toggle v-model="financeiroStore.financeiro.categoria" class="categoria-toggle" no-caps
-                            rounded unelevated toggle-color="primary" color="white" text-color="primary" :options="[
-                        { label: 'DESPESA', value: 'DESPESA' },
-                        { label: 'RECEITA', value: 'RECEITA' },
-                    ]" />
+                <el-col :span="12">
+                    <el-form-item label="Descrição">
+                        <el-input v-model="financeiroStore.financeiro.descricao" name="descricao" />
                     </el-form-item>
                 </el-col>
-                <el-col :span="10">
-                    <el-form-item label="Descrição">
-                            <el-input v-model="financeiroStore.financeiro.descricao" name="descricao" />
-                        </el-form-item>
+
+                <el-col :span="10" style="margin-left: 20px;">
+                    <el-form-item label="Fornecedor">
+                        <el-input v-model="financeiroStore.financeiro.fornecedor" name="descricao" />
+                    </el-form-item>
                 </el-col>
-                <el-col :span="9">
-                    <el-form-item label="" style="margin-left: 20px;">
-                            <q-radio v-model="financeiroStore.financeiro.tipo" val="FIXA" label="Fixa" />
-                            <q-radio v-model="financeiroStore.financeiro.tipo" val="VARIAVEL" label="Variável" />
-                        </el-form-item>
-                </el-col>   
+
             </el-form-item>
 
             <q-form class="q-gutter-md">
-                <el-form-item label="Fornecedor">
-                    <el-col :span="11">
-                        <el-form-item label="">
-                            <el-input v-model="financeiroStore.financeiro.fornecedor" name="descricao" />
-                        </el-form-item>
-                    </el-col>
+                <el-form-item label="">
                     <el-col :span="13">
                         <el-form-item v-if="financeiroStore.financeiro.uuid != null" label=""
                             style="margin-left: 20px;">
                             <q-btn-toggle v-model="financeiroStore.financeiro.situacao" class="situacao-toggle" no-caps
                                 rounded unelevated toggle-color="primary" color="white" text-color="primary" :options="[
-                        { label: 'PAGA', value: 'PAGA', disable: financeiroStore.financeiro.todas_parcelas_pagas == false || financeiroStore.financeiro.uuid === null },
-                        { label: 'PENDENTE', value: 'PENDENTE', disable: situacaoPendente() },
-                        { label: 'VENCIDA', value: 'VENCIDA', disable: situacaoVencida() },
-                        { label: 'ARQUIVADO', value: 'ARQUIVADO', disable: financeiroStore.financeiro.uuid === null }
-                    ]" />
+                                    { label: 'PAGA', value: 'PAGA', disable: financeiroStore.financeiro.todas_parcelas_pagas == false || financeiroStore.financeiro.uuid === null },
+                                    { label: 'PENDENTE', value: 'PENDENTE', disable: situacaoPendente() },
+                                    { label: 'VENCIDA', value: 'VENCIDA', disable: situacaoVencida() },
+                                    { label: 'ARQUIVADO', value: 'ARQUIVADO', disable: financeiroStore.financeiro.uuid === null }
+                                ]" />
                         </el-form-item>
                     </el-col>
                 </el-form-item>
@@ -117,13 +133,13 @@
                     </el-col>
                 </el-form-item>
 
-                <el-form-item label="Data de Pagamento">
-                    <el-col :span="4">
+                <el-form-item label="">
+                    <!-- el-col :span="4">
                         <el-date-picker format="DD/MM/YYYY" v-model="financeiroStore.financeiro.data_pagamento"
                             type="date" style="width: 100%" />
-                    </el-col>
+                    </el-col -->
                     <el-col :span="5">
-                        <span style=" margin-left: 18px;">
+                        <span>
                             Número de Parcelas
                         </span>
                     </el-col>
@@ -162,11 +178,14 @@
 <script>
 import { FinanceiroStore } from '@/store/financeiro/FinanceiroStore.ts'
 import dayjs from 'dayjs'
-import { FinanceiroSituacaoEnum } from '@/enum/financeiro.enum'
+import { FinanceiroSituacaoEnum, FinanceiroCentroDeCustoEnum } from '@/enum/financeiro.enum'
 import FinanceiroParcelasLista from '@/components/financeiro/parcela/FinanceiroParcelasLista.vue'
 import { formatarReal, getCorPorSituacao } from '@/common/util.ts';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Money3Component } from 'v-money3'
+import SelectSetores from "@/components/setores/SelectSetores.vue"
+import SelectContratos from "@/components/contratos/SelectContratos.vue"
+import { defineComponent, computed } from 'vue';
 
 dayjs.extend(customParseFormat);
 
@@ -188,11 +207,46 @@ export default {
             financeiroStore.financeiro[campo] = valorFormatado;
         };
 
-        return { financeiroStore, formatarMoeda, formatarReal, getCorPorSituacao };
+
+
+        const centroDeCusto = computed(() => {
+            if (financeiroStore.financeiro.setor?.uuid) {
+                return FinanceiroCentroDeCustoEnum.SETOR;
+            } else if (financeiroStore.financeiro.contrato?.uuid) {
+                return FinanceiroCentroDeCustoEnum.CONTRATO;
+            } else {
+                return FinanceiroCentroDeCustoEnum.SETOR; // Valor padrão
+            }
+        });
+
+        const contratoUuid = computed({
+            get() {
+                return financeiroStore.getContratoUuid;
+            },
+            set(value) {
+                financeiroStore.setContratoUuid(value);
+            }
+        });
+
+        const setorUuid = computed({
+            get() {
+                return financeiroStore.getSetorUuid;
+            },
+            set(value) {
+                financeiroStore.setSetorUuid(value);
+            }
+        });
+
+
+        return { financeiroStore, formatarMoeda, formatarReal, getCorPorSituacao, contratoUuid, setorUuid };
     },
     data() {
         return {
             exibirConfirmacaoExclusao: false,
+            centroDeCustoLista: [
+                { value: FinanceiroCentroDeCustoEnum.SETOR, label: 'Setor', },
+                { value: FinanceiroCentroDeCustoEnum.CONTRATO, label: 'Contrato' },
+            ],
             config: {
                 masked: false,
                 prefix: '',
@@ -213,15 +267,15 @@ export default {
     },
     components: {
         FinanceiroParcelasLista,
-        money3: Money3Component
+        money3: Money3Component,
+        SelectSetores,
+        SelectContratos
     },
     async mounted() {
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
         if (uuidPattern.test(this.$route.params.id)) {
             this.id = this.$route.params.id
             this.financeiroStore.carregarFinanceiro(this.id)
-        } else {
-
         }
         this.financeiroStore.financeiro.numero_parcelas = 1
         this.selecionarNumeroDeParcelas()
@@ -253,7 +307,6 @@ export default {
         selecionarNumeroDeParcelas() {
             const { numero_parcelas, valor_cobranca } = this.financeiroStore.financeiro
             const valor = valor_cobranca / numero_parcelas
-            console.log(numero_parcelas, numero_parcelas, valor);
             const situacao = FinanceiroSituacaoEnum.PENDENTE;
 
             let data_vencimento = dayjs(this.financeiroStore.financeiro.data_vencimento).format('DD/MM/YYYY')
@@ -262,8 +315,10 @@ export default {
             this.financeiroStore.financeiro.parcelas = []
 
             if (numero_parcelas === 1) {
+                const data_pagamento = null
                 this.financeiroStore.financeiro.parcelas.push({
                     data_vencimento,
+                    data_pagamento,
                     parcela: parcelaInicial,
                     valor,
                     situacao
@@ -272,10 +327,12 @@ export default {
                 for (let parcela = 0; parcela < numero_parcelas; parcela++) {
                     const mesCobranca = parcela === 0 ? 0 : 1
                     data_vencimento = dayjs(data_vencimento, 'DD/MM/YYYY').add(mesCobranca, 'month').format('DD/MM/YYYY')
+                    const data_pagamento = null
                     this.financeiroStore.financeiro.parcelas.push({
                         parcela: parcelaInicial,
                         valor,
                         data_vencimento,
+                        data_pagamento,
                         situacao
                     })
                     parcelaInicial += 1
@@ -309,4 +366,4 @@ export default {
     font-size: 9px;
     letter-spacing: 2px;
 }
-</style>@/store/financeiro/FinanceiroStore
+</style>

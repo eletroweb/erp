@@ -1,10 +1,14 @@
 import { FinanceiroCategoriaEnum, FinanceiroEnum, FinanceiroTipoEnum } from "src/enum/financeiro.enum";
 import { FinanceiroParcelaResponse } from "./parcela/financeiro.parcela.response";
+import { SetorResponseDto } from "src/setores/setor.response.dto";
+import { ContratoResponseDto } from "src/contratos/contrato.response.dto";
 
 export class FinanceiroResponseDto {
     uuid?: string;
     categoria: FinanceiroCategoriaEnum;
     tipo: FinanceiroTipoEnum;
+    setor: SetorResponseDto;
+    contrato: ContratoResponseDto;
     descricao: string;
     fornecedor: string;
     observacao?: string;

@@ -25,6 +25,9 @@ export class FinanceiroParcelasEntity {
   @Column({ type: 'date' })
   data_vencimento: Date;
 
+  @Column({ type: 'date', nullable: true })
+  data_pagamento: Date;
+
   @Column({
     type: 'enum',
     enum: FinanceiroEnum,
@@ -37,6 +40,9 @@ export class FinanceiroParcelasEntity {
   @Column({ nullable: true })
   comprovante: string;
 
+    @Column({ nullable: true })
+    observacao: string;
+
   @BeforeInsert()
   generateUuid() {
     this.uuid = uuidv4();
@@ -45,9 +51,11 @@ export class FinanceiroParcelasEntity {
   static toEntity(dto: FinanceiroParcelaRequest): FinanceiroParcelasEntity {
     const entity = new FinanceiroParcelasEntity();
     entity.data_vencimento = dayjs(dto.data_vencimento, 'DD/MM/YYYY').toDate()
+    entity.data_pagamento = dto.data_pagamento ? dayjs(dto.data_pagamento, 'DD/MM/YYYY').toDate() : null
     entity.valor = dto.valor;
     entity.parcela = dto.parcela;
     entity.situacao = dto.situacao;
+    entity.observacao = dto.observacao;
     return entity;
   }
 
@@ -55,10 +63,12 @@ export class FinanceiroParcelasEntity {
     const dto = new FinanceiroParcelaResponse();
     dto.uuid = this.uuid;
     dto.data_vencimento = dayjs(this.data_vencimento).format('DD/MM/YYYY')
+    dto.data_pagamento = this.data_pagamento ? dayjs(this.data_pagamento).format('DD/MM/YYYY') :  null
     dto.parcela = this.parcela;
     dto.valor = this.valor;
     dto.situacao = this.situacao;
     dto.comprovante = this.comprovante;
+    dto.observacao = this.observacao;
     return dto;
   }
 

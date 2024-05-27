@@ -47,6 +47,17 @@
                     </el-col>
                 </el-form-item>
 
+                
+                <el-form-item label="">
+                    <el-col :span="11">
+                        <b>Data de Pagamento</b>
+                    </el-col>
+                    <el-col :span="11">
+                        <el-date-picker format="DD/MM/YYYY" v-model="financeiroStore.parcela_selecionada.data_pagamento"
+                            type="date" style="width: 100%" />
+                    </el-col>
+                </el-form-item>
+
                 <div class="dropbox">
                     <input type="file" name="comprovante" @change="filesChange($event.target.files);"
                         class="input-file">
@@ -133,4 +144,8 @@ export default {
     text-align: center;
     padding: 50px 0;
 }
-</style>@/store/financeiro/FinanceiroStore
+
+.el-picker__popper {
+    z-index: 1000 !important;
+}
+</style>

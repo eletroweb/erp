@@ -1,9 +1,8 @@
 import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
-import { FinanceiroCategoriaEnum, FinanceiroSituacaoEnum, FinanceiroTipoEnum } from "@/enum/financeiro.enum";
+import { FinanceiroCategoriaEnum, FinanceiroCentroDeCustoEnum, FinanceiroSituacaoEnum, FinanceiroTipoEnum } from "@/enum/financeiro.enum";
 import { NotificacaoStore } from "../NotificacaoStore";
-import dayjs from 'dayjs'
 
 const downloadFile = async (response, nome) => {
     const contentType = response.headers.get('Content-Type');
@@ -32,9 +31,26 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             'VENCIDA',
             'ARQUIVADO'
         ],
-        financeiro: {},
+        financeiro: {
+            categoria:FinanceiroCategoriaEnum.DESPESA,
+            setor: {
+                uuid: null
+            },
+            contrato: {
+                uuid: null
+            },
+            centro_custo: FinanceiroCentroDeCustoEnum.SETOR
+        },
         parcela_selecionada: null,
-        modalConfirmacaoPagamento: false
+        modalConfirmacaoPagamento: {
+                exibir: false,
+                instrucao: "Clique para selecionar o comprovante",
+                backgroundStyle: 'background: #ff9800',
+                btnConfirmar: true,
+                formData: null,
+                comprovante: null,
+                data_pagamento: null
+        }
     }),
     actions: {
         async listar() {
@@ -48,20 +64,26 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             return this.financeiroLista
         },
         async novo() {
+            this.exibirFinanceiro = false
+            this.financeiroLista = []
+            this.situacoes = [
+                'PAGA',
+                'PENDENTE',
+                'VENCIDA',
+                'ARQUIVADO'
+            ]
             this.financeiro = {
-                uuid: null,
-                categoria: FinanceiroCategoriaEnum.DESPESA,
-                descricao: null,
-                tipo: FinanceiroTipoEnum.VARIAVEL,
-                observacao: null,
-                data_vencimento:  dayjs(),
-                data_pagamento: null,
-                valor_cobranca: null,
-                parcelada: true,
-                numero_parcelas: 1,
-                parcelas: [],
-                situacao: FinanceiroSituacaoEnum.PENDENTE
+                categoria:FinanceiroCategoriaEnum.DESPESA,
+                setor: {
+                    uuid: null
+                },
+                contrato: {
+                    uuid: null
+                },
+                centro_custo: FinanceiroCentroDeCustoEnum.SETOR
             }
+            this.parcela_selecionada = null,
+            this.modalConfirmacaoPagamento.exibir = false
             router.push('/financeiro/financeiro/novo');
         },
         async cadastrar() {
@@ -104,6 +126,12 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             try {
                 const response = await api.get(`financeiro/${id}`);
                 this.financeiro = response.data;
+                if (this.financeiro.setor?.uuid) {
+                    this.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.SETOR;
+                } else  {
+                    this.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.CONTRATO;
+                }
+                
             } catch (error) {
                 console.log(error);
                 throw error;
@@ -137,7 +165,15 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             return cores[situacao] || "black";
         },
         exibirModalPagamento(parcela) {
-            this.modalConfirmacaoPagamento = true
+            this.modalConfirmacaoPagamento = {
+                exibir: true,
+                instrucao: "Clique para selecionar o comprovante",
+                backgroundStyle: 'background: #ff9800',
+                btnConfirmar: true,
+                formData: null,
+                comprovante: null,
+                data_pagamento: null
+            }
             this.parcela_selecionada = this.financeiro.parcelas.filter(p => p.parcela === parcela)[0]
         },
         async downloadComprovante(row) {
@@ -149,6 +185,49 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             } else {
                 console.error('Erro ao baixar o arquivo:', response.statusText);
             }
-        }
+        },
+        selecionarTipoCentroDeCusto(){
+            if (this.financeiro.centro_custo == FinanceiroCentroDeCustoEnum.SETOR) {
+                this.financeiro.contrato = {uuid: null}
+            } else {
+                this.financeiro.setor = {uuid: null}
+            }
+        },
+        setContratoUuid(uuid: string) {
+            if (!this.financeiro.contrato)
+                this.financeiro.contrato = { uuid: '' };
+            
+            this.financeiro.contrato.uuid = uuid;
+        },
+        setSetorUuid(uuid: string) {
+            if (!this.financeiro.setor)
+                this.financeiro.setor = { uuid: '' };
+            
+            this.financeiro.setor.uuid = uuid;
+        },
+    },
+    getters: {
+        getFinanciero: (state) => state.financeiro,
+        getTipoCentroDeCusto: (state) => {
+            if (state.financeiro.contrato?.uuid){
+                state.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.CONTRATO
+                return FinanceiroCentroDeCustoEnum.CONTRATO
+            }
+                
+            state.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.SETOR
+            return FinanceiroCentroDeCustoEnum.SETOR
+        },
+        getSetorUuid: (state) => {
+            if (state.financeiro.setor?.uuid) 
+                return state.financeiro.setor?.uuid
+            
+            return null
+        },    
+        getContratoUuid: (state) => {
+            if (state.financeiro.contrato?.uuid) 
+                return state.financeiro.contrato?.uuid
+            
+            return {uuid: null}
+        },
     },
 })

@@ -5,6 +5,8 @@ export class FinanceiroParcelaResponse {
     parcela: number;
     valor: number;
     data_vencimento: Date;
+    data_pagamento: Date;
     comprovante: string;
+    observacao: string;
     situacao: FinanceiroEnum;
 }  

@@ -27,3 +27,8 @@ export enum BancosEnum {
     BANCO_INTER = "Banco Inter",
     BANRISUL = "Banrisul"
 }
+
+export enum FinanceiroCentroDeCustoEnum {
+    SETOR = "SETOR",
+    CONTRATO = "CONTRATO"
+}

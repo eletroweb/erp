@@ -29,6 +29,10 @@ app.config.globalProperties.$moment = {
   },
 }
 
+app.config.warnHandler = (msg, vm, trace) => {
+  //console.warn(`[Vue warn]: teste ${msg}\nTrace: ${trace}`);
+};
+
 app.use(router)
 app.use(ElementPlus)
 app.use(pinia)

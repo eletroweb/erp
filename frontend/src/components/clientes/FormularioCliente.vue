@@ -67,15 +67,7 @@
                 </el-col>
             </el-form-item>
 
-            <el-form-item label="Setor">
-                <el-radio-group v-model="clienteStore.cliente.setor.uuid" class="ml-4" name="setor">
-                    <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
-                        <el-radio ce :label="setor.uuid" size="large">
-                            {{ setor.descricao }}
-                        </el-radio>
-                    </div>
-                </el-radio-group>
-            </el-form-item>
+            <RadioGroupSetores v-model="clienteStore.cliente.setor.uuid" label="Setor"/>
 
             <el-form-item label="Endereço">
                 <el-input v-model="clienteStore.cliente.endereco" name="endereco" id="endereco"/>
@@ -108,9 +100,9 @@
 
 <script>
 import { ClienteStore } from '../../store/ClienteStore'
-import { SetorStore } from '../../store/SetorStore'
 import { RolesEnum } from '@/enum/RolesEnum'
 import { AuthorizationStore } from '@/store/AuthorizationStore'
+import RadioGroupSetores from "@/components/setores/RadioGroupSetores.vue"
 
 export default {
     setup() {
@@ -122,9 +114,11 @@ export default {
         return {
             confirmacaoVisivel: false,
             id: null,
-            setores: null,
             setorSelecionado: null
         }
+    },
+    components: {
+        RadioGroupSetores
     },
     async mounted() {
         const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
@@ -132,10 +126,6 @@ export default {
             this.id = this.$route.params.id
             this.clienteStore.carregarCliente(this.id)
         }
-
-        const setorStore = SetorStore()
-        const setores = await setorStore.listar()
-        this.setores = setores;
     },
     methods: {
     }

@@ -1,9 +1,11 @@
 import { FinanceiroCategoriaEnum, FinanceiroEnum, FinanceiroTipoEnum } from 'src/enum/financeiro.enum';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
 import { FinanceiroResponseDto } from './financeiro.response.dto';
 
 import { FinanceiroParcelasEntity } from './parcela/financeiro.parcela.entity';
+import { SetorEntity } from 'src/setores/setor.entity';
+import { ContratoEntity } from 'src/contratos/contrato.entity';
 const dayjs = require('dayjs');
 
 @Entity("financeiro")
@@ -27,6 +29,14 @@ export class FinanceiroEntity {
         default: FinanceiroTipoEnum.VARIAVEL
     })
     tipo: FinanceiroTipoEnum;
+
+    @ManyToOne(() => SetorEntity, { nullable: true, onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'setor_id' })
+    setor: SetorEntity;
+    
+    @ManyToOne(() => ContratoEntity, { nullable: true, onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'contrato_id' })
+    contrato: ContratoEntity;
 
     @Column()
     descricao: string;
@@ -62,15 +72,17 @@ export class FinanceiroEntity {
     @OneToMany(() => FinanceiroParcelasEntity, parcela => parcela.financeiro, { cascade: true })
     parcelas: FinanceiroParcelasEntity[];
 
-    static fromRequestDto(dto: FinanceiroRequestDto): FinanceiroEntity {
+    static fromRequestDto(dto: FinanceiroRequestDto, setor: SetorEntity, contrato: ContratoEntity): FinanceiroEntity {
         const entity = new FinanceiroEntity();
         entity.categoria = dto.categoria
         entity.tipo = dto.tipo
+        entity.setor = setor
+        entity.contrato = contrato
         entity.descricao = dto.descricao;
         entity.fornecedor = dto.fornecedor;
         entity.observacao = dto.observacao;
         entity.data_vencimento = new Date(dto.data_vencimento);
-        entity.data_pagamento = dto.data_pagamento ? new Date(dto.data_pagamento) : null;
+        entity.data_pagamento = dto.data_pagamento != null ? new Date(dto.data_pagamento) : null;
         entity.valor_cobranca = dto.valor_cobranca;
         entity.parcelada = dto.parcelada;
         entity.situacao = dto.situacao;
@@ -115,6 +127,8 @@ export class FinanceiroEntity {
         dto.uuid = this.uuid;
         dto.categoria = this.categoria
         dto.tipo = this.tipo
+        dto.setor = this.setor?.toDto()
+        dto.contrato = this.contrato?.toDto()
         dto.descricao = this.descricao;
         dto.fornecedor = this.fornecedor;
         dto.observacao = this.observacao;

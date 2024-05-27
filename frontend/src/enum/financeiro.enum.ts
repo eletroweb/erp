@@ -14,3 +14,8 @@ export enum FinanceiroCategoriaEnum {
     RECEITA = "RECEITA",
     DESPESA = "DESPESA"
 }
+
+export enum FinanceiroCentroDeCustoEnum {
+    SETOR = "SETOR",
+    CONTRATO = "CONTRATO"
+}

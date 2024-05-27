@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { FinanceiroParcelasEntity } from "./parcela/financeiro.parcela.entity";
-import { FinanceiroEnum } from "src/enum/financeiro.enum";
+import { FinanceiroCategoriaEnum, FinanceiroCentroDeCustoEnum, FinanceiroEnum } from "src/enum/financeiro.enum";
+import { FinanceiroRequestDto } from "./financeiro.request.dto";
 const dayjs = require('dayjs');
 
 @Injectable()
@@ -21,5 +22,13 @@ export class FinanceiroBusiness {
             });
         }
         return [];
+    }
+
+    limparSetor(request: FinanceiroRequestDto): boolean{
+        return request.centro_custo !== FinanceiroCentroDeCustoEnum.SETOR || request.categoria !== FinanceiroCategoriaEnum.DESPESA;
+    }
+
+    limparContrato(request: FinanceiroRequestDto): boolean{
+        return  request.centro_custo !== FinanceiroCentroDeCustoEnum.CONTRATO || request.categoria !== FinanceiroCategoriaEnum.DESPESA;
     }
 }

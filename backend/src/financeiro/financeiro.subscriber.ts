@@ -19,6 +19,6 @@ export class FinanceiroSubscriber implements EntitySubscriberInterface<Financeir
   }
 
   beforeRemove(event: RemoveEvent<FinanceiroEntity>): void | Promise<any> {
-      console.log(`Excluindo registro ${event.entity.uuid}`);
+      // console.log(`Excluindo registro ${event.entity.uuid}`);
   }
 }

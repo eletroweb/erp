@@ -8,6 +8,10 @@ import { FinanceiroParcelaSituacaoRequest } from './parcela/financeiro.parcela.s
 import { FinanceiroEnum } from 'src/enum/financeiro.enum';
 import { FinanceiroParcelaService } from './parcela/financeiro.parcela.service';
 import { FinanceiroBusiness } from './financeiro.business';
+import { SetorService } from 'src/setores/setor.service';
+import { ContratoService } from 'src/contratos/contrato.service';
+
+const dayjs = require('dayjs');
 
 @Injectable()
 export class FinanceiroService {
@@ -19,6 +23,8 @@ export class FinanceiroService {
         private readonly financeiroParcelaRepository: Repository<FinanceiroParcelasEntity>,
         private readonly financeiroParcelaService: FinanceiroParcelaService,
         private readonly financeiroBusiness: FinanceiroBusiness,
+        private readonly setorService: SetorService,
+        private readonly contratoService: ContratoService,
     ) { }
 
     // RF12.1 Listar financeiro
@@ -28,7 +34,15 @@ export class FinanceiroService {
 
     // RF12.2 Cadastrar financeiro
     async create(request: FinanceiroRequestDto): Promise<FinanceiroEntity> {
-        const financeiroEntity = FinanceiroEntity.fromRequestDto(request);
+        const setorUuid = request.setor?.uuid;
+        const contratoUuid = request.contrato?.uuid;
+    
+        const setorPromise = setorUuid ? this.setorService.findOneByUuid(setorUuid) : Promise.resolve(null);
+        const contratoPromise = contratoUuid ? this.contratoService.findOneByUuid(contratoUuid) : Promise.resolve(null);
+    
+        const [setor, contrato] = await Promise.all([setorPromise, contratoPromise]);
+    
+        const financeiroEntity = FinanceiroEntity.fromRequestDto(request, setor, contrato);
 
         // RF12.6.1 Adicionar parcela a financeiro
         const financeiro = await this.financeiroParcelaService.adicionarParcelaNaFinanceiro(
@@ -40,9 +54,23 @@ export class FinanceiroService {
 
     // RF12.4 Alterar financeiro
     async update(uuid: string, request: FinanceiroRequestDto): Promise<FinanceiroEntity> {
-        const financeiroOrigin = await this.findOneByUuid(uuid);
-        const financeiroTarget = FinanceiroEntity.fromRequestDto(request);
+        const financeiroOriginPromise = this.findOneByUuid(uuid);
+        const setorUuid = request.setor?.uuid;
+        const contratoUuid = request.contrato?.uuid;
+    
+        const setorPromise = setorUuid ? this.setorService.findOneByUuid(setorUuid) : Promise.resolve(null);
+        const contratoPromise = contratoUuid ? this.contratoService.findOneByUuid(contratoUuid) : Promise.resolve(null);
+    
+        const [financeiroOrigin, setor, contrato] = await Promise.all([financeiroOriginPromise, setorPromise, contratoPromise]);
+    
+        const financeiroTarget = FinanceiroEntity.fromRequestDto(request, setor, contrato);
         const updatedFinanceiro = this.financeiroRepository.merge(financeiroOrigin, financeiroTarget);
+
+         if (this.financeiroBusiness.limparSetor(request))
+            updatedFinanceiro.setor = null
+        
+        if (this.financeiroBusiness.limparContrato(request))
+            updatedFinanceiro.contrato = null
 
         // RF12.6.1 Adicionar parcela a financeiro
         const financeiro = await this.financeiroParcelaService.adicionarParcelaNaFinanceiro(
@@ -63,7 +91,7 @@ export class FinanceiroService {
     async findOneByUuid(uuid: string): Promise<FinanceiroEntity> {
         const financeiro = await this.financeiroRepository.findOne({
             where: { uuid },
-            relations: ['parcelas'],
+            relations: ['parcelas','setor','contrato'],
         });
 
         if (!financeiro)
@@ -90,12 +118,14 @@ export class FinanceiroService {
     // RF12.5.1 Realizar pagamento de parcela
     // RF12.5.2 Anexar comprovante de pagamento na parcela
     async pagar(request: FinanceiroParcelaSituacaoRequest, comprovante: string) {
-        const { situacao, financeiro_uuid, parcela } = request
+        const { situacao, financeiro_uuid, parcela, observacao } = request
         const financeiro = await this.findOneByUuid(financeiro_uuid);
+        const data_pagamento = dayjs(request.data_pagamento, 'DD/MM/YYYY').toDate()
+
         await this.financeiroParcelaRepository
             .createQueryBuilder()
             .update(FinanceiroParcelasEntity)
-            .set({ situacao: situacao, comprovante })
+            .set({ situacao: situacao, comprovante, data_pagamento, observacao })
             .where("financeiroId = :financeiroId", { financeiroId: financeiro.id })
             .andWhere("parcela = :parcela", { parcela: parcela })
             .execute();
