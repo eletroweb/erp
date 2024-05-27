@@ -6,7 +6,6 @@ describe('Cadastrar Cliente', () => {
       cy.get('input[type="email"]').type(login.email)
       cy.get('input[type="password"]').type(login.password)
       cy.contains('Entrar').click();
-      cy.contains('Clientes').click();
     })
   })
 

@@ -6,11 +6,11 @@ describe('Validar editar cliente', () => {
       cy.get('input[type="email"]').type(login.email)
       cy.get('input[type="password"]').type(login.password)
       cy.contains('Entrar').click();
-      cy.contains('Clientes').click();
     })
   })
 
-  it('RF2.13 Editar Cliente', () => {
+  it('RF2.2 Editar Cliente', () => {
+    cy.contains('Clientes').click();
     cy.fixture('cliente_editar.json').then((cliente_editar) => {
     cy.get('.el-table__row').contains('td.el-table_1_column_6', 'Editar').click()
     cy.contains('Editar Cliente')
@@ -24,8 +24,8 @@ describe('Validar editar cliente', () => {
     cy.get('#endereco').clear().clear().type(cliente_editar.editado.endereco)
     cy.get('#complemento').clear().type(cliente_editar.editado.complemento)
     cy.contains("Situação").click()
-    //cy.contains("Salvar").click()
-    //cy.contains("Cliente atualizado com sucesso")
+    cy.contains("Salvar").click()
+    cy.contains("Cliente atualizado com sucesso")
     })
   })
 })

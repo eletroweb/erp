@@ -1,8 +1,8 @@
 {
     "original": {
-    "nome": "Cliente QA2",
+    "nome": "Cliente QA",
     "telefone": "8399999999",
-    "email": "clienteqa2@email.com",
+    "email": "clienteqa@email.com",
     "documento": "66022596017",
     "estado": "PB",
     "cidade": "João Pessoa",
@@ -11,14 +11,14 @@
     "complemento": "N 123, próximo do XPTO"
     },
     "editado": {
-    "nome": "Araujo Lucas",
+    "nome": "Cliente QA2",
     "telefone": "83999999998",
-    "email": "Araujo123@email.com",
+    "email": "clienteqa2@email.com",
     "documento": "111.222.333-44",
     "estado": "PB",
     "cidade": "Monteiro",
     "setor": "Segurança do Trabalho",
     "endereco": "Rua do Limão",
-    "complemento": "N 123, próximo Supermercado da Família"
+    "complemento": "N 321, próximo Supermercado da Família"
     }
 }
