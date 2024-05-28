@@ -5,9 +5,8 @@
                 <span>
                     {{ this.id ? "Editar" : "Cadastrar" }}
                     Cliente</span>
-                <el-popover 
-                :visible="confirmacaoVisivel" placement="top" :width="200" 
-                v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EXCLUIR) && id">
+                <el-popover :visible="confirmacaoVisivel" placement="top" :width="200"
+                    v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EXCLUIR) && id">
                     <p>Deseja confirma a exclusão do cliente
                         <el-tag type="danger">
                             {{ clienteStore.cliente.nome }}
@@ -23,7 +22,6 @@
                         <el-button type="danger" @click="confirmacaoVisivel = true">Excluir</el-button>
                     </template>
                 </el-popover>
-
             </div>
         </template>
 
@@ -37,57 +35,82 @@
                 </el-col>
                 <el-col :span="13">
                     <el-form-item label="CPF ou CNPJ">
-                        <el-input v-model="clienteStore.cliente.documento" @blur="clienteStore.handleDocumento" name="documento" />
+                        <el-input v-model="clienteStore.cliente.documento" @blur="clienteStore.handleDocumento"
+                            name="documento" />
                     </el-form-item>
                 </el-col>
             </el-form-item>
 
-            <el-form-item label="Estado">
-                <el-col :span="6">
-                    <el-select v-model="clienteStore.cliente.estado" placeholder="Selecione o Estado" name="uf">
-                        <el-option label="PB" value="PB" />
-                    </el-select>
-                </el-col>
-                <el-col :span="18">
-                    <el-form-item label="Cidade">
-                        <el-input v-model="clienteStore.cliente.cidade" name="cidade"/>
-                    </el-form-item>
-                </el-col>
-            </el-form-item>
             <el-form-item label="E-mail">
                 <el-col :span="11">
                     <el-form-item label="">
-                        <el-input v-model="clienteStore.cliente.email" name="email" @blur="clienteStore.validarEmail()"/>
+                        <el-input v-model="clienteStore.cliente.email" name="email"
+                            @blur="clienteStore.validarEmail()" />
                     </el-form-item>
                 </el-col>
                 <el-col :span="13">
                     <el-form-item label="Telefone">
-                        <el-input v-model="clienteStore.cliente.telefone" name="telefone"/>
+                        <el-input v-model="clienteStore.cliente.telefone" name="telefone" />
                     </el-form-item>
                 </el-col>
             </el-form-item>
 
-            <RadioGroupSetores v-model="clienteStore.cliente.setor.uuid" label="Setor"/>
+            <el-form-item label="CEP">
+                <el-col :span="6">
+                    <el-form-item label="">
+                        <el-input v-model="clienteStore.cliente.endereco.cep" name="cep"
+                            @blur="clienteStore.findAddressCep()" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="Estado">
+                        <el-input v-model="clienteStore.cliente.endereco.estado" placeholder="" name="uf" readonly />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label="Cidade">
+                        <el-input v-model="clienteStore.cliente.endereco.cidade" name="cidade" readonly />
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="Bairro">
+                <el-col :span="14">
+                    <el-input v-model="clienteStore.cliente.endereco.bairro" name="bairro" id="bairro" readonly />
+                </el-col>
+            </el-form-item>
 
             <el-form-item label="Endereço">
-                <el-input v-model="clienteStore.cliente.endereco" name="endereco" id="endereco"/>
+                <el-col :span="14">
+                    <el-input v-model="clienteStore.cliente.endereco.endereco" name="endereco" id="endereco" readonly />
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="Número">
+                        <el-input v-model="clienteStore.cliente.endereco.numero" name="numero" />
+                    </el-form-item>
+                </el-col>
             </el-form-item>
 
             <el-form-item label="Complemento">
-                <el-input v-model="clienteStore.cliente.complemento" type="textarea" name="complemento" id="complemento" />
+                <el-input v-model="clienteStore.cliente.endereco.complemento" type="textarea" name="complemento"
+                    id="complemento" />
             </el-form-item>
+
+            <RadioGroupSetores v-model="clienteStore.cliente.setor.uuid" label="Setor" />
 
             <el-form-item label="Situação">
                 <el-switch v-model="clienteStore.cliente.situacao" />
             </el-form-item>
 
             <el-form-item>
-                <el-button :disabled="!clienteStore.btnSalvarValido" v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_CADASTRAR) && this.id == null" type="primary"
-                    @click="clienteStore.cadastrar()">
+                <el-button :disabled="!clienteStore.btnSalvarValido"
+                    v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_CADASTRAR) && this.id == null"
+                    type="primary" @click="clienteStore.cadastrar()">
                     Salvar
                 </el-button>
 
-                <el-button v-else-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EDITAR)" type="primary" @click="clienteStore.editar(clienteStore.cliente.uuid)">
+                <el-button v-else-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EDITAR)"
+                    type="primary" @click="clienteStore.editar(clienteStore.cliente.uuid)">
                     Salvar alterações
                 </el-button>
 
@@ -97,7 +120,6 @@
         </el-form>
     </el-card>
 </template>
-
 <script>
 import { ClienteStore } from '../../store/ClienteStore'
 import { RolesEnum } from '@/enum/RolesEnum'
@@ -130,23 +152,25 @@ export default {
     methods: {
     }
 }
+
 </script>
 
-<style scoped> .card-header {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
- }
+<style scoped>
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
- .text {
-     font-size: 14px;
- }
+.text {
+    font-size: 14px;
+}
 
- .item {
-     margin-bottom: 18px;
- }
+.item {
+    margin-bottom: 18px;
+}
 
- .box-card {
-     width: 900px;
- }
+.box-card {
+    width: 900px;
+}
 </style>

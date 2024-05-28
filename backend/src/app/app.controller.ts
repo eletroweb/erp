@@ -1,14 +1,20 @@
-import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Post, Render, Req, Res, Session, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Render, Req, Res, Session, UnauthorizedException } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { PublicPath } from 'src/keycloak/src/decorators/public-path.decorator';
 import { KeycloakService } from 'src/keycloak/src/keycloak.service';
 import { KeycloakedRequest } from 'src/keycloak/src/keycloaked-request';
 import { LoginRequestDto } from './login.request.dto';
 import { GrantType } from 'keycloak-connect';
+import { Roles } from 'nest-keycloak-connect';
+import { AppService } from './app.service';
+import { EnderecoResponse } from './endereco.response';
 
 @Controller()
 export class AppController {
-  constructor(private keycloakService: KeycloakService) { }
+  constructor(
+    private keycloakService: KeycloakService,
+    private readonly appService: AppService
+  ) { }
 
   @PublicPath()
   @Get('login')
@@ -45,9 +51,9 @@ export class AppController {
     }
   }
 
-  @Get('/me')
-  @PublicPath()
-  async me(): Promise<string> {
-    return 'oi';
+  @Get('/findAddressByCep/:cep')
+  @Roles({ roles: ['MASTER', 'CLIENTE_EXIBIR', 'FORNECEDOR_EXIBIR'] })
+  async findAddressCep(@Param('cep') cep: string): Promise<EnderecoResponse> {
+    return await this.appService.findAddressByCep(cep);
   }
 }

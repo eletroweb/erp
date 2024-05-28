@@ -1,3 +1,4 @@
+import { EnderecoResponse } from 'src/app/endereco.response';
 import { SetorResponseDto } from '../setores/setor.response.dto';
 
 export class ClienteResponseDto {
@@ -6,12 +7,9 @@ export class ClienteResponseDto {
   email: string;
   telefone: string;
   documento: string;
-  estado?: string;
-  cidade?: string;
-  endereco?: string;
-  complemento?: string;
   situacao: boolean;
   data_cadastro?: Date;
   data_atualizacao?: Date;
   setor?: SetorResponseDto;
+  endereco?: EnderecoResponse;
 }

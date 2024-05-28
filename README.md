@@ -28,6 +28,8 @@ RF1.7 Desativar/Ativar Setor
 
 ## Cliente
 RF2.1 Cadastrar Cliente
+    RF2.1.1 Preencher CEP
+    Os dados de endereço, cidade e bairro devem ser preenchidos automaticamente quando o CEP for informado
 RF2.2 Editar Cliente
 RF2.3 Excluir Cliente
 RF2.4 Listar Clientes

@@ -21,7 +21,7 @@ async function bootstrap() {
   });
 
   session({
-    secret: 'NiIsInR5cCIgOiAiSldUIiwia2lkIi',
+    secret: 'nU2HMWe1rosvOmts1KrYMYZTlFruhXSY',
     resave: false,
     saveUninitialized: false,
   }),

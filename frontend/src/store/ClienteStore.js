@@ -11,6 +11,20 @@ export const ClienteStore = defineStore('clienteStore', {
             setor: {
                 uuid: ""
             },
+            nome: "",
+            telefone: "",
+            email: "",
+            documento: "",
+            situacao: "",
+            endereco: {
+                cep: null,
+                endereco: null,
+                cidade: null,
+                estado: null,
+                bairro: null,
+                complemento: null,
+                numero: null
+            }
         },
         btnSalvarValido: true,
         pesquisa: {
@@ -55,7 +69,6 @@ export const ClienteStore = defineStore('clienteStore', {
             if(this.cliente.telefone==null || this.cliente.telefone.length==0){
                 notificacaoStore.exibirNotificacao("Atenção", "O telefone deve ser informado", 'warning');
                 return
-
             }
             if(this.cliente.email==null || this.cliente.email.length==0){
                 notificacaoStore.exibirNotificacao("Atenção", "O email deve ser informado", 'warning');
@@ -66,7 +79,11 @@ export const ClienteStore = defineStore('clienteStore', {
                 return
             }
           
-            this.btnSalvarValido=true
+            const endereco = await this.findAddressCep(this.cliente.endereco.cep);
+            this.cliente.estado = endereco.estado;
+            this.cliente.cidade = endereco.cidade;
+            this.cliente.endereco = endereco.logradouro;
+            this.cliente.bairro = endereco.bairro;
         
             try {
                 const request = this.requestBuild()
@@ -82,22 +99,29 @@ export const ClienteStore = defineStore('clienteStore', {
                 console.error("Erro ao cadastrar cliente:", error);
             }
         },
+
         async editar(id) {
+            const notificacaoStore = NotificacaoStore();
+            if (!id) {
+                notificacaoStore.exibirNotificacao("Erro", "ID do cliente é inválido", 'error');
+                return;
+            }
             try {
-                const request = this.requestBuild()
+                const request = this.requestBuild();
                 const response = await api.put(`clientes/${id}`, request);
-                const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
                     notificacaoStore.exibirNotificacao("Cliente", "Cliente atualizado com sucesso", 'success');
-                    this.reset()
+                    this.reset();
                     router.push('/clientes');
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
                 }
             } catch (error) {
-                console.error("Erro ao cadastrar cliente:", error);
+                console.error("Erro ao editar cliente:", error);
+                notificacaoStore.exibirNotificacao("Erro", "Erro ao editar cliente", 'error');
             }
         },
+
         async cancelar() {
             router.push('/clientes');
         },
@@ -124,14 +148,24 @@ export const ClienteStore = defineStore('clienteStore', {
             router.push(`/clientes/${id}`);
         },
         async excluir(id) {
+            const notificacaoStore = NotificacaoStore();
+            console.log("ID do cliente a ser excluído:", id);
+            if (!id) {
+                notificacaoStore.exibirNotificacao("Erro", "ID do cliente é inválido", 'error');
+                return;
+            }
             try {
                 const response = await api.delete(`clientes/${id}`);
-                this.cliente = response.data;
-                const notificacaoStore = NotificacaoStore();
-                notificacaoStore.exibirNotificacao("Excluir de cliente", `Cliente ${this.cliente.nome} excluído com sucesso`, 'success');
-                router.push('/clientes');
+                if (response.status === 200) {
+                    notificacaoStore.exibirNotificacao("Excluir de cliente", `Cliente excluído com sucesso`, 'success');
+                    this.reset();
+                    router.push('/clientes');
+                } else {
+                    notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
+                }
             } catch (error) {
-                console.log(error);
+                console.error("Erro ao excluir cliente:", error);
+                notificacaoStore.exibirNotificacao("Erro", "Erro ao excluir cliente", 'error');
                 throw error;
             }
         },
@@ -184,11 +218,28 @@ export const ClienteStore = defineStore('clienteStore', {
                 return
             }
         },
+        async findAddressCep() {
+            try {
+                const response = await api.get(`/findAddressByCep/${this.cliente.endereco.cep}`);
+                this.cliente.endereco = response.data;
+            } catch (error) {
+                const notificacaoStore = NotificacaoStore();
+                notificacaoStore.exibirNotificacao('Atenção', 'Erro ao buscar endereço por CEP:', 'warning');
+                throw error;
+            }
+        },
         reset() {
             this.cliente = {
                 setor: {
                     uuid: ""
                 },
+                cep: "",
+                estado: "",
+                cidade: "",
+                endereco: "",
+                bairro: "",
+                nome: "",
+                telefone: ""
             };
         }
     },

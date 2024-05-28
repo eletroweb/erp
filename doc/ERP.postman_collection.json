@@ -1416,13 +1416,13 @@
 					"response": []
 				},
 				{
-					"name": "Cadastrar",
+					"name": "Usuario Cadastrar",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nome\": \"Fulano Sobrenome\",\r\n  \"situacao\": 1\r\n}",
+							"raw": "{\r\n  \"nome\": \"Yonatha Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\",\"CLIENTE_LISTAR\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1430,12 +1430,54 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/usuarios",
+							"raw": "{{baseUrl}}/auth/signup",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"usuarios"
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuário Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", response.access_token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
 							]
 						}
 					},
@@ -1448,7 +1490,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"descricao\": \"Contrato de Exemplo 123\",\r\n    \"situacao\": 0,\r\n    \"orcamento\": \"1700.00\",\r\n    \"data_inicio\": \"2024-01-10\",\r\n    \"data_fim\": \"2024-12-31\"\r\n}",
+							"raw": "{\r\n  \"nome\": \"Yonatha Almeida Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\",\"CLIENTE_LISTAR\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1456,13 +1498,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/0126c661-bd7c-11ee-8c1d-641c679a799a",
+							"raw": "{{baseUrl}}/usuarios/f623c21b-3f96-4620-8c3b-3c74523dc3e3",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"projetos",
-								"0126c661-bd7c-11ee-8c1d-641c679a799a"
+								"usuarios",
+								"f623c21b-3f96-4620-8c3b-3c74523dc3e3"
 							]
 						}
 					},
@@ -1702,7 +1744,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/clientes?documento=06713832485",
+							"raw": "{{baseUrl}}/clientes",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1717,7 +1759,8 @@
 								},
 								{
 									"key": "documento",
-									"value": "06713832485"
+									"value": "06713832485",
+									"disabled": true
 								},
 								{
 									"key": "situacao",
@@ -1952,7 +1995,8 @@
 									" postman.setEnvironmentVariable(\"token\", response.access_token);\r",
 									" postman.setEnvironmentVariable(\"refresh_token\", response.refresh_token);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -2001,7 +2045,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"funcionario\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"username\": \"qa@teste.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2130,6 +2174,56 @@
 							"path": [
 								"auth",
 								"me"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "quantidade",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Me Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/receita/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"receita",
+								"profile"
 							],
 							"query": [
 								{
@@ -2512,27 +2606,43 @@
 			]
 		},
 		{
-			"name": "financeiro",
+			"name": "Financeiro",
 			"item": [
 				{
-					"name": "financeiro",
+					"name": "Despesa",
 					"item": [
 						{
 							"name": "Parcela",
 							"item": [
 								{
-									"name": "Alterar Situação Parcela",
+									"name": "Enviar Comprovante",
 									"request": {
 										"method": "POST",
 										"header": [],
 										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"financeiro_uuid\": \"bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c\",    \r\n    \"parcela\": 4,\r\n    \"situacao\": \"PAGA\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "despesa_uuid",
+													"value": "bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c",
+													"type": "text"
+												},
+												{
+													"key": "parcela",
+													"value": "4",
+													"type": "text"
+												},
+												{
+													"key": "situacao",
+													"value": "PAGA",
+													"type": "text"
+												},
+												{
+													"key": "comprovante",
+													"type": "file",
+													"src": "/C:/Users/yonat/OneDrive/Desktop/comprovante1.jpeg"
 												}
-											}
+											]
 										},
 										"url": {
 											"raw": "{{baseUrl}}/financeiro/parcela/alterar-situacao",
@@ -2547,17 +2657,71 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Download Comprovante",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "despesa_uuid",
+													"value": "bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c",
+													"type": "text"
+												},
+												{
+													"key": "parcela",
+													"value": "4",
+													"type": "text"
+												},
+												{
+													"key": "situacao",
+													"value": "PAGA",
+													"type": "text"
+												},
+												{
+													"key": "comprovante",
+													"type": "file",
+													"src": "/C:/Users/yonat/OneDrive/Desktop/comprovante1.jpeg"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/financeiro/parcela/download-comprovante/:comprovante",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"financeiro",
+												"parcela",
+												"download-comprovante",
+												":comprovante"
+											],
+											"variable": [
+												{
+													"key": "comprovante",
+													"value": "1716137809567-24463357-4.jpeg"
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
 						{
-							"name": "Criar Financeiro",
+							"name": "Criar Despesa não parcelada",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"descricao\": \"Agua\",\r\n    \"tipo\": \"VARIAVEL\",\r\n    \"observacao\": \"Pedido feito através do fornecedor XYZ.\",\r\n    \"data_vencimento\": \"2024-05-15\",\r\n    \"data_pagamento\": null,\r\n    \"valor_cobranca\": 500.00,\r\n    \"valor_pendente\": 500.00,\r\n    \"parcelada\": false,\r\n    \"situacao\": \"PENDENTE\"\r\n}",
+									"raw": "{\r\n    \"uuid\": \"983749b4-223d-4b1a-a7ca-1f84fe81a40f\",\r\n    \"categoria\": \"DESPESA\",\r\n    \"tipo\": \"VARIAVEL\",\r\n    \"descricao\": \"Conta 3\",\r\n    \"fornecedor\": \"\",\r\n    \"observacao\": null,\r\n    \"data_vencimento\": \"2024-06-01T03:00:00.000Z\",\r\n    \"vencida\": false,\r\n    \"todas_parcelas_pagas\": true,\r\n    \"data_pagamento\": \"2024-05-25T15:58:00.000Z\",\r\n    \"valor_cobranca\": \"50.00\",\r\n    \"valor_pago\": 50,\r\n    \"parcelada\": false,\r\n    \"situacao\": \"PAGA\",\r\n    \"numero_parcelas\": 1,\r\n    \"parcelas\": [\r\n        {\r\n            \"uuid\": \"4d06a46a-80a5-4a92-afa5-67b510de5539\",\r\n            \"data_vencimento\": \"01/06/2024\",\r\n            \"parcela\": 1,\r\n            \"valor\": \"50.00\",\r\n            \"situacao\": \"PAGA\",\r\n            \"comprovante\": null\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2577,7 +2741,33 @@
 							"response": []
 						},
 						{
-							"name": "Editar Financeiro",
+							"name": "Criar Despesa parcelada",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\": null,\r\n    \"categoria\": \"RECEITA\",\r\n    \"descricao\": \"Pagamento cliente 7\",\r\n    \"tipo\": \"FIXA\",\r\n    \"observacao\": null,\r\n    \"data_vencimento\": \"2024-05-31T03:00:00.000Z\",\r\n    \"data_pagamento\": null,\r\n    \"valor_cobranca\": \"1000.00\",\r\n    \"parcelada\": true,\r\n    \"numero_parcelas\": \"10\",\r\n    \"parcelas\": [\r\n        {\r\n            \"parcela\": 1,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"31/05/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 2,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/06/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 3,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/07/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 4,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/08/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 5,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/09/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 6,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/10/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 7,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/11/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 8,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/12/2024\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 9,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"30/01/2025\",\r\n            \"situacao\": \"PENDENTE\"\r\n        },\r\n        {\r\n            \"parcela\": 10,\r\n            \"valor\": 100,\r\n            \"data_vencimento\": \"28/02/2025\",\r\n            \"situacao\": \"PENDENTE\"\r\n        }\r\n    ],\r\n    \"situacao\": \"PENDENTE\",\r\n    \"fornecedor\": \"Cliente 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/financeiro",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"financeiro"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Despesa",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -2591,20 +2781,20 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/financeiro/1329a38d-88bc-4f18-9514-128cc2a41349",
+									"raw": "{{baseUrl}}/financeiro/e745801f-12b9-445d-8407-3ac2c48e8264",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"financeiro",
-										"1329a38d-88bc-4f18-9514-128cc2a41349"
+										"e745801f-12b9-445d-8407-3ac2c48e8264"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Listar Financeiros",
+							"name": "Listar Despesas",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2633,7 +2823,7 @@
 							"response": []
 						},
 						{
-							"name": "Exibir Financeiros",
+							"name": "Exibir Despesas",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2650,37 +2840,146 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/financeiro/bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c",
+									"raw": "{{baseUrl}}/financeiro/4887f272-51c0-43f3-8417-449c894c52b7",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"financeiro",
-										"bc7c52a6-2fa8-4430-bb0f-0d0e18d74e5c"
+										"4887f272-51c0-43f3-8417-449c894c52b7"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Excluir Financeiros",
+							"name": "Excluir Despesas",
 							"request": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/financeiro/1329a38d-88bc-4f18-9514-128cc2a41349",
+									"raw": "{{baseUrl}}/financeiro/e745801f-12b9-445d-8407-3ac2c48e8264",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"financeiro",
-										"1329a38d-88bc-4f18-9514-128cc2a41349"
+										"e745801f-12b9-445d-8407-3ac2c48e8264"
 									]
 								}
 							},
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "CEP",
+			"item": [
+				{
+					"name": "https://planoscelular.claro.com.br/claro/pt/checkout/multi/delivery-address/validate-cep",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "accept-language",
+								"value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+							},
+							{
+								"key": "content-type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8"
+							},
+							{
+								"key": "cookie",
+								"value": "JSESSIONID=A37C5661BBF089B31137AC36971C854C.accstorefront-7849bb99ff-qtvcn; utm_source=whatsapp; utm_medium=transbordo; utm_campaign=ir-para-o-site; anonymous-consents=%5B%5D; cookie-notification=NOT_ACCEPTED; ROUTE=.accstorefront-7849bb99ff-qtvcn; dtCookie=v_4_srv_1_sn_26B630DE97F52C15F447FE46211426A0_perc_100000_ol_0_mul_1_app-3A549ab94bca5b9822_0; cookiesession1=678A3E2B1768195243948D9283664D77; origemMTZ=%7B%22utm_source%22%3A%22whatsapp%22%2C%22utm_medium%22%3A%22transbordo%22%2C%22utm_campaign%22%3A%22ir-para-o-site%22%7D; _gcl_au=1.1.369163096.1716235494; __gtm_campaign_url=https%3A%2F%2Fplanoscelular.claro.com.br%2F%3Futm_source%3Dwhatsapp%26utm_medium%3Dtransbordo%26utm_campaign%3Dir-para-o-site; document_referal=; _vwo_uuid_v2=DD372D3E4D054610F81BC055F750F0E29|a507d958d9edd1a0bef72924e4785986; _evga_d472={%22uuid%22:%22a6f4f4143ded32cf%22}; _sfid_f33f={%22anonymousId%22:%22a6f4f4143ded32cf%22%2C%22consents%22:[]}; _gid=GA1.3.2078009353.1716235495; _vwo_uuid=DD372D3E4D054610F81BC055F750F0E29; _vwo_ds=3%241716235493%3A78.93892928%3A%3A; _vis_opt_s=1%7C; _vis_opt_test_cookie=1; _vis_opt_exp_111_exclude=1; _hjSession_1265048=eyJpZCI6IjBkMGNmOTVhLTY3NTctNGRjOS04MjhiLTdjNTc2MGM1ODQ5YiIsImMiOjE3MTYyMzU0OTYxNzMsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjoxfQ==; _fbp=fb.2.1716235496377.726220339; mdnTheme=; claro_geolocation=SÃ£o Paulo; _hjSessionUser_1265048=eyJpZCI6ImMyZDIxNDg1LWMzODItNTNkZC04MGJjLWU4YTAwNWNiYTJkNCIsImNyZWF0ZWQiOjE3MTYyMzU0OTYxNzEsImV4aXN0aW5nIjp0cnVlfQ==; OptanonAlertBoxClosed=2024-05-20T20:28:17.247Z; claro-cart=cc8371c6-9ef1-4567-9a80-b8fb911e1671; acceleratorSecureGUID=1a33908b55a4b23a1176aab0b96737f9607aa0e2; format=link; FPGSID=1.1716235503.1716237009.G-290MXV0WHV.a2kCQYGcThjqRQf6Agtt3g; _vwo_sn=0%3A7%3A%3A%3A1; _ga=GA1.3.1387392689.1716235495; OptanonConsent=isGpcEnabled=0&datestamp=Mon+May+20+2024+17%3A30%3A10+GMT-0300+(Hora+padr%C3%A3o+de+Bras%C3%ADlia)&version=202403.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0004%3A1%2CC0003%3A1%2CC0002%3A1%2CC0001%3A1&AwaitingReconsent=false&geolocation=%3B; _ga_290MXV0WHV=GS1.1.1716235494.1.1.1716237030.39.0.507185019; _gali=postcode_deliveryAddress"
+							},
+							{
+								"key": "dnt",
+								"value": "1"
+							},
+							{
+								"key": "origin",
+								"value": "https://planoscelular.claro.com.br"
+							},
+							{
+								"key": "priority",
+								"value": "u=1, i"
+							},
+							{
+								"key": "referer",
+								"value": "https://planoscelular.claro.com.br/claro/pt/checkout/multi/delivery-address/addClaroAddress?isDeviceIncompatible=false&useIeStylesheet=false"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-origin"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "x-dtpc",
+								"value": "1$237009509_255h33vMMWOFJHPDFRKQMPKEHNJUHAPFKLMCDRK-0e0"
+							},
+							{
+								"key": "x-requested-with",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "postcode=85869580&streetName=&houseNumber=&buildingNumber=&neighbourhood=&townCity=&shippingAddress=true&billingAddress=false&countryIso=BR&regionIso=&CSRFToken=53cf06d4-3f55-45ab-bd5a-620bf790f7da",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://planoscelular.claro.com.br/claro/pt/checkout/multi/delivery-address/validate-cep",
+							"protocol": "https",
+							"host": [
+								"planoscelular",
+								"claro",
+								"com",
+								"br"
+							],
+							"path": [
+								"claro",
+								"pt",
+								"checkout",
+								"multi",
+								"delivery-address",
+								"validate-cep"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
