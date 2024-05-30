@@ -13,11 +13,13 @@ export const RecursosHumanosStore = defineStore('recursosHumanosStore', {
             nome: null,
             documento: null,
             situacao: null
-        }
+        },
+        visualizarCargos: false,
+        cargos: [],
+        cargo: {},
+        
     }),
-
-
-    actions: {
+    actions: {        
         async listar() {
             try {
                 const url = await this.getUrlListar();
@@ -44,6 +46,18 @@ export const RecursosHumanosStore = defineStore('recursosHumanosStore', {
             const url = `colaboradores?${queryString}`;
             return url
         },
+        async listarCargos() {
+            try {
+                const response = await api.get(`colaboradores/cargos/listar`);
+                this.cargos = response.data;
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+            return this.cargos
+
+        },     
+ 
         async novo() {
             this.colaborador = {}
             router.push(`/rh/colaborador/cadastrar`);
@@ -85,6 +99,7 @@ export const RecursosHumanosStore = defineStore('recursosHumanosStore', {
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
                 }
+                router.push('/rh')
             } catch (error) {
                 console.error("Erro ao cadastrar colaborador:", error);
             }
@@ -104,9 +119,7 @@ export const RecursosHumanosStore = defineStore('recursosHumanosStore', {
             } catch (error) {
                 console.error("Erro ao cadastrar colaborador:", error);
             }
-            isDocumentoValido: true,
-
-                router.push('/rh')
+            router.push('/rh')
         },
         async cancelar() {
             /*
@@ -134,7 +147,7 @@ export const RecursosHumanosStore = defineStore('recursosHumanosStore', {
                 this.colaborador = response.data;
                 const notificacaoStore = NotificacaoStore();
                 notificacaoStore.exibirNotificacao("Excluir de colaborador", `colaborador ${this.colaborador.nome} excluído com sucesso`, 'success');
-                router.push('/colaborador');
+                router.push('/rh');
             } catch (error) {
                 console.log(error);
                 throw error;
@@ -187,6 +200,7 @@ export const RecursosHumanosStore = defineStore('recursosHumanosStore', {
         },
         reset() {
             this.colaborador = {};
-        }
+        },
+        
     },
 })

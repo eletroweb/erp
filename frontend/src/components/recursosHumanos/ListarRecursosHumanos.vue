@@ -13,9 +13,10 @@
         </template>
         <el-table v-if="recursosHumanosStore.colaboradores.length > 0" :data="recursosHumanosStore.colaboradores" stripe
             style="width: 99%">
-            <el-table-column prop="nome" label="Nome" widt="400" />
-            <el-table-column prop="telefone" label="Telefone" width="120" />
-            <el-table-column prop="email" label="E-mail" width="250" />
+            <el-table-column prop="nome" label="Nome" width="400" />
+            <el-table-column prop="cargo" label="Cargo" width="200"/>
+            <el-table-column prop="telefone" label="Telefone" width="120" />            
+            <el-table-column prop="email" label="E-mail" width="250" />            
             <el-table-column prop="situacao" label="Situação" width="100">
                 <template #default="colaborador">
                     <el-tag v-if="colaborador.row.situacao" type="success">Ativado</el-tag>
