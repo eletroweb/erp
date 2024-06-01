@@ -2,7 +2,7 @@
   <el-menu default-active="2" :collapse="menuCollapse" class="el-menu-vertical-demo" :router="true">
 
     <el-menu-item index="1" @click="toggleMenu()" class="first">
-      <img :class="logoClass" src="/images/logo.png" alt="Agilmax" />
+      <img :class="logoClass" src="/images/logo-lab.png" alt="Agilmax" />
     </el-menu-item>
 
     <div v-for="(menu, index) in menuLateralStore.load()" :key="index">
@@ -15,14 +15,13 @@
           </el-icon>
           <span>{{ menu.label }}</span>
         </template>
-        <el-menu-item v-for="(submenuItem, subIndex) in menu.submenu" :key="subIndex" 
-        :index="`/${submenuItem.path}`">
+        <el-menu-item v-for="(submenuItem, subIndex) in menu.submenu" :key="subIndex" :index="`/${submenuItem.path}`">
           <template #title>
             <el-icon>
-            <component :is="submenuItem.icon">
-              <template #title>{{ submenuItem.label }}</template>
-            </component>
-          </el-icon>
+              <component :is="submenuItem.icon">
+                <template #title>{{ submenuItem.label }}</template>
+              </component>
+            </el-icon>
             {{ submenuItem.label }}
           </template>
         </el-menu-item>
