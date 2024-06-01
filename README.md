@@ -129,6 +129,7 @@ RF12.7.1 Vincular centro de custo do tipo setor ou contrato a despesa
 
 ## Recursos Humanos
 RF12.1 Cadastrar Colaborador
+    RF12.1.2 Associar cargo ao colaborador
 RF12.2 Listar Colaborador
 RF12.3 Editar Colaborador
 RF12.4 Excluir Colaborador

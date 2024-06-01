@@ -3,12 +3,17 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ColaboradorEntity } from "./colaborador.entity";
 import { Repository } from "typeorm";
 import { ColaboradorRequestDto } from "./colaborador.request.dto";
+import { CargoEntity } from "./cargo.entity";
+import { CargoRequestDto } from "./cargo.request.dto";
 
 @Injectable()
 export class ColaboradorService {
   constructor(
     @InjectRepository(ColaboradorEntity)
     private colaboradorRepository: Repository<ColaboradorEntity>,
+
+    @InjectRepository(CargoEntity)
+    private cargoRepository: Repository<CargoEntity>
   ) { }
 
   async findAll(): Promise<ColaboradorEntity[]> {
@@ -53,4 +58,25 @@ export class ColaboradorService {
     if (colaborador)
       return `Já existe um colaborador com este email ${colaborador.email}`
   }
+
+  /*return all Office in repository*/
+  async findAllOffice(): Promise<CargoEntity[]> {
+    return this.cargoRepository.find();
+  }
+
+  
+  /*find for name Office end return your name*/
+  async findByNameOffice(nome: string): Promise<string> {
+    const cargo = await this.cargoRepository.findOne({ where: { nome } });
+    if (cargo)
+      return `${cargo.nome} já cadastrado!`
+  }
+
+  async createOffice(request: CargoRequestDto): Promise<CargoEntity> {
+    const cargo = CargoEntity.fromRequestDto(request);
+    const createdCargo = this.cargoRepository.create(cargo);
+    return this.cargoRepository.save(createdCargo);
+  }
+
+  
 }

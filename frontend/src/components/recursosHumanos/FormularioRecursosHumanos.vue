@@ -55,11 +55,13 @@
             </el-form-item>
 
             <el-form-item label="Cargo/Função">
-                <el-col :span="24">
-                    <el-select v-model="recursosHumanosStore.colaborador.cargo" placeholder="Selecione a Função"
+                <el-col :span="11">
+                    <el-select v-model="recursosHumanosStore.colaborador.cargo" placeholder="Selecione o cargo"
                         name="cargo">
-                        <el-option label="Assistente Administrativo" value="Assistente Administrativo" />
+                        <el-option v-for="cargo in recursosHumanosStore.cargos" :key="cargo.nome"
+                            :label="cargo.nome" :value="cargo.nome" />
                     </el-select>
+                    
                 </el-col>
             </el-form-item>
 
@@ -69,7 +71,7 @@
                 </el-col>
                 <el-col :span="13">
                     <el-form-item label="Valor Hora">
-                        <el-input v-model="recursosHumanosStore.colaborador.valorHora" name="valorHora" />
+                        <el-input v-model="recursosHumanosStore.colaborador.valor_hora" name="valorHora" />
                     </el-form-item>
                 </el-col>
             </el-form-item>
@@ -132,8 +134,12 @@ export default {
             this.id = this.$route.params.id
             this.recursosHumanosStore.carregarcolaborador(this.id)
         }
+
+        await this.recursosHumanosStore.listarCargos()
     },
     methods: {
+    },
+    components: {
     }
 }
 </script>
@@ -156,4 +162,4 @@ export default {
 .box-card {
     width: 900px;
 }
-</style>
+</style>@/enum/SystemEnum@/enum/RolesEnum
