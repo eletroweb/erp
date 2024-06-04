@@ -157,6 +157,9 @@ RF14.2 Listar receita
 RF14.3 Editar receita
 RF14.4 Excluir receita
 
+## Configurações
+RF15.1 Configuração da empresa
+
 # Padrão de nomeclatura de branch e de commit
 Branches devem possui os seguintes prefixos para cada caso
 
