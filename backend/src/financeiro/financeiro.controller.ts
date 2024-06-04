@@ -1,8 +1,9 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException, Res, Query } from '@nestjs/common';
 import { FinanceiroService } from './financeiro.service';
 import { FinanceiroResponseDto } from './financeiro.response.dto';
 import { Roles } from 'nest-keycloak-connect';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
+import { FinanceiroEnum } from 'src/enum/financeiro.enum';
 
 @Controller('financeiro')
 export class FinanceiroController {
@@ -46,4 +47,12 @@ export class FinanceiroController {
     const financeiro = await this.service.remove(uuid);
     return financeiro.toDto();
   }
+
+  @Get('resumo/totais')
+  @Roles({ roles: ['MASTER', 'DESPESA_LISTAR'] })
+  async getResumo(@Query('data_inicio') dataInicio: string, @Query('data_fim') dataFim: string, @Query('situacao') situacao: FinanceiroEnum, @Res() res): Promise<any> {
+      const resumo = await this.service.getResumo(dataInicio, dataFim, situacao);
+      return res.json(resumo);
+  }
+
 }

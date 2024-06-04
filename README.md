@@ -157,6 +157,9 @@ RF14.2 Listar receita
 RF14.3 Editar receita
 RF14.4 Excluir receita
 
+## Financeiro
+RF15.2 Totais receitas e despesas
+
 ## Configurações
 RF15.1 Configuração da empresa
 

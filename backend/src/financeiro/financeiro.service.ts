@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FinanceiroParcelasEntity } from './parcela/financeiro.parcela.entity';
 import { FinanceiroParcelaSituacaoRequest } from './parcela/financeiro.parcela.situacao.request';
-import { FinanceiroEnum } from 'src/enum/financeiro.enum';
+import { FinanceiroEnum, FinanceiroCategoriaEnum  } from 'src/enum/financeiro.enum';
 import { FinanceiroParcelaService } from './parcela/financeiro.parcela.service';
 import { FinanceiroBusiness } from './financeiro.business';
 import { SetorService } from 'src/setores/setor.service';
@@ -159,4 +159,38 @@ export class FinanceiroService {
             this.financeiroParcelaRepository.save(parcela)
         })
     }
+
+    async getResumo(dataInicio: string, dataFim: string, situacao?: FinanceiroEnum): Promise<any> {
+        const queryDespesas = this.financeiroRepository
+            .createQueryBuilder('financeiro')
+            .select('SUM(financeiro.valor_cobranca)', 'totalDespesa')
+            .where('financeiro.categoria = :categoria', { categoria: FinanceiroCategoriaEnum.DESPESA })
+            .andWhere('financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim', { dataInicio, dataFim });
+    
+        const queryReceitas = this.financeiroRepository
+            .createQueryBuilder('financeiro')
+            .select('SUM(financeiro.valor_cobranca)', 'totalReceita')
+            .where('financeiro.categoria = :categoria', { categoria: FinanceiroCategoriaEnum.RECEITA })
+            .andWhere('financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim', { dataInicio, dataFim });
+    
+        if (situacao) {
+            queryDespesas.andWhere('financeiro.situacao = :situacao', { situacao });
+            queryReceitas.andWhere('financeiro.situacao = :situacao', { situacao });
+        }
+    
+        const totalDespesaResult = await queryDespesas.getRawOne();
+        const totalReceitaResult = await queryReceitas.getRawOne();
+    
+        const totalDespesa = totalDespesaResult?.totalDespesa || 0;
+        const totalReceita = totalReceitaResult?.totalReceita || 0;
+    
+        return {
+            total_despesa: parseFloat(totalDespesa),
+            total_receita: parseFloat(totalReceita),
+            data_inicio: dataInicio,
+            data_fim: dataFim,
+        };
+    }
+    
+
 }
