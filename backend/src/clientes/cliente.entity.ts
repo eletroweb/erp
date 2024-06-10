@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { v4 as uuidv4 } from 'uuid';
 import { ClienteResponseDto } from './cliente.response.dto';
 import { ClienteRequestDto } from './cliente.request.dto';
-import { Situacao } from 'src/enum/situacao.enum';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { EnderecoResponse } from 'src/app/endereco.response';
 
 @Entity('clientes')
@@ -49,9 +49,9 @@ export class ClienteEntity {
 
   @Column({
     type: 'enum',
-    enum: Situacao,
+    enum: SituacaoEnum,
   })
-  situacao: Situacao;
+  situacao: SituacaoEnum;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_cadastro?: Date;
@@ -83,7 +83,7 @@ export class ClienteEntity {
       telefone: this.telefone,
       email: this.email,
       documento: this.documento,
-      situacao: this.situacao == Situacao.ATIVO,
+      situacao: this.situacao == SituacaoEnum.ATIVO,
       setor: this.setor?.toDto(),
       endereco
     };
@@ -99,7 +99,7 @@ export class ClienteEntity {
     entity.cidade = dto.endereco.cidade;
     entity.endereco = dto.endereco.endereco;
     entity.complemento = dto.endereco.complemento;
-    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.setor = setor;
     entity.cep = dto.endereco.cep;
     entity.numero = dto.endereco.numero;
@@ -107,3 +107,4 @@ export class ClienteEntity {
     return entity;
   }
 }
+1

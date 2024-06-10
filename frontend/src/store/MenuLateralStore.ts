@@ -14,7 +14,7 @@ export const MenuLateralStore = defineStore('MenuLateralStore', {
       {
         label: "Clientes",
         path: "clientes",
-        roles: [RolesEnum.CLIENTE_LISTAR],
+        roles: [RolesEnum.LISTAR_CLIENTE],
         icon: 'UserFilled',
         order: 1
       },
@@ -77,7 +77,7 @@ export const MenuLateralStore = defineStore('MenuLateralStore', {
       },
       {
         label: "Configurações",
-        path: "ordem-servico",
+        path: "configuracoes",
         roles: ['MASTER'],
         icon: 'setting',
         order: 10,

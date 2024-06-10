@@ -11,24 +11,24 @@ describe('Excluir cliente', () => {
 
   it('RF2.3 Excluir Cliente', () => {
     cy.contains('Clientes').click();
-    cy.fixture('cliente_editar.json').then((cliente_editar) => {
+    cy.fixture('EDITAR_CLIENTE.json').then((EDITAR_CLIENTE) => {
 
-      cy.get('input[name="pesquisa_nome"]').type(cliente_editar.editado.nome)
+      cy.get('input[name="pesquisa_nome"]').type(EDITAR_CLIENTE.editado.nome)
       cy.contains('Pesquisar').click()
 
       cy.get('table.el-table__body').each(($table) => {
         cy.wrap($table).within(() => {
-          cy.get('.el-table__row').contains('td.el-table_1_column_1', cliente_editar.editado.nome);
-          cy.get('.el-table__row').contains('td.el-table_1_column_3', cliente_editar.editado.telefone);
-          cy.get('.el-table__row').contains('td.el-table_1_column_4', cliente_editar.editado.email);
+          cy.get('.el-table__row').contains('td.el-table_1_column_1', EDITAR_CLIENTE.editado.nome);
+          cy.get('.el-table__row').contains('td.el-table_1_column_3', EDITAR_CLIENTE.editado.telefone);
+          cy.get('.el-table__row').contains('td.el-table_1_column_4', EDITAR_CLIENTE.editado.email);
         });
       });
 
       cy.get('.el-table__row').contains('td.el-table_1_column_6', 'Editar').click()
       cy.contains('Excluir').click()
-      cy.contains(`Deseja confirma a exclusão do cliente ${cliente_editar.editado.nome}`).click()
+      cy.contains(`Deseja confirma a exclusão do cliente ${EDITAR_CLIENTE.editado.nome}`).click()
       cy.contains('Confirmar').click()
-      cy.contains(`Cliente ${cliente_editar.editado.nome} excluído com sucesso`).should('be.visible')
+      cy.contains(`Cliente ${EDITAR_CLIENTE.editado.nome} excluído com sucesso`).should('be.visible')
       cy.contains('Limpar').click()
       cy.contains(`Nenhum cliente cadastrado`).should('be.visible')
     })

@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "@quasar/extras": "^1.0.0",
     "axios": "^1.6.7",
     "cypress-multi-reporters": "^1.6.4",
     "dayjs": "^1.11.11",
@@ -17,7 +16,8 @@
     "mocha-junit-reporter": "^2.2.1",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",
-    "quasar": "^2.0.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.0.0-beta.4",
     "save-dev": "^0.0.1-security",
     "v-money3": "^3.24.1",
     "vee-validate": "^4.12.6",
@@ -33,8 +33,7 @@
     "start-server-and-test": "^2.0.3",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
-    "vite": "^5.1.1",
-    "vue-cli-plugin-quasar": "~5.0.2"
+    "vite": "^5.1.1"
   },
   "type": "module"
 }

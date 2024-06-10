@@ -1,6 +1,6 @@
 import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { Situacao } from 'src/enum/situacao.enum';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { OrdemServicoEntity } from './ordemServico.entity';
 import { ServicoEntity } from 'src/servicos/servico.entity';
 
@@ -26,11 +26,11 @@ export class OssEntity {
 
   @Column({
     type: 'enum',
-    enum: Situacao,
-    default: Situacao.INATIVO,
+    enum: SituacaoEnum,
+    default: SituacaoEnum.INATIVO,
     nullable: false
   })
-  situacao: Situacao;
+  situacao: SituacaoEnum;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   observacao: string;

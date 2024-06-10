@@ -1,10 +1,11 @@
+/* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { ProjetoAtividadeService } from './projeto.atividade.service';
 import { ProjetoAtividadeRequestDto } from './projeto.atividade.request';
 import { BaseEntity } from 'src/app/base.entity';
 import { ProjetoAtividadesResponseDto } from './projeto.atividade.response';
-import { Roles } from 'nest-keycloak-connect';
 import { ProjetoAtividadesExibirResponseDto } from './projeto.atividade.exibir.response';
+import { Roles } from 'src/config/roles.decorator';
 
 @Controller('projetos-atividades')
 export class ProjetoAtividadeController {

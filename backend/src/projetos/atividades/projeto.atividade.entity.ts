@@ -1,7 +1,7 @@
 import { SetorEntity } from "src/setores/setor.entity";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { ProjetoEntity } from "../projeto.entity";
-import { Situacao } from "src/enum/situacao.enum";
+import { SituacaoEnum } from "src/enum/situacao.enum";
 import { ProjetoAtividadesResponseDto } from "./projeto.atividade.response";
 import { ProjetoAtividadeRequestDto } from "./projeto.atividade.request";
 import { BaseEntity } from "src/app/base.entity";
@@ -22,9 +22,9 @@ export class ProjetoAtividadesEntity extends BaseEntity {
 
   @Column({
     type: 'enum',
-    enum: Situacao,
+    enum: SituacaoEnum,
   })
-  situacao: Situacao;
+  situacao: SituacaoEnum;
 
   @Column({ type: 'date' })
   data_inicio: Date;
@@ -41,13 +41,13 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     dto.descricao = this.descricao;
     dto.projeto = this.projeto.toDto();
     dto.setor = this.setor.toDto();
-    dto.situacao = this.situacao == Situacao.ATIVO;
+    dto.situacao = this.situacao == SituacaoEnum.ATIVO;
     dto.data_inicio = this.data_inicio;
     dto.data_fim = this.data_fim;
     dto.observacao = this.observacao;
     dto.data_cadastro = this.data_cadastro;
     dto.data_atualizacao = this.data_atualizacao;
-  
+
     return dto;
   }
 
@@ -60,11 +60,11 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     entity.descricao = dto.descricao;
     entity.projeto = projeto;
     entity.setor = setor;
-    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.data_inicio = dto.data_inicio;
     entity.data_fim = dto.data_fim;
     entity.observacao = dto.observacao;
-  
+
     return entity;
   }
 }

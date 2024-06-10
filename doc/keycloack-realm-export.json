@@ -74,7 +74,7 @@
       },
       {
         "id": "914156f4-3c55-4707-a840-50af68463561",
-        "name": "CLIENTE_CADASTRAR",
+        "name": "CADASTRAR_CLIENTE",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -200,7 +200,7 @@
       },
       {
         "id": "65e052c9-2922-49cf-844c-70621a18de31",
-        "name": "CLIENTE_LISTAR",
+        "name": "LISTAR_CLIENTE",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -218,7 +218,7 @@
       },
       {
         "id": "388e1207-b2bb-4db8-84d9-f46900dd3dcf",
-        "name": "CLIENTE_EDITAR",
+        "name": "EDITAR_CLIENTE",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -320,7 +320,7 @@
       },
       {
         "id": "4f6bc7c2-13f5-4aae-96a0-042686fc039c",
-        "name": "CLIENTE_EXCLUIR",
+        "name": "EXCLUIR_CLIENTE",
         "description": "",
         "composite": false,
         "clientRole": false,
@@ -720,18 +720,18 @@
       ],
       "attributes": {},
       "realmRoles": [
-        "CLIENTE_LISTAR",
+        "LISTAR_CLIENTE",
         "SETOR_EXCLUIR",
         "CONTRATO_EXIBIR",
-        "CLIENTE_EDITAR",
+        "EDITAR_CLIENTE",
         "SETOR_CADASTRAR",
-        "CLIENTE_CADASTRAR",
+        "CADASTRAR_CLIENTE",
         "CONTRATO_LISTAR",
         "SETOR_EDITAR",
         "SETOR_LISTAR",
         "CONTRATO_EXCLUIR",
         "CONTRATO_EDITAR",
-        "CLIENTE_EXCLUIR",
+        "EXCLUIR_CLIENTE",
         "CONTRATO_CADASTRAR",
         "SETOR_EXIBIR"
       ],

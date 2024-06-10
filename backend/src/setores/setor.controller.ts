@@ -1,9 +1,10 @@
+/* eslint-disable prettier/prettier */
 // setor.controller.ts
 import { Controller, Get, Param, Post, Body, Put, Delete, NotFoundException } from '@nestjs/common';
 import { SetorService } from './setor.service';
 import { SetorEntity } from './setor.entity';
 import { SetorResponseDto } from './setor.response.dto';
-import { Roles } from 'nest-keycloak-connect';
+import { Roles } from 'src/config/roles.decorator';
 
 @Controller('setores')
 export class SetorController {
@@ -42,7 +43,7 @@ export class SetorController {
   }
 
   @Delete(':uuid')
-  @Roles({ roles: ['MASTER','SETOR_EXCLUIR'] })
+  @Roles({ roles: ['MASTER', 'SETOR_EXCLUIR'] })
   async remove(@Param('uuid') uuid: string): Promise<string> {
     const deletedSetor = await this.setorService.remove(uuid);
     return JSON.stringify(deletedSetor);

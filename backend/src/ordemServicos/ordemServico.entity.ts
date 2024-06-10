@@ -4,7 +4,7 @@ import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, 
 import { v4 as uuidv4 } from 'uuid';
 import { OrdemServicoRequestDto } from './ordemServico.request.dto';
 import { OrdemServicoResponseDto } from './ordemServico.response.dto';
-import { Situacao } from 'src/enum/situacao.enum';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 
 @Entity('os')
@@ -24,9 +24,9 @@ export class OrdemServicoEntity {
 
   @Column({
     type: 'enum',
-    enum: Situacao,
+    enum: SituacaoEnum,
   })
-  situacao: Situacao;
+  situacao: SituacaoEnum;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_cadastro?: Date;
@@ -48,7 +48,7 @@ export class OrdemServicoEntity {
     ordemServicoDto.uuid = this.uuid;
     ordemServicoDto.cliente = this.cliente ? this.cliente.nome : null;
     ordemServicoDto.descricao = this.descricao;
-    ordemServicoDto.situacao = this.situacao == Situacao.ATIVO;
+    ordemServicoDto.situacao = this.situacao == SituacaoEnum.ATIVO;
     ordemServicoDto.data_cadastro = this.data_cadastro;
     ordemServicoDto.data_atualizacao = this.data_atualizacao;
     ordemServicoDto.setor = this.setor?.toDto()
@@ -59,11 +59,11 @@ export class OrdemServicoEntity {
     dto: OrdemServicoRequestDto,
     cliente: ClienteEntity,
     setor: SetorEntity
-    ): OrdemServicoEntity {
+  ): OrdemServicoEntity {
     const entity = new OrdemServicoEntity();
     entity.cliente = cliente;
     entity.descricao = dto.descricao;
-    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.setor = setor;
     return entity;
   }

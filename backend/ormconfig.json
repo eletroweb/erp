@@ -11,5 +11,6 @@
     "subscribers": [
         "dist/**/*.subscriber{.ts,.js}"
     ],
-    "synchronize": true
+    "synchronize": true,
+    "logging": false
 }

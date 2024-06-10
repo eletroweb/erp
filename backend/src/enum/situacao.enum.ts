@@ -1,4 +1,4 @@
-export enum Situacao {
-    ATIVO = 1,
-    INATIVO = 0,
+export enum SituacaoEnum {
+    ATIVO = 'ATIVO',
+    INATIVO = 'INATIVO',
 }  
