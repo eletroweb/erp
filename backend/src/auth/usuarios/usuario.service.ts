@@ -1,0 +1,84 @@
+/* eslint-disable prettier/prettier */
+// usuario.service.ts
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UsuarioEntity } from './usuario.entity';
+import { Repository } from 'typeorm';
+import { UsuarioRequestDto } from './usuario.request.dto';
+import * as bcrypt from 'bcrypt';
+import { UsuarioRoleService } from './roles/usuario.role.service';
+
+@Injectable()
+export class UsuarioService {
+
+  private readonly logger = new Logger(UsuarioService.name);
+
+  constructor(
+    @InjectRepository(UsuarioEntity) private usuarioRepository: Repository<UsuarioEntity>,
+    private readonly usuarioRoleService: UsuarioRoleService,
+  ) { }
+
+  async findAll(): Promise<UsuarioEntity[]> {
+    return this.usuarioRepository.find({ relations: ['roles', 'roles.roles']});
+  }
+
+  async findOneByUuid(uuid: string): Promise<UsuarioEntity> {
+    const usuario = await this.usuarioRepository.findOne({ where: { uuid }, relations: ['roles', 'roles.roles'] });
+    if (!usuario) {
+      throw new NotFoundException('Usuario não localizado');
+    }
+    return usuario;
+  }
+
+  async findOneByEmail(email: string): Promise<UsuarioEntity> {
+    const usuario = await this.usuarioRepository.findOne({ where: { email }, relations: ['roles', 'roles.roles'] });
+    if (!usuario) {
+      throw new NotFoundException('Usuario não localizado');
+    }
+    return usuario;
+  }
+
+  async create(request: UsuarioRequestDto): Promise<UsuarioEntity> {
+    this.logger.debug('Iniciando criação do usuário');
+    const usuario = UsuarioEntity.toEntity(request);
+    usuario.password = await this.encryptPassword(request.password)
+
+    const savedUsuario = await this.usuarioRepository.save(usuario);
+    await this.usuarioRoleService.adicionarRoleAoUsuario(savedUsuario, request.roles);
+
+    return await savedUsuario
+  }
+
+  // TODO mover este metodo
+  async encryptPassword(password: string): Promise<string> {
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    return await bcrypt.hash(password, salt);
+  }
+
+  async update(uuid: string, request: UsuarioRequestDto): Promise<UsuarioEntity> {
+    const usuarioBase = await this.findOneByUuid(uuid);
+    const usuarioEditado = this.mergeUsuario(usuarioBase, UsuarioEntity.toEntity(request));
+    if (request.password != null) {
+      usuarioEditado.password = await this.encryptPassword(request.password)
+    }
+    
+    try {
+      await this.usuarioRepository.save(usuarioEditado);
+      await this.usuarioRoleService.adicionarRoleAoUsuario(usuarioEditado, request.roles);
+    } catch (error) {
+      throw new Error('Erro ao salvar o usuário: ' + error.message);
+    }
+    
+    return usuarioEditado;
+  }
+
+  private mergeUsuario(usuarioBase: UsuarioEntity, usuarioEditado: UsuarioEntity): UsuarioEntity {
+    return this.usuarioRepository.merge(usuarioBase, usuarioEditado);
+  }
+
+  async remove(uuid: string): Promise<UsuarioEntity> {
+    const usuario = await this.findOneByUuid(uuid);
+    return this.usuarioRepository.remove(usuario);
+  }
+}

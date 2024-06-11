@@ -1,8 +1,8 @@
 import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException, Res, Query } from '@nestjs/common';
 import { FinanceiroService } from './financeiro.service';
 import { FinanceiroResponseDto } from './financeiro.response.dto';
-import { Roles } from 'nest-keycloak-connect';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
+import { Roles } from 'src/config/roles.decorator';
 import { FinanceiroEnum } from 'src/enum/financeiro.enum';
 
 @Controller('financeiro')

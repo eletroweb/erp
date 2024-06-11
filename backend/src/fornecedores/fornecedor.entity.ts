@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn,ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn, ManyToOne } from "typeorm";
 import { v4 as uuidv4 } from 'uuid';
 import { FornecedorResponseDto } from './fornecedor.response.dto';
 import { FornecedorRequestDto } from './fornecedor.request.dto';
-import { Situacao } from 'src/enum/situacao.enum';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 @Entity('fornecedores')
 export class FornecedorEntity {
@@ -38,9 +38,9 @@ export class FornecedorEntity {
 
   @Column({
     type: 'enum',
-    enum: Situacao,
+    enum: SituacaoEnum,
   })
-  situacao: Situacao;
+  situacao: SituacaoEnum;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_cadastro?: Date;
@@ -48,7 +48,7 @@ export class FornecedorEntity {
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
   data_atualizacao?: Date;
 
-  
+
   @BeforeInsert()
   generateUuid() {
     this.uuid = uuidv4();
@@ -65,7 +65,7 @@ export class FornecedorEntity {
       cidade: this.cidade,
       endereco: this.endereco,
       complemento: this.complemento,
-      situacao: this.situacao == Situacao.ATIVO,
+      situacao: this.situacao == SituacaoEnum.ATIVO,
     };
   }
 
@@ -79,7 +79,7 @@ export class FornecedorEntity {
     entity.cidade = dto.cidade;
     entity.endereco = dto.endereco;
     entity.complemento = dto.complemento;
-    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     return entity;
   }
 }

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { OssEntity } from './oss.entity';
 import { OrdemServicoEntity } from './ordemServico.entity';
-import { Situacao } from 'src/enum/situacao.enum';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { OssRequestDto } from './oss.request.dto';
 import { ServicoService } from 'src/servicos/servico.service';
 
@@ -32,14 +32,14 @@ export class OssService {
 
       if (existingOssEntity) {
         existingOssEntity.quantidade = item.quantidade;
-        existingOssEntity.situacao = item.situacao ? Situacao.ATIVO : Situacao.INATIVO;
+        existingOssEntity.situacao = item.situacao ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
         promises.push(this.repository.save(existingOssEntity));
       } else {
         const ossEntity = new OssEntity();
         ossEntity.ordem_servico = ordem_servico;
         ossEntity.servico_id = servico;
         ossEntity.quantidade = item.quantidade;
-        ossEntity.situacao = item.situacao ? Situacao.ATIVO : Situacao.INATIVO;
+        ossEntity.situacao = item.situacao ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
         promises.push(this.repository.save(ossEntity));
       }
     }

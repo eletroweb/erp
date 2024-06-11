@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "66402cb0-d770-4cdf-a75c-6355bd45ed5a",
+		"_postman_id": "005c0d1b-97ed-47ae-81cf-6bc8bb29778c",
 		"name": "ERP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "384675"
@@ -1399,8 +1399,101 @@
 			"name": "Usuarios",
 			"item": [
 				{
-					"name": "Listar",
+					"name": "Roles do usuário",
+					"item": [
+						{
+							"name": "Editar Role do usuário",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "type",
+											"value": "string",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    \"MASTER\"\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios/roles/8d449e21-74fe-4935-8c50-8c4674bbfe07",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios",
+										"roles",
+										"8d449e21-74fe-4935-8c50-8c4674bbfe07"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar Roles do usuário",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/usuarios/roles/getRolesByUserUuid/03eb0eb0-16ba-4bde-ba3a-bdd4202e57f3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios",
+										"roles",
+										"getRolesByUserUuid",
+										"03eb0eb0-16ba-4bde-ba3a-bdd4202e57f3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Listar usuários",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -1416,13 +1509,13 @@
 					"response": []
 				},
 				{
-					"name": "Usuario Cadastrar",
+					"name": "Cadastrar Master",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nome\": \"Yonatha Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\",\"CLIENTE_LISTAR\"]\r\n}",
+							"raw": "{\r\n    \"nome\": \"Yonatha Almeida\",\r\n    \"username\": \"yonatha\",\r\n    \"email\": \"yonathalmeida@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"MASTER\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1443,7 +1536,80 @@
 					"response": []
 				},
 				{
-					"name": "Usuário Login",
+					"name": "Cadastrar Master Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Funcionario\",\r\n    \"username\": \"funcionario\",\r\n    \"email\": \"funcionario@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"MASTER\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Funcionario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Funcionario\",\r\n    \"username\": \"funcionario\",\r\n    \"email\": \"funcionario@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"SETOR_LISTAR\",\r\n        \"SETOR_EXIBIR\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Usuário Master",
 					"event": [
 						{
 							"listen": "test",
@@ -1484,13 +1650,26 @@
 					"response": []
 				},
 				{
-					"name": "Editar",
+					"name": "Login Usuário Funcionario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", response.access_token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nome\": \"Yonatha Almeida Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\",\"CLIENTE_LISTAR\"]\r\n}",
+							"raw": "{\r\n  \"email\": \"fulano@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1498,31 +1677,135 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/usuarios/f623c21b-3f96-4620-8c3b-3c74523dc3e3",
+							"raw": "{{baseUrl}}/auth/login",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"usuarios",
-								"f623c21b-3f96-4620-8c3b-3c74523dc3e3"
+								"auth",
+								"login"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Exibir",
+					"name": "Editar usuario",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Yonatha Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/6e2e96bb-c36c-11ee-a1ba-641c679a799a",
+							"raw": "{{baseUrl}}/usuarios/a9eabf42-fc34-4940-852a-b09ba8346f93",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"projetos",
-								"6e2e96bb-c36c-11ee-a1ba-641c679a799a"
+								"usuarios",
+								"a9eabf42-fc34-4940-852a-b09ba8346f93"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar usuario 2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Fulano\",\r\n    \"username\": \"fulano\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"fulano@gmail.com\",\r\n    \"situacao\": \"ATIVO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/03eb0eb0-16ba-4bde-ba3a-bdd4202e57f3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"03eb0eb0-16ba-4bde-ba3a-bdd4202e57f3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/d6d1b1d8-e07d-4fe2-a983-9f7aed5e8bda",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"d6d1b1d8-e07d-4fe2-a983-9f7aed5e8bda"
 							]
 						}
 					},
@@ -1810,7 +2093,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"uuid\": \"a3c4f039-c2d5-44ba-905a-62bade993af6\",\r\n    \"nome\": \"Cliente QA2\",\r\n    \"telefone\": \"83991732814\",\r\n    \"email\": \"cliente2@email.com\",\r\n    \"documento\": \"06713832485\",\r\n    \"estado\": \"SP\",\r\n    \"cidade\": \"Sao Paulo\",\r\n    \"endereco\": \"Rua A\",\r\n    \"complemento\": \"Complemento A\",\r\n    \"situacao\": false,\r\n    \"setor\": \"fe37791e-c2f2-11ee-a1ba-641c679a799a\"\r\n}",
+							"raw": "{\r\n    \"uuid\": \"ff5cc1e5-a5d9-4835-8877-0349e136ff8a\",\r\n    \"nome\": \"Yonath Alves Almeida\",\r\n    \"telefone\": \"83991732814\",\r\n    \"email\": \"yonathalmeid@sdsd.com\",\r\n    \"documento\": \"06713832482\",\r\n    \"situacao\": false,\r\n    \"setor\": \"d7a497c8-c2f5-11ee-a1ba-641c679a799a\",\r\n    \"endereco\": {\r\n        \"endereco\": \"Rua Rosa Lima dos Santos\",\r\n        \"cep\": \"58051425\",\r\n        \"bairro\": \"Bancários\",\r\n        \"cidade\": \"João Pessoa\",\r\n        \"complemento\": \"teste\",\r\n        \"numero\": null,\r\n        \"numeroResidencial\": \"123\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1818,13 +2101,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/clientes/a3c4f039-c2d5-44ba-905a-62bade993af6",
+							"raw": "{{baseUrl}}/clientes/ff5cc1e5-a5d9-4835-8877-0349e136ff8a",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"clientes",
-								"a3c4f039-c2d5-44ba-905a-62bade993af6"
+								"ff5cc1e5-a5d9-4835-8877-0349e136ff8a"
 							]
 						}
 					},
@@ -1884,13 +2167,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/clientes/a3c4f039-c2d5-44ba-905a-62bade993af6",
+							"raw": "{{baseUrl}}/clientes/ff5cc1e5-a5d9-4835-8877-0349e136ff8a",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"clientes",
-								"a3c4f039-c2d5-44ba-905a-62bade993af6"
+								"ff5cc1e5-a5d9-4835-8877-0349e136ff8a"
 							]
 						}
 					},
@@ -2346,13 +2629,11 @@
 							},
 							{
 								"key": "client_id",
-								"value": "erp-web",
-								"type": "text"
+								"value": "erp-web"
 							},
 							{
 								"key": "refresh_token",
-								"value": "{{refresh_token}}",
-								"type": "text"
+								"value": "{{refresh_token}}"
 							}
 						],
 						"body": {
@@ -2406,13 +2687,11 @@
 							},
 							{
 								"key": "client_id",
-								"value": "erp-web",
-								"type": "text"
+								"value": "erp-web"
 							},
 							{
 								"key": "refresh_token",
-								"value": "{{refresh_token}}",
-								"type": "text"
+								"value": "{{refresh_token}}"
 							}
 						],
 						"body": {
@@ -2491,31 +2770,26 @@
 							{
 								"key": "client_id",
 								"value": "{{client_id}}",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "client_secret",
 								"value": "{{client_secret}}",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "scope",
 								"value": "openid",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "grant_type",
 								"value": "client_credentials",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
+								"value": "application/x-www-form-urlencoded"
 							}
 						],
 						"url": {
@@ -2562,31 +2836,26 @@
 							{
 								"key": "client_id",
 								"value": "{{client_id}}",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "client_secret",
 								"value": "{{client_secret}}",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "scope",
 								"value": "openid",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "grant_type",
 								"value": "client_credentials",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
+								"value": "application/x-www-form-urlencoded"
 							}
 						],
 						"url": {
@@ -2794,11 +3063,31 @@
 							"response": []
 						},
 						{
-							"name": "Listar Despesas",
+							"name": "Listar Despesa/Receita",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "type",
+											"value": "string",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"body": {
@@ -2871,6 +3160,65 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Financeiro Resumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/resumo/totais/?data_inicio=2024-05-31&data_fim=2024-06-30&situacao=PENDENTE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"financeiro",
+								"resumo",
+								"totais",
+								""
+							],
+							"query": [
+								{
+									"key": "data_inicio",
+									"value": "2024-05-31"
+								},
+								{
+									"key": "data_fim",
+									"value": "2024-06-30"
+								},
+								{
+									"key": "situacao",
+									"value": "PENDENTE"
+								},
+								{
+									"key": "situacao",
+									"value": "VENCIDA",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2878,9 +3226,12 @@
 			"name": "CEP",
 			"item": [
 				{
-					"name": "https://planoscelular.claro.com.br/claro/pt/checkout/multi/delivery-address/validate-cep",
+					"name": "Brasil API",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "accept",
@@ -2961,21 +3312,326 @@
 							}
 						},
 						"url": {
-							"raw": "https://planoscelular.claro.com.br/claro/pt/checkout/multi/delivery-address/validate-cep",
+							"raw": "https://brasilapi.com.br/api/cep/v1/58052210",
 							"protocol": "https",
 							"host": [
-								"planoscelular",
-								"claro",
+								"brasilapi",
 								"com",
 								"br"
 							],
 							"path": [
-								"claro",
-								"pt",
-								"checkout",
-								"multi",
-								"delivery-address",
-								"validate-cep"
+								"api",
+								"cep",
+								"v1",
+								"58052210"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ViaCEP API",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "accept-language",
+								"value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+							},
+							{
+								"key": "content-type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8"
+							},
+							{
+								"key": "cookie",
+								"value": "JSESSIONID=A37C5661BBF089B31137AC36971C854C.accstorefront-7849bb99ff-qtvcn; utm_source=whatsapp; utm_medium=transbordo; utm_campaign=ir-para-o-site; anonymous-consents=%5B%5D; cookie-notification=NOT_ACCEPTED; ROUTE=.accstorefront-7849bb99ff-qtvcn; dtCookie=v_4_srv_1_sn_26B630DE97F52C15F447FE46211426A0_perc_100000_ol_0_mul_1_app-3A549ab94bca5b9822_0; cookiesession1=678A3E2B1768195243948D9283664D77; origemMTZ=%7B%22utm_source%22%3A%22whatsapp%22%2C%22utm_medium%22%3A%22transbordo%22%2C%22utm_campaign%22%3A%22ir-para-o-site%22%7D; _gcl_au=1.1.369163096.1716235494; __gtm_campaign_url=https%3A%2F%2Fplanoscelular.claro.com.br%2F%3Futm_source%3Dwhatsapp%26utm_medium%3Dtransbordo%26utm_campaign%3Dir-para-o-site; document_referal=; _vwo_uuid_v2=DD372D3E4D054610F81BC055F750F0E29|a507d958d9edd1a0bef72924e4785986; _evga_d472={%22uuid%22:%22a6f4f4143ded32cf%22}; _sfid_f33f={%22anonymousId%22:%22a6f4f4143ded32cf%22%2C%22consents%22:[]}; _gid=GA1.3.2078009353.1716235495; _vwo_uuid=DD372D3E4D054610F81BC055F750F0E29; _vwo_ds=3%241716235493%3A78.93892928%3A%3A; _vis_opt_s=1%7C; _vis_opt_test_cookie=1; _vis_opt_exp_111_exclude=1; _hjSession_1265048=eyJpZCI6IjBkMGNmOTVhLTY3NTctNGRjOS04MjhiLTdjNTc2MGM1ODQ5YiIsImMiOjE3MTYyMzU0OTYxNzMsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjoxfQ==; _fbp=fb.2.1716235496377.726220339; mdnTheme=; claro_geolocation=SÃ£o Paulo; _hjSessionUser_1265048=eyJpZCI6ImMyZDIxNDg1LWMzODItNTNkZC04MGJjLWU4YTAwNWNiYTJkNCIsImNyZWF0ZWQiOjE3MTYyMzU0OTYxNzEsImV4aXN0aW5nIjp0cnVlfQ==; OptanonAlertBoxClosed=2024-05-20T20:28:17.247Z; claro-cart=cc8371c6-9ef1-4567-9a80-b8fb911e1671; acceleratorSecureGUID=1a33908b55a4b23a1176aab0b96737f9607aa0e2; format=link; FPGSID=1.1716235503.1716237009.G-290MXV0WHV.a2kCQYGcThjqRQf6Agtt3g; _vwo_sn=0%3A7%3A%3A%3A1; _ga=GA1.3.1387392689.1716235495; OptanonConsent=isGpcEnabled=0&datestamp=Mon+May+20+2024+17%3A30%3A10+GMT-0300+(Hora+padr%C3%A3o+de+Bras%C3%ADlia)&version=202403.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=C0004%3A1%2CC0003%3A1%2CC0002%3A1%2CC0001%3A1&AwaitingReconsent=false&geolocation=%3B; _ga_290MXV0WHV=GS1.1.1716235494.1.1.1716237030.39.0.507185019; _gali=postcode_deliveryAddress"
+							},
+							{
+								"key": "dnt",
+								"value": "1"
+							},
+							{
+								"key": "origin",
+								"value": "https://planoscelular.claro.com.br"
+							},
+							{
+								"key": "priority",
+								"value": "u=1, i"
+							},
+							{
+								"key": "referer",
+								"value": "https://planoscelular.claro.com.br/claro/pt/checkout/multi/delivery-address/addClaroAddress?isDeviceIncompatible=false&useIeStylesheet=false"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-origin"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "x-dtpc",
+								"value": "1$237009509_255h33vMMWOFJHPDFRKQMPKEHNJUHAPFKLMCDRK-0e0"
+							},
+							{
+								"key": "x-requested-with",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "postcode=85869580&streetName=&houseNumber=&buildingNumber=&neighbourhood=&townCity=&shippingAddress=true&billingAddress=false&countryIso=BR&regionIso=&CSRFToken=53cf06d4-3f55-45ab-bd5a-620bf790f7da",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://viacep.com.br/ws/58051425/json",
+							"protocol": "https",
+							"host": [
+								"viacep",
+								"com",
+								"br"
+							],
+							"path": [
+								"ws",
+								"58051425",
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca CEP",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/findAddressByCep/58052210",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"findAddressByCep",
+								"58052210"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Colaboradores",
+			"item": [
+				{
+					"name": "Listar Cargos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/colaboradores/cargos/listar/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"colaboradores",
+								"cargos",
+								"listar",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Modulo",
+			"item": [
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Cadastrar Role",
+							"request": {
+								"auth": {
+									"type": "inherit"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"SETOR_EXCLUIR\",\r\n  \"modulo\": \"3d89b130-ff05-4bef-8e3e-53f5921c5164\",\r\n  \"descricao\": \"Excluir setor\",\r\n  \"situacao\": \"ATIVO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/roles",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar Role",
+							"request": {
+								"auth": {
+									"type": "inherit"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/roles",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"roles"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Modulo Cadastrar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Setores\",\r\n  \"descricao\": \"Gerenciar setores\",\r\n  \"situacao\": \"ATIVO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/modulos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"modulos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modulo Listar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/modulos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"modulos"
 							]
 						}
 					},

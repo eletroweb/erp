@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
     Controller,
     Get,
@@ -13,7 +14,7 @@ import {ContratoService} from "./contrato.service";
 import {ContratoResponseDto} from "./contrato.response.dto";
 import {ContratoRequestDto} from "./contrato.request.dto";
 import {ContratoEntity} from "./contrato.entity";
-import { Roles } from "nest-keycloak-connect";
+import { Roles } from "src/config/roles.decorator";
 
 @Controller('contratos')
 export class ContratoController {

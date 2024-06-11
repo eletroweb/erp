@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException } from '@nestjs/common';
 import { ColaboradorService } from './colaborador.service';
 import { ColaboradorResponseDto } from './colaborador.response.dto';
 import { ColaboradorRequestDto } from './colaborador.request.dto';
-import { Roles } from 'nest-keycloak-connect';
+import { Roles } from 'src/config/roles.decorator';
 import { CargoRequestDto } from './cargo.request.dto';
 import { CargoResponseDto } from './cargo.response.dto';
 
@@ -64,28 +65,4 @@ export class ColaboradorController {
   async findByEmail(@Param('email') email: string): Promise<string> {
     return await this.colaboradorService.findByEmail(email)
   }
-
-  @Get('/cargos/listar')
-  @Roles({ roles: ['MASTER', 'COLABORADOR_LISTAR'] })
-  async findAllOffice(): Promise<CargoResponseDto[]> {
-    const cargos = await this.colaboradorService.findAllOffice();
-    const cargoDto: CargoResponseDto[] = cargos.map(cargo => cargo.toDto());
-    return cargoDto;
-  }
-
-  @Get('/findByNameOffice/:nomeCargo')
-  @Roles({ roles: ['MASTER', 'COLABORADOR_EXIBIR'] })
-  async findByNameOffice(@Param('nomeCargo') nomeCargo: string): Promise<string> {
-    return await this.colaboradorService.findByNameOffice(nomeCargo)
-  }
-
-  @Post()
-  @Roles({ roles: ['MASTER', 'COLABORADOR_CADASTRAR'] })
-  async createOffice(@Body() request: CargoRequestDto): Promise<CargoResponseDto> {
-    const createdCargo = await this.colaboradorService.createOffice(request);
-    return createdCargo.toDto();
-  }
-
-
-
 }

@@ -7,7 +7,7 @@ export const LoginStore = defineStore('LoginStore', {
     state: () => ({
         authenticaded: localStorage.getItem("authenticaded"),
         user: {
-            username: null,
+            email: null,
             password: null,
             info: {}
         }
@@ -17,8 +17,8 @@ export const LoginStore = defineStore('LoginStore', {
         async login() {
             const notificacaoStore = NotificacaoStore();
             try {
-                const response = await api.post("/login", this.user);
-                if (response.status === 201) {
+                const response = await api.post("/auth/login", this.user);
+                if (response.status === 200) {
                     const { access_token } = response.data
                     if (!this.haveRoles(access_token)) {
                         notificacaoStore.exibirNotificacao("Atenção", "Seu usuário não possui nenhuma permissão associada", 'warning');
@@ -31,24 +31,23 @@ export const LoginStore = defineStore('LoginStore', {
                         notificacaoStore.exibirNotificacao("Seja Bem Vindo", "Autenticação realizada com sucesso", 'success');
                     }
                 } else {
-                    notificacaoStore.exibirNotificacao("Erro", response.statusText, 'warning');
+                    notificacaoStore.exibirNotificacao("Erro", response.message, 'warning');
                 }
             } catch (e) {
-                console.log(e.message);
+                notificacaoStore.exibirNotificacao("Erro", e.response.data.message, 'warning');
             }
         },
         haveRoles(token) {
             const tokenPayload = VueJwtDecode.decode(token);
-            return tokenPayload.realm_access != undefined
+            return tokenPayload
         },
         setUserinfoFromToken(token) {
             const tokenPayload = VueJwtDecode.decode(token);
             const {
-                realm_access: { roles },
+                roles,
                 scope,
                 name,
-                given_name,
-                family_name,
+                fullName,
                 email
             } = tokenPayload;
 
@@ -57,10 +56,8 @@ export const LoginStore = defineStore('LoginStore', {
                     roles,
                     scope,
                     name,
-                    given_name,
-                    family_name,
                     email,
-                    fullName: `${given_name} ${family_name}`
+                    fullName
                 }
             );
             localStorage.setItem('userInfo', userInfoJSON);

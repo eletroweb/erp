@@ -5,15 +5,15 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { createPinia } from 'pinia'
 import VueApexCharts from "vue3-apexcharts";
 import money from 'v-money3'
+import PrimeVue from 'primevue/config';
+import Aura from 'primevue/themes/aura';
 
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import moment from 'moment'
-import { Quasar } from 'quasar'
-import quasarUserOptions from './quasar-user-options'
 
-const app = createApp(App).use(Quasar, quasarUserOptions)
+const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
@@ -32,6 +32,19 @@ app.config.globalProperties.$moment = {
 app.config.warnHandler = (msg, vm, trace) => {
   //console.warn(`[Vue warn]: teste ${msg}\nTrace: ${trace}`);
 };
+
+
+// Primevue
+app.use(PrimeVue, {
+    theme: {
+        preset: Aura,
+        options: {
+            prefix: 'p',
+            darkModeSelector: 'system',
+            cssLayer: false
+        }
+    }
+});
 
 app.use(router)
 app.use(ElementPlus)

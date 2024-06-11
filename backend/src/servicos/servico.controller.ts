@@ -3,7 +3,7 @@ import { ServicoService } from './servico.service';
 import { ServicoEntity } from './servico.entity';
 import { ServicoResponseDto } from './servico.response.dto';
 import { ServicoRequestDto } from './servico.request.dto';
-import { Roles } from 'nest-keycloak-connect';
+import { Roles } from 'src/config/roles.decorator';
 
 @Controller('servicos')
 export class ServicoController {

@@ -6,12 +6,12 @@ import { Repository } from 'typeorm';
 import { ProjetoRequestDto } from './projeto.request.dto';
 import { SetorService } from 'src/setores/setor.service';
 import { ClienteService } from 'src/clientes/cliente.service';
-import { UsuarioService } from 'src/usuarios/usuario.service';
+import { UsuarioService } from 'src/auth/usuarios/usuario.service';
 
 @Injectable()
 export class ProjetoService {
   constructor(
-    @InjectRepository(ProjetoEntity) 
+    @InjectRepository(ProjetoEntity)
     private projetoRepository: Repository<ProjetoEntity>,
     private setorService: SetorService,
     private clienteService: ClienteService,
@@ -25,13 +25,13 @@ export class ProjetoService {
   async findOneByUuid(uuid: string): Promise<ProjetoEntity> {
     const projeto = await this.projetoRepository.findOne({
       where: { uuid },
-      relations: ['setor','cliente'],
+      relations: ['setor', 'cliente'],
       select: {
       },
     });
     if (!projeto)
       throw new NotFoundException('Projeto não localizado');
-    
+
     return projeto;
   }
 
@@ -46,7 +46,7 @@ export class ProjetoService {
   async update(uuid: string, request: ProjetoRequestDto): Promise<ProjetoEntity> {
     // Recupera o projeto que esta sendo editado
     const projetoOrigin = await this.findOneByUuid(uuid);
-    
+
     // Verifica se o setor informado existe e retorna
     const setor = await this.setorService.findOneByUuid(request.setor)
 

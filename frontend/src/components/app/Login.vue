@@ -4,10 +4,10 @@
       <img class="logo" src="/images/logo-login.png">
     </div>
     <div class="overlay-container">
-      <form  @submit.prevent="login.login()">
+      <form @submit.prevent="login.login()">
         <br>
         <span>Informe seu nome de usuário e senha</span>
-        <input type="email" v-model="login.user.username" id="username" placeholder="Email" />
+        <input type="email" v-model="login.user.email" id="email" placeholder="Email" />
         <input v-model="login.user.password" type="password" id="password" required placeholder="Senha" />
         <a href="#">Esqueceu a senha?</a>
         <button>Entrar</button>
@@ -155,5 +155,4 @@ input {
   transition: transform 0.6s ease-in-out;
   z-index: 100;
 }
-
 </style>

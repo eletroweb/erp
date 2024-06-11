@@ -2,7 +2,7 @@ import { Controller, Get, Param, Post, Body, Put, Delete, Res, NotFoundException
 import { ProjetoService } from './projeto.service';
 import { ProjetoResponseDto } from './projeto.response.dto';
 import { ProjetoRequestDto } from './projeto.request.dto';
-import { Roles } from 'nest-keycloak-connect';
+import { Roles } from 'src/config/roles.decorator';
 
 @Controller('projetos')
 export class ProjetoController {

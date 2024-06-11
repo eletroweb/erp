@@ -11,18 +11,18 @@ describe('Validar editar cliente', () => {
 
   it('RF2.2 Editar Cliente', () => {
     cy.contains('Clientes').click();
-    cy.fixture('cliente_editar.json').then((cliente_editar) => {
+    cy.fixture('EDITAR_CLIENTE.json').then((EDITAR_CLIENTE) => {
     cy.get('.el-table__row').contains('td.el-table_1_column_6', 'Editar').click()
     cy.contains('Editar Cliente')
-    cy.get('input[name="nome"').clear().type(cliente_editar.editado.nome)
-    cy.get('input[name="documento"').clear().type(cliente_editar.editado.documento)
-    cy.contains(cliente_editar.editado.estado).click()
-    cy.get('input[name="cidade"').clear().type(cliente_editar.editado.cidade)
-    cy.get('input[name="email"').clear().type(cliente_editar.editado.email)
-    cy.get('input[name="telefone"').clear().type(cliente_editar.editado.telefone)
-    cy.contains(cliente_editar.editado.setor).click()
-    cy.get('#endereco').clear().clear().type(cliente_editar.editado.endereco)
-    cy.get('#complemento').clear().type(cliente_editar.editado.complemento)
+    cy.get('input[name="nome"').clear().type(EDITAR_CLIENTE.editado.nome)
+    cy.get('input[name="documento"').clear().type(EDITAR_CLIENTE.editado.documento)
+    cy.contains(EDITAR_CLIENTE.editado.estado).click()
+    cy.get('input[name="cidade"').clear().type(EDITAR_CLIENTE.editado.cidade)
+    cy.get('input[name="email"').clear().type(EDITAR_CLIENTE.editado.email)
+    cy.get('input[name="telefone"').clear().type(EDITAR_CLIENTE.editado.telefone)
+    cy.contains(EDITAR_CLIENTE.editado.setor).click()
+    cy.get('#endereco').clear().clear().type(EDITAR_CLIENTE.editado.endereco)
+    cy.get('#complemento').clear().type(EDITAR_CLIENTE.editado.complemento)
     cy.contains("Situação").click()
     cy.contains("Salvar").click()
     cy.contains("Cliente atualizado com sucesso")

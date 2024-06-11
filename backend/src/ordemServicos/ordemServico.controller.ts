@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoundException } from '@nestjs/common';
 import { OrdemServicoService } from './ordemServico.service';
 import { OrdemServicoRequestDto } from './ordemServico.request.dto';
 import { OrdemServicoResponseDto } from './ordemServico.response.dto';
-import { Roles } from 'nest-keycloak-connect';
+import { Roles } from 'src/config/roles.decorator';
 
 @Controller('os')
 export class OrdemServicoController {

@@ -24,6 +24,11 @@ import FormularioRecursosHumanos from '../components/recursosHumanos/FormularioR
 import ListarFornecedores from '@/components/fornecedores/ListarFornecedores.vue'
 import FormularioFornecedor from '@/components/fornecedores/FormularioFornecedor.vue'
 
+// Usuários
+import Configuracoes from '@/components/configuracoes/Configuracoes.vue'
+import ListarUsuarios from '@/components/usuarios/ListarUsuarios.vue'
+import FormularioUsuario from '@/components/usuarios/FormularioUsuario.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -168,6 +173,26 @@ const router = createRouter({
       path: '/fornecedores',
       name: 'fornecedor',
       component: ListarFornecedores
+    },
+    {
+      path: '/usuarios',
+      name: 'usuarios',
+      component: ListarUsuarios
+    },
+    {
+      path: '/configuracoes',
+      name: 'configuracoes',
+      component: Configuracoes
+    },
+    {
+      path: '/usuarios/:uuid',
+      name: 'exibir-usuario',
+      component: FormularioUsuario
+    },
+    {
+      path: '/usuarios/cadastrar',
+      name: 'cadastrar-usuario',
+      component: FormularioUsuario
     },
   ]
 })

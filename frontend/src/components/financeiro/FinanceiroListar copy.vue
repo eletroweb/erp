@@ -102,7 +102,6 @@
 
 <script>
 import { ref, watch } from 'vue';
-import { exportFile } from 'quasar'
 import { FinanceiroStore } from '@/store/financeiro/FinanceiroStore.ts'
 import FinanceiroFormulario from './FinanceiroFormulario.vue'
 import { formatarReal } from '@/common/util.ts';
@@ -167,41 +166,6 @@ export default {
     },
     methods: {
         exportar() {
-            const content = [
-                this.columns.map(col => wrapCsvValue(col.label))
-            ].concat(
-                this.financeiroStore.financeiro.map(row =>
-                    this.columns.map(col => {
-                        let value;
-
-                        if (typeof col.field === 'function') {
-                            value = col.field(row);
-                        } else {
-                            value = row[col.field === void 0 ? col.name : col.field];
-                        }
-
-                        const camposData = ['data_vencimento', 'data_pagamento']
-                        if (camposData.includes(col.name) ||camposData.includes(col.field) )
-                            value = value && value.length ? dayjs(value).format('DD/MM/YYYY') : '';
-
-                        return wrapCsvValue(value, col.format, row);
-                    }).join(',')
-                )
-            ).join('\r\n');
-
-            const status = exportFile(
-                'financeiro.csv',
-                content,
-                'text/csv'
-            )
-
-            if (status !== true) {
-                $q.notify({
-                    message: 'Browser denied file download...',
-                    color: 'negative',
-                    icon: 'warning'
-                })
-            }
         }
     }
 }

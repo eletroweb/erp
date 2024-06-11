@@ -9,6 +9,7 @@ export default () => ({
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: true,
+        logging: true,
     },
     keycloak: {
         authServerUrl: process.env.KEYCLOAK_URL,

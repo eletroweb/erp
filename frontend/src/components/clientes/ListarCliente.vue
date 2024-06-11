@@ -5,7 +5,7 @@
                 <span>Clientes</span>
                 <ClienteBarraDePesquisa />
                 <el-button class="btnCadastrar" type="success" @click="clienteStore.novo()" name="btnCadastrar"
-                    v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_CADASTRAR)">
+                    v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CADASTRAR_CLIENTE)">
                     Cadastrar
                 </el-button>
             </div>
@@ -27,7 +27,7 @@
             <el-table-column prop="acao" label="">
                 <template #default="cliente">
                     <el-button type="primary" size="small" @click="clienteStore.exibir(cliente.row.uuid)" plain
-                        v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.CLIENTE_EDITAR)">
+                        v-if="authorizationStore.hasAuthorizationOfThisAction(RolesEnum.EDITAR_CLIENTE)">
                         Editar
                     </el-button>
                 </template>
@@ -68,22 +68,21 @@ export default {
 </script>
 
 <style scoped>
- .card-header {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
- }
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
- .text {
-     font-size: 14px;
- }
+.text {
+    font-size: 14px;
+}
 
- .item {
-     margin-bottom: 18px;
- }
+.item {
+    margin-bottom: 18px;
+}
 
- .box-card {
-     width: 99%;
- }
- 
+.box-card {
+    width: 99%;
+}
 </style>@/enum/SystemEnum@/enum/RolesEnum

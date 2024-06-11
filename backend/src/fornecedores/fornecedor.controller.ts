@@ -2,7 +2,7 @@ import { Controller, Get, Param, ParseUUIDPipe, Post, Body, Put, Delete, NotFoun
 import { FornecedorService } from './fornecedor.service';
 import { FornecedorResponseDto } from './fornecedor.response.dto';
 import { FornecedorRequestDto } from './fornecedor.request.dto';
-import { Roles } from 'nest-keycloak-connect';
+import { Roles } from "src/config/roles.decorator";
 
 @Controller('fornecedores')
 export class FornecedorController {

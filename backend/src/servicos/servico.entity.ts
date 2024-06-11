@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ServicoResponseDto } from './servico.response.dto';
 import { ServicoRequestDto } from './servico.request.dto';
 import { ContratoEntity } from 'src/contratos/contrato.entity';
-import { Situacao } from 'src/enum/situacao.enum';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 @Entity('servicos')
 export class ServicoEntity {
@@ -19,10 +19,10 @@ export class ServicoEntity {
 
   @Column({
     type: 'enum',
-    enum: Situacao,
+    enum: SituacaoEnum,
     //default: Situacao.ATIVO
   })
-  situacao: Situacao;
+  situacao: SituacaoEnum;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   valor: number;
@@ -50,7 +50,7 @@ export class ServicoEntity {
     return {
       uuid: this.uuid,
       descricao: this.descricao,
-      situacao: this.situacao == Situacao.ATIVO,
+      situacao: this.situacao == SituacaoEnum.ATIVO,
       valor: this.valor,
       contrato: this.contrato,
       setor: this.setor?.toDto()
@@ -60,7 +60,7 @@ export class ServicoEntity {
   static fromRequestDto(dto: ServicoRequestDto, setor: SetorEntity, contrato: ContratoEntity): ServicoEntity {
     const entity = new ServicoEntity();
     entity.descricao = dto.descricao;
-    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.setor = setor;
     entity.valor = dto.valor;
     entity.contrato = contrato;

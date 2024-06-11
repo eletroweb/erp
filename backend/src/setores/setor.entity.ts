@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { SetorResponseDto } from './setor.response.dto';
-import { Situacao } from 'src/enum/situacao.enum';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 @Entity('setores')
 export class SetorEntity {
@@ -14,13 +14,17 @@ export class SetorEntity {
   @Column({ type: 'varchar', length: 255 })
   descricao: string;
 
-  @Column({ type: 'int', default: 1 })
-  situacao: number;
+  @Column({
+    type: 'enum',
+    enum: SituacaoEnum,
+    default: SituacaoEnum.ATIVO
+  })
+  situacao: SituacaoEnum;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0 })
   data_cadastro: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0})
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0 })
   data_atualizacao: Date;
 
   @BeforeInsert()
@@ -32,7 +36,7 @@ export class SetorEntity {
     return {
       uuid: this.uuid,
       descricao: this.descricao,
-      situacao: this.situacao == Situacao.ATIVO,
+      situacao: this.situacao == SituacaoEnum.ATIVO,
     };
   }
 }

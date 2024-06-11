@@ -20,7 +20,6 @@ export const AuthorizationStore = defineStore('AuthorizationStore', {
 
       if (!roles)
         return false
-
       if (roles.includes(RolesEnum.ANY))
         return true
       return this.getUserRoles().some(role => roles.includes(role));;

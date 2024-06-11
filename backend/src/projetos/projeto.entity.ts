@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ProjetoResponseDto } from './projeto.response.dto';
 import { ProjetoRequestDto } from './projeto.request.dto';
 import { ClienteEntity } from 'src/clientes/cliente.entity';
-import { UsuarioEntity } from 'src/usuarios/usuario.entity';
-import { Situacao } from 'src/enum/situacao.enum';
+import { UsuarioEntity } from 'src/auth/usuarios/usuario.entity';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 @Entity('projetos')
 export class ProjetoEntity {
@@ -26,8 +26,12 @@ export class ProjetoEntity {
   @Column({ type: 'text', nullable: true })
   responsavel: string;
 
-  @Column({ type: 'int', default: 1 })
-  situacao: number;
+  @Column({
+    type: 'enum',
+    enum: SituacaoEnum,
+    default: SituacaoEnum.ATIVO
+  })
+  situacao: SituacaoEnum;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   orcamento: number;
@@ -61,7 +65,7 @@ export class ProjetoEntity {
     entity.cliente = cliente;
     entity.setor = setor;
     entity.responsavel = dto.responsavel;
-    entity.situacao = dto.situacao == true ? Situacao.ATIVO : Situacao.INATIVO;
+    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.orcamento = dto.orcamento;
     entity.data_inicio = dto.data_inicio;
     entity.data_fim = dto.data_fim;
@@ -73,10 +77,10 @@ export class ProjetoEntity {
   toDto(): ProjetoResponseDto {
     const projetoDto = new ProjetoResponseDto();
     projetoDto.uuid = this.uuid;
-    projetoDto.cliente =  this.cliente?.toDto()
+    projetoDto.cliente = this.cliente?.toDto()
     projetoDto.setor = this.setor.toDto()
     projetoDto.responsavel = this.responsavel;
-    projetoDto.situacao = this.situacao == Situacao.ATIVO;
+    projetoDto.situacao = this.situacao == SituacaoEnum.ATIVO;
     projetoDto.orcamento = this.orcamento;
     projetoDto.data_inicio = this.data_inicio;
     projetoDto.data_fim = this.data_fim;
