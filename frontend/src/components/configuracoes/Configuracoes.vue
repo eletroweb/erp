@@ -1,6 +1,8 @@
 <template>
     <el-tabs type="border-card">
-        <el-tab-pane label="Empresa">...</el-tab-pane>
+        <el-tab-pane label="Empresa">
+            <ConfiguracaoEmpresa />
+        </el-tab-pane>
         <el-tab-pane label="Usuários">
             <ListarUsuarios />
         </el-tab-pane>
@@ -15,6 +17,7 @@ import Column from 'primevue/column';
 import Tag from 'primevue/Tag';
 import Button from 'primevue/Button';
 import ListarUsuarios from '@/components/usuarios/ListarUsuarios.vue';
+import ConfiguracaoEmpresa from '@/components/configuracoes/ConfiguracaoEmpresa.vue';
 
 export default {
     components: {
@@ -22,6 +25,7 @@ export default {
         Column,
         Tag,
         Button,
+        ConfiguracaoEmpresa,
         ListarUsuarios
     },
     setup() {
