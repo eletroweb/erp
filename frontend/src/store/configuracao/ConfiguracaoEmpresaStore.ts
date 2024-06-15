@@ -3,17 +3,17 @@ import { defineStore } from "pinia"
 export const ConfiguracaoEmpresaStore = defineStore('ConfiguracaoEmpresaStore', {
     state: () => ({
         empresa: {
-            razaoSocial: "",
-            nomeFantasia: "",
-            cnpj: "",
-            email: "",
-            cep: "",
-            estado: "",
-            cidade: "",
-            endereco: "",
-            numero: "",
-            complemento: "",
-            imagem: ""
+            razaoSocial: null,
+            nomeFantasia: null,
+            cnpj: null,
+            email: null,
+            cep: null,
+            estado: null,
+            cidade: null,
+            endereco: null,
+            numero: null,
+            complemento: null,
+            imagem: null
         }
 
     }),

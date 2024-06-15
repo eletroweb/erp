@@ -14,58 +14,57 @@
         <div>
             <div class="linha coluna2">
                 <div>
-                    <label>Razão social </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.razaoSocial"
-                        placeholder="Informe a razão social..." clearable />
+                    <div>
+                        <label>Razão social </label>
+                        <InputText type="text" v-model="configuracaoEmpresaStore.empresa.razaoSocial" class="input" />
+                    </div>
                 </div>
 
                 <div>
                     <label>Nome fantasia </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.nomeFantasia"
-                        placeholder="Informe o nome fantasia..." clearable />
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.nomeFantasia" class="input" />
                 </div>
             </div>
             <div class="linha coluna2">
-                <div> <label>CNPJ </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.cnpj" placeholder="Informe o CNPJ" clearable />
+                <div>
+                    <label>CNPJ </label>
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.cnpj" class="input" />
                 </div>
                 <div>
                     <label>E-mail </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.email" placeholder="" clearable />
-
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.email" class="input" />
                 </div>
             </div>
             <div class="linha coluna3">
                 <div>
                     <label>CEP </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.cep" placeholder="" clearable />
-
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.cep" class="input" />
                 </div>
                 <div>
                     <label>Estado </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.estado" placeholder="" clearable />
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.estado" class="input" />
                 </div>
                 <div>
                     <label>Cidade </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.cidade" placeholder="" clearable />
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.cidade" class="input" />
                 </div>
             </div>
 
             <div class="linha endereco">
                 <div>
                     <label>Endereço </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.endereco" placeholder="" clearable />
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.endereco" class="input" />
                 </div>
                 <div>
                     <label>Número </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.numero" placeholder="" clearable />
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.numero" class="input" />
                 </div>
             </div>
 
             <div class="linha col1">
                 <div>
                     <label>Complemento </label>
-                    <el-input v-model="configuracaoEmpresaStore.empresa.complemento" placeholder="" clearable />
+                    <InputText type="text" v-model="configuracaoEmpresaStore.empresa.complemento" class="input" />
                 </div>
             </div>
             <div class="linha">
@@ -82,6 +81,7 @@
 import { ConfiguracaoEmpresaStore } from '@/store/configuracao/ConfiguracaoEmpresaStore'
 
 import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
 
 
 export default {
@@ -91,7 +91,8 @@ export default {
         return { configuracaoEmpresaStore }
     },
     components: {
-        Button
+        Button,
+        InputText
     },
     methods: {
     }
@@ -159,5 +160,9 @@ div {
 .selecionar-arquivo input[type="file"] {
     position: absolute;
     top: -100px;
+}
+
+.input {
+    width: 100%;
 }
 </style>
