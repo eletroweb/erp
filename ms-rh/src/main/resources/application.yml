@@ -1,0 +1,14 @@
+server:
+  port: 8887
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/erp_rh
+    password: '123456'
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
