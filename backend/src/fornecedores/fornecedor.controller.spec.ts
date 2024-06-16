@@ -4,38 +4,37 @@ import { FornecedorController } from './fornecedor.controller';
 import { FornecedorResponseDto } from './fornecedor.response.dto';
 
 const mockFornecedorService = {
-    findAll: jest.fn(() => [
-        {
-            uuid: 'uuid-1',
-            nome: 'Nome do Fornecedor 1',
-            email: 'fornecedor@gmail.com',
-            telefone: '(83) 99887-7665',
-            documento: '01.123.456/0001-89',
-            estado: 'PB',
-            cidade: 'Campina Grande',
-            endereco: 'Rua da lama, 115',
-            complemento: 'Terreo',
-            situacao: true,
-            data_cadastro: new Date(),
-            data_atualizacao: new Date()
-        },
-        {
-            uuid: 'uuid-2',
-            nome: 'Nome do Fornecedor 2',
-            email: 'fornecedor2@gmail.com',
-            telefone: '(83) 99887-9999',
-            documento: '89.789.456/0001-90',
-            estado: 'PB',
-            cidade: 'Patos',
-            endereco: 'Rua da ladeira, 91',
-            complemento: '',
-            situacao: true,
-            data_cadastro: new Date(),
-            data_atualizacao: new Date()
-        },
-    ]),
+  findAll: jest.fn(() => [
+    {
+      uuid: 'uuid-1',
+      nome: 'Nome do Fornecedor 1',
+      email: 'fornecedor@gmail.com',
+      telefone: '(83) 99887-7665',
+      documento: '01.123.456/0001-89',
+      estado: 'PB',
+      cidade: 'Campina Grande',
+      endereco: 'Rua da lama, 115',
+      complemento: 'Terreo',
+      situacao: true,
+      data_cadastro: new Date(),
+      data_atualizacao: new Date(),
+    },
+    {
+      uuid: 'uuid-2',
+      nome: 'Nome do Fornecedor 2',
+      email: 'fornecedor2@gmail.com',
+      telefone: '(83) 99887-9999',
+      documento: '89.789.456/0001-90',
+      estado: 'PB',
+      cidade: 'Patos',
+      endereco: 'Rua da ladeira, 91',
+      complemento: '',
+      situacao: true,
+      data_cadastro: new Date(),
+      data_atualizacao: new Date(),
+    },
+  ]),
 };
-
 
 describe('FornecedorController', () => {
   let controller: FornecedorController;
@@ -55,7 +54,7 @@ describe('FornecedorController', () => {
   });
 
   describe('root', () => {
-    it('RF2.4 Listar Fornecedores', async () => {      
+    it('RF2.4 Listar Fornecedores', async () => {
       const result = await controller.findAll();
 
       expect(result.length).toEqual(2);
@@ -75,6 +74,3 @@ describe('FornecedorController', () => {
     });
   });
 });
-
-
-

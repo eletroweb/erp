@@ -1,5 +1,15 @@
 import { SetorEntity } from 'src/setores/setor.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn, ManyToOne, Decimal128 } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+  JoinColumn,
+  ManyToOne,
+  Decimal128,
+} from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ServicoResponseDto } from './servico.response.dto';
 import { ServicoRequestDto } from './servico.request.dto';
@@ -31,10 +41,21 @@ export class ServicoEntity {
   @JoinColumn({ name: 'contrato_id' })
   contrato: ContratoEntity;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_cadastro?: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_atualizacao?: Date;
 
   @ManyToOne(() => SetorEntity, { nullable: true, onDelete: 'CASCADE' })
@@ -53,14 +74,19 @@ export class ServicoEntity {
       situacao: this.situacao == SituacaoEnum.ATIVO,
       valor: this.valor,
       contrato: this.contrato,
-      setor: this.setor?.toDto()
+      setor: this.setor?.toDto(),
     };
   }
 
-  static fromRequestDto(dto: ServicoRequestDto, setor: SetorEntity, contrato: ContratoEntity): ServicoEntity {
+  static fromRequestDto(
+    dto: ServicoRequestDto,
+    setor: SetorEntity,
+    contrato: ContratoEntity,
+  ): ServicoEntity {
     const entity = new ServicoEntity();
     entity.descricao = dto.descricao;
-    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
+    entity.situacao =
+      dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.setor = setor;
     entity.valor = dto.valor;
     entity.contrato = contrato;

@@ -18,13 +18,18 @@ import { ContratoModule } from 'src/contratos/contrato.module';
   imports: [
     TypeOrmModule.forFeature([FinanceiroEntity, FinanceiroParcelasEntity]),
     SetorModule,
-    ContratoModule
+    ContratoModule,
   ],
   controllers: [FinanceiroController, FinanceiroParcelaController],
   providers: [
     FinanceiroBusiness,
     FinanceiroSubscriber,
-    FinanceiroService, FinanceiroParcelaService, FinanceiroParcelaComprovanteService, FinanceiroRepository, FinanceiroParcelaRepository],
+    FinanceiroService,
+    FinanceiroParcelaService,
+    FinanceiroParcelaComprovanteService,
+    FinanceiroRepository,
+    FinanceiroParcelaRepository,
+  ],
   exports: [FinanceiroService],
 })
 export class FinanceiroModule {}

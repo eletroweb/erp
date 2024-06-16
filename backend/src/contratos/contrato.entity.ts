@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+} from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ContratoResponseDto } from './contrato.response.dto';
 import { ContratoRequestDto } from './contrato.request.dto';
@@ -21,16 +28,34 @@ export class ContratoEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   orcamento: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0  })
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    precision: 0,
+  })
   data_inicio: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0 })
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    precision: 0,
+  })
   data_fim: Date;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0 })
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    precision: 0,
+  })
   data_cadastro: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0 })
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    precision: 0,
+  })
   data_atualizacao: Date;
 
   @BeforeInsert()
@@ -49,17 +74,17 @@ export class ContratoEntity {
     return contratoEntity;
   }
 
-toDto(): ContratoResponseDto {
-  const contratoDto = new ContratoResponseDto();
-  contratoDto.uuid = this.uuid;
-  contratoDto.descricao = this.descricao;
-  contratoDto.situacao = this.situacao;
-  contratoDto.orcamento = this.orcamento;
-  contratoDto.data_inicio = this.data_inicio;
-  contratoDto.data_fim = this.data_fim;
-  contratoDto.data_cadastro = this.data_cadastro;
-  contratoDto.data_atualizacao = this.data_atualizacao;
+  toDto(): ContratoResponseDto {
+    const contratoDto = new ContratoResponseDto();
+    contratoDto.uuid = this.uuid;
+    contratoDto.descricao = this.descricao;
+    contratoDto.situacao = this.situacao;
+    contratoDto.orcamento = this.orcamento;
+    contratoDto.data_inicio = this.data_inicio;
+    contratoDto.data_fim = this.data_fim;
+    contratoDto.data_cadastro = this.data_cadastro;
+    contratoDto.data_atualizacao = this.data_atualizacao;
 
-  return contratoDto;
+    return contratoDto;
   }
 }

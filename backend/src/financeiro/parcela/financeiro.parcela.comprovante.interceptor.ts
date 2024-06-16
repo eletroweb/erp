@@ -7,7 +7,10 @@ export const FinanceiroParcelaComprovanteInterceptor = {
     destination: './uploads/financeiro/comprovantes',
     filename: (req, file, cb) => {
       // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      cb(null, `${req.body.financeiro_uuid}-${req.body.parcela}${extname(file.originalname)}`);
+      cb(
+        null,
+        `${req.body.financeiro_uuid}-${req.body.parcela}${extname(file.originalname)}`,
+      );
     },
   }),
   fileFilter: (req, file, cb) => {
@@ -15,7 +18,12 @@ export const FinanceiroParcelaComprovanteInterceptor = {
     if (allowedFormats.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new BadRequestException('Formato de arquivo não suportado. Permitido: pdf, jpg ou png'), false);
+      cb(
+        new BadRequestException(
+          'Formato de arquivo não suportado. Permitido: pdf, jpg ou png',
+        ),
+        false,
+      );
     }
   },
   limits: {

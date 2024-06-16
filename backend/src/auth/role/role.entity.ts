@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  ManyToOne,
+} from 'typeorm';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { RoleRequest } from './role.request';
 import { ModuloEntity } from '../../app/modulo/module.entity';
@@ -23,11 +29,11 @@ export class RoleEntity {
   @Column({
     type: 'enum',
     enum: SituacaoEnum,
-    default: SituacaoEnum.ATIVO
+    default: SituacaoEnum.ATIVO,
   })
   situacao: SituacaoEnum;
 
-  @ManyToOne(() => ModuloEntity, modulo => modulo.roles)
+  @ManyToOne(() => ModuloEntity, (modulo) => modulo.roles)
   modulo: ModuloEntity;
 
   @BeforeInsert()
@@ -37,10 +43,10 @@ export class RoleEntity {
 
   static toEntity(dto: RoleRequest, modulo: ModuloEntity): RoleEntity {
     const entity = new RoleEntity();
-    entity.nome = dto.nome
-    entity.descricao = dto.descricao
-    entity.modulo = modulo
-    entity.situacao = dto.situacao
+    entity.nome = dto.nome;
+    entity.descricao = dto.descricao;
+    entity.modulo = modulo;
+    entity.situacao = dto.situacao;
     return entity;
   }
 

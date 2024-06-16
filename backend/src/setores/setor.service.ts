@@ -7,11 +7,12 @@ import { UUID } from 'crypto';
 @Injectable()
 export class SetorService {
   constructor(
-    @InjectRepository(SetorEntity) private setorRepository: Repository<SetorEntity>,
-  ) { }
+    @InjectRepository(SetorEntity)
+    private setorRepository: Repository<SetorEntity>,
+  ) {}
 
   async findAll(): Promise<SetorEntity[]> {
-    return this.setorRepository.find({ order: { descricao: 'ASC'}});
+    return this.setorRepository.find({ order: { descricao: 'ASC' } });
   }
 
   async findOneByUuid(uuid: string): Promise<SetorEntity> {

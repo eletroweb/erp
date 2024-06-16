@@ -1,5 +1,14 @@
 import { SetorEntity } from 'src/setores/setor.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ProjetoResponseDto } from './projeto.response.dto';
 import { ProjetoRequestDto } from './projeto.request.dto';
@@ -15,11 +24,19 @@ export class ProjetoEntity {
   @Column({ type: 'char', length: 36 })
   uuid: string;
 
-  @ManyToOne(() => ClienteEntity, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => ClienteEntity, {
+    eager: true,
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'cliente_id' })
   cliente: ClienteEntity;
 
-  @ManyToOne(() => SetorEntity, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => SetorEntity, {
+    eager: true,
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'setor_id' })
   setor: SetorEntity;
 
@@ -29,7 +46,7 @@ export class ProjetoEntity {
   @Column({
     type: 'enum',
     enum: SituacaoEnum,
-    default: SituacaoEnum.ATIVO
+    default: SituacaoEnum.ATIVO,
   })
   situacao: SituacaoEnum;
 
@@ -45,10 +62,19 @@ export class ProjetoEntity {
   @Column({ type: 'text', nullable: true })
   observacao: string;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0 })
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    precision: 0,
+  })
   data_cadastro: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0 })
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    precision: 0,
+  })
   data_atualizacao: Date;
 
   @BeforeInsert()
@@ -59,13 +85,14 @@ export class ProjetoEntity {
   static fromRequestDto(
     dto: ProjetoRequestDto,
     setor: SetorEntity,
-    cliente: ClienteEntity
+    cliente: ClienteEntity,
   ): ProjetoEntity {
     const entity = new ProjetoEntity();
     entity.cliente = cliente;
     entity.setor = setor;
     entity.responsavel = dto.responsavel;
-    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
+    entity.situacao =
+      dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.orcamento = dto.orcamento;
     entity.data_inicio = dto.data_inicio;
     entity.data_fim = dto.data_fim;
@@ -77,8 +104,8 @@ export class ProjetoEntity {
   toDto(): ProjetoResponseDto {
     const projetoDto = new ProjetoResponseDto();
     projetoDto.uuid = this.uuid;
-    projetoDto.cliente = this.cliente?.toDto()
-    projetoDto.setor = this.setor.toDto()
+    projetoDto.cliente = this.cliente?.toDto();
+    projetoDto.setor = this.setor.toDto();
     projetoDto.responsavel = this.responsavel;
     projetoDto.situacao = this.situacao == SituacaoEnum.ATIVO;
     projetoDto.orcamento = this.orcamento;

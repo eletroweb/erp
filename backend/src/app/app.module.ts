@@ -41,10 +41,9 @@ import { ModuloModule } from 'src/app/modulo/modulo.module';
     OrdemServicoModule,
     FinanceiroModule,
     ColaboradorModule,
-    FornecedorModule
+    FornecedorModule,
   ],
   controllers: [AppController],
-  providers: [
-  ],
+  providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -7,13 +7,13 @@ import { RoleRequest } from './role.request';
 
 @Controller('roles')
 export class RoleController {
-  constructor(private readonly service: RoleService) { }
+  constructor(private readonly service: RoleService) {}
 
   @Post()
   @Public()
   async create(@Body() request: RoleRequest): Promise<RoleEntity> {
     const createdFinanceiro = await this.service.create(request);
-    return createdFinanceiro
+    return createdFinanceiro;
   }
 
   @Get()

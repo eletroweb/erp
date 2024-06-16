@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { SituacaoEnum } from "src/enum/situacao.enum";
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 export class UsuarioResponseDto {
   readonly uuid: string;
@@ -8,4 +8,4 @@ export class UsuarioResponseDto {
   readonly username: string;
   readonly situacao: SituacaoEnum;
   readonly roles: string[];
-}  
+}

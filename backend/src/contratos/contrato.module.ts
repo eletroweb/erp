@@ -7,10 +7,7 @@ import { ContratoService } from './contrato.service';
 import { SetorModule } from 'src/setores/setor.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ContratoEntity]),
-    SetorModule
-  ],
+  imports: [TypeOrmModule.forFeature([ContratoEntity]), SetorModule],
   controllers: [ContratoController],
   providers: [ContratoService, ContratoRepository],
   exports: [ContratoService],

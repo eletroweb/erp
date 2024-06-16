@@ -11,7 +11,7 @@ import { ContratoModule } from 'src/contratos/contrato.module';
   imports: [
     TypeOrmModule.forFeature([ServicoEntity]),
     SetorModule,
-    ContratoModule
+    ContratoModule,
   ],
   controllers: [ServicoController],
   providers: [ServicoService, ServicoRepository],

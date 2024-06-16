@@ -10,9 +10,12 @@ import { UsuarioRoleRepository } from 'src/auth/usuarios/roles/usuario.role.repo
 import { ModuloModule } from 'src/app/modulo/modulo.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([RoleEntity, UsuarioRoleEntity]), ModuloModule],
-    controllers: [RoleController],
-    providers: [RoleService, RoleRepository, UsuarioRoleRepository],
-    exports: [RoleService],
+  imports: [
+    TypeOrmModule.forFeature([RoleEntity, UsuarioRoleEntity]),
+    ModuloModule,
+  ],
+  controllers: [RoleController],
+  providers: [RoleService, RoleRepository, UsuarioRoleRepository],
+  exports: [RoleService],
 })
-export class RoleModule { }
+export class RoleModule {}

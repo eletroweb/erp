@@ -3,7 +3,6 @@ import { ClienteService } from './cliente.service';
 import { ClienteController } from './cliente.controller';
 import { ClienteResponseDto } from './cliente.response.dto';
 
-
 const mockClienteService = {
   findAll: jest.fn(() => [
     {
@@ -57,8 +56,7 @@ export class SetorEntityMock {
     this.nome = nome;
     this.descricao = descricao;
   }
-};
-
+}
 
 describe('ClienteController', () => {
   let controller: ClienteController;
@@ -79,8 +77,11 @@ describe('ClienteController', () => {
 
   describe('root', () => {
     it('RF2.4 Listar Clientes', async () => {
-
-      const setorMock = new SetorEntityMock('uuid-setor-1', 'Nome do setor 1', 'Descrição do setor 1');
+      const setorMock = new SetorEntityMock(
+        'uuid-setor-1',
+        'Nome do setor 1',
+        'Descrição do setor 1',
+      );
 
       jest.mock('src/setores/setor.entity', () => {
         return {

@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
 import { RoleEntity } from 'src/auth/role/role.entity';
 import { UsuarioEntity } from '../usuario.entity';
 import { UsuarioRoleResponseDto } from './usuario.role.response.dto';

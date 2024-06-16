@@ -1,8 +1,8 @@
-import { ProjetoAtividadeSituacao } from "src/enum/projeto.atividade.situacao.enum";
+import { ProjetoAtividadeSituacao } from 'src/enum/projeto.atividade.situacao.enum';
 
 export class ProjetoAtividadeRequestDto {
   projeto: string;
-  prioridade: number
+  prioridade: number;
   setor: string;
   situacao: ProjetoAtividadeSituacao;
   data_inicio: Date;
@@ -10,4 +10,3 @@ export class ProjetoAtividadeRequestDto {
   descricao: string;
   observacao?: string;
 }
-

@@ -12,20 +12,31 @@ export class ClienteService {
     @InjectRepository(ClienteEntity)
     private clienteRepository: Repository<ClienteEntity>,
     private setorService: SetorService,
-  ) { }
+  ) {}
 
-  async findAll(nome?: string, documento?: string, situacao?: string): Promise<ClienteEntity[]> {
-    let queryBuilder = this.clienteRepository.createQueryBuilder("cliente");
+  async findAll(
+    nome?: string,
+    documento?: string,
+    situacao?: string,
+  ): Promise<ClienteEntity[]> {
+    let queryBuilder = this.clienteRepository.createQueryBuilder('cliente');
 
     if (nome)
-      queryBuilder = queryBuilder.where("cliente.nome LIKE :nome", { nome: `%${nome}%` });
+      queryBuilder = queryBuilder.where('cliente.nome LIKE :nome', {
+        nome: `%${nome}%`,
+      });
 
     if (documento)
-      queryBuilder = queryBuilder.andWhere("cliente.documento LIKE :documento", { documento: `%${documento}%` });
+      queryBuilder = queryBuilder.andWhere(
+        'cliente.documento LIKE :documento',
+        { documento: `%${documento}%` },
+      );
 
     if (situacao) {
-      const situacaoFiltro = situacao == 'true' ? 1 : 0
-      queryBuilder = queryBuilder.andWhere("cliente.situacao = :situacao", { situacao: `${situacaoFiltro}` });
+      const situacaoFiltro = situacao == 'true' ? 1 : 0;
+      queryBuilder = queryBuilder.andWhere('cliente.situacao = :situacao', {
+        situacao: `${situacaoFiltro}`,
+      });
     }
 
     return queryBuilder.getMany();
@@ -53,17 +64,23 @@ export class ClienteService {
   }
 
   async create(request: ClienteRequestDto): Promise<ClienteEntity> {
-    const setor = await this.setorService.findOneByUuid(request.setor)
+    const setor = await this.setorService.findOneByUuid(request.setor);
     const cliente = ClienteEntity.fromRequestDto(request, setor);
     const createdCliente = this.clienteRepository.create(cliente);
     return this.clienteRepository.save(createdCliente);
   }
 
-  async update(uuid: string, request: ClienteRequestDto): Promise<ClienteEntity> {
+  async update(
+    uuid: string,
+    request: ClienteRequestDto,
+  ): Promise<ClienteEntity> {
     const clienteOrigin = await this.findOneByUuid(uuid);
-    const setor = await this.setorService.findOneByUuid(request.setor)
+    const setor = await this.setorService.findOneByUuid(request.setor);
     const clienteTarget = ClienteEntity.fromRequestDto(request, setor);
-    const updatedCliente = this.clienteRepository.merge(clienteOrigin, clienteTarget);
+    const updatedCliente = this.clienteRepository.merge(
+      clienteOrigin,
+      clienteTarget,
+    );
     await this.clienteRepository.save(updatedCliente);
     return updatedCliente;
   }
@@ -74,8 +91,7 @@ export class ClienteService {
   }
 
   async findByEmail(email: string): Promise<string> {
-    const cliente = await this.clienteRepository.findOne({ where: { email } })
-    if (cliente)
-      return `Já existe um cliente com este email ${cliente.email}`
+    const cliente = await this.clienteRepository.findOne({ where: { email } });
+    if (cliente) return `Já existe um cliente com este email ${cliente.email}`;
   }
 }

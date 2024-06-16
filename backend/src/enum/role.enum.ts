@@ -1,3 +1,3 @@
 export enum Role {
-    MASTER = 'MASTER'
+  MASTER = 'MASTER',
 }

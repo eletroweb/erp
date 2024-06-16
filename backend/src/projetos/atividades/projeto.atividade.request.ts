@@ -1,4 +1,10 @@
-import { IsBoolean, IsDate, IsNotEmpty, MaxLength, MinLength } from '@nestjs/class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  MaxLength,
+  MinLength,
+} from '@nestjs/class-validator';
 import { IsAfter } from 'src/validation';
 
 export class ProjetoAtividadeRequestDto {
@@ -18,7 +24,9 @@ export class ProjetoAtividadeRequestDto {
 
   @IsNotEmpty({ message: 'A data de fim é obrigatória' })
   @IsDate()
-  @IsAfter('data_inicio', { message: 'A data final deve ser superior à data inicial' })
+  @IsAfter('data_inicio', {
+    message: 'A data final deve ser superior à data inicial',
+  })
   data_fim: Date;
 
   @IsNotEmpty({ message: 'A descrição é obrigatória' })
@@ -28,4 +36,3 @@ export class ProjetoAtividadeRequestDto {
 
   observacao?: string;
 }
-

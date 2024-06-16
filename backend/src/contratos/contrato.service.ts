@@ -8,9 +8,9 @@ import { ContratoRequestDto } from './contrato.request.dto';
 @Injectable()
 export class ContratoService {
   constructor(
-    @InjectRepository(ContratoEntity) 
-    private contratoRepository: Repository<ContratoEntity>
-  ) { }
+    @InjectRepository(ContratoEntity)
+    private contratoRepository: Repository<ContratoEntity>,
+  ) {}
 
   async findAll(): Promise<ContratoEntity[]> {
     return this.contratoRepository.find();
@@ -18,16 +18,18 @@ export class ContratoService {
 
   async findOneByUuid(uuid: string): Promise<ContratoEntity> {
     const contrato = await this.contratoRepository.findOne({
-      where: { uuid }
+      where: { uuid },
     });
     if (!contrato) {
       throw new NotFoundException('Contrato não localizado');
     }
     return contrato;
-  }  
- 
+  }
+
   async findByDocumento(documento: string): Promise<ContratoEntity> {
-    const contrato = await this.contratoRepository.findOne({ where: { documento } });
+    const contrato = await this.contratoRepository.findOne({
+      where: { documento },
+    });
     if (!contrato) {
       throw new NotFoundException(`CPF/CNPJ ${documento} não localizado`);
     }

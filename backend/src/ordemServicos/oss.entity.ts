@@ -1,9 +1,17 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { OrdemServicoEntity } from './ordemServico.entity';
 import { ServicoEntity } from 'src/servicos/servico.entity';
-
 
 @Entity('oss')
 export class OssEntity {
@@ -13,11 +21,19 @@ export class OssEntity {
   @Column({ type: 'char', length: 36 })
   uuid: string;
 
-  @ManyToOne(() => OrdemServicoEntity, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => OrdemServicoEntity, {
+    eager: true,
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'os_id' })
   ordem_servico: OrdemServicoEntity;
 
-  @ManyToOne(() => ServicoEntity, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => ServicoEntity, {
+    eager: true,
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'servico_id' })
   servico_id: ServicoEntity;
 
@@ -28,17 +44,28 @@ export class OssEntity {
     type: 'enum',
     enum: SituacaoEnum,
     default: SituacaoEnum.INATIVO,
-    nullable: false
+    nullable: false,
   })
   situacao: SituacaoEnum;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   observacao: string;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_cadastro?: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_atualizacao?: Date;
 
   @BeforeInsert()
@@ -46,4 +73,3 @@ export class OssEntity {
     this.uuid = uuidv4();
   }
 }
-

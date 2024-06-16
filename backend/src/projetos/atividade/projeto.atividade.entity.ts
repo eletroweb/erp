@@ -1,15 +1,14 @@
-import { SetorEntity } from "src/setores/setor.entity";
-import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
-import { ProjetoEntity } from "../projeto.entity";
-import { ProjetoAtividadesResponseDto } from "./projeto.atividade.response";
-import { ProjetoAtividadeRequestDto } from "./projeto.atividade.request";
-import { BaseEntity } from "src/app/base.entity";
-import { ProjetoAtividadesExibirResponseDto } from "./projeto.atividade.exibir.response";
-import { ProjetoAtividadeSituacao } from "src/enum/projeto.atividade.situacao.enum";
+import { SetorEntity } from 'src/setores/setor.entity';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { ProjetoEntity } from '../projeto.entity';
+import { ProjetoAtividadesResponseDto } from './projeto.atividade.response';
+import { ProjetoAtividadeRequestDto } from './projeto.atividade.request';
+import { BaseEntity } from 'src/app/base.entity';
+import { ProjetoAtividadesExibirResponseDto } from './projeto.atividade.exibir.response';
+import { ProjetoAtividadeSituacao } from 'src/enum/projeto.atividade.situacao.enum';
 
 @Entity('projetos_atividades')
 export class ProjetoAtividadesEntity extends BaseEntity {
-
   @Column({ type: 'varchar', length: 255 })
   descricao: string;
 

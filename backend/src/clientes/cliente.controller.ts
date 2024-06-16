@@ -17,7 +17,7 @@ import { ClienteRequestDto } from './cliente.request.dto';
 
 @Controller('clientes')
 export class ClienteController {
-  constructor(private readonly clienteService: ClienteService) { }
+  constructor(private readonly clienteService: ClienteService) {}
 
   @Get()
   @Roles({ roles: ['MASTER', 'LISTAR_CLIENTE'] })
@@ -59,7 +59,9 @@ export class ClienteController {
 
   @Post()
   @Roles({ roles: ['MASTER', 'CADASTRAR_CLIENTE'] })
-  async create(@Body() request: ClienteRequestDto): Promise<ClienteResponseDto> {
+  async create(
+    @Body() request: ClienteRequestDto,
+  ): Promise<ClienteResponseDto> {
     const createdCliente = await this.clienteService.create(request);
     return createdCliente.toDto();
   }

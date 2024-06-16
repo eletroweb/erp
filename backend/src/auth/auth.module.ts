@@ -28,13 +28,16 @@ import { UsuarioController } from './usuarios/usuario.controller';
   ],
   controllers: [AuthController, UsuarioController],
   providers: [
-    UsuarioService, UsuarioRoleService, UsuarioRepository, UsuarioRoleRepository,
+    UsuarioService,
+    UsuarioRoleService,
+    UsuarioRepository,
+    UsuarioRoleRepository,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-    AuthService
+    AuthService,
   ],
-  exports: [AuthService, UsuarioService]
+  exports: [AuthService, UsuarioService],
 })
-export class AuthModule { }
+export class AuthModule {}

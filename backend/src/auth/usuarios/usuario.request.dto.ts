@@ -5,5 +5,5 @@ export class UsuarioRequestDto {
   readonly password: string;
   readonly email: string;
   readonly situacao: number;
-  readonly roles: string[]
+  readonly roles: string[];
 }

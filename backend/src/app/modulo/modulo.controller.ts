@@ -7,18 +7,18 @@ import { ModuloRequest } from './modulo.request';
 
 @Controller('modulos')
 export class ModuloController {
-    constructor(private readonly service: ModuloService) { }
+  constructor(private readonly service: ModuloService) {}
 
-    @Post()
-    @Public()
-    async create(@Body() request: ModuloRequest): Promise<ModuloEntity> {
-        const createdFinanceiro = await this.service.create(request);
-        return createdFinanceiro
-    }
+  @Post()
+  @Public()
+  async create(@Body() request: ModuloRequest): Promise<ModuloEntity> {
+    const createdFinanceiro = await this.service.create(request);
+    return createdFinanceiro;
+  }
 
-    @Get()
-    @Public()
-    async list(): Promise<ModuloEntity[]> {
-        return await this.service.list();
-    }
+  @Get()
+  @Public()
+  async list(): Promise<ModuloEntity[]> {
+    return await this.service.list();
+  }
 }

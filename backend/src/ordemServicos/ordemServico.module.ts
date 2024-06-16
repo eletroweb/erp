@@ -11,17 +11,20 @@ import { OssEntity } from './oss.entity';
 import { OssService } from './oss.service';
 import { OssRepository } from './oss.repository';
 
-
-
 @Module({
   imports: [
     TypeOrmModule.forFeature([OrdemServicoEntity, OssEntity]),
     SetorModule,
     ClienteModule,
-    ServicoModule
+    ServicoModule,
   ],
   controllers: [OrdemServicoController],
-  providers: [OrdemServicoService, OrdemServicoRepository, OssService, OssRepository],
+  providers: [
+    OrdemServicoService,
+    OrdemServicoRepository,
+    OssService,
+    OssRepository,
+  ],
   exports: [OrdemServicoService, OssService],
 })
 export class OrdemServicoModule {}

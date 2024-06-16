@@ -1,5 +1,5 @@
-import { ClienteResponseDto } from "src/clientes/cliente.response.dto";
-import { SetorResponseDto } from "src/setores/setor.response.dto";
+import { ClienteResponseDto } from 'src/clientes/cliente.response.dto';
+import { SetorResponseDto } from 'src/setores/setor.response.dto';
 
 export class ProjetoResponseDto {
   uuid: string;

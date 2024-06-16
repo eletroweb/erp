@@ -24,8 +24,8 @@ import { AuthModule } from 'src/auth/auth.module';
     ProjetoService,
     ProjetoAtividadeService,
     ProjetoRepository,
-    ProjetoAtividadeRepository
+    ProjetoAtividadeRepository,
   ],
   exports: [ProjetoService, ProjetoAtividadeService],
 })
-export class ProjetoModule { }
+export class ProjetoModule {}

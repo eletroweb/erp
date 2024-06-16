@@ -7,9 +7,9 @@ import { ModuloService } from './module.service';
 import { ModuloRepository } from './modulo.repository';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ModuloEntity])],
-    controllers: [ModuloController],
-    providers: [ModuloService, ModuloRepository],
-    exports: [ModuloRepository, ModuloService],
+  imports: [TypeOrmModule.forFeature([ModuloEntity])],
+  controllers: [ModuloController],
+  providers: [ModuloService, ModuloRepository],
+  exports: [ModuloRepository, ModuloService],
 })
-export class ModuloModule { }
+export class ModuloModule {}

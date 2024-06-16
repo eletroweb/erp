@@ -3,7 +3,6 @@ import { ColaboradorService } from './colaborador.service';
 import { ColaboradorController } from './colaborador.controller';
 import { ColaboradorResponseDto } from './colaborador.response.dto';
 
-
 const mockColaboradorService = {
   findAll: jest.fn(() => [
     {

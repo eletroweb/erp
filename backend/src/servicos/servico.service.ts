@@ -1,4 +1,4 @@
-3// servico.service.ts
+3; // servico.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ServicoEntity } from './servico.entity';
@@ -13,46 +13,51 @@ export class ServicoService {
     @InjectRepository(ServicoEntity)
     private servicoRepository: Repository<ServicoEntity>,
     private setorService: SetorService,
-    private contratoService: ContratoService
-  ) { }
+    private contratoService: ContratoService,
+  ) {}
 
-  async findAll(descricao?: string, situacao?: string): Promise<ServicoEntity[]> {
+  async findAll(
+    descricao?: string,
+    situacao?: string,
+  ): Promise<ServicoEntity[]> {
     //return this.servicoRepository.find({relations: ['contrato', 'setor']});
-    let queryBuilder = this.servicoRepository.createQueryBuilder("servicos");
+    let queryBuilder = this.servicoRepository.createQueryBuilder('servicos');
 
     if (descricao)
-      queryBuilder = queryBuilder.where("servicos.descricao LIKE :descricao", { descricao: `%${descricao}%` });
+      queryBuilder = queryBuilder.where('servicos.descricao LIKE :descricao', {
+        descricao: `%${descricao}%`,
+      });
 
     if (situacao) {
-      const situacaoFiltro = situacao == 'true' ? 1 : 0
-      queryBuilder = queryBuilder.andWhere("servicos.situacao = :situacao", { situacao: `${situacaoFiltro}` });
+      const situacaoFiltro = situacao == 'true' ? 1 : 0;
+      queryBuilder = queryBuilder.andWhere('servicos.situacao = :situacao', {
+        situacao: `${situacaoFiltro}`,
+      });
     }
 
     return queryBuilder.getMany();
   }
 
   async findOneByUuid(uuid: string): Promise<ServicoEntity> {
-    const servico = await this.servicoRepository
-      .findOne(
-        {
-          where: { uuid },
-          relations: ['contrato', 'setor'],
-          select: {
-            id: true,
-            uuid: true,
-            descricao: true,
-            situacao: true,
-            valor: true,
-            contrato: {
-              uuid: true,
-              descricao: true,
-            },
-            setor: {
-              uuid: true,
-              descricao: true,
-            },
-          },
-        });
+    const servico = await this.servicoRepository.findOne({
+      where: { uuid },
+      relations: ['contrato', 'setor'],
+      select: {
+        id: true,
+        uuid: true,
+        descricao: true,
+        situacao: true,
+        valor: true,
+        contrato: {
+          uuid: true,
+          descricao: true,
+        },
+        setor: {
+          uuid: true,
+          descricao: true,
+        },
+      },
+    });
     if (!servico) {
       throw new NotFoundException('Serviço não localizado');
     }
@@ -60,19 +65,29 @@ export class ServicoService {
   }
 
   async create(request: ServicoRequestDto): Promise<ServicoEntity> {
-    const setor = await this.setorService.findOneByUuid(request.setor)
-    const contrato = await this.contratoService.findOneByUuid(request.contrato)
+    const setor = await this.setorService.findOneByUuid(request.setor);
+    const contrato = await this.contratoService.findOneByUuid(request.contrato);
     const servico = ServicoEntity.fromRequestDto(request, setor, contrato);
     const createdServico = this.servicoRepository.create(servico);
     return this.servicoRepository.save(createdServico);
   }
 
-  async update(uuid: string, request: ServicoRequestDto): Promise<ServicoEntity> {
+  async update(
+    uuid: string,
+    request: ServicoRequestDto,
+  ): Promise<ServicoEntity> {
     const servicoOrigin = await this.findOneByUuid(uuid);
-    const setor = await this.setorService.findOneByUuid(request.setor)
-    const contrato = await this.contratoService.findOneByUuid(request.contrato)
-    const servicoTarget = ServicoEntity.fromRequestDto(request, setor, contrato);
-    const updatedServico = this.servicoRepository.merge(servicoOrigin, servicoTarget);
+    const setor = await this.setorService.findOneByUuid(request.setor);
+    const contrato = await this.contratoService.findOneByUuid(request.contrato);
+    const servicoTarget = ServicoEntity.fromRequestDto(
+      request,
+      setor,
+      contrato,
+    );
+    const updatedServico = this.servicoRepository.merge(
+      servicoOrigin,
+      servicoTarget,
+    );
     await this.servicoRepository.save(updatedServico);
     return updatedServico;
   }

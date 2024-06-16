@@ -9,12 +9,14 @@ import { ClienteDocumentoValidation } from './validator/cliente.documento.valida
 import { ClienteEmailValidation } from './validator/cliente.email.validator';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ClienteEntity]),
-    SetorModule
-  ],
+  imports: [TypeOrmModule.forFeature([ClienteEntity]), SetorModule],
   controllers: [ClienteController],
-  providers: [ClienteService, ClienteRepository, ClienteEmailValidation, ClienteDocumentoValidation],
+  providers: [
+    ClienteService,
+    ClienteRepository,
+    ClienteEmailValidation,
+    ClienteDocumentoValidation,
+  ],
   exports: [ClienteService],
 })
 export class ClienteModule {}

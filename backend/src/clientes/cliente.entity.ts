@@ -1,5 +1,14 @@
 import { SetorEntity } from 'src/setores/setor.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ClienteResponseDto } from './cliente.response.dto';
 import { ClienteRequestDto } from './cliente.request.dto';
@@ -53,10 +62,21 @@ export class ClienteEntity {
   })
   situacao: SituacaoEnum;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_cadastro?: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_atualizacao?: Date;
 
   @ManyToOne(() => SetorEntity, { nullable: true, onDelete: 'CASCADE' })
@@ -85,11 +105,14 @@ export class ClienteEntity {
       documento: this.documento,
       situacao: this.situacao == SituacaoEnum.ATIVO,
       setor: this.setor?.toDto(),
-      endereco
+      endereco,
     };
   }
 
-  static fromRequestDto(dto: ClienteRequestDto, setor: SetorEntity): ClienteEntity {
+  static fromRequestDto(
+    dto: ClienteRequestDto,
+    setor: SetorEntity,
+  ): ClienteEntity {
     const entity = new ClienteEntity();
     entity.nome = dto.nome;
     entity.email = dto.email;
@@ -99,7 +122,8 @@ export class ClienteEntity {
     entity.cidade = dto.endereco.cidade;
     entity.endereco = dto.endereco.endereco;
     entity.complemento = dto.endereco.complemento;
-    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
+    entity.situacao =
+      dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.setor = setor;
     entity.cep = dto.endereco.cep;
     entity.numero = dto.endereco.numero;
@@ -107,4 +131,4 @@ export class ClienteEntity {
     return entity;
   }
 }
-1
+1;

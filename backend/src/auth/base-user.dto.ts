@@ -1,20 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class BaseUser {
-    @ApiProperty()
-    id?: string;
-    
-    @ApiProperty()
-    username?: string;
+  @ApiProperty()
+  id?: string;
 
-    @ApiProperty()
-    email: string;
+  @ApiProperty()
+  username?: string;
 
-    @ApiProperty()
-    password: string;
+  @ApiProperty()
+  email: string;
 
-    @ApiProperty()
-    confirmPassword?: string;
-    
-    @ApiProperty()
-    designation?: string;
+  @ApiProperty()
+  password: string;
+
+  @ApiProperty()
+  confirmPassword?: string;
+
+  @ApiProperty()
+  designation?: string;
 }

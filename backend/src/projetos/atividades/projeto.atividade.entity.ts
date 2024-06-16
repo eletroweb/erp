@@ -1,14 +1,21 @@
-import { SetorEntity } from "src/setores/setor.entity";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { ProjetoEntity } from "../projeto.entity";
-import { SituacaoEnum } from "src/enum/situacao.enum";
-import { ProjetoAtividadesResponseDto } from "./projeto.atividade.response";
-import { ProjetoAtividadeRequestDto } from "./projeto.atividade.request";
-import { BaseEntity } from "src/app/base.entity";
+import { SetorEntity } from 'src/setores/setor.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { ProjetoEntity } from '../projeto.entity';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
+import { ProjetoAtividadesResponseDto } from './projeto.atividade.response';
+import { ProjetoAtividadeRequestDto } from './projeto.atividade.request';
+import { BaseEntity } from 'src/app/base.entity';
 
 @Entity('projetos_atividades')
 export class ProjetoAtividadesEntity extends BaseEntity {
-
   @Column({ type: 'varchar', length: 255 })
   descricao: string;
 
@@ -60,7 +67,8 @@ export class ProjetoAtividadesEntity extends BaseEntity {
     entity.descricao = dto.descricao;
     entity.projeto = projeto;
     entity.setor = setor;
-    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
+    entity.situacao =
+      dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     entity.data_inicio = dto.data_inicio;
     entity.data_fim = dto.data_fim;
     entity.observacao = dto.observacao;

@@ -16,7 +16,7 @@ export class ProjetoService {
     private setorService: SetorService,
     private clienteService: ClienteService,
     private usuarioService: UsuarioService,
-  ) { }
+  ) {}
 
   async findAll(): Promise<ProjetoEntity[]> {
     return this.projetoRepository.find();
@@ -26,40 +26,44 @@ export class ProjetoService {
     const projeto = await this.projetoRepository.findOne({
       where: { uuid },
       relations: ['setor', 'cliente'],
-      select: {
-      },
+      select: {},
     });
-    if (!projeto)
-      throw new NotFoundException('Projeto não localizado');
+    if (!projeto) throw new NotFoundException('Projeto não localizado');
 
     return projeto;
   }
 
   async create(request: ProjetoRequestDto): Promise<ProjetoEntity> {
-    const setor = await this.setorService.findOneByUuid(request.setor)
-    const cliente = await this.clienteService.findOneByUuid(request.cliente)
+    const setor = await this.setorService.findOneByUuid(request.setor);
+    const cliente = await this.clienteService.findOneByUuid(request.cliente);
     const projeto = ProjetoEntity.fromRequestDto(request, setor, cliente);
     const createdProjeto = this.projetoRepository.create(projeto);
     return this.projetoRepository.save(createdProjeto);
   }
 
-  async update(uuid: string, request: ProjetoRequestDto): Promise<ProjetoEntity> {
+  async update(
+    uuid: string,
+    request: ProjetoRequestDto,
+  ): Promise<ProjetoEntity> {
     // Recupera o projeto que esta sendo editado
     const projetoOrigin = await this.findOneByUuid(uuid);
 
     // Verifica se o setor informado existe e retorna
-    const setor = await this.setorService.findOneByUuid(request.setor)
+    const setor = await this.setorService.findOneByUuid(request.setor);
 
     // Verifica se o cliente informado existe e retorna
-    const cliente = await this.clienteService.findOneByUuid(request.cliente)
+    const cliente = await this.clienteService.findOneByUuid(request.cliente);
 
     // Converte o request em uma Entity
     const projetoTarget = ProjetoEntity.fromRequestDto(request, setor, cliente);
 
     // Faz o merge entre a Entity enviada e existente no banco de dados.
-    const updatedProjeto = this.projetoRepository.merge(projetoOrigin, projetoTarget);
+    const updatedProjeto = this.projetoRepository.merge(
+      projetoOrigin,
+      projetoTarget,
+    );
 
-    // Salva a Entity alterada no banco 
+    // Salva a Entity alterada no banco
     await this.projetoRepository.save(updatedProjeto);
 
     // Retorna a Entity alterada

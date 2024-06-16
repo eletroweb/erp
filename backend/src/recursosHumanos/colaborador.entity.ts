@@ -1,8 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+} from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { ColaboradorResponseDto } from "./colaborador.response.dto";
-import { ColaboradorRequestDto } from "./colaborador.request.dto";
-import { SituacaoEnum } from "src/enum/situacao.enum";
+import { ColaboradorResponseDto } from './colaborador.response.dto';
+import { ColaboradorRequestDto } from './colaborador.request.dto';
+import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 @Entity('colaboradores')
 export class ColaboradorEntity {
@@ -42,10 +49,21 @@ export class ColaboradorEntity {
   })
   situacao: SituacaoEnum;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_cadastro?: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', precision: 0, nullable: true })
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    precision: 0,
+    nullable: true,
+  })
   data_atualizacao?: Date;
 
   @BeforeInsert()
@@ -78,7 +96,8 @@ export class ColaboradorEntity {
     entity.salario = dto.salario;
     entity.valor_hora = dto.valor_hora;
     entity.observacao = dto.observacao;
-    entity.situacao = dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
+    entity.situacao =
+      dto.situacao == true ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO;
     return entity;
   }
 }

@@ -1,11 +1,17 @@
-
-import { DataSource, EntitySubscriberInterface, EventSubscriber, InsertEvent, RemoveEvent } from 'typeorm';
+import {
+  DataSource,
+  EntitySubscriberInterface,
+  EventSubscriber,
+  InsertEvent,
+  RemoveEvent,
+} from 'typeorm';
 import { FinanceiroEntity } from './financeiro.entity';
 import { v4 as uuidv4 } from 'uuid';
 
 @EventSubscriber()
-export class FinanceiroSubscriber implements EntitySubscriberInterface<FinanceiroEntity> {
-
+export class FinanceiroSubscriber
+  implements EntitySubscriberInterface<FinanceiroEntity>
+{
   constructor(dataSource: DataSource) {
     dataSource.subscribers.push(this);
   }
@@ -19,6 +25,6 @@ export class FinanceiroSubscriber implements EntitySubscriberInterface<Financeir
   }
 
   beforeRemove(event: RemoveEvent<FinanceiroEntity>): void | Promise<any> {
-      // console.log(`Excluindo registro ${event.entity.uuid}`);
+    // console.log(`Excluindo registro ${event.entity.uuid}`);
   }
 }
