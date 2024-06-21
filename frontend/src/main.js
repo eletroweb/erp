@@ -6,7 +6,7 @@ import { createPinia } from 'pinia'
 import VueApexCharts from "vue3-apexcharts";
 import money from 'v-money3'
 import PrimeVue from 'primevue/config';
-import Aura from 'primevue/themes/aura';
+import Aura from '@primevue/themes/aura';
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -36,13 +36,8 @@ app.config.warnHandler = (msg, vm, trace) => {
 
 // Primevue
 app.use(PrimeVue, {
-    theme: {
-        preset: Aura,
-        options: {
-            prefix: 'p',
-            darkModeSelector: 'system',
-            cssLayer: false
-        }
+  theme: {
+        preset: Aura
     }
 });
 

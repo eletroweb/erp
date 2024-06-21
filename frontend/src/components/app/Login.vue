@@ -6,10 +6,10 @@
     <div class="overlay-container">
       <form @submit.prevent="login.login()">
         <br>
-        <span>Informe seu nome de usuário e senha</span>
+        <!-- span>Informe seu nome de usuário e senha</span-->
         <input type="email" v-model="login.user.email" id="email" placeholder="Email" />
         <input v-model="login.user.password" type="password" id="password" required placeholder="Senha" />
-        <a href="#">Esqueceu a senha?</a>
+        <!-- a href="#">Esqueceu a senha?</a-->
         <button>Entrar</button>
       </form>
     </div>
@@ -28,8 +28,6 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -66,8 +64,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid orange;
-  background-color: orange;
+  border: 1px solid #512CD4;
+  background-color: #512CD4;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
@@ -75,6 +73,7 @@ button {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  margin-top: 20px;
 }
 
 button:active {
@@ -102,24 +101,25 @@ form {
 }
 
 input {
-  background-color: #eee;
-  border: none;
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
+  border: 1px solid #512CD4;
+  border-radius: 10px;
+  background: #ffffff;
 }
 
 .container {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 14px 49px rgba(0, 0, 0, 0.25), 0 9px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0px 35px rgba(0, 0, 0, 0.25), 0 9px 10px rgba(0, 0, 0, 0);
   position: relative;
   overflow: hidden;
   width: 768px;
   max-width: 100%;
   min-height: 480px;
   margin: auto;
-  margin-top: 15%;
+  margin-top: 100px;
 }
 
 .container button {
@@ -127,9 +127,9 @@ input {
 }
 
 .logo {
-  margin-left: 9%;
-  width: 99%;
-  margin-top: 23%;
+  margin-left: 19%;
+  width: 75%;
+  margin-top: 53%;
 }
 
 .form-container {
