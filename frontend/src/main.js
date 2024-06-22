@@ -5,8 +5,13 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { createPinia } from 'pinia'
 import VueApexCharts from "vue3-apexcharts";
 import money from 'v-money3'
+
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Tag from 'primevue/tag';
+import Button from 'primevue/button';
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -17,6 +22,10 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+app.component('Button', Button);
+app.component('DataTable', DataTable);
+app.component('Column', Column);
+app.component('Tag', Tag);
 
 const pinia = createPinia()
 

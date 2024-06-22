@@ -1,108 +1,66 @@
 <template>
-    <div class="q-pa-md">
+    <div>
+        <div class="button-container">
+            <Button label="Novo registro financeiro" @click="financeiroStore.novo()" severity="info" size="small" />
+        </div>
 
-        <q-table id="financeiro" virtual-scroll style="height: 730px" :rows-per-page-options="[11]" :filter="filter"
-            :rows="financeiroStore.financeiroLista" :columns="columns" flat no-data-label="Não existem financeiro lançadas"
-            no-results-label="Nenhum registro localizado" bordered title="Financeiro" row-key="name">
+        <div class="resumo">
+            <MeterGroup :value="resumo" />
+        </div>
 
-            <template v-slot:top-right>
+        <DataTable :value="this.registros" tableStyle="min-width: 50rem">
+            <Column field="categoria" header="Categoria">
+                <template #body="slotProps">
+                    <Tag v-if="slotProps.data.categoria === 'RECEITA'" severity="success" value="Receita"></Tag>
+                    <Tag v-else-if="slotProps.data.categoria === 'DESPESA'" severity="warn" value="Despesa"></Tag>
+                </template>
+            </Column>
+            <Column field="tipo" header="Tipo">
+                <template #body="slotProps">
+                    <Tag v-if="slotProps.data.tipo === 'VARIAVEL'" severity="info" value="Variável"></Tag>
+                    <Tag v-else severity="secondary" value="Fixa"></Tag>
+                </template>
+            </Column>
+            <Column field="descricao" header="Descrição"></Column>
+            <Column field="data_vencimento" header="Vencimento">
+                <template #body="slotProps">
+                    {{ $moment.format(slotProps.data.data_vencimento) }}
+                </template>
+            </Column>
+            <Column field="data_pagamento" header="Pagamento">
+                <template #body="slotProps">
+                    {{ $moment.format(slotProps.data.data_vencimento) }}
+                </template>
+            </Column>
+            <Column field="vencida" header="Vencida">
+                <template #body="slotProps">
+                    {{ slotProps.data.vencida ? 'Sim' : 'Não' }}
+                </template>
+            </Column>
 
-                <q-btn size="md" color="primary" label="Novo registro financeiro" no-caps @click="financeiroStore.novo()" />
-
-                <q-btn flat size="md" color="primary" icon-right="archive" label="Exportar csv" no-caps
-                    @click="exportar" />
-
-                <q-input borderless dense debounce="300" v-model="filter" placeholder="Busca">
-                    <template v-slot:append>
-                        <q-icon name="search" />
-                    </template>
-                </q-input>
-            </template>
-
-            <template v-slot:body="props">
-                <q-tr :props="props" @click="financeiroStore.exibir(props.row.uuid)">
-
-                    <q-td key="categoria" :props="props">
-                        <el-tag v-if="props.row.categoria == 'RECEITA'" type="success">  {{ props.row.categoria }}</el-tag>
-                        <el-tag v-else type="warning">  {{ props.row.categoria }}</el-tag>
-                    </q-td>
-
-                    <q-td key="descricao" :props="props">
-                        {{ props.row.descricao }}
-                    </q-td>
-
-                    <q-td key="situacao" :props="props">
-                        <q-badge :color="financeiroStore.getCorPorSituacao(props.row.situacao)">{{ props.row.situacao
-                            }}</q-badge>
-                    </q-td>
-
-                    <q-td key="descricao" :props="props" style="text-align: right;">
-                        {{ this.formatarReal(props.row.valor_cobranca) }}
-                    </q-td>
-
-                    <q-td key="descricao" :props="props">
-                        {{ props.row.parcelada ? 'Sim' : 'Não' }}
-                    </q-td>
-
-                    <q-td key="descricao" :props="props">
-                        {{ props.row.tipo }}
-                    </q-td>
-
-                    <q-td key="descricao" :props="props">
-                        {{ $moment.format(props.row.data_vencimento) }}
-                    </q-td>
-
-                    <q-td key="descricao" :props="props">
-                        {{ props.row.data_pagamento ? $moment.format(props.row.data_pagamento) : '-' }}
-                    </q-td>
-
-                    <q-td key="acoes" :props="props">
-                        <q-btn color="primary" label="Click me">
-                            <q-menu>
-                                <q-list dense style="min-width: 100px">
-                                    <q-item clickable v-close-popup>
-                                        <q-item-section>Open...</q-item-section>
-                                    </q-item>
-                                    <q-item clickable v-close-popup>
-                                        <q-item-section>New</q-item-section>
-                                    </q-item>
-                                    <q-separator />
-                                    <q-item clickable>
-                                        <q-item-section>Preferences</q-item-section>
-                                        <q-item-section siside>
-                                            <q-icon name="keyboard_arrow_right" />
-                                        </q-item-section>
-
-                                        <q-menu anchor="top end" self="top start">
-                                            <q-list>
-                                                <q-item v-for="n in 3" :key="n" dense clickable>
-                                                    <q-item-section>Submenu Label</q-item-section>
-                                                    <q-item-section side>
-                                                        <q-icon name="keyboard_arrow_right" />
-                                                    </q-item-section>
-                                                    <q-menu auto-close anchor="top end" self="top start">
-                                                        <q-list>
-                                                            <q-item v-for="n in 3" :key="n" dense clickable>
-                                                                <q-item-section>3rd level Label</q-item-section>
-                                                            </q-item>
-                                                        </q-list>
-                                                    </q-menu>
-                                                </q-item>
-                                            </q-list>
-                                        </q-menu>
-
-                                    </q-item>
-                                    <q-separator />
-                                    <q-item clickable v-close-popup>
-                                        <q-item-section>Quit</q-item-section>
-                                    </q-item>
-                                </q-list>
-                            </q-menu>
-                        </q-btn>
-                    </q-td>
-                </q-tr>
-            </template>
-        </q-table>
+            <Column field="valor_cobranca" header="Valor">
+                <template #body="slotProps">
+                    {{ this.formatarReal(slotProps.data.valor_cobranca) }}
+                </template>
+            </Column>
+            <Column field="situacao" header="Situação">
+                <template #body="slotProps">
+                    <Tag v-if="slotProps.data.situacao === 'PENDENTE'" severity="warn" :value="slotProps.data.situacao">
+                    </Tag>
+                    <Tag v-else-if="slotProps.data.situacao === 'PAGA'" severity="success"
+                        :value="slotProps.data.situacao"></Tag>
+                    <Tag v-else-if="slotProps.data.situacao === 'VENCIDA'" severity="danger"
+                        :value="slotProps.data.situacao"></Tag>
+                    <Tag v-else severity="Contrast" :rounded="slotProps.data.situacao"></Tag>
+                </template>
+            </Column>
+            <Column header="">
+                <template #body="slotProps">
+                    <Button label="Editar" @click="financeiroStore.exibir(slotProps.data.uuid)" severity="info"
+                        size="small" />
+                </template>
+            </Column>
+        </DataTable>
     </div>
 </template>
 
@@ -113,27 +71,24 @@ import FinanceiroFormulario from './FinanceiroFormulario.vue'
 import { formatarReal } from '@/common/util.ts';
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Tag from 'primevue/tag';
+import Button from 'primevue/button';
+import MeterGroup from 'primevue/MeterGroup';
 dayjs.extend(customParseFormat);
-
-function wrapCsvValue(val, formatFn, row) {
-    let formatted = formatFn !== void 0
-        ? formatFn(val, row)
-        : val
-
-    formatted = formatted === void 0 || formatted === null
-        ? ''
-        : String(formatted)
-
-    formatted = formatted.split('"').join('""')
-    return `"${formatted}"`
-}
 
 export default {
     components: {
+        FinanceiroFormulario,
+        DataTable,
+        Column,
+        Tag,
+        Button,
+        MeterGroup
     },
     setup() {
         const financeiroStore = FinanceiroStore()
-        financeiroStore.listar()
         const valor = ref('');
         const formattedValue = ref('');
 
@@ -153,22 +108,29 @@ export default {
             formatarReal
         }
     },
-    components: {
-        FinanceiroFormulario
+    async mounted() {
+        this.registros = await this.financeiroStore.listar();
+        const despesas = this.registros.filter(registro => registro.categoria === 'DESPESA');
+        const receitas = this.registros.filter(registro => registro.categoria === 'RECEITA');
+
+        const pendentes = this.registros.filter(registro => registro.situacao === 'PENDENTE');
+        const pagas = this.registros.filter(registro => registro.situacao === 'PAGA');
+        const vencidas = this.registros.filter(registro => registro.situacao === 'VENCIDA');
+
+        const total = this.registros.length;
+
+        this.resumo = [
+            { label: 'Despesas', color: '#fed7aa', value: (despesas.length / total) * 100 },
+            { label: 'Receitas', color: '#34d399', value: (receitas.length / total) * 100 },
+            { label: 'Pendentes', color: '#c084fc', value: (pendentes.length / total) * 100 },
+            { label: 'Pagas', color: '#15803d', value: (pagas.length / total) * 100 },
+            { label: 'Vencidas', color: '#c2410c', value: (vencidas.length / total) * 100 },
+        ];
     },
     data() {
         return {
-            columns: [
-                { name: 'categoria', label: 'Categoria', align: 'left', field: row => row.descricao, format: val => `${val}`, sortable: true },
-                { name: 'descricao', label: 'Descrição', align: 'left', field: row => row.descricao, format: val => `${val}`, sortable: true },
-                { name: 'situacao', label: 'Situação', align: 'left', field: row => row.descricao, format: val => `${val}`, sortable: true },
-                { name: 'valor_cobranca', label: 'Valor R$', align: 'right', field: row => row.valor_cobranca, format: val => `${val}`, sortable: true },
-                { name: 'parcelada', label: 'Parcelado', align: 'left', field: row => row.parcelada, format: val => `${val}`, sortable: true },
-                { name: 'tipo', label: 'Tipo', align: 'left', field: row => row.tipo, format: val => `${val}`, sortable: true },
-                { name: 'data_vencimento', label: 'Dt Vencimento', align: 'left', field: row => row.data_vencimento, format: val => `${val}`, sortable: true },
-                { name: 'data_pagamento', label: 'Dt Pagamento', align: 'left', field: row => row.data_de_pagamento, format: val => `${val}`, sortable: true },
-            ],
-            rows: []
+            registros: [],
+            resumo: []
         }
     },
     methods: {
@@ -179,7 +141,15 @@ export default {
 </script>
 
 <style>
-#financeiro table tr {
-    cursor: pointer
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px
+}
+
+.resumo {
+    font-size: 13px;
+    margin-bottom: 5px
 }
 </style>

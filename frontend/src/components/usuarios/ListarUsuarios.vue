@@ -24,17 +24,8 @@
 <script>
 import { UsuarioStore } from '@/store/UsuarioStore.ts'
 
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import Tag from 'primevue/Tag';
-import Button from 'primevue/Button';
-
 export default {
     components: {
-        DataTable,
-        Column,
-        Tag,
-        Button,
     },
     setup() {
         const usuarioStore = UsuarioStore()
