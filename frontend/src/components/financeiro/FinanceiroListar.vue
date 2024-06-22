@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="button-container">
-            <Button label="Novo registro financeiro" @click="financeiroStore.novo()" severity="info" size="small" />
+            <Button label="Novo registro financeiro" @click="financeiroStore.novo()" size="small" />
         </div>
 
         <div class="resumo">
             <MeterGroup :value="resumo" />
         </div>
 
-        <DataTable :value="this.registros" tableStyle="min-width: 50rem">
+        <DataTable :value="this.registros" stripedRows tableStyle="min-width: 50rem">
             <Column field="categoria" header="Categoria">
                 <template #body="slotProps">
                     <Tag v-if="slotProps.data.categoria === 'RECEITA'" severity="success" value="Receita"></Tag>
