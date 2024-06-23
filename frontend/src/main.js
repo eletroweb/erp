@@ -7,6 +7,7 @@ import VueApexCharts from "vue3-apexcharts";
 import money from 'v-money3'
 
 import PrimeVue from 'primevue/config';
+import 'primeicons/primeicons.css'
 import Aura from '@primevue/themes/aura';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';

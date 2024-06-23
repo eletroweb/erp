@@ -17,20 +17,24 @@
         <el-tab-pane label="">
             <template #label>
                 <span class="custom-tabs-label">
-                    <el-icon><PieChart /></el-icon>
-                    <span> Comparativo</span>
+                    <el-icon>
+                        <PieChart />
+                    </el-icon>
+                    <span> Relatório</span>
                 </span>
-            </template>      
+            </template>
             Comparativo mensal de Receita vs Financeiro
             <apexchart width="100%" :type="grafico.tipo" :options="chartOptions" :series="series"></apexchart>
         </el-tab-pane>
         <el-tab-pane label="">
             <template #label>
                 <span class="custom-tabs-label">
-                    <el-icon><Aim /></el-icon>
+                    <el-icon>
+                        <Aim />
+                    </el-icon>
                     <span> Centro de Custo</span>
                 </span>
-            </template>    
+            </template>
             ...
         </el-tab-pane>
     </el-tabs>

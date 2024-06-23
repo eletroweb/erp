@@ -1,6 +1,14 @@
 <template>
     <div>
         <div class="button-container">
+            <!--
+            <Button type="button" icon="pi pi-arrows-v" @click="alterarTamanhoTabela('small')" severity="secondary"
+                size="small" />
+            <Button type="button" icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
+                @click="alterarTamanhoTabela('null')" severity="secondary" size="small" />
+            <Button type="button" icon="pi pi-arrows-alt" @click="alterarTamanhoTabela('large')" severity="secondary"
+                size="small" />
+            -->
             <Button label="Novo registro financeiro" @click="financeiroStore.novo()" size="small" />
         </div>
 
@@ -8,7 +16,7 @@
             <MeterGroup :value="resumo" />
         </div>
 
-        <DataTable :value="this.registros" stripedRows tableStyle="min-width: 50rem">
+        <DataTable :value="this.registros" :size="size" stripedRows tableStyle="min-width: 50rem">
             <Column field="categoria" header="Categoria">
                 <template #body="slotProps">
                     <Tag v-if="slotProps.data.categoria === 'RECEITA'" severity="success" value="Receita"></Tag>
@@ -34,7 +42,7 @@
             </Column>
             <Column field="vencida" header="Vencida">
                 <template #body="slotProps">
-                    {{ slotProps.data.vencida ? 'Sim' : 'Não' }}
+                    <Tag :value="slotProps.data.vencida ? 'Sim' : 'Não'"></Tag>
                 </template>
             </Column>
 
@@ -76,6 +84,7 @@ import Column from 'primevue/column';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button';
 import MeterGroup from 'primevue/MeterGroup';
+import SelectButton from 'primevue/selectButton';
 dayjs.extend(customParseFormat);
 
 export default {
@@ -85,7 +94,8 @@ export default {
         Column,
         Tag,
         Button,
-        MeterGroup
+        MeterGroup,
+        SelectButton
     },
     setup() {
         const financeiroStore = FinanceiroStore()
@@ -121,20 +131,22 @@ export default {
 
         this.resumo = [
             { label: 'Despesas', color: '#fed7aa', value: (despesas.length / total) * 100 },
-            { label: 'Receitas', color: '#34d399', value: (receitas.length / total) * 100 },
+            { label: 'Receitas', color: '#0ea5e9', value: (receitas.length / total) * 100 },
             { label: 'Pendentes', color: '#c084fc', value: (pendentes.length / total) * 100 },
-            { label: 'Pagas', color: '#15803d', value: (pagas.length / total) * 100 },
+            { label: 'Pagas', color: '#34d399', value: (pagas.length / total) * 100 },
             { label: 'Vencidas', color: '#c2410c', value: (vencidas.length / total) * 100 },
         ];
     },
     data() {
         return {
             registros: [],
-            resumo: []
+            resumo: [],
+            size: null
         }
     },
     methods: {
-        exportar() {
+        alterarTamanhoTabela(size) {
+            this.size = size;
         }
     }
 }

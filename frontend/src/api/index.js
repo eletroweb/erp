@@ -58,7 +58,10 @@ const upload = async (endpoint, formData) => {
         method: 'post',
         maxBodyLength: Infinity,
         url: `http://localhost:3000/${endpoint}`,
-        data: formData
+        data: formData,
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
     };
 
     try {

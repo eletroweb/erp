@@ -19,7 +19,7 @@ import { FinanceiroEnum } from 'src/enum/financeiro.enum';
 
 @Controller('financeiro')
 export class FinanceiroController {
-  constructor(private readonly service: FinanceiroService) {}
+  constructor(private readonly service: FinanceiroService) { }
 
   @Get()
   @Roles({ roles: ['MASTER', 'DESPESA_LISTAR'] })
