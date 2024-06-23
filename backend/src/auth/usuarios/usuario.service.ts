@@ -22,6 +22,12 @@ export class UsuarioService {
     return this.usuarioRepository.find({ relations: ['roles', 'roles.roles'] });
   }
 
+  async findOne(id: number): Promise<UsuarioEntity> {
+    const usuario = await this.usuarioRepository.findOne({ where: { id } });
+    if (!usuario) throw new NotFoundException('Usuário não encontrado');
+    return usuario;
+  }
+
   async findOneByUuid(uuid: string): Promise<UsuarioEntity> {
     const usuario = await this.usuarioRepository.findOne({
       where: { uuid },
