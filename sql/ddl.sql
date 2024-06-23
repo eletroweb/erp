@@ -1517,7 +1517,7 @@ INSERT INTO
 VALUES (
         63,
         '7748082e-ef3e-443c-b210-392c197933a8',
-        'Yonatha Alves Almeida',
+        'Master',
         '2024-06-15 17:06:58',
         '2024-06-19 00:09:15',
         'master@gmail.com',
