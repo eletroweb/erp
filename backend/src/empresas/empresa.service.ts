@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { EmpresaRequestDto } from './empresa.request.dto';
 import { EmpresaEntity } from './empresa.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -33,7 +37,10 @@ export class EmpresaService {
     return 'Empresa cadastrada com sucesso';
   }
 
-  async updateByUuid(uuid: string, request: EmpresaRequestDto): Promise<EmpresaEntity> {
+  async updateByUuid(
+    uuid: string,
+    request: EmpresaRequestDto,
+  ): Promise<EmpresaEntity> {
     const empresa = await this.findOneByUuid(uuid);
     Object.assign(empresa, request);
     return this.empresaRepository.save(empresa);

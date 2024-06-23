@@ -9,7 +9,7 @@ import { SetorService } from './setor.service';
 @Module({
   imports: [TypeOrmModule.forFeature([SetorEntity])],
   controllers: [SetorController],
-  providers: [SetorService, SetorRepository], // Adicione SetorRepository aos providers
-  exports: [SetorService], // Se necessário, exporte o serviço
+  providers: [SetorService, SetorRepository],
+  exports: [SetorService],
 })
 export class SetorModule {}

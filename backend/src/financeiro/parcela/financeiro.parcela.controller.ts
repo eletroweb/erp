@@ -16,7 +16,7 @@ import { FinanceiroParcelaComprovanteService } from './financeiro.parcela.compro
 import { existsSync, createReadStream } from 'fs';
 import { FinanceiroService } from '../financeiro.service';
 import { FinanceiroParcelaService } from './financeiro.parcela.service';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('financeiro/parcela')
 export class FinanceiroParcelaController {
@@ -24,7 +24,7 @@ export class FinanceiroParcelaController {
     private readonly financeiroService: FinanceiroService,
     private readonly comprovanteService: FinanceiroParcelaComprovanteService,
     private readonly financeiroParcelaService: FinanceiroParcelaService,
-  ) { }
+  ) {}
 
   // RF12.5.2 Anexar comprovante de pagamento na parcela
   @Post('/alterar-situacao')

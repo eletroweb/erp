@@ -15,7 +15,7 @@ import { ServicoService } from './servico.service';
 import { ServicoEntity } from './servico.entity';
 import { ServicoResponseDto } from './servico.response.dto';
 import { ServicoRequestDto } from './servico.request.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('servicos')
 export class ServicoController {

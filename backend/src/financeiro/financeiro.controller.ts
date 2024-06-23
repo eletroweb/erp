@@ -14,12 +14,12 @@ import {
 import { FinanceiroService } from './financeiro.service';
 import { FinanceiroResponseDto } from './financeiro.response.dto';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 import { FinanceiroEnum } from 'src/enum/financeiro.enum';
 
 @Controller('financeiro')
 export class FinanceiroController {
-  constructor(private readonly service: FinanceiroService) { }
+  constructor(private readonly service: FinanceiroService) {}
 
   @Get()
   @Roles({ roles: ['MASTER', 'DESPESA_LISTAR'] })

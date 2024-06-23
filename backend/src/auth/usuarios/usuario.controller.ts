@@ -14,9 +14,11 @@ import {
 import { UsuarioService } from './usuario.service';
 import { UsuarioResponseDto } from './usuario.response.dto';
 import { UsuarioRequestDto } from './usuario.request.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 import { UsuarioRoleResponseDto } from './roles/usuario.role.response.dto';
 import { UsuarioRoleService } from './roles/usuario.role.service';
+import { UsuarioEntity } from './usuario.entity';
+import { GetCurrentUser } from '../decorator/user.decorator';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -37,7 +39,10 @@ export class UsuarioController {
 
   @Post()
   @Roles({ roles: ['MASTER', 'CADASTRAR_USUARIO'] })
-  async create(@Body() request: UsuarioRequestDto): Promise<string> {
+  async create(
+    @GetCurrentUser() currentUser: UsuarioResponseDto,
+    @Body() request: UsuarioRequestDto,
+  ): Promise<string> {
     await this.usuarioService.create(request);
     return 'Usuario criado com sucesso';
   }

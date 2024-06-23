@@ -14,7 +14,7 @@ import { ContratoService } from './contrato.service';
 import { ContratoResponseDto } from './contrato.response.dto';
 import { ContratoRequestDto } from './contrato.request.dto';
 import { ContratoEntity } from './contrato.entity';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('contratos')
 export class ContratoController {

@@ -11,7 +11,7 @@ import { jwtConstants } from './constants';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from './public-strategy';
-import { ROLES_KEY } from 'src/config/roles.decorator';
+import { ROLES_KEY } from 'src/auth/decorator/roles.decorator';
 import { UsuarioService } from 'src/auth/usuarios/usuario.service';
 import { UsuarioRoleService } from './usuarios/roles/usuario.role.service';
 

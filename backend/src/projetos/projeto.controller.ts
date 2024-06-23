@@ -12,7 +12,7 @@ import {
 import { ProjetoService } from './projeto.service';
 import { ProjetoResponseDto } from './projeto.response.dto';
 import { ProjetoRequestDto } from './projeto.request.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('projetos')
 export class ProjetoController {

@@ -16,13 +16,13 @@ import { FornecedorModule } from 'src/fornecedores/fornecedor.module';
 import configuration from 'src/config/configuration';
 import { AuthModule } from 'src/auth/auth.module';
 import { ModuloModule } from 'src/app/modulo/modulo.module';
-import { EmpresaModule } from 'src/empresas/empresa.module';
-
+import { EmpresaModule } from 'src/empresa/empresa.module';
 
 @Module({
   imports: [
     ModuloModule,
     AuthModule,
+    EmpresaModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,

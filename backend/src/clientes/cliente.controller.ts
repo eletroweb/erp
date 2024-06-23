@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { ClienteResponseDto } from './cliente.response.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 import { ClienteRequestDto } from './cliente.request.dto';
 
 @Controller('clientes')

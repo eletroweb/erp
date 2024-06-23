@@ -104,6 +104,8 @@ RF8.2 Cadastrar usuário
 RF8.3 Editar usuário
     RF8.3.1 Remover todas as roles do usuário caso nenhuma seja informada
 
+RF8.4 Vincular empresa a usuário master
+
 ## Autorização
 
 RF9.1 Impedir que usuário que não possui role, acesse funcionalidades não permitidas

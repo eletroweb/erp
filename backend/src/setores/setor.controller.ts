@@ -13,7 +13,7 @@ import {
 import { SetorService } from './setor.service';
 import { SetorEntity } from './setor.entity';
 import { SetorResponseDto } from './setor.response.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('setores')
 export class SetorController {

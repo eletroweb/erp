@@ -108,7 +108,10 @@ describe('EmpresaController', () => {
       const result = await controller.findOne(uuid);
       expect(result).toBeInstanceOf(EmpresaResponseDto);
       expect(result).toHaveProperty('uuid', uuid);
-      expect(result).toHaveProperty('razao_social', `Razão Social com uuid ${uuid}`);
+      expect(result).toHaveProperty(
+        'razao_social',
+        `Razão Social com uuid ${uuid}`,
+      );
     });
   });
 

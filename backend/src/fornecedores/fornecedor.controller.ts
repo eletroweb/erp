@@ -12,7 +12,7 @@ import {
 import { FornecedorService } from './fornecedor.service';
 import { FornecedorResponseDto } from './fornecedor.response.dto';
 import { FornecedorRequestDto } from './fornecedor.request.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('fornecedores')
 export class FornecedorController {

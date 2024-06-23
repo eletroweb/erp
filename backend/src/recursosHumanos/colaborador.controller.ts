@@ -13,7 +13,7 @@ import {
 import { ColaboradorService } from './colaborador.service';
 import { ColaboradorResponseDto } from './colaborador.response.dto';
 import { ColaboradorRequestDto } from './colaborador.request.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 import { CargoRequestDto } from './cargo.request.dto';
 import { CargoResponseDto } from './cargo.response.dto';
 

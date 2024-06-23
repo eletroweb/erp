@@ -15,6 +15,7 @@ import { UsuarioRoleService } from './usuarios/roles/usuario.role.service';
 import { UsuarioRepository } from './usuarios/usuario.repository';
 import { UsuarioService } from './usuarios/usuario.service';
 import { UsuarioController } from './usuarios/usuario.controller';
+import { EmpresaEntity } from 'src/empresas/empresa.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { UsuarioController } from './usuarios/usuario.controller';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '1d' },
     }),
-    TypeOrmModule.forFeature([UsuarioEntity, UsuarioRoleEntity]),
+    TypeOrmModule.forFeature([UsuarioEntity, UsuarioRoleEntity, EmpresaEntity]),
   ],
   controllers: [AuthController, UsuarioController],
   providers: [

@@ -5,6 +5,8 @@ import { ModuloEntity } from './module.entity';
 import { ModuloController } from './modulo.controller';
 import { ModuloService } from './module.service';
 import { ModuloRepository } from './modulo.repository';
+import { UsuarioService } from 'src/auth/usuarios/usuario.service';
+import { EmpresaService } from 'src/empresa/empresa.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ModuloEntity])],

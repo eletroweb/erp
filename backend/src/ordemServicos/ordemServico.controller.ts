@@ -13,7 +13,7 @@ import {
 import { OrdemServicoService } from './ordemServico.service';
 import { OrdemServicoRequestDto } from './ordemServico.request.dto';
 import { OrdemServicoResponseDto } from './ordemServico.response.dto';
-import { Roles } from 'src/config/roles.decorator';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('os')
 export class OrdemServicoController {

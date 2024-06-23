@@ -11,7 +11,6 @@ import {
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { UsuarioResponseDto } from './usuario.response.dto';
-import { RoleEntity } from 'src/auth/role/role.entity';
 import { UsuarioRoleEntity } from './roles/usuario.roles.entity';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { EmpresaEntity } from 'src/empresas/empresa.entity';
@@ -63,11 +62,6 @@ export class UsuarioEntity {
   roles: UsuarioRoleEntity[];
 
   @ManyToMany(() => EmpresaEntity, (empresa) => empresa.usuarios)
-  @JoinTable({
-    name: 'usuario_empresas',
-    joinColumn: { name: 'usuario_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'empresa_id', referencedColumnName: 'id' },
-  })
   empresas: EmpresaEntity[];
 
   @BeforeInsert()
