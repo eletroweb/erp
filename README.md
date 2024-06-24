@@ -120,7 +120,8 @@ RF11 Associar responsável a atividade no projeto
 ## Despesas
 
 RF12.1 Listar despesas
-RF12.1.1 Exportar despesas em CSV
+    RF12.1.1 Exportar despesas em CSV
+    RF12.1.2 Filtrar despesa e receita
 RF12.2 Cadastrar despesa
 RF12.2.1 Adicionar parcela
 RF12.2.1.1 Quanto uma despesa não é parcelada a data de vencimento da parcela deve ser igual a data de vencimento da despesa;

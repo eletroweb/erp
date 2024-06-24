@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-// usuario.controller.ts
 import {
   Controller,
   Get,
@@ -17,7 +15,6 @@ import { UsuarioRequestDto } from './usuario.request.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
 import { UsuarioRoleResponseDto } from './roles/usuario.role.response.dto';
 import { UsuarioRoleService } from './roles/usuario.role.service';
-import { UsuarioEntity } from './usuario.entity';
 import { GetCurrentUser } from '../decorator/user.decorator';
 
 @Controller('usuarios')

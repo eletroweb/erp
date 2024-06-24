@@ -32,3 +32,8 @@ export enum FinanceiroCentroDeCustoEnum {
   SETOR = 'SETOR',
   CONTRATO = 'CONTRATO',
 }
+
+export enum ParcelamentoEnum {
+  PARCELADO = 'SIM',
+  NAO_PARCELADO = 'NAO',
+}

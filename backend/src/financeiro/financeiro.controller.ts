@@ -14,8 +14,12 @@ import {
 import { FinanceiroService } from './financeiro.service';
 import { FinanceiroResponseDto } from './financeiro.response.dto';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
-import { Roles } from 'src/auth/decorator/roles.decorator';
-import { FinanceiroEnum } from 'src/enum/financeiro.enum';
+import { Roles } from 'src/config/roles.decorator';
+import {
+  FinanceiroCategoriaEnum,
+  FinanceiroEnum,
+  ParcelamentoEnum,
+} from 'src/enum/financeiro.enum';
 
 @Controller('financeiro')
 export class FinanceiroController {
@@ -23,8 +27,32 @@ export class FinanceiroController {
 
   @Get()
   @Roles({ roles: ['MASTER', 'DESPESA_LISTAR'] })
-  async findAll(): Promise<FinanceiroResponseDto[]> {
-    const financeiro = await this.service.findAll();
+  async findAll(
+    @Query('descricao') descricao: string,
+    @Query('categoria') categoria: FinanceiroCategoriaEnum,
+    @Query('dataInicio') dataInicio: string,
+    @Query('dataFim') dataFim: string,
+    @Query('dataPagamentoInicio') dataPagamentoInicio: string,
+    @Query('dataPagamentoFim') dataPagamentoFim: string,
+    @Query('situacao') situacao: FinanceiroEnum,
+    @Query('parcelada') parcelada: ParcelamentoEnum,
+  ): Promise<FinanceiroResponseDto[]> {
+    const isParcelada =
+      parcelada === ParcelamentoEnum.PARCELADO
+        ? true
+        : parcelada === ParcelamentoEnum.NAO_PARCELADO
+          ? false
+          : null;
+    const financeiro = await this.service.findAll(
+      descricao,
+      categoria,
+      dataInicio,
+      dataFim,
+      dataPagamentoInicio,
+      dataPagamentoFim,
+      situacao,
+      isParcelada,
+    );
     const financeiroDto: FinanceiroResponseDto[] = financeiro.map(
       (financeiro) => financeiro.toDto(),
     );

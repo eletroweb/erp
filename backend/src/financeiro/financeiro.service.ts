@@ -27,11 +27,80 @@ export class FinanceiroService {
     private readonly financeiroBusiness: FinanceiroBusiness,
     private readonly setorService: SetorService,
     private readonly contratoService: ContratoService,
-  ) {}
+  ) { }
 
   // RF12.1 Listar financeiro
-  async findAll(): Promise<FinanceiroEntity[]> {
-    return this.financeiroRepository.find();
+  async findAll(
+    descricao: string,
+    categoria: FinanceiroCategoriaEnum,
+    dataInicio: string,
+    dataFim: string,
+    dataPagamentoInicio,
+    dataPagamentoFim,
+    situacao,
+    parcelada,
+  ): Promise<FinanceiroEntity[]> {
+    const consulta = this.financeiroRepository.createQueryBuilder('financeiro');
+
+    if (descricao) {
+      consulta.andWhere('financeiro.descricao LIKE :descricao', {
+        descricao: `%${descricao}%`,
+      });
+    }
+    if (categoria) {
+      consulta.andWhere('financeiro.categoria = :categoria', {
+        categoria: categoria,
+      });
+    }
+    if (dataInicio && dataFim) {
+      consulta.andWhere(
+        'financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim',
+        {
+          dataInicio: dataInicio,
+          dataFim: dataFim,
+        },
+      );
+    } else if (dataInicio) {
+      consulta.andWhere('financeiro.data_vencimento >= :dataInicio', {
+        dataInicio,
+      });
+    } else if (dataFim) {
+      consulta.andWhere('financeiro.data_vencimento <= :dataFim', { dataFim });
+    }
+    if (dataPagamentoInicio && dataPagamentoFim) {
+      consulta.andWhere(
+        'DATE(financeiro.data_pagamento) BETWEEN :dataPagamentoInicio AND :dataPagamentoFim',
+        {
+          dataPagamentoInicio,
+          dataPagamentoFim,
+        },
+      );
+    } else if (dataPagamentoInicio) {
+      consulta.andWhere(
+        'DATE(DATE(financeiro.data_pagamento)) >= :dataPagamentoInicio',
+        {
+          dataPagamentoInicio,
+        },
+      );
+    } else if (dataPagamentoFim) {
+      consulta.andWhere(
+        'DATE(financeiro.data_pagamento) <= :dataPagamentoFim',
+        {
+          dataPagamentoFim,
+        },
+      );
+    }
+    if (situacao) {
+      consulta.andWhere('financeiro.situacao = :situacao', {
+        situacao: situacao,
+      });
+    }
+    if (parcelada !== null) {
+      consulta.andWhere('financeiro.parcelada = :parcelada', {
+        parcelada: parcelada,
+      });
+    }
+    return consulta.getMany();
   }
 
   // RF12.2 Cadastrar financeiro
