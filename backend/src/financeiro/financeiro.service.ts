@@ -77,7 +77,7 @@ export class FinanceiroService {
       );
     } else if (dataPagamentoInicio) {
       consulta.andWhere(
-        'DATE(DATE(financeiro.data_pagamento)) >= :dataPagamentoInicio',
+        'DATE(financeiro.data_pagamento) >= :dataPagamentoInicio',
         {
           dataPagamentoInicio,
         },
