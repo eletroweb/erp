@@ -179,7 +179,13 @@ RF14.3 Editar receita
 RF14.4 Excluir receita
 
 ## Financeiro
-RF15.2 Totais receitas e despesas
+RF15.1 Filtrar despesas e receitas
+    RF15.1.1 Filtrar por categoria
+    RF15.1.2 Filtrar por descricao
+    RF15.1.3 Filtrar por situacao
+    RF15.1.4 Filtrar por dataInicio e dataFim
+    RF15.1.5 Filtrar por dataPagamentoInicio e dataPagamentoFim
+    RF15.1.6 Filtrar parcelada
 
 ## Configurações
 RF15.1 Configuração da empresa
