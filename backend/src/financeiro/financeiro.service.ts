@@ -13,6 +13,13 @@ import { FinanceiroParcelaService } from './parcela/financeiro.parcela.service';
 import { FinanceiroBusiness } from './financeiro.business';
 import { SetorService } from 'src/setores/setor.service';
 import { ContratoService } from 'src/contratos/contrato.service';
+import { CategoriaSpecification } from './specification/CategoriaSpecification';
+import { DataPagamentoSpecification } from './specification/DataPagamentoSpecification ';
+import { DataVencimentoSpecification } from './specification/DataVencimentoSpecification';
+import { DescricaoSpecification } from './specification/DescricaoSpecification';
+import { ParceladaSpecification } from './specification/ParceladaSpecification';
+import { SituacaoSpecification } from './specification/SituacaoSpecification';
+import { Specification } from './specification/Specification';
 
 const dayjs = require('dayjs');
 
@@ -27,7 +34,7 @@ export class FinanceiroService {
     private readonly financeiroBusiness: FinanceiroBusiness,
     private readonly setorService: SetorService,
     private readonly contratoService: ContratoService,
-  ) { }
+  ) {}
 
   // RF12.1 Listar financeiro
   async findAll(
@@ -35,71 +42,35 @@ export class FinanceiroService {
     categoria: FinanceiroCategoriaEnum,
     dataInicio: string,
     dataFim: string,
-    dataPagamentoInicio,
-    dataPagamentoFim,
-    situacao,
-    parcelada,
+    dataPagamentoInicio: string,
+    dataPagamentoFim: string,
+    situacao: string,
+    parcelada: boolean,
   ): Promise<FinanceiroEntity[]> {
     const consulta = this.financeiroRepository.createQueryBuilder('financeiro');
+    const specifications: Specification<FinanceiroEntity>[] = [];
 
-    if (descricao) {
-      consulta.andWhere('financeiro.descricao LIKE :descricao', {
-        descricao: `%${descricao}%`,
-      });
-    }
-    if (categoria) {
-      consulta.andWhere('financeiro.categoria = :categoria', {
-        categoria: categoria,
-      });
-    }
-    if (dataInicio && dataFim) {
-      consulta.andWhere(
-        'financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim',
-        {
-          dataInicio: dataInicio,
-          dataFim: dataFim,
-        },
-      );
-    } else if (dataInicio) {
-      consulta.andWhere('financeiro.data_vencimento >= :dataInicio', {
-        dataInicio,
-      });
-    } else if (dataFim) {
-      consulta.andWhere('financeiro.data_vencimento <= :dataFim', { dataFim });
-    }
-    if (dataPagamentoInicio && dataPagamentoFim) {
-      consulta.andWhere(
-        'DATE(financeiro.data_pagamento) BETWEEN :dataPagamentoInicio AND :dataPagamentoFim',
-        {
-          dataPagamentoInicio,
-          dataPagamentoFim,
-        },
-      );
-    } else if (dataPagamentoInicio) {
-      consulta.andWhere(
-        'DATE(financeiro.data_pagamento) >= :dataPagamentoInicio',
-        {
-          dataPagamentoInicio,
-        },
-      );
-    } else if (dataPagamentoFim) {
-      consulta.andWhere(
-        'DATE(financeiro.data_pagamento) <= :dataPagamentoFim',
-        {
-          dataPagamentoFim,
-        },
+    if (descricao) specifications.push(new DescricaoSpecification(descricao));
+
+    if (categoria) specifications.push(new CategoriaSpecification(categoria));
+
+    if (dataInicio || dataFim)
+      specifications.push(new DataVencimentoSpecification(dataInicio, dataFim));
+
+    if (dataPagamentoInicio || dataPagamentoFim) {
+      specifications.push(
+        new DataPagamentoSpecification(dataPagamentoInicio, dataPagamentoFim),
       );
     }
-    if (situacao) {
-      consulta.andWhere('financeiro.situacao = :situacao', {
-        situacao: situacao,
-      });
+    if (situacao) specifications.push(new SituacaoSpecification(situacao));
+
+    if (parcelada !== null)
+      specifications.push(new ParceladaSpecification(parcelada));
+
+    for (const specification of specifications) {
+      specification.apply(consulta);
     }
-    if (parcelada !== null) {
-      consulta.andWhere('financeiro.parcelada = :parcelada', {
-        parcelada: parcelada,
-      });
-    }
+
     return consulta.getMany();
   }
 

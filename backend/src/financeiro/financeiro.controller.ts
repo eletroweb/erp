@@ -14,12 +14,12 @@ import {
 import { FinanceiroService } from './financeiro.service';
 import { FinanceiroResponseDto } from './financeiro.response.dto';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
-import { Roles } from 'src/config/roles.decorator';
 import {
   FinanceiroCategoriaEnum,
   FinanceiroEnum,
   ParcelamentoEnum,
 } from 'src/enum/financeiro.enum';
+import { Roles } from 'src/auth/decorator/roles.decorator';
 
 @Controller('financeiro')
 export class FinanceiroController {
