@@ -38,4 +38,25 @@ public class ColaboradorService {
         ColaboradorEntity entity = convertToEntity(request);
         return colaboradorRepository.save(entity);
     }
+
+    public ColaboradorRequestDTO update(Long id, ColaboradorRequestDTO request) {
+        Optional<ColaboradorEntity> optionalColaborador = colaboradorRepository.findById(id);
+        if (optionalColaborador.isEmpty()) {
+            throw new RuntimeException("Colaborador não encontrado");
+        }
+
+        ColaboradorEntity colaborador = optionalColaborador.get();
+        modelMapper.map(request, colaborador);
+        ColaboradorEntity updateColaborador = colaboradorRepository.save(colaborador);
+        return convertToDto(updateColaborador);
+    }
+
+    public void delete(Long id) {
+        Optional<ColaboradorEntity> optionalColaborador = colaboradorRepository.findById(id);
+        if (optionalColaborador.isEmpty()) {
+            throw new RuntimeException("Colaborador não encontrado");
+        }
+
+        colaboradorRepository.delete(optionalColaborador.get());
+    }
 }
