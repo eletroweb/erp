@@ -13,6 +13,7 @@
   <Login v-else />
 </template>
 
+
 <style scoped></style>
 
 <script>
@@ -24,13 +25,17 @@ import Alert from "@/components/app/Alert.vue"
 import { LoginStore } from '@/store/LoginStore'
 import ProgressSpinner from 'primevue/progressspinner';
 
+import Message from 'primevue/message';
+
+
 export default {
   components: {
     MenuPrincipal,
     MenuLateral,
     Login,
     Alert,
-    ProgressSpinner
+    ProgressSpinner,
+    Message
   },
   data() {
     return {

@@ -4,7 +4,7 @@ import { existsSync, createReadStream } from 'fs';
 
 @Injectable()
 export class FinanceiroParcelaComprovanteService {
-  private basePath = './uploads/financeiro/comprovantes';
+  private basePath = './public/financeiro/comprovantes';
 
   getFilePath(filename: string): string {
     const filePath = join(this.basePath, filename);

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
@@ -15,7 +15,8 @@ import { UsuarioRoleService } from './usuarios/roles/usuario.role.service';
 import { UsuarioRepository } from './usuarios/usuario.repository';
 import { UsuarioService } from './usuarios/usuario.service';
 import { UsuarioController } from './usuarios/usuario.controller';
-import { EmpresaEntity } from 'src/empresas/empresa.entity';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
+import { UsuarioLogadoMiddleware } from './middleware/usuario.logado.middleware';
 
 @Module({
   imports: [
@@ -41,4 +42,10 @@ import { EmpresaEntity } from 'src/empresas/empresa.entity';
   ],
   exports: [AuthService, UsuarioService],
 })
-export class AuthModule {}
+export class AuthModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(UsuarioLogadoMiddleware)
+      .forRoutes({ path: 'empresa/logomarca', method: RequestMethod.PUT });
+  }
+}

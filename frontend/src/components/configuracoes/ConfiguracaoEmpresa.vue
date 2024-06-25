@@ -1,15 +1,7 @@
 <template>
     <div class="container grid-container">
         <div>
-            <div class="imagem"></div>
-            <label class="picture" tabIndex="0">
-                <div class="selecionar-arquivo">
-                    <input type="file" name="logomarca" @change="filesChange($event.target.files);">
-                    <p>
-                        Editar logomarca
-                    </p>
-                </div>
-            </label>
+            <EmpresaLogomarca displayEditButton="true"/>
         </div>
         <div>
             <div class="linha coluna2">
@@ -69,8 +61,7 @@
             </div>
             <div class="linha">
                 <div class="direita">
-                    <Button label="Salvar" @click="configuracaoEmpresaStore.salvarFornulario()" />
-                    <Button label="Cancelar" @click="configuracaoEmpresaStore.cancelar()" severity="secondary" />
+                    <Button label="Salvar" @click="configuracaoEmpresaStore.salvar()" />
                 </div>
             </div>
         </div>
@@ -79,23 +70,24 @@
 
 <script>
 import { ConfiguracaoEmpresaStore } from '@/store/configuracao/ConfiguracaoEmpresaStore'
-
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
-
+import EmpresaLogomarca from '@/components/configuracoes/empresa/EmpresaLogomarca.vue'
 
 export default {
     name: "ConfiguracaoEmpresa",
     setup() {
         const configuracaoEmpresaStore = ConfiguracaoEmpresaStore()
+        configuracaoEmpresaStore.exibir()
         return { configuracaoEmpresaStore }
     },
     components: {
         Button,
-        InputText
+        InputText,
+        EmpresaLogomarca
     },
     methods: {
-    }
+    },
 }
 </script>
 
@@ -140,26 +132,6 @@ div {
 .direita {
     display: flex;
     justify-content: flex-end;
-}
-
-.selecionar-arquivo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 225px;
-    height: 33px;
-    background-color: #ECF5FF;
-    font-weight: normal;
-    border-radius: 7px;
-    border: 1px solid #409EFF;
-    color: #409EFF;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.selecionar-arquivo input[type="file"] {
-    position: absolute;
-    top: -100px;
 }
 
 .input {

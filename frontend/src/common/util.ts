@@ -1,6 +1,6 @@
 export function formatarReal(valor: number | string): string {
     let valorString = valor.toString();
-    
+
     valorString = valorString.replace(/[^\d.]/g, '');
 
     let valorFloat = parseFloat(valorString);
@@ -15,10 +15,10 @@ export function formatarReal(valor: number | string): string {
 
 export function getCorPorSituacao(situacao: string): string {
     const cores = {
-        PAGA: "green",
-        PENDENTE: "orange",
-        VENCIDA: "red",
-        ARQUIVADO: "grey"
+        PAGA: "success",
+        PENDENTE: "warn",
+        VENCIDA: "danger",
+        ARQUIVADO: "contrast"
     };
-    return cores[situacao] || "black";
+    return cores[situacao] || "info";
 }

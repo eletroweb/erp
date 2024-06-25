@@ -14,12 +14,8 @@ import {
 import { FinanceiroService } from './financeiro.service';
 import { FinanceiroResponseDto } from './financeiro.response.dto';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
-import {
-  FinanceiroCategoriaEnum,
-  FinanceiroEnum,
-  ParcelamentoEnum,
-} from 'src/enum/financeiro.enum';
 import { Roles } from 'src/auth/decorator/roles.decorator';
+import { FinanceiroCategoriaEnum, FinanceiroEnum, ParcelamentoEnum } from 'src/enum/financeiro.enum';
 
 @Controller('financeiro')
 export class FinanceiroController {
@@ -84,7 +80,7 @@ export class FinanceiroController {
     @Body() request: FinanceiroRequestDto,
   ): Promise<string> {
     await this.service.update(uuid, request);
-    return 'Financeiro alterada com sucesso';
+    return 'Registro atualizado com sucesso';
   }
 
   @Delete(':uuid')

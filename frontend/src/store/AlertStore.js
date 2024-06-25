@@ -1,16 +1,26 @@
 import { defineStore } from "pinia"
 
+/*
+severity:
+    success
+    info
+    warn
+    error
+    secondary
+    contrast
+*/
+
 export const AlertStore = defineStore('AlertStore', {
     state: () => ({
         display: false,
-        title: "Operação realizada com sucesso",
-        type: 'success'
+        message: "Operação realizada com sucesso",
+        severity: 'success'
     }),
     actions: {
-        async show(title, type) {
+        async show(message, severity) {
             this.display = true
-            this.title = title
-            this.type = type
+            this.message = message
+            this.severity = severity
 
             setTimeout(() => {
                 this.display = false;

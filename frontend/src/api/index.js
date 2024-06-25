@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { NotificacaoStore } from "../store/NotificacaoStore"
+import { AlertStore } from '@/store/AlertStore'
 
 const API_URL = `http://localhost:3000/`
 
@@ -47,7 +48,8 @@ api.interceptors.response.use(null, error => {
 
     } else {
         if (error.response.data.statusCode == 500) {
-            notificacaoStore.exibirNotificacao("Erro Interno", "Tente novamente mais tarde", 'error');
+            const alertStore = AlertStore();
+            alertStore.show("Tente novamente mais tarde", "error")
         }
         return Promise.reject(error)
     }

@@ -1,8 +1,8 @@
 import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
-import { FinanceiroCategoriaEnum, FinanceiroCentroDeCustoEnum, FinanceiroSituacaoEnum, FinanceiroTipoEnum } from "@/enum/financeiro.enum";
-import { NotificacaoStore } from "../NotificacaoStore";
+import { FinanceiroCategoriaEnum, FinanceiroCentroDeCustoEnum } from "@/enum/financeiro.enum";
+import { AlertStore } from '@/store/AlertStore'
 
 const downloadFile = async (response, nome) => {
     const contentType = response.headers.get('Content-Type');
@@ -87,42 +87,51 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             router.push('/financeiro/financeiro/novo');
         },
         async cadastrar() {
-            const notificacaoStore = NotificacaoStore();
+            const alertStore = AlertStore();
             try {
-                const response = await api.post("financeiro", this.financeiro);
+                const request = this.requestBuild();
+                const response = await api.post("financeiro", request);
                 if (response.status === 201) {
-                    const { title, message, type } = response.data
-                    notificacaoStore.exibirNotificacao(title, message, type);
+                    alertStore.show(response.data.message, "success")
                     this.financeiro = {}
                     router.push('/financeiro/financeiro');
                     this.listar()
                 } else {
-                    notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
+                    alertStore.show(response.statusText, "error")
                 }
             } catch (error) {
-                notificacaoStore.exibirNotificacao("Erro", error.message, 'error');
+                alertStore.show(error.message, "error")
             }
         },
+        requestBuild() { 
+            const { code } = this.financeiro.numero_parcelas
+            return {
+                ...this.financeiro,
+                numero_parcelas: code,
+            };
+        },
         async editar() {
-            const notificacaoStore = NotificacaoStore();
+            const alertStore = AlertStore();
             try {
-                const response = await api.put(`financeiro/${this.financeiro.uuid}`, this.financeiro);
+                const request = this.requestBuild();
+                const response = await api.put(`financeiro/${this.financeiro.uuid}`, request);
                 if (response.status === 200) {
-                    notificacaoStore.exibirNotificacao("Financeiro", response.data, 'success');
+                    alertStore.show(response.data, "success")
                     this.financeiro = {}
                     router.push('/financeiro/financeiro');
                     this.listar()
                 } else {
-                    notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
+                    alertStore.show(response.statusText, "error")
                 }
             } catch (error) {
-                notificacaoStore.exibirNotificacao("Erro", error.message, 'error');
+                alertStore.show(error.message, "error")
             }
         },
         async cancelar() {
             router.push('/financeiro/');
         },
         async carregarFinanceiro(id) {
+            const alertStore = AlertStore();
             try {
                 const response = await api.get(`financeiro/${id}`);
                 this.financeiro = response.data;
@@ -133,7 +142,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 }
                 
             } catch (error) {
-                console.log(error);
+                alertStore.show(error.message, "error")
                 throw error;
             }
         },
@@ -142,16 +151,16 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             router.push(`/financeiro/financeiro/${uuid}`);
         },
         async excluir(uuid) {
-            const notificacaoStore = NotificacaoStore();
+            const alertStore = AlertStore();
             try {
                 const response = await api.delete(`financeiro/${uuid}`);
                 this.financeiro = response.data;
-                notificacaoStore.exibirNotificacao("Financeiro", "Financeiro exclúida com sucesso", 'success');
+                alertStore.show("Financeiro exclúida com sucesso", "success")
                 router.push('/financeiro/financeiro');
                 this.listar()
                 this.exibirFinanceiro = false
             } catch (error) {
-                console.log(error);
+                alertStore.show(error.message, "error")
                 throw error;
             }
         },

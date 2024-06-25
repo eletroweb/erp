@@ -16,59 +16,68 @@
             <MeterGroup :value="resumo" />
         </div>
 
-        <DataTable :value="this.registros" :size="size" stripedRows tableStyle="min-width: 50rem">
-            <Column field="categoria" header="Categoria">
-                <template #body="slotProps">
-                    <Tag v-if="slotProps.data.categoria === 'RECEITA'" severity="success" value="Receita"></Tag>
-                    <Tag v-else-if="slotProps.data.categoria === 'DESPESA'" severity="warn" value="Despesa"></Tag>
-                </template>
-            </Column>
-            <Column field="tipo" header="Tipo">
-                <template #body="slotProps">
-                    <Tag v-if="slotProps.data.tipo === 'VARIAVEL'" severity="info" value="Variável"></Tag>
-                    <Tag v-else severity="secondary" value="Fixa"></Tag>
-                </template>
-            </Column>
-            <Column field="descricao" header="Descrição"></Column>
-            <Column field="data_vencimento" header="Vencimento">
-                <template #body="slotProps">
-                    {{ $moment.format(slotProps.data.data_vencimento) }}
-                </template>
-            </Column>
-            <Column field="data_pagamento" header="Pagamento">
-                <template #body="slotProps">
-                    {{ $moment.format(slotProps.data.data_vencimento) }}
-                </template>
-            </Column>
-            <Column field="vencida" header="Vencida">
-                <template #body="slotProps">
-                    <Tag :value="slotProps.data.vencida ? 'Sim' : 'Não'"></Tag>
-                </template>
-            </Column>
+        <ScrollPanel style="width: 100%; height: 675px" :dt="{
+            bar: {
+                background: '#000000'
+            }
+        }">
+            <DataTable v-model:selection="selectedProduct" :value="this.registros" :size="size" selectionMode="single"
+                @rowSelect="onRowSelect" @rowUnselect="onRowUnselect" :metaKeySelection="metaKey" dataKey="uuid"
+                stripedRows tableStyle="min-width: 50rem">
+                <Column sortable field="categoria" header="Categoria">
+                    <template #body="slotProps">
+                        <Tag v-if="slotProps.data.categoria === 'RECEITA'" severity="success" value="Receita"></Tag>
+                        <Tag v-else-if="slotProps.data.categoria === 'DESPESA'" severity="warn" value="Despesa"></Tag>
+                    </template>
+                </Column>
+                <Column sortable field="tipo" header="Tipo">
+                    <template #body="slotProps">
+                        <Tag v-if="slotProps.data.tipo === 'VARIAVEL'" severity="info" value="Variável"></Tag>
+                        <Tag v-else severity="secondary" value="Fixa"></Tag>
+                    </template>
+                </Column>
+                <Column sortable field="descricao" header="Descrição"></Column>
+                <Column sortable field="data_vencimento" header="Vencimento">
+                    <template #body="slotProps">
+                        {{ $moment.format(slotProps.data.data_vencimento) }}
+                    </template>
+                </Column>
+                <Column sortable field="data_pagamento" header="Pagamento">
+                    <template #body="slotProps">
+                        {{ $moment.format(slotProps.data.data_vencimento) }}
+                    </template>
+                </Column>
+                <Column sortable field="vencida" header="Vencida">
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.vencida ? 'Sim' : 'Não'"></Tag>
+                    </template>
+                </Column>
 
-            <Column field="valor_cobranca" header="Valor">
-                <template #body="slotProps">
-                    {{ this.formatarReal(slotProps.data.valor_cobranca) }}
-                </template>
-            </Column>
-            <Column field="situacao" header="Situação">
-                <template #body="slotProps">
-                    <Tag v-if="slotProps.data.situacao === 'PENDENTE'" severity="warn" :value="slotProps.data.situacao">
-                    </Tag>
-                    <Tag v-else-if="slotProps.data.situacao === 'PAGA'" severity="success"
-                        :value="slotProps.data.situacao"></Tag>
-                    <Tag v-else-if="slotProps.data.situacao === 'VENCIDA'" severity="danger"
-                        :value="slotProps.data.situacao"></Tag>
-                    <Tag v-else severity="Contrast" :rounded="slotProps.data.situacao"></Tag>
-                </template>
-            </Column>
-            <Column header="">
-                <template #body="slotProps">
-                    <Button label="Editar" @click="financeiroStore.exibir(slotProps.data.uuid)" severity="info"
-                        size="small" />
-                </template>
-            </Column>
-        </DataTable>
+                <Column sortable field="valor_cobranca" header="Valor">
+                    <template #body="slotProps">
+                        {{ this.formatarReal(slotProps.data.valor_cobranca) }}
+                    </template>
+                </Column>
+                <Column sortable field="situacao" header="Situação">
+                    <template #body="slotProps">
+                        <Tag v-if="slotProps.data.situacao === 'PENDENTE'" severity="warn"
+                            :value="slotProps.data.situacao">
+                        </Tag>
+                        <Tag v-else-if="slotProps.data.situacao === 'PAGA'" severity="success"
+                            :value="slotProps.data.situacao"></Tag>
+                        <Tag v-else-if="slotProps.data.situacao === 'VENCIDA'" severity="danger"
+                            :value="slotProps.data.situacao"></Tag>
+                        <Tag v-else severity="Contrast" :rounded="slotProps.data.situacao"></Tag>
+                    </template>
+                </Column>
+                <Column header="">
+                    <template #body="slotProps">
+                        <Button label="Editar" @click="financeiroStore.exibir(slotProps.data.uuid)" severity="info"
+                            size="small" />
+                    </template>
+                </Column>
+            </DataTable>
+        </ScrollPanel>
     </div>
 </template>
 
@@ -85,6 +94,7 @@ import Tag from 'primevue/tag';
 import Button from 'primevue/button';
 import MeterGroup from 'primevue/MeterGroup';
 import SelectButton from 'primevue/selectButton';
+import ScrollPanel from 'primevue/scrollpanel';
 dayjs.extend(customParseFormat);
 
 export default {
@@ -95,7 +105,8 @@ export default {
         Tag,
         Button,
         MeterGroup,
-        SelectButton
+        SelectButton,
+        ScrollPanel
     },
     setup() {
         const financeiroStore = FinanceiroStore()
@@ -141,12 +152,19 @@ export default {
         return {
             registros: [],
             resumo: [],
-            size: null
+            size: null,
+            selectedProduct: null
         }
     },
     methods: {
         alterarTamanhoTabela(size) {
             this.size = size;
+        },
+        onRowSelect(event) {
+            this.financeiroStore.exibir(event.data.uuid)
+        },
+        onRowUnselect(event) {
+            this.$toast.add({ severity: 'warn', summary: 'Product Unselected', detail: 'Name: ' + event.data.name, life: 3000 });
         }
     }
 }

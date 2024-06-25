@@ -105,6 +105,7 @@ RF8.3 Editar usuário
     RF8.3.1 Remover todas as roles do usuário caso nenhuma seja informada
 
 RF8.4 Vincular empresa a usuário master
+RF8.4.1 Alterar logomarca da empresa
 
 ## Autorização
 

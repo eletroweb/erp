@@ -11,7 +11,7 @@ export class EmpresaService {
     @InjectRepository(EmpresaEntity)
     private readonly empresaRepository: Repository<EmpresaEntity>,
     private readonly usuarioService: UsuarioService,
-  ) {}
+  ) { }
 
   async create(
     request: EmpresaEntity,
@@ -31,8 +31,34 @@ export class EmpresaService {
     return await this.empresaRepository.save(empresa);
   }
 
+  async alterarLogomarca(
+    logomarca: string,
+    usuarioLogado: UsuareioLogado,
+  ): Promise<EmpresaEntity> {
+    const empresa = await this.findOne(usuarioLogado.sub);
+    if (empresa) {
+      empresa.logomarca = logomarca;
+      return await this.empresaRepository.save(empresa);
+    }
+
+    const usuario = await this.usuarioService.findOneByUuid(usuarioLogado.sub);
+    const request = new EmpresaEntity();
+    request.usuario = usuario;
+    request.uuid = usuarioLogado.sub;
+    request.logomarca = logomarca;
+    return await this.empresaRepository.save(request);
+  }
+
   async findOne(uuid: string): Promise<EmpresaEntity | null> {
     const empresa = await this.empresaRepository.findOne({ where: { uuid } });
     return empresa || null;
+  }
+
+  async getLogoPath(empresaId: string): Promise<string> {
+    const empresa = await this.findOne(empresaId);
+    if (!empresa || !empresa.logomarca)
+      throw new Error('Logomarca não encontrada para a empresa ' + empresaId);
+
+    return `${process.cwd()}/uploads/empresa/logomarca/${empresa.logomarca}`;
   }
 }

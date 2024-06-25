@@ -2,7 +2,9 @@
   <el-menu default-active="2" :collapse="menuCollapse" class="el-menu-vertical-demo" :router="true">
 
     <el-menu-item index="1" @click="toggleMenu()" class="first">
-      <img :class="logoClass" src="/images/logo-lab.png" alt="Agilmax" />
+      <div :class="logoClass">
+        <EmpresaLogomarcaPrincipal />
+      </div>
     </el-menu-item>
 
     <div v-for="(menu, index) in menuLateralStore.load()" :key="index">
@@ -49,6 +51,7 @@
 <script>
 import { AuthorizationStore } from '@/store/AuthorizationStore'
 import { MenuLateralStore } from '@/store/MenuLateralStore'
+import EmpresaLogomarcaPrincipal from '@/components/configuracoes/empresa/EmpresaLogomarcaPrincipal.vue'
 
 export default {
   setup() {
@@ -62,7 +65,8 @@ export default {
       logoClass: "logo-opened"
     }
   },
-  mounted() {
+  components: {
+    EmpresaLogomarcaPrincipal
   },
   methods: {
     toggleMenu() {
@@ -88,6 +92,7 @@ export default {
   width: 55px;
   left: -14px;
   position: relative;
+  display: none
 }
 
 .first {

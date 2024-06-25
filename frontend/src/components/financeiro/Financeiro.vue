@@ -1,6 +1,6 @@
 <template>
 
-    <el-tabs tab-position="top" style="height: 730px" type="border-card">
+    <el-tabs tab-position="top" style="height: 810px" type="border-card">
         <el-tab-pane label="">
 
             <template #label>

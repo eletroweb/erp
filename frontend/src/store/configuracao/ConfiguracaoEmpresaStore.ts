@@ -1,4 +1,6 @@
 import { defineStore } from "pinia"
+import { api } from "@/api/index"
+import { AlertStore } from '@/store/AlertStore'
 
 export const ConfiguracaoEmpresaStore = defineStore('ConfiguracaoEmpresaStore', {
     state: () => ({
@@ -13,17 +15,30 @@ export const ConfiguracaoEmpresaStore = defineStore('ConfiguracaoEmpresaStore', 
             endereco: null,
             numero: null,
             complemento: null,
-            imagem: null
+            logomarca: null
         }
 
     }),
     actions: {
-        salvarFornulario() {
-            console.log("Botão salvar pressionado")
+        async exibir() {
+            try {
+                const response = await api.get(`empresa`);
+                this.empresa = response.data;
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
         },
-
-        cancelar() {
-            console.log("Botão cancelar pressionado")
-        }
+        async salvar() {
+            try {
+                const response = await api.post(`empresa`, this.empresa);
+                const alertStore = AlertStore();
+                alertStore.show(response.data, "success")
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+        },
     },
+    getters: {}
 })

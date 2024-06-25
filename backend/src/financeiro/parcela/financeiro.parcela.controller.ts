@@ -60,7 +60,7 @@ export class FinanceiroParcelaController {
   @Get('/download-comprovante/:comprovante')
   @Roles({ roles: ['MASTER'] })
   async downloadFile(@Param('comprovante') comprovante: string, @Res() res) {
-    const filePath = `./uploads/financeiro/comprovantes/${comprovante}`;
+    const filePath = `./public/financeiro/comprovantes/${comprovante}`;
 
     if (!existsSync(filePath)) {
       res.status(404).send('Arquivo não encontrado');

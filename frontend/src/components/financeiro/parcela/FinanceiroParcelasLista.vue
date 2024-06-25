@@ -4,75 +4,51 @@
         <!-- DialogoFinanceiroParcelaPagamento /-->
         <DrawerFinanceiroParcelaPagamento />
 
-        <div class="col">
-            <el-table :data="financeiro.parcelas" stripe>
-                <el-table-column prop="item" label="Parcela" width="100">
-                    <template #default="item">
-                        <center>
-                            {{ item.row.parcela }}/{{ this.financeiro.numero_parcelas }}
-                        </center>
-                    </template>
-                </el-table-column>
 
+        <DataTable :value="financeiro.parcelas" stripedRows tableStyle="min-width: 50rem">
+            <Column header="Parcela">
+                <template #body="slotProps">
+                    {{ slotProps.data.parcela }}/{{ this.financeiro.numero_parcelas.code }}
+                </template>
+            </Column>
 
-                <el-table-column prop="data_vencimento" label="Vencimento" width="120">
-                    <template #default="item">
-                        {{ item.row.data_vencimento }}
-                    </template>
-                </el-table-column>
+            <Column header="Vencimento">
+                <template #body="slotProps">
+                    {{ slotProps.data.data_vencimento }}
+                </template>
+            </Column>
 
-                <el-table-column prop="data_pagamento" label="Pagamento" width="120">
-                    <template #default="item">
-                        {{ item.row.data_pagamento ? item.row.data_pagamento : '-' }}
-                    </template>
-                </el-table-column>
+            <Column header="Pagamento">
+                <template #body="slotProps">
+                    {{ slotProps.data.data_pagamento }}
+                </template>
+            </Column>
 
-                <el-table-column prop="valor" label="Valor" width="200">
-                    <template #default="valor">
-                        {{ formatarReal(valor.row.valor) }}
-                    </template>
-                </el-table-column>
+            <Column header="Valor">
+                <template #body="slotProps">
+                    {{ formatarReal(slotProps.data.valor) }}
+                </template>
+            </Column>
 
-                <el-table-column prop="situacao" label="" width="30">
-                    <template #default="situacao">
-                        <el-popover placement="top-start" title="Observação" :width="200" trigger="hover"
-                            :content="situacao.row.observacao">
-                            <template #reference>
-                                <el-icon v-if="situacao.row.observacao">
-                                    <InfoFilled />
-                                </el-icon>
-                            </template>
-                        </el-popover>
-                    </template>
-                </el-table-column>
+            <Column header="Situação">
+                <template #body="slotProps">
+                    <Tag :severity="getCorPorSituacao(slotProps.data.situacao)" :value="slotProps.data.situacao"></Tag>
+                </template>
+            </Column>
 
-                <el-table-column prop="situacao" label="Situação" width="150">
-                    <template #default="situacao">
-                        <q-badge value="new" :color="getCorPorSituacao(situacao.row.situacao)">
-                            {{ situacao.row.situacao }}
-                        </q-badge>
-                    </template>
-                </el-table-column>
-
-                <el-table-column prop="acoes" label="Ações" width="250">
-                    <template #default="acoes">
-                        <span v-if="isPending(acoes.row.situacao) && financeiro.uuid != null">
-                            <el-button @click="financeiroStore.exibirModalPagamento(acoes.row.parcela)" size="small">
-                                Pagar
-                            </el-button>
-                        </span>
-                        <span v-else-if="isPaid(acoes.row.situacao)">
-                            <el-button @click="financeiroStore.downloadComprovante(acoes.row)" size="small">
-                                Comprovante
-                            </el-button>
-                        </span>
-
-                    </template>
-                </el-table-column>
-
-
-            </el-table>
-        </div>
+            <Column header="">
+                <template #body="slotProps">
+                    <span v-if="isPending(slotProps.data.situacao) && financeiro.uuid != null">
+                        <Button label="Pagar" @click="financeiroStore.exibirModalPagamento(slotProps.data.parcela)"
+                            severity="info" size="small" />
+                    </span>
+                    <span v-else-if="isPaid(slotProps.data.situacao)">
+                        <Button label="Comprovante" @click="financeiroStore.downloadComprovante(slotProps.data)"
+                            severity="info" size="small" />
+                    </span>
+                </template>
+            </Column>
+        </DataTable>
     </div>
 </template>
 
@@ -107,4 +83,11 @@ export default {
         }
     },
 }
-</script>@/store/financeiro/FinanceiroStore
+</script>
+
+<style scoped>
+thead {
+    text-transform: uppercase !important;
+    font-size: 10px;
+}
+</style>

@@ -6,14 +6,13 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   OneToMany,
-  JoinTable,
   ManyToMany,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { UsuarioResponseDto } from './usuario.response.dto';
 import { UsuarioRoleEntity } from './roles/usuario.roles.entity';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
-import { EmpresaEntity } from 'src/empresas/empresa.entity';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
 @Entity('usuarios')
 export class UsuarioEntity {
   @PrimaryGeneratedColumn()
