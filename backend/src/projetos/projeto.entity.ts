@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ProjetoResponseDto } from './projeto.response.dto';
 import { ProjetoRequestDto } from './projeto.request.dto';
 import { ClienteEntity } from 'src/clientes/cliente.entity';
-import { UsuarioEntity } from 'src/auth/usuarios/usuario.entity';
+import { UsuarioEntity } from 'src/usuario/usuario.entity';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 
 @Entity('projetos')

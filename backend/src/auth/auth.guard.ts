@@ -12,8 +12,8 @@ import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from './public-strategy';
 import { ROLES_KEY } from 'src/auth/decorator/roles.decorator';
-import { UsuarioService } from 'src/auth/usuarios/usuario.service';
-import { UsuarioRoleService } from './usuarios/roles/usuario.role.service';
+import { UsuarioService } from 'src/usuario/usuario.service';
+import { UsuarioRoleService } from '../usuario/roles/usuario.role.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     private reflector: Reflector,
     private usuarioService: UsuarioService,
     private readonly usuarioRoleService: UsuarioRoleService,
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [

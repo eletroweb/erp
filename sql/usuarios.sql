@@ -13,3 +13,8 @@ join usuarios u on
 	u.id = ur.usuarioId 
 where
 	u.email = 'funcionario@gmail.com';
+
+delete from usuarios_roles where usuarioId != 63;
+delete from empresas_usuarios;
+delete from empresas;
+delete from usuarios where id != 63;

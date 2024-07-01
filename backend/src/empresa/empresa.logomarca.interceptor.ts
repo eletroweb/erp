@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { UsuareioLogado } from 'src/auth/usuarios/usuario.logado';
+import { UsuareioLogado } from 'src/usuario/usuario.logado';
 
 export const EmpresaLogomarcaInterceptor = {
   storage: diskStorage({

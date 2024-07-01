@@ -5,7 +5,7 @@ import { ModuloEntity } from './module.entity';
 import { ModuloController } from './modulo.controller';
 import { ModuloService } from './module.service';
 import { ModuloRepository } from './modulo.repository';
-import { UsuarioService } from 'src/auth/usuarios/usuario.service';
+import { UsuarioService } from 'src/usuario/usuario.service';
 import { EmpresaService } from 'src/empresa/empresa.service';
 
 @Module({
@@ -14,4 +14,4 @@ import { EmpresaService } from 'src/empresa/empresa.service';
   providers: [ModuloService, ModuloRepository],
   exports: [ModuloRepository, ModuloService],
 })
-export class ModuloModule {}
+export class ModuloModule { }

@@ -1482,6 +1482,296 @@
 					]
 				},
 				{
+					"name": "master 1",
+					"item": [
+						{
+							"name": "Cadastrar Master 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"usuario\": {\r\n        \"nome\": \"Master 1\",\r\n        \"username\": \"master1\",\r\n        \"email\": \"master@gmail.com\",\r\n        \"password\": \"123456\"\r\n    },\r\n    \"empresa\": {\r\n        \"razaoSocial\": \"Company 1\",\r\n        \"nomeFantasia\": \"Company 1\",\r\n        \"cnpj\": \"12345678901234\",\r\n        \"email\": \"company1@example.com\",\r\n        \"cep\": \"12345-678\",\r\n        \"estado\": \"Example State\",\r\n        \"cidade\": \"Example City\",\r\n        \"endereco\": \"Example Street\",\r\n        \"numero\": \"123\",\r\n        \"complemento\": \"Example Complement\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Master 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var response = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"token\", response.access_token);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"master@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Funcionario 1",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Funcionario1\",\r\n    \"username\": \"funcionario1\",\r\n    \"email\": \"funcionario1@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"SETOR_LISTAR\",\r\n        \"SETOR_EXIBIR\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Funcionario  2",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Funcionario2\",\r\n    \"username\": \"funcionario2\",\r\n    \"email\": \"funcionario2@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"SETOR_LISTAR\",\r\n        \"SETOR_EXIBIR\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "master 2",
+					"item": [
+						{
+							"name": "Cadastrar Master 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"usuario\": {\r\n        \"nome\": \"Master2\",\r\n        \"username\": \"master2\",\r\n        \"email\": \"master2@gmail.com\",\r\n        \"password\": \"123456\"\r\n    },\r\n    \"empresa\": {\r\n        \"razaoSocial\": \"Company 2\",\r\n        \"nomeFantasia\": \"Company 2\",\r\n        \"cnpj\": \"12345678901235\",\r\n        \"email\": \"company2@example.com\",\r\n        \"cep\": \"12345-678\",\r\n        \"estado\": \"Example State\",\r\n        \"cidade\": \"Example City\",\r\n        \"endereco\": \"Example Street\",\r\n        \"numero\": \"123\",\r\n        \"complemento\": \"Example Complement\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Master 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var response = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"token\", response.access_token);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"master2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Funcionario 3",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Funcionario3\",\r\n    \"username\": \"funcionario3\",\r\n    \"email\": \"funcionario3@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"SETOR_LISTAR\",\r\n        \"SETOR_EXIBIR\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Funcionario  4",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Funcionario4\",\r\n    \"username\": \"funcionario4\",\r\n    \"email\": \"funcionario4@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"SETOR_LISTAR\",\r\n        \"SETOR_EXIBIR\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuarios",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Listar usuários",
 					"request": {
 						"auth": {
@@ -1503,101 +1793,6 @@
 							],
 							"path": [
 								"usuarios"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cadastrar Master",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Yonatha Almeida\",\r\n    \"username\": \"yonatha\",\r\n    \"email\": \"yonathalmeida@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"MASTER\"\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/signup",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cadastrar Funcionario",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Funcionario\",\r\n    \"username\": \"funcionario\",\r\n    \"email\": \"funcionario@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"roles\": [\r\n        \"SETOR_LISTAR\",\r\n        \"SETOR_EXIBIR\"\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/signup",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login Usuário Master",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var response = JSON.parse(responseBody);\r",
-									"postman.setEnvironmentVariable(\"token\", response.access_token);\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"master@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"login"
 							]
 						}
 					},
@@ -1671,6 +1866,7 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"nome\": \"Yonatha Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\"]\r\n}",
+							"raw": "{\r\n  \"nome\": \"Yonatha Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1679,11 +1875,13 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/usuarios/e92a022e-a19f-449c-96d8-9821c8e4d28f",
+							"raw": "{{baseUrl}}/usuarios/e92a022e-a19f-449c-96d8-9821c8e4d28f",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"usuarios",
+								"e92a022e-a19f-449c-96d8-9821c8e4d28f"
 								"e92a022e-a19f-449c-96d8-9821c8e4d28f"
 							]
 						}
@@ -3055,11 +3253,22 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/financeiro?descricao=Salário&categoria=maracuja",
+									"raw": "{{baseUrl}}/financeiro?descricao=Salário&categoria=maracuja",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"financeiro"
+									],
+									"query": [
+										{
+											"key": "descricao",
+											"value": "Salário"
+										},
+										{
+											"key": "categoria",
+											"value": "maracuja"
+										}
 									],
 									"query": [
 										{
@@ -3177,6 +3386,80 @@
 								{
 									"key": "situacao",
 									"value": "VENCIDA",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Financeiro Listar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro?descricao=sal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"financeiro"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "DESPESA",
+									"description": "RECEITA, DESPESA",
+									"disabled": true
+								},
+								{
+									"key": "descricao",
+									"value": "sal"
+								},
+								{
+									"key": "situacao",
+									"value": "PAGA",
+									"disabled": true
+								},
+								{
+									"key": "dataInicio",
+									"value": "2024-06-28",
+									"disabled": true
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-06-28",
+									"disabled": true
+								},
+								{
+									"key": "dataPagamentoInicio",
+									"value": "2024-06-22",
+									"disabled": true
+								},
+								{
+									"key": "dataPagamentoFim",
+									"value": "2024-06-22",
 									"disabled": true
 								}
 							]
@@ -3596,6 +3879,152 @@
 							],
 							"path": [
 								"modulos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empresa",
+			"item": [
+				{
+					"name": "Logomarca",
+					"item": [
+						{
+							"name": "Alterar Logomarca",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "logomarca",
+											"type": "file",
+											"src": "/C:/Users/yonat/OneDrive/Desktop/logo-login.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/empresa/logomarca",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"empresa",
+										"logomarca"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Exibir logomarca",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/empresa/logomarca",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"empresa",
+										"logomarca"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cadastrar/Editar Empresa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"razaoSocial\": \"Example Company\",\r\n    \"nomeFantasia\": \"Example\",\r\n    \"cnpj\": \"12345678901234\",\r\n    \"email\": \"example@example.com\",\r\n    \"cep\": \"12345-678\",\r\n    \"estado\": \"Example State\",\r\n    \"cidade\": \"Example City\",\r\n    \"endereco\": \"Example Street\",\r\n    \"numero\": \"123\",\r\n    \"complemento\": \"Example Complement\",\r\n    \"situacao\": \"ATIVO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/empresa",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"empresa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir Empresa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/empresa",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"empresa"
 							]
 						}
 					},

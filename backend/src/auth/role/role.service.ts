@@ -1,10 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RoleEntity } from './role.entity';
 import { RoleRequest } from './role.request';
-import { ModuloEntity } from 'src/app/modulo/module.entity';
 import { ModuloService } from '../../app/modulo/module.service';
 
 @Injectable()

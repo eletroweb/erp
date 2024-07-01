@@ -10,7 +10,7 @@ import {
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { RoleRequest } from './role.request';
 import { ModuloEntity } from '../../app/modulo/module.entity';
-import { UsuarioRoleResponseDto } from '../usuarios/roles/usuario.role.response.dto';
+import { UsuarioRoleResponseDto } from '../../usuario/roles/usuario.role.response.dto';
 
 @Entity('roles')
 export class RoleEntity {

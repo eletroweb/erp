@@ -5,8 +5,8 @@ import { RoleEntity } from './role.entity';
 import { RoleController } from './role.controller';
 import { RoleRepository } from './role.repository';
 import { RoleService } from './role.service';
-import { UsuarioRoleEntity } from 'src/auth/usuarios/roles/usuario.roles.entity';
-import { UsuarioRoleRepository } from 'src/auth/usuarios/roles/usuario.role.repository';
+import { UsuarioRoleEntity } from 'src/usuario/roles/usuario.roles.entity';
+import { UsuarioRoleRepository } from 'src/usuario/roles/usuario.role.repository';
 import { ModuloModule } from 'src/app/modulo/modulo.module';
 
 @Module({
@@ -18,4 +18,4 @@ import { ModuloModule } from 'src/app/modulo/modulo.module';
   providers: [RoleService, RoleRepository, UsuarioRoleRepository],
   exports: [RoleService],
 })
-export class RoleModule {}
+export class RoleModule { }

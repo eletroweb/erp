@@ -10,24 +10,26 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
-import { UsuarioResponseDto } from './usuario.response.dto';
-import { UsuarioRequestDto } from './usuario.request.dto';
+import { UsuarioResponseDto } from './dto/usuario.response.dto';
+import { UsuarioRequestDto } from './dto/usuario.request.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
 import { UsuarioRoleResponseDto } from './roles/usuario.role.response.dto';
 import { UsuarioRoleService } from './roles/usuario.role.service';
-import { GetCurrentUser } from '../decorator/user.decorator';
+import { GetCurrentUser } from '../auth/decorator/user.decorator';
 
 @Controller('usuarios')
 export class UsuarioController {
   constructor(
     private readonly usuarioService: UsuarioService,
     private readonly usuarioRoleService: UsuarioRoleService,
-  ) {}
+  ) { }
 
   @Get()
   @Roles({ roles: ['MASTER', 'LISTAR_USUARIO'] })
-  async findAll(): Promise<UsuarioResponseDto[]> {
-    const usuarios = await this.usuarioService.findAll();
+  async findAll(
+    @GetCurrentUser() usuarioLogado: UsuarioResponseDto,
+  ): Promise<UsuarioResponseDto[]> {
+    const usuarios = await this.usuarioService.findAll(usuarioLogado);
     const usuariosDto: UsuarioResponseDto[] = usuarios.map((usuario) =>
       usuario.toDto(),
     );
@@ -37,10 +39,10 @@ export class UsuarioController {
   @Post()
   @Roles({ roles: ['MASTER', 'CADASTRAR_USUARIO'] })
   async create(
-    @GetCurrentUser() currentUser: UsuarioResponseDto,
+    @GetCurrentUser() usuarioLogado: UsuarioResponseDto,
     @Body() request: UsuarioRequestDto,
   ): Promise<string> {
-    await this.usuarioService.create(request);
+    await this.usuarioService.create(request, usuarioLogado);
     return 'Usuario criado com sucesso';
   }
 

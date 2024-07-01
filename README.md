@@ -101,6 +101,7 @@ RF7.4 Listar Ordem Serviço
 RF8.1 Login de usuário
 O sistema deverá permitir que o usuário realize a autenticação através do email e senha
 RF8.2 Cadastrar usuário
+    RF8.2.1 Associar usuário a empresa do usuário master
 RF8.3 Editar usuário
     RF8.3.1 Remover todas as roles do usuário caso nenhuma seja informada
 
@@ -340,3 +341,13 @@ npm run test:e2e
 ```
 
 <svg viewBox="0 0 18 18" height="18" width="18" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 18 18"><title>psa-verified</title><polygon id="Star-2" fill="#00DA60" points="9,16 7.1,16.9 5.8,15.2 3.7,15.1 3.4,13 1.5,12 2.2,9.9 1.1,8.2 2.6,6.7 2.4,4.6 4.5,4 5.3,2 7.4,2.4 9,1.1 10.7,2.4 12.7,2 13.6,4 15.6,4.6 15.5,6.7 17,8.2 15.9,9.9 16.5,12 14.7,13 14.3,15.1 12.2,15.2 10.9,16.9 "></polygon><polygon id="Check-Icon" fill="#FFFFFF" points="13.1,7.3 12.2,6.5 8.1,10.6 5.9,8.5 5,9.4 8,12.4 "></polygon></svg>
+
+
+# Diversos
+Remover extensões do VSCode
+
+Windows
+%USERPROFILE%\.vscode\extensions
+
+Linux
+~/.vscode/extensions

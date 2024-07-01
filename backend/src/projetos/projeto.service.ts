@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { ProjetoRequestDto } from './projeto.request.dto';
 import { SetorService } from 'src/setores/setor.service';
 import { ClienteService } from 'src/clientes/cliente.service';
-import { UsuarioService } from 'src/auth/usuarios/usuario.service';
+import { UsuarioService } from 'src/usuario/usuario.service';
 
 @Injectable()
 export class ProjetoService {
@@ -16,7 +16,7 @@ export class ProjetoService {
     private setorService: SetorService,
     private clienteService: ClienteService,
     private usuarioService: UsuarioService,
-  ) {}
+  ) { }
 
   async findAll(): Promise<ProjetoEntity[]> {
     return this.projetoRepository.find();

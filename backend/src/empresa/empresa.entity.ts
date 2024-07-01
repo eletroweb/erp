@@ -9,11 +9,12 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
-import { EmpresaUsuarioEntity } from './empresa.usuario.entity';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { v4 as uuidv4 } from 'uuid';
-import { UsuarioEntity } from 'src/auth/usuarios/usuario.entity';
+import { UsuarioEntity } from 'src/usuario/usuario.entity';
 import { EmpresaResponseDto } from './empresa.response.dto';
+import { EmpresaUsuarioEntity } from './empresausuario/empresa.usuario.entity';
+import { EmpresaRequestDto } from './empresa.request.dto';
 
 @Entity('empresas')
 export class EmpresaEntity {
@@ -33,13 +34,13 @@ export class EmpresaEntity {
   @Column({ type: 'char', length: 36 })
   uuid: string;
 
-  @Column()
+  @Column({ unique: true })
   razaoSocial: string;
 
-  @Column()
+  @Column({ unique: true })
   nomeFantasia: string;
 
-  @Column()
+  @Column({ unique: true })
   cnpj: string;
 
   @Column()
@@ -111,5 +112,21 @@ export class EmpresaEntity {
       situacao: this.situacao,
     };
     return dto;
+  }
+
+  static toEntity(dto: EmpresaRequestDto): EmpresaEntity {
+    const entity = new EmpresaEntity();
+    entity.razaoSocial = dto.razaoSocial;
+    entity.nomeFantasia = dto.nomeFantasia;
+    entity.cnpj = dto.cnpj;
+    entity.email = dto.email;
+    entity.cep = dto.cep;
+    entity.estado = dto.estado;
+    entity.cidade = dto.cidade;
+    entity.endereco = dto.endereco;
+    entity.numero = dto.numero;
+    entity.complemento = dto.complemento;
+    entity.logomarca = dto.logomarca;
+    return entity;
   }
 }

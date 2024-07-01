@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { UsuareioLogado } from '../usuarios/usuario.logado';
+import { UsuareioLogado } from '../../usuario/usuario.logado';
 
 @Injectable()
 export class UsuarioLogadoMiddleware implements NestMiddleware {

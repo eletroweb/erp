@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -17,12 +16,11 @@ import configuration from 'src/config/configuration';
 import { AuthModule } from 'src/auth/auth.module';
 import { ModuloModule } from 'src/app/modulo/modulo.module';
 import { EmpresaModule } from 'src/empresa/empresa.module';
+import { EmpresaUsuarioModule } from 'src/empresa/empresausuario/empresa.usuario.module';
+import { UsuarioModule } from 'src/usuario/usuario.module';
 
 @Module({
   imports: [
-    ModuloModule,
-    AuthModule,
-    EmpresaModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
@@ -35,6 +33,8 @@ import { EmpresaModule } from 'src/empresa/empresa.module';
       },
       inject: [ConfigService],
     }),
+    ModuloModule,
+    AuthModule,
     SetorModule,
     ClienteModule,
     ProjetoModule,
@@ -45,8 +45,10 @@ import { EmpresaModule } from 'src/empresa/empresa.module';
     ColaboradorModule,
     FornecedorModule,
     EmpresaModule,
+    UsuarioModule,
+    EmpresaUsuarioModule,
   ],
   controllers: [AppController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

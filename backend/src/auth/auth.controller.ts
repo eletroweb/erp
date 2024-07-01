@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Post, HttpCode, HttpStatus, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Public } from './public-strategy';
-import { UsuarioRequestDto } from 'src/auth/usuarios/usuario.request.dto';
 import { BaseUser } from './base-user.dto';
+import { SignupRequestDto } from './signup.request.dto';
 
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -34,7 +32,7 @@ export class AuthController {
     description: 'Cria um novo usuário',
     type: BaseUser,
   })
-  signUp(@Body() request: UsuarioRequestDto) {
-    return this.authService.cadastro(request);
+  signUp(@Body() request: SignupRequestDto) {
+      return this.authService.signup(request);
   }
 }

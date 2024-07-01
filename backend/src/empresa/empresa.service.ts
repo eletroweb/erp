@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { EmpresaEntity } from './empresa.entity';
-import { UsuarioService } from '../auth/usuarios/usuario.service';
-import { UsuareioLogado } from 'src/auth/usuarios/usuario.logado';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { UsuareioLogado } from 'src/usuario/usuario.logado';
+import { EntityManager, Repository } from 'typeorm';
+import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
+import { EmpresaUsuarioService } from './empresausuario/empresa.usuario.service';
 
 @Injectable()
 export class EmpresaService {
   constructor(
     @InjectRepository(EmpresaEntity)
     private readonly empresaRepository: Repository<EmpresaEntity>,
-    private readonly usuarioService: UsuarioService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) { }
 
   async create(
@@ -19,10 +20,10 @@ export class EmpresaService {
   ): Promise<EmpresaEntity> {
     const empresa = await this.findOne(usuarioLogado.sub);
     if (!empresa) {
-      const usuario = await this.usuarioService.findOneByUuid(
+      /*const usuario = await this.usuarioService.findOneByUuid(
         usuarioLogado.sub,
       );
-      request.usuario = usuario;
+      request.usuario = usuario;*/
       request.uuid = usuarioLogado.sub;
       return await this.empresaRepository.save(request);
     }
@@ -35,18 +36,16 @@ export class EmpresaService {
     logomarca: string,
     usuarioLogado: UsuareioLogado,
   ): Promise<EmpresaEntity> {
-    const empresa = await this.findOne(usuarioLogado.sub);
+    const empresa = await this.findEmpresaByUsuarioLogado(usuarioLogado);
     if (empresa) {
       empresa.logomarca = logomarca;
       return await this.empresaRepository.save(empresa);
     }
 
-    const usuario = await this.usuarioService.findOneByUuid(usuarioLogado.sub);
-    const request = new EmpresaEntity();
-    request.usuario = usuario;
+    /*const request = new EmpresaEntity();
     request.uuid = usuarioLogado.sub;
     request.logomarca = logomarca;
-    return await this.empresaRepository.save(request);
+    return await this.empresaRepository.save(request);*/
   }
 
   async findOne(uuid: string): Promise<EmpresaEntity | null> {
@@ -54,11 +53,25 @@ export class EmpresaService {
     return empresa || null;
   }
 
-  async getLogoPath(empresaId: string): Promise<string> {
-    const empresa = await this.findOne(empresaId);
+  async getLogoPath(usuarioLogado: UsuareioLogado,): Promise<string> {
+    const empresa = await this.findEmpresaByUsuarioLogado(usuarioLogado);
     if (!empresa || !empresa.logomarca)
-      throw new Error('Logomarca não encontrada para a empresa ' + empresaId);
+      throw new Error('Logomarca não encontrada para a empresa ' + empresa.uuid);
 
     return `${process.cwd()}/uploads/empresa/logomarca/${empresa.logomarca}`;
   }
+
+  async findEmpresaByUsuarioLogado(
+    usuarioLogado: UsuareioLogado,
+  ): Promise<EmpresaEntity> {
+    const empresaData = await this.entityManager.query(
+      `SELECT e.* FROM empresas e
+      JOIN empresas_usuarios eu ON eu.empresaId = e.id
+      JOIN usuarios u ON u.id = eu.usuarioId
+      WHERE u.uuid = ?`, [usuarioLogado.sub]
+    );
+
+    return await this.entityManager.findOne(EmpresaEntity, { where: { id: empresaData[0].id } });
+  }
+
 }

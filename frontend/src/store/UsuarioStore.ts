@@ -2,7 +2,6 @@ import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
 import { ModuloStore } from './configuracao/ModuloStore'
-import { ro } from "element-plus/es/locale";
 
 export const UsuarioStore = defineStore('usuarioStore', {
     state: () => ({
@@ -45,7 +44,7 @@ export const UsuarioStore = defineStore('usuarioStore', {
         async exibir(uuid: string) {
             router.push(`/usuarios/${uuid}`);
         },
-        async novo(uuid: string) {
+        async novo() {
             this.usuario = {}
             router.push(`/usuarios/cadastrar`);
         },

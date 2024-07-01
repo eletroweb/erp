@@ -1,19 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsuarioRequestDto } from 'src/auth/usuarios/usuario.request.dto';
-import { UsuarioService } from 'src/auth/usuarios/usuario.service';
+import { UsuarioService } from 'src/usuario/usuario.service';
 import * as bcrypt from 'bcrypt';
-import { UsuarioRoleService } from './usuarios/roles/usuario.role.service';
+import { SignupRequestDto } from './signup.request.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private service: UsuarioService,
-    private jwtService: JwtService,
-    private readonly usuarioRoleService: UsuarioRoleService,
-  ) {}
+    private jwtService: JwtService
+  ) { }
 
   async login(email: string, pass: string): Promise<{ access_token: string }> {
     const usuario = await this.service.findOneByEmail(email);
@@ -36,7 +32,7 @@ export class AuthService {
     };
   }
 
-  async cadastro(request: UsuarioRequestDto) {
-    return await this.service.create(request);
+  async signup(request: SignupRequestDto) {
+    return await this.service.signup(request);
   }
 }

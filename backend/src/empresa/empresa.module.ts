@@ -1,19 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { EmpresaRepository } from './empresa.repository';
-import { EmpresaUsuarioEntity } from './empresa.usuario.entity';
+import { EmpresaService } from './empresa.service';
 import { EmpresaEntity } from './empresa.entity';
 import { EmpresaController } from './empresa.controller';
-import { EmpresaService } from './empresa.service';
-import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    TypeOrmModule.forFeature([EmpresaEntity, EmpresaUsuarioEntity]),
-  ],
+  imports: [TypeOrmModule.forFeature([EmpresaEntity])],
+  providers: [EmpresaService],
   controllers: [EmpresaController],
-  providers: [EmpresaService, EmpresaRepository, EmpresaUsuarioEntity],
-  exports: [EmpresaService],
+  exports: [EmpresaService, TypeOrmModule],
 })
-export class EmpresaModule {}
+export class EmpresaModule { }
