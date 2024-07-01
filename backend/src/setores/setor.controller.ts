@@ -9,11 +9,13 @@ import {
   Put,
   Delete,
   NotFoundException,
+  Query
 } from '@nestjs/common';
 import { SetorService } from './setor.service';
 import { SetorEntity } from './setor.entity';
 import { SetorResponseDto } from './setor.response.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
+import { SituacaoEnum } from 'src/enum/situacao.enum'
 
 @Controller('setores')
 export class SetorController {
@@ -21,12 +23,12 @@ export class SetorController {
 
   @Get()
   @Roles({ roles: ['MASTER', 'SETOR_LISTAR'] })
-  async findAll(): Promise<SetorResponseDto[]> {
-    const setores = await this.setorService.findAll();
-    const setoresDto: SetorResponseDto[] = setores.map((setor) =>
-      setor.toDto(),
-    );
-    return setoresDto;
+  async findAll(
+    @Query('descricao') descricao: string,
+    @Query('situacao') situacao: SituacaoEnum,
+    ): Promise<SetorResponseDto[]> {
+          const setores = await this.setorService.findAll(descricao, situacao);
+          return setores.map((setor) => setor.toDto());
   }
 
   @Get(':uuid')

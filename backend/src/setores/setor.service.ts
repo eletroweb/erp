@@ -2,7 +2,9 @@ import { Injectable, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SetorEntity } from './setor.entity';
 import { Repository } from 'typeorm';
-import { UUID } from 'crypto';
+import { DescricaoSpecification } from './specification/DescricaoSpecification';
+import { SituacaoSpecification } from './specification/SituacaoSpecification';
+
 
 @Injectable()
 export class SetorService {
@@ -11,8 +13,15 @@ export class SetorService {
     private setorRepository: Repository<SetorEntity>,
   ) {}
 
-  async findAll(): Promise<SetorEntity[]> {
-    return this.setorRepository.find({ order: { descricao: 'ASC' } });
+  async findAll(
+    descricao: string,
+    situacao: string,
+   ): Promise<SetorEntity[]> {
+    const consulta = this.setorRepository.createQueryBuilder('setor');
+
+    if (descricao) { new DescricaoSpecification(descricao).apply(consulta)};
+    if (situacao) { new SituacaoSpecification(situacao).apply(consulta)};
+    return consulta.getMany();
   }
 
   async findOneByUuid(uuid: string): Promise<SetorEntity> {
