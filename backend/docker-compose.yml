@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: erp_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_HOST: 0.0.0.0
+    ports:
+      - "3306:3306"
