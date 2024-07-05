@@ -1,6 +1,14 @@
 <template>
     <div>
+        
         <div class="button-container">
+
+            <div class="item">
+                <FinanceiroResumo/>
+            </div>
+            <div class="item">
+                <Button label="Novo registro financeiro" @click="financeiroStore.novo()" size="small" />
+            </div>
             <!--
             <Button type="button" icon="pi pi-arrows-v" @click="alterarTamanhoTabela('small')" severity="secondary"
                 size="small" />
@@ -9,7 +17,6 @@
             <Button type="button" icon="pi pi-arrows-alt" @click="alterarTamanhoTabela('large')" severity="secondary"
                 size="small" />
             -->
-            <Button label="Novo registro financeiro" @click="financeiroStore.novo()" size="small" />
         </div>
 
         <div class="resumo">
@@ -85,6 +92,7 @@
 import { ref, watch } from 'vue';
 import { FinanceiroStore } from '@/store/financeiro/FinanceiroStore.ts'
 import FinanceiroFormulario from './FinanceiroFormulario.vue'
+import FinanceiroResumo from './FinanceiroResumo.vue'
 import { formatarReal } from '@/common/util.ts';
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -100,6 +108,7 @@ dayjs.extend(customParseFormat);
 export default {
     components: {
         FinanceiroFormulario,
+        FinanceiroResumo,
         DataTable,
         Column,
         Tag,
@@ -173,10 +182,12 @@ export default {
 <style>
 .button-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
     margin-bottom: 10px
 }
+
 
 .resumo {
     font-size: 13px;
