@@ -4,8 +4,6 @@ import { UsuareioLogado } from 'src/usuario/usuario.logado';
 import { EntityManager, Repository } from 'typeorm';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { UsuarioService } from 'src/usuario/usuario.service';
-import { EmpresaUsuarioEntity } from './empresausuario/empresa.usuario.entity';
-import { EmpresaUsuarioRepository } from './empresausuario/empresa.usuario.repository';
 import { EmpresaUsuarioService } from './empresausuario/empresa.usuario.service';
 
 @Injectable()
@@ -29,7 +27,7 @@ export class EmpresaService {
       const empresaSalva = await this.empresaUsuarioService.associarEmpresaAoUsuarioMaster(usuario, request);
       return empresaSalva
     }
-     Object.assign(empresa[0], request);
+    Object.assign(empresa[0], request);
     const empresa_salva = await this.empresaRepository.save(empresa[0]);
     return empresa_salva
   }
