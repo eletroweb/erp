@@ -23,7 +23,7 @@ export class UsuarioService {
   ) { }
 
   async findAll(usuarioLogado: UsuarioResponseDto): Promise<UsuarioEntity[]> {
-    const empresasIds = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub)
+    const empresasIds = await this.empresaUsuarioService.findAllEmpresaIdListByUsuarioLogado(usuarioLogado.sub)
 
     return this.usuarioRepository.createQueryBuilder('usuario')
       .leftJoinAndSelect('usuario.roles', 'roles')
@@ -109,7 +109,7 @@ export class UsuarioService {
       [Role.MASTER],
     );
 
-    await this.empresaUsuarioService.associarEmpresaAoUsuarioMaster(savedUsuario, request.empresa);
+    //await this.empresaUsuarioService.associarEmpresaAoUsuarioMaster(savedUsuario, request.empresa);
     return await savedUsuario;
   }
 
@@ -177,5 +177,18 @@ export class UsuarioService {
   async remove(uuid: string): Promise<UsuarioEntity> {
     const usuario = await this.findOneByUuid(uuid);
     return this.usuarioRepository.remove(usuario);
+  }
+
+  async me(uuid: string): Promise<any> {
+    const usuario = await this.usuarioRepository.findOne({
+      where: { uuid },
+      relations: ['empresasUsuarios', 'empresasUsuarios.empresa'],
+    });
+
+    const response = {
+      has_company: usuario.empresasUsuarios.length > 0
+    }
+
+    return response;
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EmpresaEntity } from '../empresa.entity';
 import { UsuarioEntity } from 'src/usuario/usuario.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { EmpresaRequestDto } from '../empresa.request.dto';
 import { EmpresaUsuarioEntity } from './empresa.usuario.entity';
 import { EmpresaExistenteException } from 'src/usuario/exception/empresa.existente.exception';
@@ -56,12 +56,22 @@ export class EmpresaUsuarioService {
     return await this.empresaUsuarioRepository.save(empresaUsuario);
   }
 
-  async findAllByUsuarioLogado(uuid: string): Promise<number[]> {
+  async findAllEmpresaIdListByUsuarioLogado(uuid: string): Promise<number[]> {
     const userCompanies = await this.empresaUsuarioRepository.find({
       where: { usuario: { uuid } },
       relations: ['empresa'],
     });
 
     return userCompanies.map((empresaUsuario) => empresaUsuario.empresa.id);
+  }
+
+
+  async findAllByUsuarioLogado(uuid: string): Promise<EmpresaEntity[]> {
+    const userCompanies = await this.empresaUsuarioRepository.find({
+      where: { usuario: { uuid } },
+      relations: ['empresa'],
+    });
+
+    return userCompanies.map((empresaUsuario) => empresaUsuario.empresa);
   }
 }

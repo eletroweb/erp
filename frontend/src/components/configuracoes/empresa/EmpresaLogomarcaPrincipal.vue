@@ -1,11 +1,13 @@
 <template>
     <div class="imagem">
-        <img :src="store.logomarca" alt="Empresa Logo" />
+        <img v-if="store.logomarca" :src="store.logomarca" alt="Empresa Logo" />
+        <img v-else src="/images/logo-lab.png" alt="Example Image">
     </div>
 </template>
 
 <script>
 import { ConfiguracaoEmpresaLogomarcaStore } from '@/store/configuracao/ConfiguracaoEmpresaLogomarcaStore'
+import { UsuarioLogadoStore } from '@/store/UsuarioLogadoStore'
 
 export default {
     name: "EmpresaLogomarcaPrincipal",
@@ -14,7 +16,10 @@ export default {
     },
     setup() {
         const store = ConfiguracaoEmpresaLogomarcaStore()
-        store.carregarLogomarca()
+        const usuarioLogadoStore = UsuarioLogadoStore()
+        if (usuarioLogadoStore.settings.has_company)
+            store.carregarLogomarca()
+
         return { store }
     },
 };

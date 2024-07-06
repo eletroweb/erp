@@ -101,4 +101,12 @@ export class UsuarioController {
     );
     return response;
   }
+
+  @Get('settings/me')
+  @Roles({ roles: ['MASTER', 'EDITAR_USUARIO'] })
+  async me(
+    @GetCurrentUser() usuarioLogado: UsuarioResponseDto,
+  ): Promise<any> {
+    return await this.usuarioService.me(usuarioLogado.sub);
+  }
 }

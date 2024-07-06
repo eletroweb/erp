@@ -31,7 +31,7 @@ export class EmpresaEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'char', length: 36 })
+  @Column({ type: 'char', length: 36, nullable: true })
   uuid: string;
 
   @Column({ unique: true })

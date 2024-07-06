@@ -6,6 +6,6 @@ export class SignupRequestDto {
   @IsNotEmpty({ message: 'O usuário é obrigatório.' })
   readonly usuario: UsuarioCreateRequestDto;
 
-  @IsNotEmpty({ message: 'A empresa é obrigatória.' })
-  readonly empresa: EmpresaRequestDto;
+  // @IsNotEmpty({ message: 'A empresa é obrigatória.' })
+  // readonly empresa: EmpresaRequestDto;
 }

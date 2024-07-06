@@ -29,7 +29,6 @@ export default {
     },
     setup() {
         const usuarioStore = UsuarioStore()
-        // carregar cleintes
         usuarioStore.listar()
         return { usuarioStore }
     },

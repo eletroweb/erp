@@ -7,6 +7,7 @@ import {
   BeforeInsert,
   OneToMany,
   ManyToMany,
+  OneToOne,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { UsuarioResponseDto } from './dto/usuario.response.dto';
@@ -14,6 +15,7 @@ import { UsuarioRoleEntity } from './roles/usuario.roles.entity';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { UsuarioCreateRequestDto } from './dto/usuario.create.request.dto';
 import { EmpresaUsuarioEntity } from 'src/empresa/empresausuario/empresa.usuario.entity';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
 @Entity('usuarios')
 export class UsuarioEntity {
   @PrimaryGeneratedColumn()
@@ -63,6 +65,9 @@ export class UsuarioEntity {
 
   @OneToMany(() => EmpresaUsuarioEntity, (empresaUsuario) => empresaUsuario.usuario)
   empresasUsuarios: EmpresaUsuarioEntity[];
+
+  @OneToOne(() => EmpresaEntity, empresa => empresa.usuario)
+  empresa: EmpresaEntity;
 
   @BeforeInsert()
   generateUuid() {

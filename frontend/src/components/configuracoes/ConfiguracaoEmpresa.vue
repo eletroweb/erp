@@ -1,7 +1,7 @@
 <template>
     <div class="container grid-container">
         <div>
-            <EmpresaLogomarca displayEditButton="true"/>
+            <EmpresaLogomarca displayEditButton="true" />
         </div>
         <div>
             <div class="linha coluna2">
@@ -73,13 +73,20 @@ import { ConfiguracaoEmpresaStore } from '@/store/configuracao/ConfiguracaoEmpre
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import EmpresaLogomarca from '@/components/configuracoes/empresa/EmpresaLogomarca.vue'
+import { UsuarioLogadoStore } from '@/store/UsuarioLogadoStore'
 
 export default {
     name: "ConfiguracaoEmpresa",
     setup() {
-        const configuracaoEmpresaStore = ConfiguracaoEmpresaStore()
-        configuracaoEmpresaStore.exibir()
-        return { configuracaoEmpresaStore }
+        const configuracaoEmpresaStore = ConfiguracaoEmpresaStore();
+        return { configuracaoEmpresaStore };
+    },
+    async mounted() {
+        const usuarioLogadoStore = UsuarioLogadoStore();
+        const settings = await usuarioLogadoStore.getSettings()
+        if (settings.has_company)
+            this.configuracaoEmpresaStore.exibir();
+
     },
     components: {
         Button,

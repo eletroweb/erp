@@ -1,9 +1,10 @@
 <template>
     <div>
         <div class="imagem">
-            <img :src="store.logomarca" alt="Empresa Logo" />
+            <img v-if="store.logomarca" :src="store.logomarca" alt="Empresa Logo" />
+            <img v-else src="/images/logo-lab.png" alt="Example Image">
         </div>
-        <label v-if="displayEditButton" class="picture" tabIndex="0">
+        <label v-if="editarLogomarca()" class="picture" tabIndex="0">
             <div class="selecionar-arquivo">
                 <input type="file" name="logomarca" @change="store.selecionarImagem($event.target.files);">
                 <p>
@@ -17,6 +18,7 @@
 
 <script>
 import { ConfiguracaoEmpresaLogomarcaStore } from '@/store/configuracao/ConfiguracaoEmpresaLogomarcaStore'
+import { UsuarioLogadoStore } from '@/store/UsuarioLogadoStore'
 
 export default {
     name: "ConfiguracaoEmpresaLogomarca",
@@ -25,9 +27,17 @@ export default {
     },
     setup() {
         const store = ConfiguracaoEmpresaLogomarcaStore()
-        store.carregarLogomarca()
-        return { store }
+        const usuarioLogadoStore = UsuarioLogadoStore()
+        if (usuarioLogadoStore.settings.has_company)
+            store.carregarLogomarca()
+
+        return { store, usuarioLogadoStore }
     },
+    methods: {
+        editarLogomarca() {
+            return this.displayEditButton && this.usuarioLogadoStore.settings.has_company
+        }
+    }
 };
 </script>
 

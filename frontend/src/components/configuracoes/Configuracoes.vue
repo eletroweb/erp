@@ -3,21 +3,20 @@
         <el-tab-pane label="Empresa">
             <ConfiguracaoEmpresa />
         </el-tab-pane>
-        <el-tab-pane label="Usuários">
+        <el-tab-pane label="Usuários" v-if="usuarioLogadoStore.settings.has_company">
             <ListarUsuarios />
         </el-tab-pane>
     </el-tabs>
 </template>
 
 <script>
-import { UsuarioStore } from '@/store/UsuarioStore.ts'
-
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/Tag';
 import Button from 'primevue/Button';
 import ListarUsuarios from '@/components/usuarios/ListarUsuarios.vue';
 import ConfiguracaoEmpresa from '@/components/configuracoes/ConfiguracaoEmpresa.vue';
+import { UsuarioLogadoStore } from '@/store/UsuarioLogadoStore'
 
 export default {
     components: {
@@ -29,10 +28,9 @@ export default {
         ListarUsuarios
     },
     setup() {
-        const usuarioStore = UsuarioStore()
-        // carregar cleintes
-        usuarioStore.listar()
-        return { usuarioStore }
+        const usuarioLogadoStore = UsuarioLogadoStore()
+        usuarioLogadoStore.getSettings()
+        return { usuarioLogadoStore }
     },
     data() {
         return {
