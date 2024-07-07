@@ -18,6 +18,7 @@ export const LoginStore = defineStore('LoginStore', {
             const notificacaoStore = NotificacaoStore();
             try {
                 const response = await api.post("/auth/login", this.user);
+                console.log(response.data);
                 if (response.status === 200) {
                     const { access_token } = response.data
                     if (!this.haveRoles(access_token)) {
@@ -38,8 +39,7 @@ export const LoginStore = defineStore('LoginStore', {
             }
         },
         haveRoles(token) {
-            const tokenPayload = VueJwtDecode.decode(token);
-            return tokenPayload
+            return VueJwtDecode.decode(token);
         },
         setUserinfoFromToken(token) {
             const tokenPayload = VueJwtDecode.decode(token);

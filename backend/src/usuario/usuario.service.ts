@@ -93,15 +93,15 @@ export class UsuarioService {
     request: SignupRequestDto,
   ): Promise<UsuarioEntity> {
     // this.logger.debug('Iniciando criação do usuário');
-    const { email, username } = request.usuario;
+    const username = request.email.split('@')[0].toLowerCase();
     const usuarioExistente = await this.usuarioRepository.findOne({
-      where: [{ email }, { username }],
+      where: [{ email: request.email }, { username }],
     });
     if (usuarioExistente)
       throw new UsuarioExistenteException()
 
-    const usuario = UsuarioEntity.toEntity(request.usuario);
-    usuario.password = await this.encryptPassword(request.usuario.password);
+    const usuario = UsuarioEntity.toEntity(request);
+    usuario.password = await this.encryptPassword(request.password);
     const savedUsuario = await this.usuarioRepository.save(usuario);
 
     await this.usuarioRoleService.adicionarRoleAoUsuario(

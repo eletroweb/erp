@@ -4,13 +4,27 @@
       <img class="logo" src="/images/logo-login.png">
     </div>
     <div class="overlay-container">
-      <form @submit.prevent="login.login()">
+      <form @submit.prevent="login.login()" v-if="!signup.novo_usuario">
         <br>
         <!-- span>Informe seu nome de usuário e senha</span-->
         <input type="email" v-model="login.user.email" id="email" placeholder="Email" />
         <input v-model="login.user.password" type="password" id="password" required placeholder="Senha" />
         <!-- a href="#">Esqueceu a senha?</a-->
         <button>Entrar</button>
+        <a @click="signup.novo_usuario = true" href="#">Criar conta</a>
+      </form>
+
+      <form @submit.prevent="signup.signup()" v-else>
+        <br>
+        <!-- span>Informe seu nome de usuário e senha</span-->
+        <input type="nome" v-model="signup.usuario.nome" id="nome" placeholder="Seu nome completo..."
+          autocomplete="off" />
+        <input type="email" v-model="signup.usuario.email" id="email" placeholder="Email..." autocomplete="off" />
+        <input v-model="signup.usuario.password" type="password" id="password" required placeholder="Senha..."
+          autocomplete="off" />
+        <!-- a href="#">Esqueceu a senha?</a-->
+        <button>Cadastrar</button>
+        <a @click="signup.novo_usuario = false" href="#">Já sou cadastrado</a>
       </form>
     </div>
   </div>
@@ -18,12 +32,20 @@
 
 <script>
 import { LoginStore } from '@/store/LoginStore'
+import { Signup } from '@/store/Signup'
 
 export default {
   setup() {
     const login = LoginStore()
-    return { login }
+    const signup = Signup()
+    return { login, signup }
   },
+  data() {
+    return {
+    };
+  },
+  methods: {
+  }
 };
 </script>
 

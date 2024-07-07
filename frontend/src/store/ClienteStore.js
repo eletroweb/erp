@@ -112,7 +112,6 @@ export const ClienteStore = defineStore('clienteStore', {
                 if (response.status === 200) {
                     notificacaoStore.exibirNotificacao("Cliente", "Cliente atualizado com sucesso", 'success');
                     this.reset();
-                    router.push('/clientes');
                 } else {
                     notificacaoStore.exibirNotificacao("Erro", response.statusText, 'error');
                 }

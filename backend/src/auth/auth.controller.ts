@@ -32,7 +32,8 @@ export class AuthController {
     description: 'Cria um novo usuário',
     type: BaseUser,
   })
-  signUp(@Body() request: SignupRequestDto) {
-      return this.authService.signup(request);
+  async signUp(@Body() request: SignupRequestDto): Promise<string> {
+    await this.authService.signup(request);
+    return "Usuário cadastrado com sucesso!"
   }
 }

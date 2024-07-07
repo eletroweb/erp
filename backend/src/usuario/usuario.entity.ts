@@ -12,9 +12,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { UsuarioResponseDto } from './dto/usuario.response.dto';
 import { UsuarioRoleEntity } from './roles/usuario.roles.entity';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
-import { UsuarioCreateRequestDto } from './dto/usuario.create.request.dto';
 import { EmpresaUsuarioEntity } from 'src/empresa/empresausuario/empresa.usuario.entity';
 import { EmpresaEntity } from 'src/empresa/empresa.entity';
+import { SignupRequestDto } from 'src/auth/signup.request.dto';
 @Entity('usuarios')
 export class UsuarioEntity {
   @PrimaryGeneratedColumn()
@@ -73,10 +73,10 @@ export class UsuarioEntity {
     this.uuid = uuidv4();
   }
 
-  static toEntity(request: UsuarioCreateRequestDto): UsuarioEntity {
+  static toEntity(request: SignupRequestDto): UsuarioEntity {
     const usuario = new UsuarioEntity();
     usuario.nome = request.nome;
-    usuario.username = request.username;
+    usuario.username = request.email.split('@')[0].toLowerCase();
     usuario.email = request.email;
     usuario.password = request.password;
     return usuario;
