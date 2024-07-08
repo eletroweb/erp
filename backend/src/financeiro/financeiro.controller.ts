@@ -16,6 +16,8 @@ import { FinanceiroResponseDto } from './financeiro.response.dto';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
 import { FinanceiroCategoriaEnum, FinanceiroEnum, ParcelamentoEnum } from 'src/enum/financeiro.enum';
+import { GetCurrentUser } from 'src/auth/decorator/user.decorator';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
 
 @Controller('financeiro')
 export class FinanceiroController {
@@ -24,6 +26,7 @@ export class FinanceiroController {
   @Get()
   @Roles({ roles: ['MASTER', 'DESPESA_LISTAR'] })
   async findAll(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
     @Query('descricao') descricao: string,
     @Query('categoria') categoria: FinanceiroCategoriaEnum,
     @Query('dataInicio') dataInicio: string,
@@ -40,6 +43,7 @@ export class FinanceiroController {
           ? false
           : null;
     const financeiro = await this.service.findAll(
+      usuarioLogado,
       descricao,
       categoria,
       dataInicio,
@@ -67,9 +71,10 @@ export class FinanceiroController {
   @Post()
   @Roles({ roles: ['MASTER', 'DESPESA_CADASTRAR'] })
   async create(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
     @Body() request: FinanceiroRequestDto,
   ): Promise<FinanceiroResponseDto> {
-    const createdFinanceiro = await this.service.create(request);
+    const createdFinanceiro = await this.service.create(usuarioLogado, request);
     return createdFinanceiro.toDto();
   }
 

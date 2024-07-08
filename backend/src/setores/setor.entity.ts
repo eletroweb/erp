@@ -5,10 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { SetorResponseDto } from './setor.response.dto';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
 
 @Entity('setores')
 export class SetorEntity {
@@ -27,6 +30,10 @@ export class SetorEntity {
     default: SituacaoEnum.ATIVO,
   })
   situacao: SituacaoEnum;
+
+  @ManyToOne(() => EmpresaEntity)
+  @JoinColumn()
+  empresa: EmpresaEntity
 
   @CreateDateColumn({
     type: 'timestamp',

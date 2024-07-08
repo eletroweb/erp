@@ -6,7 +6,7 @@ import { UsuarioRequestDto } from './dto/usuario.request.dto';
 import * as bcrypt from 'bcrypt';
 import { UsuarioRoleService } from './roles/usuario.role.service';
 import { EmpresaUsuarioService } from 'src/empresa/empresausuario/empresa.usuario.service';
-import { UsuarioResponseDto } from './dto/usuario.response.dto';
+import { UsuarioLogado } from './dto/usuario.response.dto';
 import { SignupRequestDto } from 'src/auth/signup.request.dto';
 import { Role } from 'src/enum/role.enum';
 import { UsuarioExistenteException } from './exception/usuario.existente.exception';
@@ -22,7 +22,7 @@ export class UsuarioService {
     private readonly empresaUsuarioService: EmpresaUsuarioService,
   ) { }
 
-  async findAll(usuarioLogado: UsuarioResponseDto): Promise<UsuarioEntity[]> {
+  async findAll(usuarioLogado: UsuarioLogado): Promise<UsuarioEntity[]> {
     const empresasIds = await this.empresaUsuarioService.findAllEmpresaIdListByUsuarioLogado(usuarioLogado.sub)
 
     return this.usuarioRepository.createQueryBuilder('usuario')
@@ -115,7 +115,7 @@ export class UsuarioService {
 
   async create(
     request: UsuarioRequestDto,
-    usuarioLogado: UsuarioResponseDto
+    usuarioLogado: UsuarioLogado
   ): Promise<UsuarioEntity> {
     this.logger.debug('Iniciando criação do usuário');
     const usuario = UsuarioEntity.toEntity(request);

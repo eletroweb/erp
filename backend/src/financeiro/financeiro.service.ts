@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
 import { FinanceiroEntity } from './financeiro.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -20,12 +20,16 @@ import { DescricaoSpecification } from './specification/DescricaoSpecification';
 import { ParceladaSpecification } from './specification/ParceladaSpecification';
 import { SituacaoSpecification } from './specification/SituacaoSpecification';
 import { Specification } from './specification/Specification';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
+import { EmpresaUsuarioService } from 'src/empresa/empresausuario/empresa.usuario.service';
+import { EmpresaSpecification } from 'src/setores/specification/EmpresaSpecification';
 
 const dayjs = require('dayjs');
 
 @Injectable()
 export class FinanceiroService {
   constructor(
+    @Inject(EmpresaUsuarioService) private empresaUsuarioService: EmpresaUsuarioService,
     @InjectRepository(FinanceiroEntity)
     private readonly financeiroRepository: Repository<FinanceiroEntity>,
     @InjectRepository(FinanceiroParcelasEntity)
@@ -38,6 +42,7 @@ export class FinanceiroService {
 
   // RF12.1 Listar financeiro
   async findAll(
+    usuarioLogado: UsuarioLogado,
     descricao: string,
     categoria: FinanceiroCategoriaEnum,
     dataInicio: string,
@@ -67,6 +72,9 @@ export class FinanceiroService {
     if (parcelada !== null)
       specifications.push(new ParceladaSpecification(parcelada));
 
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
+    new EmpresaSpecification(empresa).apply(consulta);
+
     for (const specification of specifications) {
       specification.apply(consulta);
     }
@@ -75,7 +83,7 @@ export class FinanceiroService {
   }
 
   // RF12.2 Cadastrar financeiro
-  async create(request: FinanceiroRequestDto): Promise<FinanceiroEntity> {
+  async create(usuarioLogado: UsuarioLogado, request: FinanceiroRequestDto): Promise<FinanceiroEntity> {
     const setorUuid = request.setor?.uuid;
     const contratoUuid = request.contrato?.uuid;
 
@@ -103,6 +111,9 @@ export class FinanceiroService {
         financeiroEntity,
         request.parcelas,
       );
+    
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
+    financeiro.empresa = empresa;
     return this.financeiroRepository.save(financeiro);
   }
 

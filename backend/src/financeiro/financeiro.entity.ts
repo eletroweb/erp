@@ -17,6 +17,7 @@ import { FinanceiroResponseDto } from './financeiro.response.dto';
 import { FinanceiroParcelasEntity } from './parcela/financeiro.parcela.entity';
 import { SetorEntity } from 'src/setores/setor.entity';
 import { ContratoEntity } from 'src/contratos/contrato.entity';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
 const dayjs = require('dayjs');
 
 @Entity('financeiro')
@@ -26,6 +27,10 @@ export class FinanceiroEntity {
 
   @Column({ type: 'char', length: 36 })
   uuid: string;
+
+  @ManyToOne(() => EmpresaEntity)
+  @JoinColumn()
+  empresa: EmpresaEntity
 
   @Column({
     type: 'enum',

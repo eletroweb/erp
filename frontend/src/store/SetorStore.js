@@ -2,6 +2,7 @@ import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
+import { SituacaoEnum } from "@/enum/situacao.enum";
 
 export const SetorStore = defineStore('setorStore', {
     state: () => ({
@@ -25,7 +26,8 @@ export const SetorStore = defineStore('setorStore', {
         },
         async cadastrar() {
             try {
-                const response = await api.post("setores", this.setor);
+                const request = this.requestBuild();
+                const response = await api.post("setores", request);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 201) {
                     const { title, message, type } = response.data
@@ -41,9 +43,9 @@ export const SetorStore = defineStore('setorStore', {
             }
         },
         async editar(id) {
-            console.log("Editando", this.setor);
             try {
-                const response = await api.put(`setores/${id}`, this.setor);
+                const request = this.requestBuild();
+                const response = await api.put(`setores/${id}`, request);
                 const notificacaoStore = NotificacaoStore();
                 if (response.status === 200) {
                     notificacaoStore.exibirNotificacao("Setor", "Edição realizada com sucesso", 'success');
@@ -89,6 +91,12 @@ export const SetorStore = defineStore('setorStore', {
             
                 // TODO - Corrigir a mensagem final após deletar o setor, está retornando os dados do DB em forma de mensagem, alterar mensagem na linha 83.
             }
+        },
+        requestBuild() {
+            return {
+                ...this.setor,
+                situacao: this.setor?.situacao ? SituacaoEnum.ATIVO : SituacaoEnum.INATIVO
+            };
         },
     },
 })

@@ -10,7 +10,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
-import { UsuarioResponseDto } from './dto/usuario.response.dto';
+import { UsuarioLogado } from './dto/usuario.response.dto';
 import { UsuarioRequestDto } from './dto/usuario.request.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
 import { UsuarioRoleResponseDto } from './roles/usuario.role.response.dto';
@@ -27,10 +27,10 @@ export class UsuarioController {
   @Get()
   @Roles({ roles: ['MASTER', 'LISTAR_USUARIO'] })
   async findAll(
-    @GetCurrentUser() usuarioLogado: UsuarioResponseDto,
-  ): Promise<UsuarioResponseDto[]> {
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
+  ): Promise<UsuarioLogado[]> {
     const usuarios = await this.usuarioService.findAll(usuarioLogado);
-    const usuariosDto: UsuarioResponseDto[] = usuarios.map((usuario) =>
+    const usuariosDto: UsuarioLogado[] = usuarios.map((usuario) =>
       usuario.toDto(),
     );
     return usuariosDto;
@@ -39,7 +39,7 @@ export class UsuarioController {
   @Post()
   @Roles({ roles: ['MASTER', 'CADASTRAR_USUARIO'] })
   async create(
-    @GetCurrentUser() usuarioLogado: UsuarioResponseDto,
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
     @Body() request: UsuarioRequestDto,
   ): Promise<string> {
     await this.usuarioService.create(request, usuarioLogado);
@@ -48,7 +48,7 @@ export class UsuarioController {
 
   @Get(':uuid')
   @Roles({ roles: ['MASTER', 'EDITAR_USUARIO'] })
-  async findOne(@Param('uuid') uuid: string): Promise<UsuarioResponseDto> {
+  async findOne(@Param('uuid') uuid: string): Promise<UsuarioLogado> {
     const usuario = await this.usuarioService.findOneByUuid(uuid);
     if (!usuario) throw new NotFoundException('Usuario não localizado');
 
@@ -105,7 +105,7 @@ export class UsuarioController {
   @Get('settings/me')
   @Roles({ roles: ['MASTER', 'EDITAR_USUARIO'] })
   async me(
-    @GetCurrentUser() usuarioLogado: UsuarioResponseDto,
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
   ): Promise<any> {
     return await this.usuarioService.me(usuarioLogado.sub);
   }

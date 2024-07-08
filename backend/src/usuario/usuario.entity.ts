@@ -9,7 +9,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { UsuarioResponseDto } from './dto/usuario.response.dto';
+import { UsuarioLogado } from './dto/usuario.response.dto';
 import { UsuarioRoleEntity } from './roles/usuario.roles.entity';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { EmpresaUsuarioEntity } from 'src/empresa/empresausuario/empresa.usuario.entity';
@@ -82,7 +82,7 @@ export class UsuarioEntity {
     return usuario;
   }
 
-  toDto(): UsuarioResponseDto {
+  toDto(): UsuarioLogado {
     return {
       uuid: this.uuid,
       sub: this.uuid,

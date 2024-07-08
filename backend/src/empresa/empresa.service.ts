@@ -22,13 +22,13 @@ export class EmpresaService {
     usuarioLogado: UsuareioLogado,
   ): Promise<EmpresaEntity> {
     const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
-    if (empresa.length == 0) {
+    if (empresa == null) {
       const usuario = await this.usuarioService.findOneByUuid(usuarioLogado.sub);
       const empresaSalva = await this.empresaUsuarioService.associarEmpresaAoUsuarioMaster(usuario, request);
       return empresaSalva
     }
-    Object.assign(empresa[0], request);
-    const empresa_salva = await this.empresaRepository.save(empresa[0]);
+    Object.assign(empresa, request);
+    const empresa_salva = await this.empresaRepository.save(empresa);
     return empresa_salva
   }
 

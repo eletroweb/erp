@@ -66,12 +66,15 @@ export class EmpresaUsuarioService {
   }
 
 
-  async findAllByUsuarioLogado(uuid: string): Promise<EmpresaEntity[]> {
+  async findAllByUsuarioLogado(uuid: string): Promise<EmpresaEntity> {
     const userCompanies = await this.empresaUsuarioRepository.find({
       where: { usuario: { uuid } },
       relations: ['empresa'],
     });
+    const empresas = userCompanies.map((empresaUsuario) => empresaUsuario.empresa)
+    if (empresas.length > 0)
+      return empresas[0]
 
-    return userCompanies.map((empresaUsuario) => empresaUsuario.empresa);
+    return null;
   }
 }

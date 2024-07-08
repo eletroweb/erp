@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-// setor.controller.ts
 import {
   Controller,
   Get,
@@ -16,6 +14,8 @@ import { SetorEntity } from './setor.entity';
 import { SetorResponseDto } from './setor.response.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
 import { SituacaoEnum } from 'src/enum/situacao.enum'
+import { GetCurrentUser } from 'src/auth/decorator/user.decorator';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
 
 @Controller('setores')
 export class SetorController {
@@ -24,10 +24,11 @@ export class SetorController {
   @Get()
   @Roles({ roles: ['MASTER', 'SETOR_LISTAR'] })
   async findAll(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
     @Query('descricao') descricao: string,
     @Query('situacao') situacao: SituacaoEnum,
     ): Promise<SetorResponseDto[]> {
-          const setores = await this.setorService.findAll(descricao, situacao);
+    const setores = await this.setorService.findAll(usuarioLogado, descricao, situacao);
           return setores.map((setor) => setor.toDto());
   }
 
@@ -42,8 +43,10 @@ export class SetorController {
 
   @Post()
   @Roles({ roles: ['MASTER', 'SETOR_CADASTRAR'] })
-  async create(@Body() setorEntity: SetorEntity): Promise<string> {
-    const createdSetor = await this.setorService.create(setorEntity);
+  async create(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
+    @Body() setorEntity: SetorEntity): Promise<string> {
+    const createdSetor = await this.setorService.create(setorEntity, usuarioLogado);
     return JSON.stringify(createdSetor);
   }
 
