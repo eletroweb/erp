@@ -91,6 +91,10 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             router.push('/financeiro/financeiro/novo');
         },
         async cadastrar() {
+
+            if (!this.validarFormulario()) 
+                return
+            
             const alertStore = AlertStore();
             try {
                 const request = this.requestBuild();
@@ -107,6 +111,31 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 alertStore.show(error.message, "error")
             }
         },
+        validarFormulario() {
+            const alertStore = AlertStore();
+            if (this.financeiro.descricao==null || this.financeiro.descricao.length==0) {
+                alertStore.show("Atenção, a Descrição deve ser informada", "warn");
+                return
+            }
+            if (this.financeiro.descricao == undefined || this.financeiro.descricao.length < 3) {
+                alertStore.show("O campo Descrição deve ser preenchido com no mínimo 3 caracteres", "warn");
+                return false
+            }
+            if(this.financeiro.data_vencimento==null || this.financeiro.data_vencimento.length==0) {
+                alertStore.show("Atenção, a Data de Vencimento deve ser informada", "warn");
+                return
+            }
+            if (this.financeiro.data_vencimento == undefined || this.financeiro.data_vencimento.length < 0) {
+                alertStore.show("O campo Data de Vencimento deve ser preenchido com no mínimo 3 caracteres", "warn");
+                return false
+            }
+
+            if (this.financeiro.valor_cobranca == undefined || this.financeiro.valor_cobranca.length < 0) {
+                alertStore.show("O campo Valor deve ser preenchido com um valor maior que 0", "warn");
+                return false
+            }
+            return true
+        },
         requestBuild() { 
             const { code } = this.financeiro.numero_parcelas
             return {
@@ -115,6 +144,9 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             };
         },
         async editar() {
+            if (!this.editarFormulario())
+                return
+
             const alertStore = AlertStore();
             try {
                 const request = this.requestBuild();
@@ -130,6 +162,31 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             } catch (error) {
                 alertStore.show(error.message, "error")
             }
+        },
+        editarFormulario() {
+            const alertStore = AlertStore();
+            if (this.financeiro.descricao==null || this.financeiro.descricao.length==0) {
+                alertStore.show("Atenção, a Descrição deve ser informada", "warn");
+                return
+            }
+            if (this.financeiro.descricao == undefined || this.financeiro.descricao.length < 3) {
+                alertStore.show("O campo Descrição deve ser preenchido com no mínimo 3 caracteres", "warn");
+                return false
+            }
+            if(this.financeiro.data_vencimento==null || this.financeiro.data_vencimento.length==0) {
+                alertStore.show("Atenção, a Data de Vencimento deve ser informada", "warn");
+                return
+            }
+            if (this.financeiro.data_vencimento == undefined || this.financeiro.data_vencimento.length < 0) {
+                alertStore.show("O campo Data de Vencimento deve ser preenchido com no mínimo 3 caracteres", "warn");
+                return false
+            }
+
+            if (this.financeiro.valor_cobranca == undefined || this.financeiro.valor_cobranca.length < 0) {
+                alertStore.show("O campo Valor deve ser preenchido com um valor maior que 0", "warn");
+                return false
+            }
+            return true
         },
         async cancelar() {
             router.push('/financeiro/');
