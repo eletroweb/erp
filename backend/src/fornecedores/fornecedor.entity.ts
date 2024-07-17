@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { FornecedorResponseDto } from './fornecedor.response.dto';
 import { FornecedorRequestDto } from './fornecedor.request.dto';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
 
 @Entity('fornecedores')
 export class FornecedorEntity {
@@ -50,6 +51,10 @@ export class FornecedorEntity {
     enum: SituacaoEnum,
   })
   situacao: SituacaoEnum;
+
+  @ManyToOne(() => EmpresaEntity)
+  @JoinColumn()
+  empresa: EmpresaEntity
 
   @CreateDateColumn({
     type: 'timestamp',

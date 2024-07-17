@@ -13,6 +13,8 @@ import { FornecedorService } from './fornecedor.service';
 import { FornecedorResponseDto } from './fornecedor.response.dto';
 import { FornecedorRequestDto } from './fornecedor.request.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
+import { GetCurrentUser } from 'src/auth/decorator/user.decorator';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
 
 @Controller('fornecedores')
 export class FornecedorController {
@@ -20,8 +22,10 @@ export class FornecedorController {
 
   @Get()
   @Roles({ roles: ['MASTER', 'FORNECEDOR_LISTAR'] })
-  async findAll(): Promise<FornecedorResponseDto[]> {
-    const fornecedores = await this.fornecedorService.findAll();
+  async findAll(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
+  ): Promise<FornecedorResponseDto[]> {
+    const fornecedores = await this.fornecedorService.findAll(usuarioLogado);
     const fornecedorDto: FornecedorResponseDto[] = fornecedores.map(
       (fornecedor) => fornecedor.toDto(),
     );
@@ -39,9 +43,10 @@ export class FornecedorController {
   @Post()
   @Roles({ roles: ['MASTER', 'FORNECEDOR_CADASTRAR'] })
   async create(
+    @GetCurrentUser() UsuarioLogado: UsuarioLogado,
     @Body() request: FornecedorRequestDto,
   ): Promise<FornecedorResponseDto> {
-    const createdFornecedor = await this.fornecedorService.create(request);
+    const createdFornecedor = await this.fornecedorService.create(request, UsuarioLogado);
     return createdFornecedor.toDto();
   }
 

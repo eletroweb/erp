@@ -1,19 +1,28 @@
 // cliente.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FornecedorEntity } from './fornecedor.entity';
 import { Repository } from 'typeorm';
 import { FornecedorRequestDto } from './fornecedor.request.dto';
+import { EmpresaUsuarioService } from 'src/empresa/empresausuario/empresa.usuario.service';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
+import { EmpresaSpecification } from 'src/setores/specification/EmpresaSpecification';
 
 @Injectable()
 export class FornecedorService {
   constructor(
     @InjectRepository(FornecedorEntity)
     private fornecedorRepository: Repository<FornecedorEntity>,
+    @Inject(EmpresaUsuarioService) private empresaUsuarioService: EmpresaUsuarioService
   ) {}
 
-  async findAll(): Promise<FornecedorEntity[]> {
-    return this.fornecedorRepository.find();
+  async findAll(
+    usuarioLogado: UsuarioLogado,
+  ): Promise<FornecedorEntity[]> {
+    const consulta = this.fornecedorRepository.createQueryBuilder('fornecedor')
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
+    new EmpresaSpecification(empresa).apply(consulta);
+    return consulta.getMany();
   }
 
   async findOneByUuid(uuid: string): Promise<FornecedorEntity> {
@@ -30,9 +39,16 @@ export class FornecedorService {
     return await this.fornecedorRepository.findOne({ where: { documento } });
   }
 
-  async create(request: FornecedorRequestDto): Promise<FornecedorEntity> {
+  async create(
+    request: FornecedorRequestDto,
+    usuarioLogado: UsuarioLogado,
+  ): Promise<FornecedorEntity> {
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
     const fornecedor = FornecedorEntity.fromRequestDto(request);
+    
+    fornecedor.empresa = empresa;
     const createdFornecedor = this.fornecedorRepository.create(fornecedor);
+
     return this.fornecedorRepository.save(createdFornecedor);
   }
 
