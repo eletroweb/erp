@@ -24,7 +24,7 @@ export class FinanceiroParcelaController {
     private readonly financeiroService: FinanceiroService,
     private readonly comprovanteService: FinanceiroParcelaComprovanteService,
     private readonly financeiroParcelaService: FinanceiroParcelaService,
-  ) {}
+  ) { }
 
   // RF12.5.2 Anexar comprovante de pagamento na parcela
   @Post('/alterar-situacao')
@@ -60,7 +60,7 @@ export class FinanceiroParcelaController {
   @Get('/download-comprovante/:comprovante')
   @Roles({ roles: ['MASTER'] })
   async downloadFile(@Param('comprovante') comprovante: string, @Res() res) {
-    const filePath = `./public/financeiro/comprovantes/${comprovante}`;
+    const filePath = `./uploads/financeiro/comprovantes/${comprovante}`;
 
     if (!existsSync(filePath)) {
       res.status(404).send('Arquivo não encontrado');
