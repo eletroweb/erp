@@ -1,29 +1,22 @@
 <template>
     <div>
-        
+
         <div class="button-container">
 
             <div class="item">
-                <FinanceiroResumo/>
+                <FinanceiroResumo v-if="this.registros.length > 0" />
             </div>
             <div class="item">
                 <Button label="Novo registro financeiro" @click="financeiroStore.novo()" size="small" />
             </div>
-            <!--
-            <Button type="button" icon="pi pi-arrows-v" @click="alterarTamanhoTabela('small')" severity="secondary"
-                size="small" />
-            <Button type="button" icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
-                @click="alterarTamanhoTabela('null')" severity="secondary" size="small" />
-            <Button type="button" icon="pi pi-arrows-alt" @click="alterarTamanhoTabela('large')" severity="secondary"
-                size="small" />
-            -->
         </div>
 
-        <div class="resumo">
+
+        <div class="resumo" v-if="this.registros.length > 0">
             <MeterGroup :value="resumo" />
         </div>
 
-        <ScrollPanel style="width: 100%; height: 675px" :dt="{
+        <ScrollPanel v-if="this.registros.length > 0" style="width: 100%; height: 675px" :dt="{
             bar: {
                 background: '#000000'
             }
@@ -85,6 +78,8 @@
                 </Column>
             </DataTable>
         </ScrollPanel>
+
+        <el-empty v-else description="Não existem registros financeios cadastrados." />
     </div>
 </template>
 

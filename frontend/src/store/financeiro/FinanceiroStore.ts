@@ -3,6 +3,7 @@ import { api } from "@/api/index"
 import router from "@/router";
 import { FinanceiroCategoriaEnum, FinanceiroCentroDeCustoEnum } from "@/enum/financeiro.enum";
 import { AlertStore } from '@/store/AlertStore'
+import dayjs from 'dayjs'
 
 const downloadFile = async (response, nome) => {
     const contentType = response.headers.get('Content-Type');
@@ -196,6 +197,9 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             try {
                 const response = await api.get(`financeiro/${id}`);
                 this.financeiro = response.data;
+                this.financeiro.data_vencimento = dayjs(this.financeiro.data_vencimento).format('DD/MM/YYYY');
+
+
                 if (this.financeiro.setor?.uuid) {
                     this.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.SETOR;
                 } else  {
