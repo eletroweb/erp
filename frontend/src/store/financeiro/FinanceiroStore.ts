@@ -150,7 +150,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             const alertStore = AlertStore();
             try {
                 const request = this.requestBuild();
-                const response = await api.put(`financeiro/${this.financeiro.uuid}`, request);
+               const response = await api.put(`financeiro/${this.financeiro.uuid}`, request);
                 if (response.status === 200) {
                     alertStore.show(response.data, "success")
                     this.financeiro = {}

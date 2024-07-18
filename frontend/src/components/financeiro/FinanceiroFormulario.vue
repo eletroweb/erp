@@ -1,7 +1,4 @@
 <template>
-
-
-
     <Toolbar>
         <template #start>
             <Button v-if="financeiroStore.financeiro.uuid == null" @click="financeiroStore.cadastrar()"
@@ -45,13 +42,16 @@
 
                     <div>
                         <label>Setor</label>
-                        <SelectSetores v-if="financeiroStore.financeiro.centro_custo == 'SETOR'" v-model="setorUuid" />
+                        <Select style="width: 240px" v-model="financeiroStore.financeiro.setor"
+                            :options="setorStore.setores" optionLabel="descricao" placeholder="Selecione o Setor..."
+                            class="w-full md:w-56" />
                     </div>
 
                     <div>
                         <label>Contrato</label>
-                        <SelectContratos if="financeiroStore.financeiro.centro_custo == 'CONTRATO'"
-                            v-model="contratoUuid" />
+                        <Select style="width: 240px" v-model="financeiroStore.financeiro.contrato"
+                            :options="contratoStore.contratos" optionLabel="descricao"
+                            placeholder="Selecione o contrato..." class="w-full md:w-56" />
                     </div>
                 </div>
                 <div class="linha coluna2">
@@ -107,8 +107,6 @@ import dayjs from 'dayjs'
 import FinanceiroParcelasLista from '@/components/financeiro/parcela/FinanceiroParcelasLista.vue'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Money3Component } from 'v-money3'
-import SelectSetores from "@/components/setores/SelectSetores.vue"
-import SelectContratos from "@/components/contratos/SelectContratos.vue"
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
@@ -118,6 +116,8 @@ import DatePicker from 'primevue/DatePicker';
 import InputNumber from 'primevue/InputNumber';
 import Toolbar from 'primevue/toolbar';
 import Fieldset from 'primevue/fieldset';
+import { SetorStore } from '@/store/SetorStore';
+import { ContratoStore } from '@/store/ContratoStore'
 
 dayjs.extend(customParseFormat);
 
@@ -126,8 +126,6 @@ export default {
     components: {
         FinanceiroParcelasLista,
         money3: Money3Component,
-        SelectSetores,
-        SelectContratos,
         Button,
         InputText,
         Select,
@@ -140,7 +138,14 @@ export default {
     },
     setup() {
         const financeiroStore = FinanceiroStore();
-        return { financeiroStore };
+
+        const setorStore = SetorStore()
+        setorStore.listar()
+
+        const contratoStore = ContratoStore()
+        contratoStore.listar()
+
+        return { financeiroStore, setorStore, contratoStore };
     },
     data() {
         return {

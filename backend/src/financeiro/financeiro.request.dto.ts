@@ -8,8 +8,8 @@ import {
 import { FinanceiroParcelaRequest } from './parcela/financeiro.parcela.request';
 import { IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { SetorRequest } from 'src/setores/setor.request';
 import { ContratoRequestDto } from 'src/contratos/contrato.request.dto';
+import { SetorRequest } from 'src/setores/setor.request';
 
 export class FinanceiroRequestDto {
   id?: number;

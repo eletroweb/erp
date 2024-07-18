@@ -84,21 +84,8 @@ export class FinanceiroService {
 
   // RF12.2 Cadastrar financeiro
   async create(usuarioLogado: UsuarioLogado, request: FinanceiroRequestDto): Promise<FinanceiroEntity> {
-    const setorUuid = request.setor?.uuid;
-    const contratoUuid = request.contrato?.uuid;
-
-    const setorPromise = setorUuid
-      ? this.setorService.findOneByUuid(setorUuid)
-      : Promise.resolve(null);
-    const contratoPromise = contratoUuid
-      ? this.contratoService.findOneByUuid(contratoUuid)
-      : Promise.resolve(null);
-
-    const [setor, contrato] = await Promise.all([
-      setorPromise,
-      contratoPromise,
-    ]);
-
+    const setor = await this.setorService.findOneByUuid(request.setor.uuid)
+    const contrato = await this.contratoService.findOneByUuid(request.contrato.uuid)
     const financeiroEntity = FinanceiroEntity.fromRequestDto(
       request,
       setor,
@@ -123,20 +110,11 @@ export class FinanceiroService {
     request: FinanceiroRequestDto,
   ): Promise<FinanceiroEntity> {
     const financeiroOriginPromise = this.findOneByUuid(uuid);
-    const setorUuid = request.setor?.uuid;
-    const contratoUuid = request.contrato?.uuid;
+    const setor = await this.setorService.findOneByUuid(request.setor.uuid)
+    const contrato = await this.contratoService.findOneByUuid(request.contrato.uuid)
 
-    const setorPromise = setorUuid
-      ? this.setorService.findOneByUuid(setorUuid)
-      : Promise.resolve(null);
-    const contratoPromise = contratoUuid
-      ? this.contratoService.findOneByUuid(contratoUuid)
-      : Promise.resolve(null);
-
-    const [financeiroOrigin, setor, contrato] = await Promise.all([
+    const [financeiroOrigin] = await Promise.all([
       financeiroOriginPromise,
-      setorPromise,
-      contratoPromise,
     ]);
 
     const financeiroTarget = FinanceiroEntity.fromRequestDto(
@@ -148,12 +126,6 @@ export class FinanceiroService {
       financeiroOrigin,
       financeiroTarget,
     );
-
-    if (this.financeiroBusiness.limparSetor(request))
-      updatedFinanceiro.setor = null;
-
-    if (this.financeiroBusiness.limparContrato(request))
-      updatedFinanceiro.contrato = null;
 
     // RF12.6.1 Adicionar parcela a financeiro
     const financeiro =
