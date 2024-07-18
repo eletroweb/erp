@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { SetorModule } from '../setores/setor.module';
-
 import { ClienteModule } from '../clientes/cliente.module';
 import { ProjetoModule } from 'src/projetos/projeto.module';
 import { ContratoModule } from 'src/contratos/contrato.module';
@@ -18,6 +17,7 @@ import { ModuloModule } from 'src/app/modulo/modulo.module';
 import { EmpresaModule } from 'src/empresa/empresa.module';
 import { EmpresaUsuarioModule } from 'src/empresa/empresausuario/empresa.usuario.module';
 import { UsuarioModule } from 'src/usuario/usuario.module';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -47,8 +47,9 @@ import { UsuarioModule } from 'src/usuario/usuario.module';
     EmpresaModule,
     UsuarioModule,
     EmpresaUsuarioModule,
+
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [AppService],
 })
 export class AppModule { }
