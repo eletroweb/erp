@@ -226,42 +226,39 @@ export class FinanceiroService {
     dataFim: string,
     situacao?: FinanceiroEnum,
   ): Promise<any> {
-    const queryDespesas = this.financeiroRepository
-      .createQueryBuilder('financeiro')
-      .select('SUM(financeiro.valor_cobranca)', 'totalDespesa')
-      .where('financeiro.categoria = :categoria', {
-        categoria: FinanceiroCategoriaEnum.DESPESA,
-      })
-      .andWhere('financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim', {
-        dataInicio,
-        dataFim,
-      });
 
-    const queryReceitas = this.financeiroRepository
+
+    if (!dataInicio || !dataFim) {
+      const currentDate = dayjs();
+      dataInicio = currentDate.startOf('month').format('YYYY-MM-DD');
+      dataFim = currentDate.endOf('month').format('YYYY-MM-DD');
+    }
+
+    const resumoQuery = this.financeiroRepository
       .createQueryBuilder('financeiro')
-      .select('SUM(financeiro.valor_cobranca)', 'totalReceita')
-      .where('financeiro.categoria = :categoria', {
-        categoria: FinanceiroCategoriaEnum.RECEITA,
-      })
-      .andWhere('financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim', {
+      .select('SUM(CASE WHEN financeiro.categoria = :receitaCategoria THEN financeiro.valor_cobranca ELSE 0 END)', 'receita')
+      .addSelect('SUM(CASE WHEN financeiro.categoria = :despesaCategoria THEN financeiro.valor_cobranca ELSE 0 END)', 'despesa')
+      /*.where('financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim', {
         dataInicio,
         dataFim,
+      })*/
+      .setParameters({
+        receitaCategoria: FinanceiroCategoriaEnum.RECEITA,
+        despesaCategoria: FinanceiroCategoriaEnum.DESPESA,
       });
 
     if (situacao) {
-      queryDespesas.andWhere('financeiro.situacao = :situacao', { situacao });
-      queryReceitas.andWhere('financeiro.situacao = :situacao', { situacao });
+      resumoQuery.andWhere('financeiro.situacao = :situacao', { situacao });
     }
 
-    const totalDespesaResult = await queryDespesas.getRawOne();
-    const totalReceitaResult = await queryReceitas.getRawOne();
+    const resumoResult = await resumoQuery.getRawOne();
 
-    const totalDespesa = totalDespesaResult?.totalDespesa || 0;
-    const totalReceita = totalReceitaResult?.totalReceita || 0;
+    const receita = resumoResult?.receita || 0;
+    const despesa = resumoResult?.despesa || 0;
 
     return {
-      total_despesa: parseFloat(totalDespesa),
-      total_receita: parseFloat(totalReceita),
+      total_receita: parseFloat(receita),
+      total_despesa: parseFloat(despesa),
       data_inicio: dataInicio,
       data_fim: dataFim,
     };

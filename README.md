@@ -188,6 +188,7 @@ RF15.1 Filtrar despesas e receitas
     RF15.1.4 Filtrar por dataInicio e dataFim
     RF15.1.5 Filtrar por dataPagamentoInicio e dataPagamentoFim
     RF15.1.6 Filtrar parcelada
+RF15.2 Totalizador de despesas e receitas
 
 ## Configurações
 RF15.1 Configuração da empresa

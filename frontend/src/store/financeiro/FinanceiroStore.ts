@@ -305,12 +305,11 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
         },
 
         async carregarResumoTotal() {
-            let data_inicio = '2024-01-01';
+            /*let data_inicio = '2024-01-01';
             let data_fim = '2024-07-01';
             let situacao = 'PENDENTE';
-
-
-            const response = await api.get(`financeiro/resumo/totais?data_inicio=${data_inicio}&data_fim=${data_fim}&situacao=${situacao}`)
+            const response = await api.get(`financeiro/resumo/totais?data_inicio=${data_inicio}&data_fim=${data_fim}&situacao=${situacao}`)*/
+            const response = await api.get(`financeiro/resumo/totais`)
             const { total_despesa, total_receita } = response.data
             this.resumo.total_despesa = total_despesa
             this.resumo.total_receita = total_receita
