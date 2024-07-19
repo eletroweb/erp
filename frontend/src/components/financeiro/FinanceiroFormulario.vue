@@ -1,4 +1,5 @@
 <template>
+    <div>
     <Toolbar>
         <template #start>
             <Button v-if="financeiroStore.financeiro.uuid == null" @click="financeiroStore.cadastrar()"
@@ -32,27 +33,37 @@
                                 name="despesa" value="DESPESA" /> Despesa
                         </div>
                     </div>
-
-                    <div v-if="financeiroStore.financeiro.categoria == 'DESPESA'">
+                    <template v-if="financeiroStore.financeiro.categoria == 'DESPESA'">
+                    <div>
                         <label>Centro de Custo</label>
                         <Select v-model="financeiroStore.financeiro.centro_custo" :options="centroDeCustoDisponiveis"
                             @change="financeiroStore.selecionarTipoCentroDeCusto()" optionLabel="name"
                             placeholder="Selecione o centro de custo" class="w-full md:w-56" />
                     </div>
 
-                    <div>
+                    <div v-if="financeiroStore.financeiro.centro_custo.code == 'SETOR'">
                         <label>Setor</label>
                         <Select style="width: 240px" v-model="financeiroStore.financeiro.setor"
                             :options="setorStore.setores" optionLabel="descricao" placeholder="Selecione o Setor..."
                             class="w-full md:w-56" />
                     </div>
 
-                    <div>
+                    <div v-else>
                         <label>Contrato</label>
                         <Select style="width: 240px" v-model="financeiroStore.financeiro.contrato"
                             :options="contratoStore.contratos" optionLabel="descricao"
                             placeholder="Selecione o contrato..." class="w-full md:w-56" />
                     </div>
+                    </template>
+                    <template v-else>
+                        <div>
+                            <label>Setor</label>
+                            <Select style="width: 240px" v-model="financeiroStore.financeiro.setor"
+                                :options="setorStore.setores" optionLabel="descricao" placeholder="Selecione o Setor..."
+                                class="w-full md:w-56" />
+                        </div>    
+                    </template>
+                    
                 </div>
                 <div class="linha coluna2">
                     <div>
@@ -81,7 +92,7 @@
                     <div>
                         <label>Número de Parcelas</label>
                         <Select v-model="financeiroStore.financeiro.numero_parcelas" :options="parcelasDisponiveis"
-                            @change="selecionarNumeroDeParcelas()" optionLabel="name" placeholder="Parscelas"
+                            @change="selecionarNumeroDeParcelas()" optionLabel="name" placeholder="Parcelas"
                             class="w-full md:w-56" />
                     </div>
                 </div>
@@ -98,6 +109,7 @@
             <FinanceiroParcelasLista :financeiro="financeiroStore.financeiro" />
         </Fieldset>
     </div>
+</div>    
 </template>
 
 <script>
