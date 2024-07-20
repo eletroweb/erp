@@ -3,6 +3,7 @@ import { api } from "@/api/index"
 import router from "@/router";
 import { NotificacaoStore } from "./NotificacaoStore"
 import { ValidarCPF, ValidarCNPJ } from '@/common/util'
+import { useDelayedRender } from "element-plus";
 
 export const ClienteStore = defineStore('clienteStore', {
     state: () => ({
@@ -49,13 +50,13 @@ export const ClienteStore = defineStore('clienteStore', {
             const queryParams = {};
             if (this.pesquisa.nome !== null)
                 queryParams.nome = this.pesquisa.nome;
-    
+
             if (this.pesquisa.documento !== null)
                 queryParams.documento = this.pesquisa.documento;
 
             if (this.pesquisa.situacao !== null)
-                queryParams.situacao = this.pesquisa.situacao;    
-    
+                queryParams.situacao = this.pesquisa.situacao;
+
             const queryString = new URLSearchParams(queryParams).toString();
             const url = `clientes?${queryString}`;
             return url
@@ -66,25 +67,25 @@ export const ClienteStore = defineStore('clienteStore', {
         },
         async cadastrar() {
             const notificacaoStore = NotificacaoStore();
-            if(this.cliente.telefone==null || this.cliente.telefone.length==0){
+            if (this.cliente.telefone == null || this.cliente.telefone.length == 0) {
                 notificacaoStore.exibirNotificacao("Atenção", "O telefone deve ser informado", 'warning');
                 return
             }
-            if(this.cliente.email==null || this.cliente.email.length==0){
+            if (this.cliente.email == null || this.cliente.email.length == 0) {
                 notificacaoStore.exibirNotificacao("Atenção", "O email deve ser informado", 'warning');
                 return
             }
-            if(this.cliente.setor==null || this.cliente.setor.uuid==0){
+            if (this.cliente.setor == null || this.cliente.setor.uuid == 0) {
                 notificacaoStore.exibirNotificacao("Atenção", "O setor deve ser informado", 'warning');
                 return
             }
-          
+
             const endereco = await this.findAddressCep(this.cliente.endereco.cep);
             this.cliente.estado = endereco.estado;
             this.cliente.cidade = endereco.cidade;
             this.cliente.endereco = endereco.logradouro;
             this.cliente.bairro = endereco.bairro;
-        
+
             try {
                 const request = this.requestBuild()
                 const response = await api.post("clientes", request);
@@ -130,7 +131,7 @@ export const ClienteStore = defineStore('clienteStore', {
             this.pesquisa.situacao = null
             this.listar()
         },
-        async filtrarPorSituacao(){
+        async filtrarPorSituacao() {
             this.listar()
         },
         async carregarCliente(id) {
@@ -197,7 +198,7 @@ export const ClienteStore = defineStore('clienteStore', {
                     notificacaoStore.exibirNotificacao('Erro', `Já existe um cliente cadastrado com o CPF/CNPJ ${documento}`, 'warning');
                     this.btnSalvarValido = false
                     return
-                } 
+                }
             } catch (error) {
                 console.log(error.message);
             }
@@ -208,7 +209,7 @@ export const ClienteStore = defineStore('clienteStore', {
                 setor: this.cliente.setor.uuid,
             };
         },
-        async validarEmail(){
+        async validarEmail() {
             const response = await api.get(`clientes/findByEmail/${this.cliente.email}`)
             if (response.data.length > 0) {
                 const notificacaoStore = NotificacaoStore();
@@ -219,8 +220,10 @@ export const ClienteStore = defineStore('clienteStore', {
         },
         async findAddressCep() {
             try {
-                const response = await api.get(`/findAddressByCep/${this.cliente.endereco.cep}`);
-                this.cliente.endereco = response.data;
+                if (this.cliente.endereco.cep != undefined || this.cliente.endereco.cep != null) {
+                    const response = await api.get(`/findAddressByCep/${this.cliente.endereco.cep}`);
+                    this.cliente.endereco = response.data;
+                }
             } catch (error) {
                 const notificacaoStore = NotificacaoStore();
                 notificacaoStore.exibirNotificacao('Atenção', 'Erro ao buscar endereço por CEP:', 'warning');
@@ -232,13 +235,20 @@ export const ClienteStore = defineStore('clienteStore', {
                 setor: {
                     uuid: ""
                 },
-                cep: "",
-                estado: "",
-                cidade: "",
-                endereco: "",
-                bairro: "",
                 nome: "",
-                telefone: ""
+                telefone: "",
+                email: "",
+                documento: "",
+                situacao: "",
+                endereco: {
+                    cep: null,
+                    endereco: null,
+                    cidade: null,
+                    estado: null,
+                    bairro: null,
+                    complemento: null,
+                    numero: null
+                }
             };
         }
     },
