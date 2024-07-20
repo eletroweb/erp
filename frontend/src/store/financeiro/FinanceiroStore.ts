@@ -16,9 +16,9 @@ const downloadFile = async (response, nome) => {
     link.download = fileName;
     document.body.appendChild(link);
     link.click();
-    
+
     document.body.removeChild(link);
-    
+
     URL.revokeObjectURL(fileURL);
 }
 
@@ -37,7 +37,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             'ARQUIVADO'
         ],
         financeiro: {
-            categoria:FinanceiroCategoriaEnum.DESPESA,
+            categoria: FinanceiroCategoriaEnum.DESPESA,
             setor: {
                 uuid: null
             },
@@ -48,13 +48,13 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
         },
         parcela_selecionada: null,
         modalConfirmacaoPagamento: {
-                exibir: false,
-                instrucao: "Clique para selecionar o comprovante",
-                backgroundStyle: 'background: #ff9800',
-                btnConfirmar: true,
-                formData: null,
-                comprovante: null,
-                data_pagamento: null
+            exibir: false,
+            instrucao: "Clique para selecionar o comprovante",
+            backgroundStyle: 'background: #ff9800',
+            btnConfirmar: true,
+            formData: null,
+            comprovante: null,
+            data_pagamento: null
         }
     }),
     actions: {
@@ -78,7 +78,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 'ARQUIVADO'
             ]
             this.financeiro = {
-                categoria:FinanceiroCategoriaEnum.DESPESA,
+                categoria: FinanceiroCategoriaEnum.DESPESA,
                 setor: {
                     uuid: null
                 },
@@ -88,14 +88,14 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 centro_custo: FinanceiroCentroDeCustoEnum.SETOR
             }
             this.parcela_selecionada = null,
-            this.modalConfirmacaoPagamento.exibir = false
+                this.modalConfirmacaoPagamento.exibir = false
             router.push('/financeiro/financeiro/novo');
         },
         async cadastrar() {
 
-            if (!this.validarFormulario()) 
+            if (!this.validarFormulario())
                 return
-            
+
             const alertStore = AlertStore();
             try {
                 const request = this.requestBuild();
@@ -114,7 +114,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
         },
         validarFormulario() {
             const alertStore = AlertStore();
-            if (this.financeiro.descricao==null || this.financeiro.descricao.length==0) {
+            if (this.financeiro.descricao == null || this.financeiro.descricao.length == 0) {
                 alertStore.show("Atenção, a Descrição deve ser informada", "warn");
                 return
             }
@@ -122,7 +122,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 alertStore.show("O campo Descrição deve ser preenchido com no mínimo 3 caracteres", "warn");
                 return false
             }
-            if(this.financeiro.data_vencimento==null || this.financeiro.data_vencimento.length==0) {
+            if (this.financeiro.data_vencimento == null || this.financeiro.data_vencimento.length == 0) {
                 alertStore.show("Atenção, a Data de Vencimento deve ser informada", "warn");
                 return
             }
@@ -137,11 +137,13 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             }
             return true
         },
-        requestBuild() { 
+        requestBuild() {
             const { code } = this.financeiro.numero_parcelas
+            //const centro_custo = this.financeiro.centro_custo.code
             return {
                 ...this.financeiro,
                 numero_parcelas: code,
+                //centro_custo
             };
         },
         async editar() {
@@ -151,7 +153,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             const alertStore = AlertStore();
             try {
                 const request = this.requestBuild();
-               const response = await api.put(`financeiro/${this.financeiro.uuid}`, request);
+                const response = await api.put(`financeiro/${this.financeiro.uuid}`, request);
                 if (response.status === 200) {
                     alertStore.show(response.data, "success")
                     this.financeiro = {}
@@ -166,7 +168,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
         },
         editarFormulario() {
             const alertStore = AlertStore();
-            if (this.financeiro.descricao==null || this.financeiro.descricao.length==0) {
+            if (this.financeiro.descricao == null || this.financeiro.descricao.length == 0) {
                 alertStore.show("Atenção, a Descrição deve ser informada", "warn");
                 return
             }
@@ -174,7 +176,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 alertStore.show("O campo Descrição deve ser preenchido com no mínimo 3 caracteres", "warn");
                 return false
             }
-            if(this.financeiro.data_vencimento==null || this.financeiro.data_vencimento.length==0) {
+            if (this.financeiro.data_vencimento == null || this.financeiro.data_vencimento.length == 0) {
                 alertStore.show("Atenção, a Data de Vencimento deve ser informada", "warn");
                 return
             }
@@ -202,10 +204,10 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
 
                 if (this.financeiro.setor?.uuid) {
                     this.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.SETOR;
-                } else  {
+                } else {
                     this.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.CONTRATO;
                 }
-                
+
             } catch (error) {
                 alertStore.show(error.message, "error")
                 throw error;
@@ -252,7 +254,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
         },
         async downloadComprovante(row) {
             const nome = `${row.parcela}_de_${this.financeiro.numero_parcelas}_${row.data_vencimento}`
-            
+
             const response = await api.get(`financeiro/parcela/download-comprovante/${row.comprovante}`, { responseType: 'blob' });
             if (response.status === 200) {
                 await downloadFile(response, nome);
@@ -260,48 +262,48 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 console.error('Erro ao baixar o arquivo:', response.statusText);
             }
         },
-        selecionarTipoCentroDeCusto(){
+        selecionarTipoCentroDeCusto() {
             if (this.financeiro.centro_custo == FinanceiroCentroDeCustoEnum.SETOR) {
-                this.financeiro.contrato = {uuid: null}
+                this.financeiro.contrato = { uuid: null }
             } else {
-                this.financeiro.setor = {uuid: null}
+                this.financeiro.setor = { uuid: null }
             }
         },
         setContratoUuid(uuid: string) {
             if (!this.financeiro.contrato)
                 this.financeiro.contrato = { uuid: '' };
-            
+
             this.financeiro.contrato.uuid = uuid;
         },
         setSetorUuid(uuid: string) {
             if (!this.financeiro.setor)
                 this.financeiro.setor = { uuid: '' };
-            
+
             this.financeiro.setor.uuid = uuid;
         },
     },
     getters: {
         getFinanciero: (state) => state.financeiro,
         getTipoCentroDeCusto: (state) => {
-            if (state.financeiro.contrato?.uuid){
+            if (state.financeiro.contrato?.uuid) {
                 state.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.CONTRATO
                 return FinanceiroCentroDeCustoEnum.CONTRATO
             }
-                
+
             state.financeiro.centro_custo = FinanceiroCentroDeCustoEnum.SETOR
             return FinanceiroCentroDeCustoEnum.SETOR
         },
         getSetorUuid: (state) => {
-            if (state.financeiro.setor?.uuid) 
+            if (state.financeiro.setor?.uuid)
                 return state.financeiro.setor?.uuid
-            
+
             return null
-        },    
+        },
         getContratoUuid: (state) => {
-            if (state.financeiro.contrato?.uuid) 
+            if (state.financeiro.contrato?.uuid)
                 return state.financeiro.contrato?.uuid
-            
-            return {uuid: null}
+
+            return { uuid: null }
         },
 
         async carregarResumoTotal() {
@@ -314,7 +316,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             this.resumo.total_despesa = total_despesa
             this.resumo.total_receita = total_receita
         },
-        
-        
+
+
     },
 })

@@ -18,10 +18,14 @@ import { Roles } from 'src/auth/decorator/roles.decorator';
 import { FinanceiroCategoriaEnum, FinanceiroEnum, ParcelamentoEnum } from 'src/enum/financeiro.enum';
 import { GetCurrentUser } from 'src/auth/decorator/user.decorator';
 import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
+import { FinanceiroAdapter } from './adapter/FinanceiroAdapter';
 
 @Controller('financeiro')
 export class FinanceiroController {
-  constructor(private readonly service: FinanceiroService) {}
+  constructor(
+    private readonly service: FinanceiroService,
+    private readonly financeiroAdapter: FinanceiroAdapter
+  ) { }
 
   @Get()
   @Roles({ roles: ['MASTER', 'DESPESA_LISTAR'] })
@@ -54,7 +58,7 @@ export class FinanceiroController {
       isParcelada,
     );
     const financeiroDto: FinanceiroResponseDto[] = financeiro.map(
-      (financeiro) => financeiro.toDto(),
+      (financeiro) => this.financeiroAdapter.toDto(financeiro),
     );
     return financeiroDto;
   }
@@ -65,7 +69,7 @@ export class FinanceiroController {
     const financeiro = await this.service.findOneByUuid(uuid);
     if (!financeiro) throw new NotFoundException('Financeiro não localizada');
 
-    return financeiro.toDto();
+    return this.financeiroAdapter.toDto(financeiro);
   }
 
   @Post()
@@ -75,7 +79,7 @@ export class FinanceiroController {
     @Body() request: FinanceiroRequestDto,
   ): Promise<FinanceiroResponseDto> {
     const createdFinanceiro = await this.service.create(usuarioLogado, request);
-    return createdFinanceiro.toDto();
+    return this.financeiroAdapter.toDto(createdFinanceiro);
   }
 
   @Put(':uuid')
@@ -94,7 +98,7 @@ export class FinanceiroController {
     @Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string,
   ): Promise<FinanceiroResponseDto> {
     const financeiro = await this.service.remove(uuid);
-    return financeiro.toDto();
+    return this.financeiroAdapter.toDto(financeiro);
   }
 
   @Get('resumo/totais')

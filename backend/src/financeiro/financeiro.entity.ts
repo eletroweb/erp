@@ -12,7 +12,6 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { FinanceiroRequestDto } from './financeiro.request.dto';
-import { FinanceiroResponseDto } from './financeiro.response.dto';
 
 import { FinanceiroParcelasEntity } from './parcela/financeiro.parcela.entity';
 import { SetorEntity } from 'src/setores/setor.entity';
@@ -111,68 +110,6 @@ export class FinanceiroEntity {
     entity.situacao = dto.situacao;
     entity.numero_parcelas = dto.numero_parcelas;
     return entity;
-  }
-
-  toDto(): FinanceiroResponseDto {
-    const existeRegistroVencidoOuPendente = (parcelas) => {
-      if (parcelas != undefined) {
-        return parcelas.some((parcela) => {
-          return (
-            dayjs(parcela.data_vencimento)
-              .startOf('day')
-              .isBefore(dayjs().startOf('day')) &&
-            [FinanceiroEnum.VENCIDA, FinanceiroEnum.PENDENTE].includes(
-              parcela.situacao,
-            )
-          );
-        });
-      }
-      return false;
-    };
-
-    const valor_pago = (parcelas) => {
-      if (parcelas != undefined) {
-        return parcelas
-          .filter((parcela) => parcela.situacao === FinanceiroEnum.PAGA)
-          .reduce((acc, parcela) => acc + parseFloat(parcela.valor), 0);
-      }
-      return 0;
-    };
-
-    const todasParcelasPagas = (parcelas) => {
-      if (parcelas != undefined)
-        return parcelas.every(
-          (parcela) => parcela.situacao === FinanceiroEnum.PAGA,
-        );
-    };
-
-    const financeiroParcelada = (parcelas) => {
-      if (parcelas != undefined) return parcelas.length > 1;
-
-      return false;
-    };
-
-    const dto = new FinanceiroResponseDto();
-    dto.uuid = this.uuid;
-    dto.categoria = this.categoria;
-    dto.tipo = this.tipo;
-    dto.setor = this.setor?.toDto();
-    dto.contrato = this.contrato?.toDto();
-    dto.descricao = this.descricao;
-    dto.fornecedor = this.fornecedor;
-    dto.observacao = this.observacao;
-    dto.data_vencimento = this.data_vencimento;
-    dto.vencida = existeRegistroVencidoOuPendente(this.parcelas);
-    dto.todas_parcelas_pagas = todasParcelasPagas(this.parcelas);
-    dto.data_pagamento = this.data_pagamento;
-    dto.valor_cobranca = this.valor_cobranca;
-    dto.valor_pago = valor_pago(this.parcelas);
-    dto.parcelada = financeiroParcelada(this.parcelada);
-    dto.situacao = this.situacao;
-    dto.numero_parcelas = this.numero_parcelas;
-    dto.parcelas = (this.parcelas ?? []).map((parcela) => parcela.toDto());
-
-    return dto;
   }
 
   static toDecimal(valorString: string): number {

@@ -1,5 +1,6 @@
 import {
   FinanceiroCategoriaEnum,
+  FinanceiroCentroDeCustoEnum,
   FinanceiroEnum,
   FinanceiroTipoEnum,
 } from 'src/enum/financeiro.enum';
@@ -26,4 +27,5 @@ export class FinanceiroResponseDto {
   parcelas: FinanceiroParcelaResponse[];
   vencida: boolean;
   todas_parcelas_pagas: boolean;
+  centro_custo: FinanceiroCentroDeCustoEnum;
 }

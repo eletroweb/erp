@@ -13,6 +13,7 @@ import { FinanceiroParcelaRepository } from './parcela/financeiro.parcela.reposi
 import { FinanceiroParcelaService } from './parcela/financeiro.parcela.service';
 import { SetorModule } from 'src/setores/setor.module';
 import { ContratoModule } from 'src/contratos/contrato.module';
+import { FinanceiroAdapter } from './adapter/FinanceiroAdapter';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { ContratoModule } from 'src/contratos/contrato.module';
     FinanceiroParcelaComprovanteService,
     FinanceiroRepository,
     FinanceiroParcelaRepository,
+    FinanceiroAdapter
   ],
-  exports: [FinanceiroService],
+  exports: [FinanceiroService, FinanceiroAdapter],
 })
 export class FinanceiroModule {}

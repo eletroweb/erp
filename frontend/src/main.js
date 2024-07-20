@@ -35,6 +35,9 @@ app.config.globalProperties.$moment = {
     return moment(date).fromNow()
   },
   format(date) {
+    if (date === null)
+      return null
+
     return moment(date).format("DD/MM/YYYY")
   },
 }
@@ -47,8 +50,8 @@ app.config.warnHandler = (msg, vm, trace) => {
 // Primevue
 app.use(PrimeVue, {
   theme: {
-        preset: Aura
-    }
+    preset: Aura
+  }
 });
 
 app.use(router)

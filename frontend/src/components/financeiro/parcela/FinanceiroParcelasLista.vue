@@ -1,7 +1,6 @@
 <template>
     <div class="row">
 
-        <!-- DialogoFinanceiroParcelaPagamento /-->
         <DrawerFinanceiroParcelaPagamento />
 
 
@@ -55,7 +54,6 @@
 <script>
 import { formatarReal, getCorPorSituacao } from '@/common/util.ts';
 import { FinanceiroSituacaoEnum } from '@/enum/financeiro.enum'
-import DialogoFinanceiroParcelaPagamento from '@/components/financeiro/parcela/DialogoFinanceiroParcelaPagamento.vue'
 import DrawerFinanceiroParcelaPagamento from '@/components/financeiro/parcela/DrawerFinanceiroParcelaPagamento.vue'
 import { FinanceiroStore } from '@/store/financeiro/FinanceiroStore.ts'
 
@@ -71,7 +69,6 @@ export default {
         return { financeiroStore, formatarReal, getCorPorSituacao }
     },
     components: {
-        DialogoFinanceiroParcelaPagamento,
         DrawerFinanceiroParcelaPagamento
     },
     methods: {

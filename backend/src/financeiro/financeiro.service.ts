@@ -8,6 +8,7 @@ import { FinanceiroParcelaSituacaoRequest } from './parcela/financeiro.parcela.s
 import {
   FinanceiroEnum,
   FinanceiroCategoriaEnum,
+  FinanceiroCentroDeCustoEnum,
 } from 'src/enum/financeiro.enum';
 import { FinanceiroParcelaService } from './parcela/financeiro.parcela.service';
 import { FinanceiroBusiness } from './financeiro.business';
@@ -23,6 +24,7 @@ import { Specification } from './specification/Specification';
 import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
 import { EmpresaUsuarioService } from 'src/empresa/empresausuario/empresa.usuario.service';
 import { EmpresaSpecification } from 'src/setores/specification/EmpresaSpecification';
+import { FinanceiroAdapter } from './adapter/FinanceiroAdapter';
 
 const dayjs = require('dayjs');
 
@@ -38,7 +40,8 @@ export class FinanceiroService {
     private readonly financeiroBusiness: FinanceiroBusiness,
     private readonly setorService: SetorService,
     private readonly contratoService: ContratoService,
-  ) {}
+    private readonly financeiroAdapter: FinanceiroAdapter
+  ) { }
 
   // RF12.1 Listar financeiro
   async findAll(
@@ -98,9 +101,14 @@ export class FinanceiroService {
         financeiroEntity,
         request.parcelas,
       );
-    
+
     const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
     financeiro.empresa = empresa;
+    if (request.centro_custo === FinanceiroCentroDeCustoEnum.SETOR) {
+      financeiro.contrato = null;
+    } else {
+      financeiro.setor = null;
+    }
     return this.financeiroRepository.save(financeiro);
   }
 
@@ -109,19 +117,15 @@ export class FinanceiroService {
     uuid: string,
     request: FinanceiroRequestDto,
   ): Promise<FinanceiroEntity> {
-    const financeiroOriginPromise = this.findOneByUuid(uuid);
-    const setor = await this.setorService.findOneByUuid(request.setor.uuid)
-    const contrato = await this.contratoService.findOneByUuid(request.contrato.uuid)
+    const financeiroOrigin = await this.findOneByUuid(uuid);
+    const { setor: { uuid: setorUuid } = {}, contrato: { uuid: contratoUuid } = {} } = request;
 
-    const [financeiroOrigin] = await Promise.all([
-      financeiroOriginPromise,
+    const [setor, contrato] = await Promise.all([
+      setorUuid ? this.setorService.findOneByUuid(setorUuid) : Promise.resolve(null),
+      contratoUuid ? this.contratoService.findOneByUuid(contratoUuid) : Promise.resolve(null)
     ]);
 
-    const financeiroTarget = FinanceiroEntity.fromRequestDto(
-      request,
-      setor,
-      contrato,
-    );
+    const financeiroTarget = this.financeiroAdapter.toEntity(request, setor, contrato);
     const updatedFinanceiro = this.financeiroRepository.merge(
       financeiroOrigin,
       financeiroTarget,
@@ -133,6 +137,12 @@ export class FinanceiroService {
         updatedFinanceiro,
         request.parcelas,
       );
+
+    if (request.centro_custo === FinanceiroCentroDeCustoEnum.SETOR) {
+      financeiro.contrato = null;
+    } else {
+      financeiro.setor = null;
+    }
 
     await this.financeiroRepository.save(financeiro);
     return financeiro;

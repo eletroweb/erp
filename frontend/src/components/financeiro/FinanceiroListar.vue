@@ -44,7 +44,7 @@
                 </Column>
                 <Column sortable field="data_pagamento" header="Pagamento">
                     <template #body="slotProps">
-                        {{ $moment.format(slotProps.data.data_vencimento) }}
+                        {{ $moment.format(slotProps.data.data_pagamento) }}
                     </template>
                 </Column>
                 <Column sortable field="vencida" header="Vencida">

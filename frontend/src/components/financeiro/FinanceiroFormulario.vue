@@ -1,115 +1,117 @@
 <template>
     <div>
-    <Toolbar>
-        <template #start>
-            <Button v-if="financeiroStore.financeiro.uuid == null" @click="financeiroStore.cadastrar()"
-                severity="Success" text raised icon="pi pi-save" aria-label="Salvar" label="Salvar" />
+        <Toolbar>
+            <template #start>
+                <Button v-if="financeiroStore.financeiro.uuid == null" @click="financeiroStore.cadastrar()"
+                    severity="Success" text raised icon="pi pi-save" aria-label="Salvar" label="Salvar" />
 
-            <Button v-else type="primary" @click="financeiroStore.editar(financeiroStore.financeiro.uuid)"
-                severity="Success" text raised icon="pi pi-save" label="Salvar alterações" />
+                <Button v-else type="primary" @click="financeiroStore.editar(financeiroStore.financeiro.uuid)"
+                    severity="Success" text raised icon="pi pi-save" label="Salvar alterações" />
 
-            <Button @click="financeiroStore.excluir(financeiroStore.financeiro.uuid)" severity="danger"
-                icon="pi pi-eraser" text raised label="Excluir" />
-        </template>
+                <Button @click="financeiroStore.excluir(financeiroStore.financeiro.uuid)" severity="danger"
+                    icon="pi pi-eraser" text raised label="Excluir" />
+            </template>
 
-        <template #end>
-            <Button @click="financeiroStore.cancelar()" text raised severity="secondary" icon="pi pi-backward"
-                label="Cancelar" />
-        </template>
-    </Toolbar>
-    <div class="container grid-container">
-        <Fieldset legend="Dados">
-            <div>
+            <template #end>
+                <Button @click="financeiroStore.cancelar()" text raised severity="secondary" icon="pi pi-backward"
+                    label="Cancelar" />
+            </template>
+        </Toolbar>
+        <div class="container grid-container">
+            <Fieldset legend="Dados">
+                <div>
 
-                <h1>Registro Financeiro: {{ financeiroStore.financeiro.descricao }}</h1>
-                <div class="linha coluna4">
-                    <div>
+                    <h1>Registro Financeiro: {{ financeiroStore.financeiro.descricao }}</h1>
+                    <div class="linha coluna4">
                         <div>
-                            <label>Categoria</label>
-                            <RadioButton v-model="financeiroStore.financeiro.categoria" inputId="ingredient1"
-                                name="receita" value="RECEITA" /> Receita
+                            <div>
+                                <label>Categoria</label>
+                                <RadioButton v-model="financeiroStore.financeiro.categoria" inputId="ingredient1"
+                                    name="receita" value="RECEITA" /> Receita
 
-                            <RadioButton v-model="financeiroStore.financeiro.categoria" inputId="ingredient1"
-                                name="despesa" value="DESPESA" /> Despesa
+                                <RadioButton v-model="financeiroStore.financeiro.categoria" inputId="ingredient1"
+                                    name="despesa" value="DESPESA" /> Despesa
+                            </div>
+                        </div>
+                        <template v-if="financeiroStore.financeiro.categoria == 'DESPESA'">
+                            <div>
+                                <label>Centro de Custo</label>
+                                <Select v-model="financeiroStore.financeiro.centro_custo"
+                                    :options="centroDeCustoDisponiveis" optionValue="value"
+                                    @change="financeiroStore.selecionarTipoCentroDeCusto()" optionLabel="name"
+                                    placeholder="Selecione o centro de custo" class="w-full md:w-56" />
+                            </div>
+
+                            <div v-if="financeiroStore.financeiro.centro_custo == 'SETOR'">
+                                <label>Setor</label>
+                                <Select style="width: 240px" v-model="financeiroStore.financeiro.setor"
+                                    :options="setorStore.setores" optionLabel="descricao"
+                                    placeholder="Selecione o Setor..." class="w-full md:w-56" />
+                            </div>
+
+                            <div v-else>
+                                <label>Contrato</label>
+                                <Select style="width: 240px" v-model="financeiroStore.financeiro.contrato"
+                                    :options="contratoStore.contratos" optionLabel="descricao"
+                                    placeholder="Selecione o contrato..." class="w-full md:w-56" />
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div>
+                                <label>Setor</label>
+                                <Select style="width: 240px" v-model="financeiroStore.financeiro.setor"
+                                    :options="setorStore.setores" optionLabel="descricao"
+                                    placeholder="Selecione o Setor..." class="w-full md:w-56" />
+                            </div>
+                        </template>
+
+                    </div>
+                    <div class="linha coluna2">
+                        <div>
+                            <div>
+                                <label>Descrição</label>
+                                <InputText type="text" v-model="financeiroStore.financeiro.descricao" class="input" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Fornecedor</label>
+                            <InputText type="text" v-model="financeiroStore.financeiro.fornecedor" class="input" />
                         </div>
                     </div>
-                    <template v-if="financeiroStore.financeiro.categoria == 'DESPESA'">
-                    <div>
-                        <label>Centro de Custo</label>
-                        <Select v-model="financeiroStore.financeiro.centro_custo" :options="centroDeCustoDisponiveis"
-                            @change="financeiroStore.selecionarTipoCentroDeCusto()" optionLabel="name"
-                            placeholder="Selecione o centro de custo" class="w-full md:w-56" />
-                    </div>
-
-                    <div v-if="financeiroStore.financeiro.centro_custo.code == 'SETOR'">
-                        <label>Setor</label>
-                        <Select style="width: 240px" v-model="financeiroStore.financeiro.setor"
-                            :options="setorStore.setores" optionLabel="descricao" placeholder="Selecione o Setor..."
-                            class="w-full md:w-56" />
-                    </div>
-
-                    <div v-else>
-                        <label>Contrato</label>
-                        <Select style="width: 240px" v-model="financeiroStore.financeiro.contrato"
-                            :options="contratoStore.contratos" optionLabel="descricao"
-                            placeholder="Selecione o contrato..." class="w-full md:w-56" />
-                    </div>
-                    </template>
-                    <template v-else>
+                    <div class="linha coluna3">
                         <div>
-                            <label>Setor</label>
-                            <Select style="width: 240px" v-model="financeiroStore.financeiro.setor"
-                                :options="setorStore.setores" optionLabel="descricao" placeholder="Selecione o Setor..."
+                            <label>Data de Vencimento</label>
+                            <DatePicker v-model="financeiroStore.financeiro.data_vencimento" showIcon
+                                iconDisplay="input" />
+                        </div>
+                        <div>
+                            <label>Valor</label>
+                            <InputNumber v-model="financeiroStore.financeiro.valor_cobranca"
+                                @blur="selecionarNumeroDeParcelas" inputId="currency-us" mode="currency" currency="BRL"
+                                locale="pt-BR" />
+                        </div>
+                        <div>
+                            <label>Número de Parcelas</label>
+                            <Select v-model="financeiroStore.financeiro.numero_parcelas" :options="parcelasDisponiveis"
+                                @change="selecionarNumeroDeParcelas()" optionLabel="name" placeholder="Parcelas"
                                 class="w-full md:w-56" />
-                        </div>    
-                    </template>
-                    
-                </div>
-                <div class="linha coluna2">
-                    <div>
-                        <div>
-                            <label>Descrição</label>
-                            <InputText type="text" v-model="financeiroStore.financeiro.descricao" class="input" />
                         </div>
                     </div>
 
-                    <div>
-                        <label>Fornecedor</label>
-                        <InputText type="text" v-model="financeiroStore.financeiro.fornecedor" class="input" />
+                    <div class="linha coluna1">
+                        <label>Observação</label>
+                        <Textarea v-model="financeiroStore.financeiro.observacao" rows="5" cols="30" />
                     </div>
                 </div>
-                <div class="linha coluna3">
-                    <div>
-                        <label>Data de Vencimento</label>
-                        <DatePicker v-model="financeiroStore.financeiro.data_vencimento" showIcon iconDisplay="input" />
-                    </div>
-                    <div>
-                        <label>Valor</label>
-                        <InputNumber v-model="financeiroStore.financeiro.valor_cobranca"
-                            @blur="selecionarNumeroDeParcelas" inputId="currency-us" mode="currency" currency="BRL"
-                            locale="pt-BR" />
-                    </div>
-                    <div>
-                        <label>Número de Parcelas</label>
-                        <Select v-model="financeiroStore.financeiro.numero_parcelas" :options="parcelasDisponiveis"
-                            @change="selecionarNumeroDeParcelas()" optionLabel="name" placeholder="Parcelas"
-                            class="w-full md:w-56" />
-                    </div>
-                </div>
-
-                <div class="linha coluna1">
-                    <label>Observação</label>
-                    <Textarea v-model="financeiroStore.financeiro.observacao" rows="5" cols="30" />
-                </div>
-            </div>
-        </Fieldset>
+            </Fieldset>
 
 
-        <Fieldset legend="Parcelas">
-            <FinanceiroParcelasLista :financeiro="financeiroStore.financeiro" />
-        </Fieldset>
+            <Fieldset legend="Parcelas">
+                <FinanceiroParcelasLista :financeiro="financeiroStore.financeiro" />
+            </Fieldset>
+        </div>
     </div>
-</div>    
 </template>
 
 <script>
@@ -176,8 +178,8 @@ export default {
                 { name: '12x', code: 12 }
             ],
             centroDeCustoDisponiveis: [
-                { name: 'Setor', code: 'SETOR' },
-                { name: 'Contrato', code: 'CONTRATO' }
+                { name: 'Setor', value: FinanceiroCentroDeCustoEnum.SETOR },
+                { name: 'Contrato', value: FinanceiroCentroDeCustoEnum.CONTRATO }
             ]
         }
     },
