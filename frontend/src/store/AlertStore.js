@@ -14,7 +14,8 @@ export const AlertStore = defineStore('AlertStore', {
     state: () => ({
         display: false,
         message: "Operação realizada com sucesso",
-        severity: 'success'
+        severity: 'success',
+        history: []
     }),
     actions: {
         async show(message, severity) {
@@ -22,9 +23,12 @@ export const AlertStore = defineStore('AlertStore', {
             this.message = message
             this.severity = severity
 
-            setTimeout(() => {
-                this.display = false;
-              }, 10000);
+            /* setTimeout(() => {
+                 this.display = false;
+               }, 10000);*/
+        },
+        async addHistory(message) {
+            this.history.push(message)
         },
     },
 })

@@ -87,9 +87,8 @@
                         </div>
                         <div>
                             <label>Valor</label>
-                            <InputNumber v-model="financeiroStore.financeiro.valor_cobranca"
-                                @blur="selecionarNumeroDeParcelas" inputId="currency-us" mode="currency" currency="BRL"
-                                locale="pt-BR" />
+                            <InputNumber v-model="financeiroStore.financeiro.valor_cobranca" inputId="currency-us"
+                                mode="currency" currency="BRL" locale="pt-BR" />
                         </div>
                         <div>
                             <label>Número de Parcelas</label>
@@ -200,7 +199,8 @@ export default {
             const valor = valor_cobranca / parcelaSelecionada
             const situacao = FinanceiroSituacaoEnum.PENDENTE;
 
-            let data_vencimento = dayjs(this.financeiroStore.financeiro.data_vencimento).format('DD/MM/YYYY')
+            //let data_vencimento = dayjs(this.financeiroStore.financeiro.data_vencimento).format('DD/MM/YYYY')
+            let data_vencimento = this.financeiroStore.financeiro.data_vencimento
             let parcelaInicial = 1
 
             this.financeiroStore.financeiro.parcelas = []

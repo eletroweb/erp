@@ -138,12 +138,12 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             return true
         },
         requestBuild() {
-            const { code } = this.financeiro.numero_parcelas
-            //const centro_custo = this.financeiro.centro_custo.code
+            const { code } = this.financeiro.numero_parcelas;
+            //const dataVencimento = dayjs(this.financeiro.data_vencimento).format('DD/MM/YYYY');
+
             return {
                 ...this.financeiro,
                 numero_parcelas: code,
-                //centro_custo
             };
         },
         async editar() {

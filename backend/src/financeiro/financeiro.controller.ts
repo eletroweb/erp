@@ -19,12 +19,15 @@ import { FinanceiroCategoriaEnum, FinanceiroEnum, ParcelamentoEnum } from 'src/e
 import { GetCurrentUser } from 'src/auth/decorator/user.decorator';
 import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
 import { FinanceiroAdapter } from './adapter/FinanceiroAdapter';
+import { SocketService } from './socket.service';
+import { NotificaitonRequest } from 'src/app/notification.request';
 
 @Controller('financeiro')
 export class FinanceiroController {
   constructor(
     private readonly service: FinanceiroService,
-    private readonly financeiroAdapter: FinanceiroAdapter
+    private readonly financeiroAdapter: FinanceiroAdapter,
+    private readonly socketService: SocketService,
   ) { }
 
   @Get()
@@ -111,5 +114,14 @@ export class FinanceiroController {
   ): Promise<any> {
     const resumo = await this.service.getResumo(dataInicio, dataFim, situacao);
     return res.json(resumo);
+  }
+
+  @Post('notification/invoicePending')
+  @Roles({ roles: ['MASTER', 'DESPESA_LISTAR'] })
+  async invoicePendingNotification(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
+    @Body() notification: NotificaitonRequest): Promise<string> {
+    this.socketService.emitClientEvent(usuarioLogado, notification);
+    return "Mensagem enviada";
   }
 }

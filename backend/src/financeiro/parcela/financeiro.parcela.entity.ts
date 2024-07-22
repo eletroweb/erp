@@ -54,34 +54,6 @@ export class FinanceiroParcelasEntity {
     this.uuid = uuidv4();
   }
 
-  static toEntity(dto: FinanceiroParcelaRequest): FinanceiroParcelasEntity {
-    const entity = new FinanceiroParcelasEntity();
-    entity.data_vencimento = dayjs(dto.data_vencimento, 'DD/MM/YYYY').toDate();
-    entity.data_pagamento = dto.data_pagamento
-      ? dayjs(dto.data_pagamento, 'DD/MM/YYYY').toDate()
-      : null;
-    entity.valor = dto.valor;
-    entity.parcela = dto.parcela;
-    entity.situacao = dto.situacao;
-    entity.observacao = dto.observacao;
-    return entity;
-  }
-
-  toDto(): FinanceiroParcelaResponse {
-    const dto = new FinanceiroParcelaResponse();
-    dto.uuid = this.uuid;
-    dto.data_vencimento = dayjs(this.data_vencimento).format('DD/MM/YYYY');
-    dto.data_pagamento = this.data_pagamento
-      ? dayjs(this.data_pagamento).format('DD/MM/YYYY')
-      : null;
-    dto.parcela = this.parcela;
-    dto.valor = this.valor;
-    dto.situacao = this.situacao;
-    dto.comprovante = this.comprovante;
-    dto.observacao = this.observacao;
-    return dto;
-  }
-
   static parseDate(dataString: string) {
     const partesData = dataString.split('/');
     const dataFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`;

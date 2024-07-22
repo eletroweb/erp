@@ -7,19 +7,19 @@
         <DataTable :value="financeiro.parcelas" stripedRows tableStyle="min-width: 50rem">
             <Column header="Parcela">
                 <template #body="slotProps">
-                    {{ slotProps.data.parcela }}/{{ this.financeiro.numero_parcelas.code }}
+                    {{ slotProps.data.parcela }}/{{ financeiro.parcelas.length }}
                 </template>
             </Column>
 
             <Column header="Vencimento">
                 <template #body="slotProps">
-                    {{ slotProps.data.data_vencimento }}
+                    {{ $moment.format(slotProps.data.data_vencimento) }}
                 </template>
             </Column>
 
             <Column header="Pagamento">
                 <template #body="slotProps">
-                    {{ slotProps.data.data_pagamento }}
+                    {{ $moment.format(slotProps.data.data_pagamento) }}
                 </template>
             </Column>
 

@@ -6,9 +6,15 @@ import { FinanceiroRequestDto } from '../financeiro.request.dto';
 import { ContratoEntity } from 'src/contratos/contrato.entity';
 import { SetorEntity } from 'src/setores/setor.entity';
 import { FinanceiroEntity } from '../financeiro.entity';
+import { FinanceiroParcelaAdapter } from './financeiro.parcela.adapter';
 
 @Injectable()
 export class FinanceiroAdapter {
+
+    constructor(
+        private readonly financeiroParcelaAdapter: FinanceiroParcelaAdapter
+    ) { }
+
     toDto(entity: any): FinanceiroResponseDto {
         const existeRegistroVencidoOuPendente = (parcelas: any[]) => {
             if (parcelas != undefined) {
@@ -66,7 +72,7 @@ export class FinanceiroAdapter {
         dto.parcelada = financeiroParcelada(entity.parcelas);
         dto.situacao = entity.situacao;
         dto.numero_parcelas = entity.numero_parcelas;
-        dto.parcelas = (entity.parcelas ?? []).map((parcela) => parcela.toDto());
+        dto.parcelas = (entity.parcelas ?? []).map((parcela) => this.financeiroParcelaAdapter.toDto(parcela));
         dto.centro_custo = entity.setor == null ? FinanceiroCentroDeCustoEnum.CONTRATO : FinanceiroCentroDeCustoEnum.SETOR;
 
         return dto;

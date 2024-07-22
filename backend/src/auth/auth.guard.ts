@@ -13,15 +13,13 @@ import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from './public-strategy';
 import { ROLES_KEY } from 'src/auth/decorator/roles.decorator';
 import { UsuarioService } from 'src/usuario/usuario.service';
-import { UsuarioRoleService } from '../usuario/roles/usuario.role.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private reflector: Reflector,
-    private usuarioService: UsuarioService,
-    private readonly usuarioRoleService: UsuarioRoleService,
+    private usuarioService: UsuarioService
   ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -63,5 +61,13 @@ export class AuthGuard implements CanActivate {
   private extractTokenFromHeader(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
+  }
+
+  async getUserUuidFromToken(token: string) {
+    const payload = await this.jwtService.verifyAsync(token, {
+      secret: jwtConstants.secret,
+    });
+
+    return payload.sub;
   }
 }

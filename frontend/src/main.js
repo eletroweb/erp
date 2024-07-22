@@ -18,6 +18,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import moment from 'moment'
+import socketPlugin from './socket-plugin';
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -59,4 +60,5 @@ app.use(ElementPlus)
 app.use(pinia)
 app.use(VueApexCharts);
 app.use(money);
+app.use(socketPlugin);
 app.mount('#app')

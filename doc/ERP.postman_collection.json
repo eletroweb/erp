@@ -111,7 +111,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n        \"descricao\": \"Meio Ambiente\",\r\n        \"situacao\": 1\r\n}",
+							"raw": "{\r\n    \"descricao\": \"Meio Ambiente\",\r\n    \"situacao\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1491,7 +1491,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"usuario\": {\r\n        \"nome\": \"Master 1\",\r\n        \"username\": \"master1\",\r\n        \"email\": \"master@gmail.com\",\r\n        \"password\": \"123456\"\r\n    },\r\n    \"empresa\": {\r\n        \"razaoSocial\": \"Company 1\",\r\n        \"nomeFantasia\": \"Company 1\",\r\n        \"cnpj\": \"12345678901234\",\r\n        \"email\": \"company1@example.com\",\r\n        \"cep\": \"12345-678\",\r\n        \"estado\": \"Example State\",\r\n        \"cidade\": \"Example City\",\r\n        \"endereco\": \"Example Street\",\r\n        \"numero\": \"123\",\r\n        \"complemento\": \"Example Complement\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"usuario\": {\r\n        \"nome\": \"Master 1\",        \r\n        \"email\": \"master@gmail.com\",\r\n        \"password\": \"123456\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1866,7 +1866,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"nome\": \"Yonatha Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\"]\r\n}",
-							"raw": "{\r\n  \"nome\": \"Yonatha Almeida\",\r\n  \"username\": \"yonatha\",\r\n  \"email\": \"yonathalmeida@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"roles\": [\"MASTER\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1875,13 +1874,11 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/usuarios/e92a022e-a19f-449c-96d8-9821c8e4d28f",
-							"raw": "{{baseUrl}}/usuarios/e92a022e-a19f-449c-96d8-9821c8e4d28f",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"usuarios",
-								"e92a022e-a19f-449c-96d8-9821c8e4d28f"
 								"e92a022e-a19f-449c-96d8-9821c8e4d28f"
 							]
 						}
@@ -1958,6 +1955,35 @@
 							"path": [
 								"usuarios",
 								"d6d1b1d8-e07d-4fe2-a983-9f7aed5e8bda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/settings/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"settings",
+								"me"
 							]
 						}
 					},
@@ -2206,6 +2232,50 @@
 									"key": "situacao",
 									"value": "true",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAddressByCep",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/findAddressByCep/:cep",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"findAddressByCep",
+								":cep"
+							],
+							"variable": [
+								{
+									"key": "cep",
+									"value": "84026-420"
 								}
 							]
 						}
@@ -3253,22 +3323,11 @@
 								},
 								"url": {
 									"raw": "{{baseUrl}}/financeiro?descricao=Salário&categoria=maracuja",
-									"raw": "{{baseUrl}}/financeiro?descricao=Salário&categoria=maracuja",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"financeiro"
-									],
-									"query": [
-										{
-											"key": "descricao",
-											"value": "Salário"
-										},
-										{
-											"key": "categoria",
-											"value": "maracuja"
-										}
 									],
 									"query": [
 										{
@@ -3360,7 +3419,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/financeiro/resumo/totais/?data_inicio=2024-05-31&data_fim=2024-06-30&situacao=PENDENTE",
+							"raw": "{{baseUrl}}/financeiro/resumo/totais/",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -3373,15 +3432,18 @@
 							"query": [
 								{
 									"key": "data_inicio",
-									"value": "2024-05-31"
+									"value": "2024-07-01",
+									"disabled": true
 								},
 								{
 									"key": "data_fim",
-									"value": "2024-06-30"
+									"value": "2024-07-31",
+									"disabled": true
 								},
 								{
 									"key": "situacao",
-									"value": "PENDENTE"
+									"value": "PENDENTE",
+									"disabled": true
 								},
 								{
 									"key": "situacao",
@@ -3394,7 +3456,7 @@
 					"response": []
 				},
 				{
-					"name": "Financeiro Listar",
+					"name": "Listar Financeiro",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -3419,7 +3481,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/financeiro?descricao=sal",
+							"raw": "{{baseUrl}}/financeiro",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -3435,7 +3497,8 @@
 								},
 								{
 									"key": "descricao",
-									"value": "sal"
+									"value": "ita 2",
+									"disabled": true
 								},
 								{
 									"key": "situacao",
@@ -3461,6 +3524,97 @@
 									"key": "dataPagamentoFim",
 									"value": "2024-06-22",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Financeiro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\": \"ccdb4247-86bf-4304-af7e-c8ae4098dfd4\",\r\n    \"categoria\": \"RECEITA\",\r\n    \"tipo\": \"VARIAVEL\",\r\n    \"descricao\": \"Energia\",\r\n    \"fornecedor\": \"1\",\r\n    \"observacao\": null,\r\n    \"data_vencimento\": \"2024-07-07T03:00:00.000Z\",\r\n    \"vencida\": true,\r\n    \"todas_parcelas_pagas\": false,\r\n    \"data_pagamento\": null,\r\n    \"valor_cobranca\": \"1\",\r\n    \"valor_pago\": 0,\r\n    \"parcelada\": false,\r\n    \"situacao\": \"VENCIDA\",\r\n    \"parcelas\": [\r\n        {\r\n            \"uuid\": \"59f4a517-4b22-4646-8e0c-baabaaceb2f6\",\r\n            \"data_vencimento\": \"07/07/2024\",\r\n            \"data_pagamento\": null,\r\n            \"parcela\": 1,\r\n            \"valor\": \"1.00\",\r\n            \"situacao\": \"VENCIDA\",\r\n            \"comprovante\": null,\r\n            \"observacao\": null\r\n        }\r\n    ],\r\n    \"centro_custo\": \"CONTRATO\",\r\n    \"setor\": \"c84b22bc-1fdb-4707-819c-9fda504187bc\",\r\n    \"contrato\": \"632fb75f-6f12-4d81-a186-bfe02a5dc22f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/ccdb4247-86bf-4304-af7e-c8ae4098dfd4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"financeiro",
+								"ccdb4247-86bf-4304-af7e-c8ae4098dfd4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir Financeiro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/financeiro/:uuid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"financeiro",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "4eb2601d-a73f-419f-b441-0761e913a3a8"
 								}
 							]
 						}
@@ -4033,88 +4187,10 @@
 			]
 		},
 		{
-			"name": "Empresa",
+			"name": "Notification",
 			"item": [
 				{
-					"name": "Logomarca",
-					"item": [
-						{
-							"name": "Alterar Logomarca",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "logomarca",
-											"type": "file",
-											"src": "/C:/Users/yonat/OneDrive/Desktop/logo-login.png"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{baseUrl}}/empresa/logomarca",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"empresa",
-										"logomarca"
-									],
-									"query": [
-										{
-											"key": "",
-											"value": null,
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Exibir logomarca",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/empresa/logomarca",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"empresa",
-										"logomarca"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Cadastrar/Editar Empresa",
+					"name": "Invoice Pending Notification",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -4122,6 +4198,16 @@
 								{
 									"key": "token",
 									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
 									"type": "string"
 								}
 							]
@@ -4130,7 +4216,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"razaoSocial\": \"Example Company\",\r\n    \"nomeFantasia\": \"Example\",\r\n    \"cnpj\": \"12345678901234\",\r\n    \"email\": \"example@example.com\",\r\n    \"cep\": \"12345-678\",\r\n    \"estado\": \"Example State\",\r\n    \"cidade\": \"Example City\",\r\n    \"endereco\": \"Example Street\",\r\n    \"numero\": \"123\",\r\n    \"complemento\": \"Example Complement\",\r\n    \"situacao\": \"ATIVO\"\r\n}",
+							"raw": "{\r\n    \"content\": \"Financeiro: Há despesas com vencimento em 5 dias\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4138,19 +4224,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/empresa",
+							"raw": "{{baseUrl}}/financeiro/notification/invoicePending",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"empresa"
+								"financeiro",
+								"notification",
+								"invoicePending"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Exibir Empresa",
+					"name": "Invoice Pending Notification Copy",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -4159,18 +4247,39 @@
 									"key": "token",
 									"value": "{{token}}",
 									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "type",
+									"value": "string",
+									"type": "string"
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Exemplo teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/empresa",
+							"raw": "{{baseUrl}}/financeiro/notification/invoicePending",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"empresa"
+								"financeiro",
+								"notification",
+								"invoicePending"
 							]
 						}
 					},

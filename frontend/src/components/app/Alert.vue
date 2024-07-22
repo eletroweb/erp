@@ -1,5 +1,6 @@
 <template>
-  <Message v-if="alertStore.display" :severity="alertStore.severity">
+  <br>
+  <Message closable v-if="alertStore.display" :severity="alertStore.severity">
     {{ alertStore.message }}
   </Message>
 </template>

@@ -189,6 +189,7 @@ RF15.1 Filtrar despesas e receitas
     RF15.1.5 Filtrar por dataPagamentoInicio e dataPagamentoFim
     RF15.1.6 Filtrar parcelada
 RF15.2 Totalizador de despesas e receitas
+RF15.3 Notificar despesas pendentes de pagamento
 
 ## Configurações
 RF15.1 Configuração da empresa

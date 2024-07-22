@@ -7,14 +7,5 @@
         "e2e": "cd e2e && npm run cypress:open",
         "e2e-report": "cd e2e && npm run report",
         "keycloak": "start \"Keycloak\" /D \"C:\\keycloak\\bin\" kc.bat start-dev"
-    },
-    "devDependencies": {
-        "cypress": "^13.8.1",
-        "eslint": "^8.57.0",
-        "eslint-plugin-vue": "^9.24.0"
-    },
-    "dependencies": {
-        "@nestjs/class-validator": "^0.13.4",
-        "cypress-plugin-xhr-toggle": "^1.2.1"
     }
 }

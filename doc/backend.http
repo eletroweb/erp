@@ -1,0 +1,29 @@
+POST /auth/login HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "email": "master2@gmail.com",
+  "password": "123456"
+}
+
+
+POST /financeiro/notification/invoicePending HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZjljOTI2Ny1hMmY1LTQxZTQtOGRmZi1jZDNlNzIzODc4ZjgiLCJlbWFpbCI6Im1hc3RlckBnbWFpbC5jb20iLCJmdWxsTmFtZSI6Ik1hc3RlciAxIiwicm9sZXMiOlsiTUFTVEVSIiwiRURJVEFSX0NMSUVOVEUiLCJFWENMVUlSX0NMSUVOVEUiLCJMSVNUQVJfQ0xJRU5URSIsIkNBREFTVFJBUl9DTElFTlRFIl0sImlhdCI6MTcyMTU4NzEyNCwiZXhwIjoxNzIxNjczNTI0fQ.48xZC-eFCK6NWteV1ZRo6Rus9Nv76tTcwQF27xZACfg
+Content-Type: application/json
+Content-Length: 55
+
+{
+    "content": "Exemplo 3"
+}
+
+POST /financeiro/notification/invoicePending HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZjNmYzFlNS1jMDY1LTQ4ZWQtODk2ZS1kZWUxNzcwNGZlN2YiLCJlbWFpbCI6Im1hc3RlcjJAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJNYXN0ZXIgMiIsInJvbGVzIjpbIk1BU1RFUiJdLCJpYXQiOjE3MjE1ODcxNzgsImV4cCI6MTcyMTY3MzU3OH0.-B4A-A-yptKNx2bfdrMlBosKrf3Z6WAbu8b5_kB6h_A
+Content-Type: application/json
+Content-Length: 55
+
+{
+    "content": "Mensagem enviada para o Master 2"
+}

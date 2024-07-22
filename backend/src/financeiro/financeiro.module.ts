@@ -14,10 +14,16 @@ import { FinanceiroParcelaService } from './parcela/financeiro.parcela.service';
 import { SetorModule } from 'src/setores/setor.module';
 import { ContratoModule } from 'src/contratos/contrato.module';
 import { FinanceiroAdapter } from './adapter/FinanceiroAdapter';
+import { ScheduleModule } from '@nestjs/schedule';
+import { InvoicePendingCron } from 'src/task/InvoicePendingCron';
+import { EventGateway } from './events.gateway';
+import { SocketService } from './socket.service';
+import { FinanceiroParcelaAdapter } from './adapter/financeiro.parcela.adapter';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([FinanceiroEntity, FinanceiroParcelasEntity]),
+    ScheduleModule.forRoot(),
     SetorModule,
     ContratoModule,
   ],
@@ -30,8 +36,13 @@ import { FinanceiroAdapter } from './adapter/FinanceiroAdapter';
     FinanceiroParcelaComprovanteService,
     FinanceiroRepository,
     FinanceiroParcelaRepository,
-    FinanceiroAdapter
+    FinanceiroAdapter,
+    FinanceiroParcelaAdapter,
+    InvoicePendingCron,
+    // TODO mover isso para um EventModule
+    EventGateway,
+    SocketService
   ],
-  exports: [FinanceiroService, FinanceiroAdapter],
+  exports: [FinanceiroService, FinanceiroAdapter, FinanceiroParcelaAdapter, SocketService],
 })
-export class FinanceiroModule {}
+export class FinanceiroModule { }
