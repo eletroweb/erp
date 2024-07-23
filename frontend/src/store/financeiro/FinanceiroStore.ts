@@ -44,7 +44,9 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             contrato: {
                 uuid: null
             },
-            centro_custo: FinanceiroCentroDeCustoEnum.SETOR
+            centro_custo: FinanceiroCentroDeCustoEnum.SETOR,
+            juros: 0,
+            valor_com_juros: 0
         },
         parcela_selecionada: null,
         modalConfirmacaoPagamento: {

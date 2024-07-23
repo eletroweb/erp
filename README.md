@@ -175,17 +175,18 @@ RF13.10 Validar email do fornecedor
 
 ## Receita
 
-RF14.1 Gerenciar despesa
+RF14.1 Cadastrar despesa
     RF14.1.2 Listar despesa
     RF14.1.3 Editar despesa
     RF14.1.4 Excluir despesa
 
-RF14.2 Gerenciar receita
+RF14.2 cadastrar receita
     RF14.2.2 Listar receita
     RF14.2.3 Editar receita
     RF14.2.4 Excluir receita
 
 RF14.3 Associar parcelas a despesa/receita
+    RF14.3.1 Permitir adição de juros ao vlaor das parcelas
 
 ## Financeiro
 RF15.1 Filtrar despesas e receitas

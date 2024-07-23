@@ -79,22 +79,34 @@
                             <InputText type="text" v-model="financeiroStore.financeiro.fornecedor" class="input" />
                         </div>
                     </div>
-                    <div class="linha coluna3">
+                    <div class="linha coluna5">
                         <div>
-                            <label>Data de Vencimento</label>
+                            <label>Data</label>
                             <DatePicker v-model="financeiroStore.financeiro.data_vencimento" showIcon
                                 iconDisplay="input" />
                         </div>
                         <div>
-                            <label>Valor</label>
+                            <label>Valor Nominal</label>
                             <InputNumber v-model="financeiroStore.financeiro.valor_cobranca" inputId="currency-us"
                                 mode="currency" currency="BRL" locale="pt-BR" />
                         </div>
+
                         <div>
-                            <label>Número de Parcelas</label>
+                            <label>Parcelas</label>
                             <Select v-model="financeiroStore.financeiro.numero_parcelas" :options="parcelasDisponiveis"
                                 @change="selecionarNumeroDeParcelas()" optionLabel="name" placeholder="Parcelas"
                                 class="w-full md:w-56" />
+                        </div>
+
+                        <div>
+                            <label>% Juros</label>
+                            <InputNumber @blur="calcularJuros()" v-model="financeiroStore.financeiro.juros" />
+                        </div>
+
+                        <div v-if="financeiroStore.financeiro.juros > 0">
+                            <label>Valor Total</label>
+                            <InputNumber v-model="financeiroStore.financeiro.valor_total" inputId="currency-us"
+                                mode="currency" currency="BRL" locale="pt-BR" :disabled="true" />
                         </div>
                     </div>
 
@@ -198,8 +210,6 @@ export default {
 
             const valor = valor_cobranca / parcelaSelecionada
             const situacao = FinanceiroSituacaoEnum.PENDENTE;
-
-            //let data_vencimento = dayjs(this.financeiroStore.financeiro.data_vencimento).format('DD/MM/YYYY')
             let data_vencimento = this.financeiroStore.financeiro.data_vencimento
             let parcelaInicial = 1
 
@@ -236,6 +246,12 @@ export default {
                 }
             }
         },
+        calcularJuros() {
+            const { juros, valor_cobranca } = this.financeiroStore.financeiro
+            const valor_total = parseFloat(valor_cobranca) + (parseFloat(valor_cobranca) * (parseFloat(juros) / 100))
+            this.financeiroStore.financeiro.valor_total = valor_total.toFixed(2)
+            console.log(valor_total);
+        }
     }
 }
 </script>
@@ -268,7 +284,11 @@ div {
 }
 
 .coluna4 {
-    grid-template-columns: 25% 30% 20% 25%;
+    grid-template-columns: 20% 23% 14% 25%;
+}
+
+.coluna5 {
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .endereco {
