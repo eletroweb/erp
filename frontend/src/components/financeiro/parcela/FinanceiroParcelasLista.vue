@@ -25,7 +25,9 @@
 
             <Column header="Valor">
                 <template #body="slotProps">
-                    {{ formatarReal(slotProps.data.valor) }}
+                    <!-- {{ formatarReal(slotProps.data.valor) }} -->
+                    <InputNumber v-model="slotProps.data.valor" inputId="currency-us"
+                        mode="currency" currency="BRL" locale="pt-BR" />
                 </template>
             </Column>
 
@@ -56,6 +58,7 @@ import { formatarReal, getCorPorSituacao } from '@/common/util.ts';
 import { FinanceiroSituacaoEnum } from '@/enum/financeiro.enum'
 import DrawerFinanceiroParcelaPagamento from '@/components/financeiro/parcela/DrawerFinanceiroParcelaPagamento.vue'
 import { FinanceiroStore } from '@/store/financeiro/FinanceiroStore.ts'
+import InputNumber from 'primevue/InputNumber';
 
 export default {
     props: {
@@ -69,7 +72,8 @@ export default {
         return { financeiroStore, formatarReal, getCorPorSituacao }
     },
     components: {
-        DrawerFinanceiroParcelaPagamento
+        DrawerFinanceiroParcelaPagamento,
+        InputNumber
     },
     methods: {
         isPending(situacao_atual) {

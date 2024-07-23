@@ -204,9 +204,10 @@ export default {
             let parcelaInicial = 1
 
             this.financeiroStore.financeiro.parcelas = []
+            const data_pagamento = null
 
             if (parcelaSelecionada === 1) {
-                const data_pagamento = null
+
                 this.financeiroStore.financeiro.parcelas.push({
                     data_vencimento,
                     data_pagamento,
@@ -215,19 +216,23 @@ export default {
                     situacao
                 })
             } else {
+
+                let data_mes_seguinte = dayjs(data_vencimento);
+                data_mes_seguinte = data_mes_seguinte.add(1, 'month');
+
                 for (let parcela = 0; parcela < parcelaSelecionada; parcela++) {
-                    const mesCobranca = parcela === 0 ? 0 : 1
-                    data_vencimento = dayjs(data_vencimento, 'DD/MM/YYYY').add(mesCobranca, 'month').format('DD/MM/YYYY')
-                    const data_pagamento = null
+                    if (parcela > 0)
+                        data_mes_seguinte = data_mes_seguinte.add(1, 'month');
 
                     this.financeiroStore.financeiro.parcelas.push({
                         parcela: parcelaInicial,
                         valor,
-                        data_vencimento,
+                        data_vencimento: data_mes_seguinte.toDate(),
                         data_pagamento,
                         situacao
-                    })
-                    parcelaInicial += 1
+                    });
+
+                    parcelaInicial += 1;
                 }
             }
         },
