@@ -100,7 +100,7 @@
 
                         <div>
                             <label>% Juros</label>
-                            <InputNumber @blur="calcularJuros()" v-model="financeiroStore.financeiro.juros" />
+                            <InputNumber @blur="calcularTotalComJuros()" v-model="financeiroStore.financeiro.juros" />
                         </div>
 
                         <div v-if="financeiroStore.financeiro.juros > 0">
@@ -110,10 +110,15 @@
                         </div>
                     </div>
 
-                    <div class="linha coluna1">
-                        <label>Observação</label>
-                        <Textarea v-model="financeiroStore.financeiro.observacao" rows="5" cols="30" />
-                    </div>
+                    <Accordion value="0">
+                        <AccordionPanel value="0">
+                            <AccordionHeader>Observação</AccordionHeader>
+                            <AccordionContent>
+                                <Textarea style="width: 100%;" v-model="financeiroStore.financeiro.observacao" rows="5"
+                                    cols="30" />
+                            </AccordionContent>
+                        </AccordionPanel>
+                    </Accordion>
                 </div>
             </Fieldset>
 
@@ -144,6 +149,11 @@ import Fieldset from 'primevue/fieldset';
 import { SetorStore } from '@/store/SetorStore';
 import { ContratoStore } from '@/store/ContratoStore'
 
+import Accordion from 'primevue/accordion';
+import AccordionPanel from 'primevue/accordionpanel';
+import AccordionHeader from 'primevue/accordionheader';
+import AccordionContent from 'primevue/accordioncontent';
+
 dayjs.extend(customParseFormat);
 
 export default {
@@ -159,7 +169,11 @@ export default {
         DatePicker,
         InputNumber,
         Toolbar,
-        Fieldset
+        Fieldset,
+        Accordion,
+        AccordionPanel,
+        AccordionHeader,
+        AccordionContent
     },
     setup() {
         const financeiroStore = FinanceiroStore();
@@ -205,10 +219,14 @@ export default {
     },
     methods: {
         selecionarNumeroDeParcelas() {
-            const { numero_parcelas, valor_cobranca } = this.financeiroStore.financeiro
+            const { numero_parcelas, valor_cobranca, valor_total, juros } = this.financeiroStore.financeiro
             const parcelaSelecionada = numero_parcelas.code
 
-            const valor = valor_cobranca / parcelaSelecionada
+            let valor = valor_cobranca / parcelaSelecionada
+            console.log(juros);
+            if (juros > 0) {
+                valor = valor_total / parcelaSelecionada
+            }
             const situacao = FinanceiroSituacaoEnum.PENDENTE;
             let data_vencimento = this.financeiroStore.financeiro.data_vencimento
             let parcelaInicial = 1
@@ -246,11 +264,11 @@ export default {
                 }
             }
         },
-        calcularJuros() {
+        calcularTotalComJuros() {
             const { juros, valor_cobranca } = this.financeiroStore.financeiro
             const valor_total = parseFloat(valor_cobranca) + (parseFloat(valor_cobranca) * (parseFloat(juros) / 100))
             this.financeiroStore.financeiro.valor_total = valor_total.toFixed(2)
-            console.log(valor_total);
+            this.selecionarNumeroDeParcelas()
         }
     }
 }
