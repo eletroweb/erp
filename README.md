@@ -197,10 +197,14 @@ RF15.1 Filtrar despesas e receitas
     RF15.1.5 Filtrar por dataPagamentoInicio e dataPagamentoFim
     RF15.1.6 Filtrar parcelada
 RF15.2 Totalizador de despesas e receitas
-RF15.3 Notificar despesas pendentes de pagamento
+RF15.3 Notificar despesas com vencimento nos proximos
 
 ## Configurações
-RF15.1 Configuração da empresa
+RF16.1 Configurar da empresa
+RF16.2 Configurar Permissões
+RF16.3 Configurar Notificações
+    RF16.3.1 Habilitar/desabilitar notificações de despesas com vencimento nos proximos X dias
+
 
 # Padrão de nomeclatura de branch e de commit
 
