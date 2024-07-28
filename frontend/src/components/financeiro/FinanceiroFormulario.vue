@@ -36,7 +36,8 @@
                         <template v-if="financeiroStore.financeiro.categoria == 'DESPESA'">
                             <div>
                                 <label>Centro de Custo</label>
-                                <Select v-model="financeiroStore.financeiro.centro_custo"
+                                <Select id="centroDeCusto" name="centroDeCusto"
+                                    v-model="financeiroStore.financeiro.centro_custo"
                                     :options="centroDeCustoDisponiveis" optionValue="value"
                                     @change="financeiroStore.selecionarTipoCentroDeCusto()" optionLabel="name"
                                     placeholder="Selecione o centro de custo" class="w-full md:w-56" />
@@ -70,42 +71,45 @@
                         <div>
                             <div>
                                 <label>Descrição</label>
-                                <InputText type="text" v-model="financeiroStore.financeiro.descricao" class="input" />
+                                <InputText name="descricao" type="text" v-model="financeiroStore.financeiro.descricao"
+                                    class="input" />
                             </div>
                         </div>
 
                         <div>
                             <label>Fornecedor</label>
-                            <InputText type="text" v-model="financeiroStore.financeiro.fornecedor" class="input" />
+                            <InputText name="fornecedor" type="text" v-model="financeiroStore.financeiro.fornecedor"
+                                class="input" />
                         </div>
                     </div>
                     <div class="linha coluna5">
                         <div>
                             <label>Data</label>
-                            <DatePicker v-model="financeiroStore.financeiro.data_vencimento" showIcon
-                                iconDisplay="input" />
+                            <DatePicker inputId="data_vencimento" v-model="financeiroStore.financeiro.data_vencimento"
+                                showIcon iconDisplay="input" />
                         </div>
                         <div>
                             <label>Valor Nominal</label>
-                            <InputNumber v-model="financeiroStore.financeiro.valor_cobranca" inputId="currency-us"
-                                mode="currency" currency="BRL" locale="pt-BR" />
+                            <InputNumber name="valor_nominal" v-model="financeiroStore.financeiro.valor_cobranca"
+                                inputId="valor_nominal" mode="currency" currency="BRL" locale="pt-BR" />
                         </div>
 
                         <div>
                             <label>Parcelas</label>
-                            <Select v-model="financeiroStore.financeiro.numero_parcelas" :options="parcelasDisponiveis"
-                                @change="selecionarNumeroDeParcelas()" optionLabel="name" placeholder="Parcelas"
-                                class="w-full md:w-56" />
+                            <Select inputId="parcelas" v-model="financeiroStore.financeiro.numero_parcelas"
+                                :options="parcelasDisponiveis" @change="selecionarNumeroDeParcelas()" optionLabel="name"
+                                placeholder="Parcelas" class="w-full md:w-56" />
                         </div>
 
                         <div>
                             <label>% Juros</label>
-                            <InputNumber @blur="calcularTotalComJuros()" v-model="financeiroStore.financeiro.juros" />
+                            <InputNumber inputId="juros" @blur="calcularTotalComJuros()"
+                                v-model="financeiroStore.financeiro.juros" />
                         </div>
 
                         <div v-if="financeiroStore.financeiro.juros > 0">
                             <label>Valor Total</label>
-                            <InputNumber v-model="financeiroStore.financeiro.valor_total" inputId="currency-us"
+                            <InputNumber v-model="financeiroStore.financeiro.valor_total" inputId="valor_total"
                                 mode="currency" currency="BRL" locale="pt-BR" :disabled="true" />
                         </div>
                     </div>
@@ -114,8 +118,8 @@
                         <AccordionPanel value="0">
                             <AccordionHeader>Observação</AccordionHeader>
                             <AccordionContent>
-                                <Textarea style="width: 100%;" v-model="financeiroStore.financeiro.observacao" rows="5"
-                                    cols="30" />
+                                <Textarea inputId="observacao" style="width: 100%;" v-model="financeiroStore.financeiro.observacao"
+                                    rows="5" cols="30" />
                             </AccordionContent>
                         </AccordionPanel>
                     </Accordion>

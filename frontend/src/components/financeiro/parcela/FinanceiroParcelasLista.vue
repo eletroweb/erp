@@ -25,8 +25,7 @@
 
             <Column header="Valor">
                 <template #body="slotProps">
-                    <!-- {{ formatarReal(slotProps.data.valor) }} -->
-                    <InputNumber v-model="slotProps.data.valor" inputId="currency-us"
+                    <InputNumber v-model="slotProps.data.valor" inputId="valor_parcela"
                         mode="currency" currency="BRL" locale="pt-BR" />
                 </template>
             </Column>

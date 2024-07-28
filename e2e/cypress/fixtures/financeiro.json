@@ -1,0 +1,10 @@
+{
+    "descricao": "Receita 1",
+    "setor": "Administração",
+    "fornecedor": "Fornecedor XPTO",
+    "data_vencimento": "28/07/2024",
+    "valor_nominal": "100",
+    "parcelas": "1x",
+    "valor_total": "110",
+    "observacao": "Observação QA"
+}
