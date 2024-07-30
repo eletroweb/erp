@@ -14,6 +14,8 @@ import { ClienteService } from './cliente.service';
 import { ClienteResponseDto } from './cliente.response.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
 import { ClienteRequestDto } from './cliente.request.dto';
+import { GetCurrentUser } from 'src/auth/decorator/user.decorator';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
 
 @Controller('clientes')
 export class ClienteController {
@@ -22,14 +24,16 @@ export class ClienteController {
   @Get()
   @Roles({ roles: ['MASTER', 'LISTAR_CLIENTE'] })
   async findAll(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
     @Query('nome') nome?: string,
     @Query('documento') documento?: string,
     @Query('situacao') situacao?: string,
   ): Promise<ClienteResponseDto[]> {
     const clientes = await this.clienteService.findAll(
+      usuarioLogado,
       nome,
       documento,
-      situacao,
+      situacao,      
     );
     const clientesDto: ClienteResponseDto[] = clientes.map((cliente) =>
       cliente.toDto(),
@@ -60,9 +64,10 @@ export class ClienteController {
   @Post()
   @Roles({ roles: ['MASTER', 'CADASTRAR_CLIENTE'] })
   async create(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
     @Body() request: ClienteRequestDto,
   ): Promise<ClienteResponseDto> {
-    const createdCliente = await this.clienteService.create(request);
+    const createdCliente = await this.clienteService.create(request, usuarioLogado);
     return createdCliente.toDto();
   }
 

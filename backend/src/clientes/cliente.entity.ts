@@ -14,6 +14,7 @@ import { ClienteResponseDto } from './cliente.response.dto';
 import { ClienteRequestDto } from './cliente.request.dto';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
 import { EnderecoResponse } from 'src/app/endereco.response';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
 
 @Entity('clientes')
 export class ClienteEntity {
@@ -82,6 +83,10 @@ export class ClienteEntity {
   @ManyToOne(() => SetorEntity, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'setor_id' })
   setor: SetorEntity;
+
+  @ManyToOne(() => EmpresaEntity, {nullable: false, onDelete: 'CASCADE'})
+  @JoinColumn({name: 'empresa_id'})
+  empresa: EmpresaEntity
 
   @BeforeInsert()
   generateUuid() {

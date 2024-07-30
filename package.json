@@ -4,7 +4,7 @@
     "scripts": {
         "backend": "cd backend && npm run start:dev",
         "frontend": "cd frontend && npm run dev",
-        "e2e": "cd e2e && npm run cypress:open",
+        "e2e": "cd e2e && npm i && npm run cypress:open",
         "e2e-report": "cd e2e && npm run report",
         "keycloak": "start \"Keycloak\" /D \"C:\\keycloak\\bin\" kc.bat start-dev"
     }

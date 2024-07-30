@@ -1,9 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClienteEntity } from './cliente.entity';
 import { Repository } from 'typeorm';
 import { SetorService } from 'src/setores/setor.service';
 import { ClienteRequestDto } from './cliente.request.dto';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
+import { EmpresaUsuarioService } from 'src/empresa/empresausuario/empresa.usuario.service';
+
 
 @Injectable()
 export class ClienteService {
@@ -11,14 +14,21 @@ export class ClienteService {
     @InjectRepository(ClienteEntity)
     private clienteRepository: Repository<ClienteEntity>,
     private setorService: SetorService,
+    @Inject(EmpresaUsuarioService) private empresaUsuarioService: EmpresaUsuarioService
   ) {}
 
   async findAll(
+    usuarioLogado: UsuarioLogado,    
     nome?: string,
     documento?: string,
     situacao?: string,
   ): Promise<ClienteEntity[]> {
-    let queryBuilder = this.clienteRepository.createQueryBuilder('cliente');
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
+    if(!empresa) {
+      throw new NotFoundException('Empresa não encontrada para o usuário logado');
+    }
+    let queryBuilder = this.clienteRepository.createQueryBuilder('cliente')
+      .where('cliente.empresa_id = :empresaId', {empresaId: empresa.id});
 
     if (nome)
       queryBuilder = queryBuilder.where('cliente.nome LIKE :nome', {
@@ -62,9 +72,18 @@ export class ClienteService {
     return await this.clienteRepository.findOne({ where: { documento } });
   }
 
-  async create(request: ClienteRequestDto): Promise<ClienteEntity> {
+  async create(
+    request: ClienteRequestDto,
+    usuarioLogado: UsuarioLogado,
+  ): Promise<ClienteEntity> {
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
+    if(!empresa) {
+      throw new NotFoundException('Empresa não encontrada para o usuário logado');
+    }
+
     const setor = await this.setorService.findOneByUuid(request.setor);
     const cliente = ClienteEntity.fromRequestDto(request, setor);
+    cliente.empresa = empresa;
     const createdCliente = this.clienteRepository.create(cliente);
     return this.clienteRepository.save(createdCliente);
   }

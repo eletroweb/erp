@@ -79,13 +79,7 @@ export const ClienteStore = defineStore('clienteStore', {
                 notificacaoStore.exibirNotificacao("Atenção", "O setor deve ser informado", 'warning');
                 return
             }
-
-            const endereco = await this.findAddressCep(this.cliente.endereco.cep);
-            this.cliente.estado = endereco.estado;
-            this.cliente.cidade = endereco.cidade;
-            this.cliente.endereco = endereco.logradouro;
-            this.cliente.bairro = endereco.bairro;
-
+            
             try {
                 const request = this.requestBuild()
                 const response = await api.post("clientes", request);
