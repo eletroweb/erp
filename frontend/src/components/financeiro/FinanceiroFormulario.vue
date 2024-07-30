@@ -2,7 +2,9 @@
     <div>
         <Toolbar>
             <template #start>
-                <Button v-if="financeiroStore.financeiro.uuid == null" @click="financeiroStore.cadastrar()"
+                <Button 
+                id="btnSalvar"
+                v-if="financeiroStore.financeiro.uuid == null" @click="financeiroStore.cadastrar()"
                     severity="Success" text raised icon="pi pi-save" aria-label="Salvar" label="Salvar" />
 
                 <Button v-else type="primary" @click="financeiroStore.editar(financeiroStore.financeiro.uuid)"

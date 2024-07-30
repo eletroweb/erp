@@ -103,7 +103,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 const request = this.requestBuild();
                 const response = await api.post("financeiro", request);
                 if (response.status === 201) {
-                    alertStore.show(response.data.message, "success")
+                    alertStore.show("Registro financeiro salvo com sucesso", "success")
                     this.financeiro = {}
                     router.push('/financeiro/financeiro');
                     this.listar()
@@ -157,7 +157,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
                 const request = this.requestBuild();
                 const response = await api.put(`financeiro/${this.financeiro.uuid}`, request);
                 if (response.status === 200) {
-                    alertStore.show(response.data, "success")
+                    alertStore.show("Registro financeiro editado com sucesso", "success")
                     this.financeiro = {}
                     router.push('/financeiro/financeiro');
                     this.listar()
@@ -224,7 +224,7 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             try {
                 const response = await api.delete(`financeiro/${uuid}`);
                 this.financeiro = response.data;
-                alertStore.show("Financeiro exclúida com sucesso", "success")
+                alertStore.show("Registro financeiro exclúido com sucesso", "success")
                 router.push('/financeiro/financeiro');
                 this.listar()
                 this.exibirFinanceiro = false

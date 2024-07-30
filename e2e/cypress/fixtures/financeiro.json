@@ -1,10 +1,22 @@
 {
-    "descricao": "Receita 1",
-    "setor": "Administração",
-    "fornecedor": "Fornecedor XPTO",
-    "data_vencimento": "28/07/2024",
-    "valor_nominal": "100",
-    "parcelas": "1x",
-    "valor_total": "110",
-    "observacao": "Observação QA"
+    "cadastrar": {
+        "descricao": "Receita 1",
+        "setor": "Administração",
+        "fornecedor": "Fornecedor XPTO",
+        "data_vencimento": "28/07/2024",
+        "valor_nominal": "100",
+        "parcelas": "1x",
+        "valor_total": "110",
+        "observacao": "Observação QA"
+    },
+    "editar": {
+        "descricao": "Receita 1 - Editada",
+        "setor": "Engenharia civil",
+        "fornecedor": "Fornecedor XPTO",
+        "data_vencimento": "28/07/2024",
+        "valor_nominal": "100",
+        "parcelas": "1x",
+        "valor_total": "110",
+        "observacao": "Observação QA, registro editado"
+    }
 }

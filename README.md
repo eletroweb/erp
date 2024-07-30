@@ -180,7 +180,7 @@ RF14.1 Cadastrar despesa
     RF14.1.3 Editar despesa
     RF14.1.4 Excluir despesa
 
-RF14.2 cadastrar receita
+RF14.2 Cadastrar receita
     RF14.2.2 Listar receita
     RF14.2.3 Editar receita
     RF14.2.4 Excluir receita

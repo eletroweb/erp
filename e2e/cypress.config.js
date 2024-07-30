@@ -5,8 +5,8 @@ module.exports = {
     projectId: "",
     pageLoadTimeout: 120000,
     chromeWebSecurity: false,
-    // viewportWidth: 1920,
-    //viewportHeight: 1080,
+    viewportWidth: 1440,
+    viewportHeight: 810,
     reporter: 'mochawesome',
     reporterOptions: {
       reportDir: 'cypress/results',
@@ -35,6 +35,6 @@ module.exports = {
       // })
     },
 
-    
+
   },
 };
