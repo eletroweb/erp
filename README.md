@@ -108,6 +108,8 @@ RF8.3 Editar usuário
 RF8.4 Vincular empresa a usuário master
 RF8.4.1 Alterar logomarca da empresa
 
+RF8.5 Recuperar senha
+
 ## Autorização
 
 RF9.1 Impedir que usuário que não possui role, acesse funcionalidades não permitidas
