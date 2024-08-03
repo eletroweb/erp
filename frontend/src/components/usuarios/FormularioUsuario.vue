@@ -72,19 +72,19 @@
 import { UsuarioStore } from '../../store/UsuarioStore'
 import { ModuloStore } from '../../store/configuracao/ModuloStore'
 import InputText from 'primevue/inputtext';
-import RadioButton from 'primevue/RadioButton';
-import Button from 'primevue/Button';
-import Password from 'primevue/Password';
-import Listbox from 'primevue/Listbox';
 import Fieldset from 'primevue/fieldset';
 import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
-import Message from 'primevue/Message';
 import Checkbox from 'primevue/checkbox';
 import Badge from 'primevue/badge';
 import OverlayBadge from 'primevue/overlaybadge';
+import RadioButton from 'primevue/radiobutton';
+import Password from 'primevue/password';
+import Button from 'primevue/button';
+import Listbox from 'primevue/listbox';
+import Message from 'primevue/message';
 
 export default {
     components: {
@@ -135,6 +135,7 @@ export default {
     margin-bottom: 10px;
     gap: 10px;
 }
+
 .container {
     width: 960px;
     margin: 0 auto;
