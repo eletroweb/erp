@@ -2,10 +2,9 @@
     <div>
         <Toolbar>
             <template #start>
-                <Button 
-                id="btnSalvar"
-                v-if="financeiroStore.financeiro.uuid == null" @click="financeiroStore.cadastrar()"
-                    severity="Success" text raised icon="pi pi-save" aria-label="Salvar" label="Salvar" />
+                <Button id="btnSalvar" v-if="financeiroStore.financeiro.uuid == null"
+                    @click="financeiroStore.cadastrar()" severity="Success" text raised icon="pi pi-save"
+                    aria-label="Salvar" label="Salvar" />
 
                 <Button v-else type="primary" @click="financeiroStore.editar(financeiroStore.financeiro.uuid)"
                     severity="Success" text raised icon="pi pi-save" label="Salvar alterações" />
@@ -120,8 +119,8 @@
                         <AccordionPanel value="0">
                             <AccordionHeader>Observação</AccordionHeader>
                             <AccordionContent>
-                                <Textarea inputId="observacao" style="width: 100%;" v-model="financeiroStore.financeiro.observacao"
-                                    rows="5" cols="30" />
+                                <Textarea inputId="observacao" style="width: 100%;"
+                                    v-model="financeiroStore.financeiro.observacao" rows="5" cols="30" />
                             </AccordionContent>
                         </AccordionPanel>
                     </Accordion>
@@ -146,10 +145,10 @@ import { Money3Component } from 'v-money3'
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
-import RadioButton from 'primevue/radioButton';
+import RadioButton from 'primevue/radiobutton';
 import Textarea from 'primevue/textarea';
-import DatePicker from 'primevue/DatePicker';
-import InputNumber from 'primevue/InputNumber';
+import DatePicker from 'primevue/datepicker';
+import InputNumber from 'primevue/inputnumber';
 import Toolbar from 'primevue/toolbar';
 import Fieldset from 'primevue/fieldset';
 import { SetorStore } from '@/store/SetorStore';
@@ -170,10 +169,7 @@ export default {
         Button,
         InputText,
         Select,
-        RadioButton,
         Textarea,
-        DatePicker,
-        InputNumber,
         Toolbar,
         Fieldset,
         Accordion,
