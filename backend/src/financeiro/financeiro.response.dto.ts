@@ -28,4 +28,6 @@ export class FinanceiroResponseDto {
   vencida: boolean;
   todas_parcelas_pagas: boolean;
   centro_custo: FinanceiroCentroDeCustoEnum;
+  juros: number;
+  valor_total: number;
 }

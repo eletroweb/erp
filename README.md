@@ -188,7 +188,7 @@ RF14.2 Cadastrar receita
     RF14.2.4 Excluir receita
 
 RF14.3 Associar parcelas a despesa/receita
-    RF14.3.1 Permitir adição de juros ao vlaor das parcelas
+    RF14.3.1 Permitir adição de juros ao valor das parcelas
 
 ## Financeiro
 RF15.1 Filtrar despesas e receitas

@@ -103,8 +103,8 @@
                         </div>
 
                         <div>
-                            <label>% Juros</label>
-                            <InputNumber inputId="juros" @blur="calcularTotalComJuros()"
+                            <label>% Juros {{ financeiroStore.financeiro.juros }}</label>
+                            <InputNumber inputId="juros" @blur="calcularTotalComJuros($event)"
                                 v-model="financeiroStore.financeiro.juros" />
                         </div>
 
@@ -228,7 +228,6 @@ export default {
             const parcelaSelecionada = numero_parcelas.code
 
             let valor = valor_cobranca / parcelaSelecionada
-            console.log(juros);
             if (juros > 0) {
                 valor = valor_total / parcelaSelecionada
             }
@@ -269,11 +268,14 @@ export default {
                 }
             }
         },
-        calcularTotalComJuros() {
-            const { juros, valor_cobranca } = this.financeiroStore.financeiro
-            const valor_total = parseFloat(valor_cobranca) + (parseFloat(valor_cobranca) * (parseFloat(juros) / 100))
-            this.financeiroStore.financeiro.valor_total = valor_total.toFixed(2)
-            this.selecionarNumeroDeParcelas()
+        calcularTotalComJuros(event) {
+            const juros = event.value;
+            const { valor_cobranca } = this.financeiroStore.financeiro;
+            if (!isNaN(parseFloat(juros)) && !isNaN(parseFloat(valor_cobranca))) {
+                const valor_total = parseFloat(valor_cobranca) + (parseFloat(valor_cobranca) * (parseFloat(juros) / 100));
+                this.financeiroStore.financeiro.valor_total = valor_total.toFixed(2);
+                this.selecionarNumeroDeParcelas();
+            }
         }
     }
 }

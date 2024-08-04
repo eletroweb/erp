@@ -27,6 +27,8 @@ export class FinanceiroRequestDto {
   numero_parcelas: number;
   situacao: FinanceiroEnum;
   categoria: FinanceiroCategoriaEnum;
+  juros: number;
+  valor_total: number;
 
   @IsArray()
   @ValidateNested({ each: true })

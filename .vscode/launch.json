@@ -1,0 +1,22 @@
+// .vscode/launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Frontend Debug",
+            "url": "http://localhost:5173",
+            "webRoot": "${workspaceFolder}/frontend/src",
+            "breakOnLoad": true,
+            "sourceMaps": true,
+            "trace": true,
+            "disableNetworkCache": true,
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/frontend/*",
+                "webpack:///*": "*",
+                "src/*": "${webRoot}/frontend/*"
+            }
+        }
+    ]
+}
