@@ -14,7 +14,7 @@
 
             <FinanceiroListar />
         </el-tab-pane>
-        <el-tab-pane label="">
+        <!-- el-tab-pane label="">
             <template #label>
                 <span class="custom-tabs-label">
                     <el-icon>
@@ -25,18 +25,7 @@
             </template>
             Comparativo mensal de Receita vs Financeiro
             <apexchart width="100%" :type="grafico.tipo" :options="chartOptions" :series="series"></apexchart>
-        </el-tab-pane>
-        <el-tab-pane label="">
-            <template #label>
-                <span class="custom-tabs-label">
-                    <el-icon>
-                        <Aim />
-                    </el-icon>
-                    <span> Centro de Custo</span>
-                </span>
-            </template>
-            ...
-        </el-tab-pane>
+        </el-tab-pane -->
     </el-tabs>
 
 </template>

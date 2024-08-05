@@ -200,6 +200,7 @@ RF15.1 Filtrar despesas e receitas
     RF15.1.6 Filtrar parcelada
 RF15.2 Totalizador de despesas e receitas
 RF15.3 Notificar despesas com vencimento nos proximos
+RF15.4 Listar despesas e receitas
 
 ## Configurações
 RF16.1 Configurar da empresa
