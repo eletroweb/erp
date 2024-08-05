@@ -246,8 +246,8 @@ export class FinanceiroService {
 
     const resumoQuery = this.financeiroRepository
       .createQueryBuilder('financeiro')
-      .select('SUM(CASE WHEN financeiro.categoria = :receitaCategoria THEN financeiro.valor_cobranca ELSE 0 END)', 'receita')
-      .addSelect('SUM(CASE WHEN financeiro.categoria = :despesaCategoria THEN financeiro.valor_cobranca ELSE 0 END)', 'despesa')
+      .select('SUM(CASE WHEN financeiro.categoria = :receitaCategoria THEN financeiro.valor_total ELSE 0 END)', 'receita')
+      .addSelect('SUM(CASE WHEN financeiro.categoria = :despesaCategoria THEN financeiro.valor_total ELSE 0 END)', 'despesa')
       /*.where('financeiro.data_vencimento BETWEEN :dataInicio AND :dataFim', {
         dataInicio,
         dataFim,

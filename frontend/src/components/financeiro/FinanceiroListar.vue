@@ -30,13 +30,6 @@
                         <Tag v-else-if="slotProps.data.categoria === 'DESPESA'" severity="warn" value="Despesa"></Tag>
                     </template>
                 </Column>
-                
-                <!-- Column sortable field="tipo" header="Tipo">
-                    <template #body="slotProps">
-                        <Tag v-if="slotProps.data.tipo === 'VARIAVEL'" severity="info" value="Variável"></Tag>
-                        <Tag v-else severity="secondary" value="Fixa"></Tag>
-                    </template>
-                </Column-->
 
                 <Column sortable field="descricao" header="Descrição"></Column>
                 <Column sortable field="data_vencimento" header="Vencimento">
@@ -55,9 +48,9 @@
                     </template>
                 </Column>
 
-                <Column sortable field="valor_cobranca" header="Valor">
+                <Column sortable field="valor_total" header="Valor">
                     <template #body="slotProps">
-                        {{ this.formatarReal(slotProps.data.valor_cobranca) }}
+                        {{ this.formatarReal(slotProps.data.valor_total) }}
                     </template>
                 </Column>
                 <Column sortable field="situacao" header="Situação">

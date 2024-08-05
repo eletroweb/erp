@@ -25,8 +25,8 @@
 
             <Column header="Valor">
                 <template #body="slotProps">
-                    <InputNumber v-model="slotProps.data.valor" inputId="valor_parcela"
-                        mode="currency" currency="BRL" locale="pt-BR" />
+                    <InputNumber v-model="slotProps.data.valor" inputId="valor_parcela" mode="currency" currency="BRL"
+                        locale="pt-BR" />
                 </template>
             </Column>
 

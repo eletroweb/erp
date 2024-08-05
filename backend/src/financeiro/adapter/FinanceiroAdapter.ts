@@ -100,7 +100,7 @@ export class FinanceiroAdapter {
         entity.situacao = dto.situacao;
         entity.numero_parcelas = dto.numero_parcelas;
         entity.juros = dto.juros;
-        entity.valor_total = dto.valor_total;
+        entity.valor_total = entity.juros == 0 ? dto.valor_cobranca : dto.valor_total;
         return entity;
     }
 }

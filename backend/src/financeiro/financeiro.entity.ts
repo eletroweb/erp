@@ -81,7 +81,7 @@ export class FinanceiroEntity {
   juros: number;
 
   @Column()
-  valor_total: number;
+  valor_total: string;
 
   @Column({
     type: 'enum',
@@ -116,6 +116,7 @@ export class FinanceiroEntity {
     entity.situacao = dto.situacao;
     entity.numero_parcelas = dto.numero_parcelas;
     entity.juros = dto.juros;
+    entity.valor_total = dto.valor_total;
     return entity;
   }
 

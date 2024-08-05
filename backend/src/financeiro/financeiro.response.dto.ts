@@ -29,5 +29,5 @@ export class FinanceiroResponseDto {
   todas_parcelas_pagas: boolean;
   centro_custo: FinanceiroCentroDeCustoEnum;
   juros: number;
-  valor_total: number;
+  valor_total: string;
 }
