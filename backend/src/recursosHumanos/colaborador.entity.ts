@@ -5,11 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ColaboradorResponseDto } from './colaborador.response.dto';
 import { ColaboradorRequestDto } from './colaborador.request.dto';
 import { SituacaoEnum } from 'src/enum/situacao.enum';
+import { EmpresaEntity } from 'src/empresa/empresa.entity';
 
 @Entity('colaboradores')
 export class ColaboradorEntity {
@@ -65,6 +68,10 @@ export class ColaboradorEntity {
     nullable: true,
   })
   data_atualizacao?: Date;
+
+  @ManyToOne (() => EmpresaEntity, {nullable: false, onDelete: 'CASCADE'})
+  @JoinColumn({name: 'empresa_id'})
+  empresa: EmpresaEntity
 
   @BeforeInsert()
   generateUuid() {

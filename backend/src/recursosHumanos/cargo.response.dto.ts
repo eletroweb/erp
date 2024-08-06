@@ -1,4 +1,4 @@
 export class CargoResponseDto {
-  uuid: string;
-  nome: string;
+    uuid: string;
+    nome: string;
 }

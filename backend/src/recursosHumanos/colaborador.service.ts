@@ -1,10 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ColaboradorEntity } from './colaborador.entity';
-import { Repository } from 'typeorm';
-import { ColaboradorRequestDto } from './colaborador.request.dto';
-import { CargoEntity } from './cargo.entity';
-import { CargoRequestDto } from './cargo.request.dto';
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { ColaboradorEntity } from "./colaborador.entity";
+import { Not, Repository } from "typeorm";
+import { ColaboradorRequestDto } from "./colaborador.request.dto";
+import { CargoEntity } from "./cargo.entity";
+import { CargoRequestDto } from "./cargo.request.dto";
+import { EmpresaUsuarioService } from "src/empresa/empresausuario/empresa.usuario.service";
+import { UsuarioLogado } from "src/usuario/dto/usuario.response.dto";
 
 @Injectable()
 export class ColaboradorService {
@@ -14,10 +16,22 @@ export class ColaboradorService {
 
     @InjectRepository(CargoEntity)
     private cargoRepository: Repository<CargoEntity>,
-  ) {}
 
-  async findAll(): Promise<ColaboradorEntity[]> {
-    return this.colaboradorRepository.find();
+    @Inject(EmpresaUsuarioService)
+    private empresaUsuarioService: EmpresaUsuarioService,
+  ) { }
+
+  async findAll(
+    usuarioLogado: UsuarioLogado,
+  ): Promise<ColaboradorEntity[]> {
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
+    if(!empresa) {
+      throw new NotFoundException('Empresa não encontrada para o usuário logado');
+    }
+    let queryBuilder = this.colaboradorRepository.createQueryBuilder('colaborador')
+      .where('colaborador.empresa_id = :empresaId', {empresaId: empresa.id});
+
+    return queryBuilder.getMany();
   }
 
   async findOneByUuid(uuid: string): Promise<ColaboradorEntity> {
@@ -34,8 +48,16 @@ export class ColaboradorService {
     return await this.colaboradorRepository.findOne({ where: { documento } });
   }
 
-  async create(request: ColaboradorRequestDto): Promise<ColaboradorEntity> {
+  async create(
+    request: ColaboradorRequestDto,
+    usuarioLogado: UsuarioLogado,
+  ): Promise<ColaboradorEntity> {
+    const empresa = await this.empresaUsuarioService.findAllByUsuarioLogado(usuarioLogado.sub);
+    if(!empresa){
+      throw new NotFoundException('Empresa não encontrada para o usuário logado')
+    }
     const colaborador = ColaboradorEntity.fromRequestDto(request);
+    colaborador.empresa = empresa;
     const createdColaborador = this.colaboradorRepository.create(colaborador);
     return this.colaboradorRepository.save(createdColaborador);
   }
@@ -65,22 +87,23 @@ export class ColaboradorService {
     });
     if (colaborador)
       return `Já existe um colaborador com este email ${colaborador.email}`;
-  }
+  } 
 
   /*return all Office in repository*/
   async findAllOffice(): Promise<CargoEntity[]> {
     return this.cargoRepository.find();
   }
-
+  
   /*find for name Office end return your name*/
   async findByNameOffice(nome: string): Promise<string> {
     const cargo = await this.cargoRepository.findOne({ where: { nome } });
-    if (cargo) return `${cargo.nome} já cadastrado!`;
+    if (cargo)
+      return `${cargo.nome} já cadastrado!`
   }
 
   async createOffice(request: CargoRequestDto): Promise<CargoEntity> {
     const cargo = CargoEntity.fromRequestDto(request);
     const createdCargo = this.cargoRepository.create(cargo);
     return this.cargoRepository.save(createdCargo);
-  }
+  }  
 }

@@ -16,6 +16,8 @@ import { ColaboradorRequestDto } from './colaborador.request.dto';
 import { Roles } from 'src/auth/decorator/roles.decorator';
 import { CargoRequestDto } from './cargo.request.dto';
 import { CargoResponseDto } from './cargo.response.dto';
+import { UsuarioLogado } from 'src/usuario/dto/usuario.response.dto';
+import { GetCurrentUser } from 'src/auth/decorator/user.decorator';
 
 @Controller('colaboradores')
 export class ColaboradorController {
@@ -23,8 +25,10 @@ export class ColaboradorController {
 
   @Get()
   @Roles({ roles: ['MASTER', 'COLABORADOR_LISTAR'] })
-  async findAll(): Promise<ColaboradorResponseDto[]> {
-    const colaboradores = await this.colaboradorService.findAll();
+  async findAll(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
+  ): Promise<ColaboradorResponseDto[]> {
+    const colaboradores = await this.colaboradorService.findAll(usuarioLogado);
     const colaboradorDto: ColaboradorResponseDto[] = colaboradores.map(
       (colaborador) => colaborador.toDto(),
     );
@@ -55,9 +59,10 @@ export class ColaboradorController {
   @Post()
   @Roles({ roles: ['MASTER', 'COLABORADOR_CADASTRAR'] })
   async create(
+    @GetCurrentUser() usuarioLogado: UsuarioLogado,
     @Body() request: ColaboradorRequestDto,
   ): Promise<ColaboradorResponseDto> {
-    const createdColaborador = await this.colaboradorService.create(request);
+    const createdColaborador = await this.colaboradorService.create(request, usuarioLogado);
     return createdColaborador.toDto();
   }
 
@@ -87,5 +92,26 @@ export class ColaboradorController {
   @Roles({ roles: ['MASTER', 'COLABORADOR_EXIBIR'] })
   async findByEmail(@Param('email') email: string): Promise<string> {
     return await this.colaboradorService.findByEmail(email);
+  }
+
+  @Get('/cargos/listar')
+  @Roles({ roles: ['MASTER', 'COLABORADOR_LISTAR'] })
+  async findAllOffice(): Promise<CargoResponseDto[]> {
+    const cargos = await this.colaboradorService.findAllOffice();
+    const cargoDto: CargoResponseDto[] = cargos.map(cargo => cargo.toDto());
+    return cargoDto;
+  }
+
+  @Get('/findByNameOffice/:nomeCargo')
+  @Roles({ roles: ['MASTER', 'COLABORADOR_EXIBIR'] })
+  async findByNameOffice(@Param('nomeCargo') nomeCargo: string): Promise<string> {
+    return await this.colaboradorService.findByNameOffice(nomeCargo)
+  }
+
+  @Post('cargos')
+  @Roles({ roles: ['MASTER', 'COLABORADOR_CADASTRAR'] })
+  async createOffice(@Body() request: CargoRequestDto): Promise<CargoResponseDto> {
+    const createdCargo = await this.colaboradorService.createOffice(request);
+    return createdCargo.toDto();
   }
 }
