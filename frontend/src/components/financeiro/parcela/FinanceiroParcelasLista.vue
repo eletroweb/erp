@@ -57,7 +57,7 @@ import { formatarReal, getCorPorSituacao } from '@/common/util.ts';
 import { FinanceiroSituacaoEnum } from '@/enum/financeiro.enum'
 import DrawerFinanceiroParcelaPagamento from '@/components/financeiro/parcela/DrawerFinanceiroParcelaPagamento.vue'
 import { FinanceiroStore } from '@/store/financeiro/FinanceiroStore.ts'
-import InputNumber from 'primevue/InputNumber';
+import InputNumber from 'primevue/inputnumber';
 
 export default {
     props: {

@@ -90,8 +90,8 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button';
-import MeterGroup from 'primevue/MeterGroup';
-import SelectButton from 'primevue/selectButton';
+import MeterGroup from 'primevue/metergroup';
+import SelectButton from 'primevue/selectbutton';
 import ScrollPanel from 'primevue/scrollpanel';
 dayjs.extend(customParseFormat);
 
