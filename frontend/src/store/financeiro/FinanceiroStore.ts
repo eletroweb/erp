@@ -57,18 +57,51 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
             formData: null,
             comprovante: null,
             data_pagamento: null
+        },
+        pesquisa: {
+            descricao: null,
+            data_fim: null,
+            dataPagamentoInicio: null,
+            categoria: null,
+            parcelada: null,
+            situacao: null
         }
     }),
     actions: {
         async listar() {
             try {
-                const response = await api.get(`financeiro`);
+                const url = await this.getUrlListar();
+                const response = await api.get(url);
                 this.financeiroLista = response.data;
+                return response.data;
             } catch (error) {
                 console.log(error);
                 throw error;
             }
-            return this.financeiroLista
+        },
+        async getUrlListar() {
+            const queryParams = {};
+            if (this.pesquisa.descricao !== null)
+                queryParams.descricao = this.pesquisa.descricao;
+
+            if (this.pesquisa.data_fim !== null)
+                queryParams.dataFim = this.pesquisa.data_fim;
+
+            if (this.pesquisa.dataPagamentoInicio !== null)
+                queryParams.dataPagamentoInicio = this.pesquisa.dataPagamentoInicio;
+
+            if (this.pesquisa.categoria !== null)
+                queryParams.categoria = this.pesquisa.categoria;
+
+            if (this.pesquisa.parcelada !== null)
+                queryParams.parcelada = this.pesquisa.parcelada;
+
+            if (this.pesquisa.situacao !== null)
+                queryParams.situacao = this.pesquisa.situacao;
+
+            const queryString = new URLSearchParams(queryParams).toString();
+            const url = `financeiro?${queryString}`;
+            return url
         },
         async novo() {
             this.exibirFinanceiro = false
@@ -195,6 +228,15 @@ export const FinanceiroStore = defineStore('FinanceiroStore', {
         },
         async cancelar() {
             router.push('/financeiro/');
+        },
+        async limparPesquisa() {
+            this.pesquisa.descricao = null;
+            this.pesquisa.data_fim = null;
+            this.pesquisa.dataPagamentoInicio = null;
+            this.pesquisa.categoria = null;
+            this.pesquisa.parcelada = null;
+            this.pesquisa.situacao = null;
+            this.listar()
         },
         async carregarFinanceiro(id) {
             const alertStore = AlertStore();

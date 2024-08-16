@@ -55,6 +55,7 @@ export class FinanceiroService {
     situacao: string,
     parcelada: boolean,
   ): Promise<FinanceiroEntity[]> {
+
     const consulta = this.financeiroRepository.createQueryBuilder('financeiro');
     const specifications: Specification<FinanceiroEntity>[] = [];
 

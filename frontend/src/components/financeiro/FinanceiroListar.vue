@@ -4,24 +4,25 @@
         <div class="button-container">
 
             <div class="item">
-                <FinanceiroResumo v-if="this.registros.length > 0" />
+                <FinanceiroResumo v-if="financeiroStore.financeiroLista.length > 0" />
             </div>
             <div class="item">
                 <Button label="Novo registro financeiro" @click="financeiroStore.novo()" size="small" />
             </div>
         </div>
 
+        <FinanceiroBarraDePesquisa />
 
-        <div class="resumo" v-if="this.registros.length > 0">
+        <div class="resumo" v-if="financeiroStore.financeiroLista.length > 0">
             <MeterGroup :value="resumo" />
         </div>
 
-        <ScrollPanel v-if="this.registros.length > 0" style="width: 100%; height: 675px" :dt="{
+        <ScrollPanel v-if="financeiroStore.financeiroLista.length > 0" style="width: 100%; height: 675px" :dt="{
             bar: {
                 background: '#000000'
             }
         }">
-            <DataTable v-model:selection="selectedProduct" :value="this.registros" :size="size" selectionMode="single"
+            <DataTable v-model:selection="selectedProduct" :value="financeiroStore.financeiroLista" :size="size" selectionMode="single"
                 @rowSelect="onRowSelect" @rowUnselect="onRowUnselect" :metaKeySelection="metaKey" dataKey="uuid"
                 stripedRows tableStyle="min-width: 50rem">
                 <Column sortable field="categoria" header="Categoria">
@@ -93,6 +94,8 @@ import Button from 'primevue/button';
 import MeterGroup from 'primevue/metergroup';
 import SelectButton from 'primevue/selectbutton';
 import ScrollPanel from 'primevue/scrollpanel';
+import FinanceiroBarraDePesquisa from './FinanceiroBarraDePesquisa.vue';
+
 dayjs.extend(customParseFormat);
 
 export default {
@@ -105,7 +108,8 @@ export default {
         Button,
         MeterGroup,
         SelectButton,
-        ScrollPanel
+        ScrollPanel,
+        FinanceiroBarraDePesquisa
     },
     setup() {
         const financeiroStore = FinanceiroStore()
@@ -129,15 +133,15 @@ export default {
         }
     },
     async mounted() {
-        this.registros = await this.financeiroStore.listar();
-        const despesas = this.registros.filter(registro => registro.categoria === 'DESPESA');
-        const receitas = this.registros.filter(registro => registro.categoria === 'RECEITA');
+        financeiroStore.financeiroLista = await this.financeiroStore.listar();
+        const despesas = financeiroStore.financeiroLista.filter(registro => registro.categoria === 'DESPESA');
+        const receitas = financeiroStore.financeiroLista.filter(registro => registro.categoria === 'RECEITA');
 
-        const pendentes = this.registros.filter(registro => registro.situacao === 'PENDENTE');
-        const pagas = this.registros.filter(registro => registro.situacao === 'PAGA');
-        const vencidas = this.registros.filter(registro => registro.situacao === 'VENCIDA');
+        const pendentes = financeiroStore.financeiroLista.filter(registro => registro.situacao === 'PENDENTE');
+        const pagas = financeiroStore.financeiroLista.filter(registro => registro.situacao === 'PAGA');
+        const vencidas = financeiroStore.financeiroLista.filter(registro => registro.situacao === 'VENCIDA');
 
-        const total = this.registros.length;
+        const total = financeiroStore.financeiroLista.length;
 
         this.resumo = [
             { label: 'Despesas', color: '#fed7aa', value: (despesas.length / total) * 100 },
@@ -149,12 +153,12 @@ export default {
     },
     data() {
         return {
-            registros: [],
             resumo: [],
             size: null,
             selectedProduct: null
         }
     },
+
     methods: {
         alterarTamanhoTabela(size) {
             this.size = size;
@@ -172,12 +176,12 @@ export default {
 <style>
 .button-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
-    margin-bottom: 10px
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
-
 
 .resumo {
     font-size: 13px;
