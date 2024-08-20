@@ -1,28 +1,35 @@
 <template>
   <div class="container" id="container">
+    <!-- Exibe a mensagem de sucesso ou erro -->
+    <Message 
+      v-if="successMessage" 
+      :severity="messageType" 
+      :content="successMessage" 
+      :key="messageType"
+      :life="3000"
+      class="message-top"
+    />
+
     <div class="form-container sign-in-container">
       <img class="logo" src="/images/logo-login.png">
     </div>
     <div class="overlay-container">
       <form @submit.prevent="login.login()" v-if="!signup.novo_usuario">
         <br>
-        <!-- span>Informe seu nome de usuário e senha</span-->
         <input type="email" v-model="login.user.email" id="email" placeholder="Email" />
         <input v-model="login.user.password" type="password" id="password" required placeholder="Senha" />
-        <!-- a href="#">Esqueceu a senha?</a-->
         <button>Entrar</button>
         <a @click="signup.novo_usuario = true" href="#">Criar conta</a>
+        <div class="card flex justify-center gap-4" id="mensagem">
+          <a href="#" @click.prevent="handleForgotPassword">Esqueceu a senha?</a>
+        </div>
       </form>
 
       <form @submit.prevent="signup.signup()" v-else>
         <br>
-        <!-- span>Informe seu nome de usuário e senha</span-->
-        <input type="nome" v-model="signup.usuario.nome" id="nome" placeholder="Seu nome completo..."
-          autocomplete="off" />
+        <input type="text" v-model="signup.usuario.nome" id="nome" placeholder="Seu nome completo..." autocomplete="off" />
         <input type="email" v-model="signup.usuario.email" id="email" placeholder="Email..." autocomplete="off" />
-        <input v-model="signup.usuario.password" type="password" id="password" required placeholder="Senha..."
-          autocomplete="off" />
-        <!-- a href="#">Esqueceu a senha?</a-->
+        <input v-model="signup.usuario.password" type="password" id="password" required placeholder="Senha..." autocomplete="off" />
         <button>Cadastrar</button>
         <a @click="signup.novo_usuario = false" href="#">Já sou cadastrado</a>
       </form>
@@ -31,20 +38,39 @@
 </template>
 
 <script>
-import { LoginStore } from '@/store/LoginStore'
-import { Signup } from '@/store/Signup'
+import { ref } from 'vue';
+import { LoginStore } from '@/store/LoginStore';
+import { Signup } from '@/store/Signup';
+import Message from 'primevue/message';
 
 export default {
+  components: {
+    Message,
+  },
   setup() {
-    const login = LoginStore()
-    const signup = Signup()
-    return { login, signup }
-  },
-  data() {
-    return {
+    const login = LoginStore();
+    const signup = Signup();
+    const successMessage = ref('');
+    const messageType = ref(''); // Tipo de mensagem (ex: success, warn)
+
+    const handleForgotPassword = () => {
+      const email = login.user.email;
+      if (email) {
+        successMessage.value = `Email enviado com sucesso para ${email}`;
+        messageType.value = 'success'; // Definindo o tipo de mensagem como sucesso
+      } else {
+        successMessage.value = 'Por favor, informe seu email';
+        messageType.value = 'warn'; // Definindo o tipo de mensagem como aviso
+      }
     };
-  },
-  methods: {
+
+    return {
+      login,
+      signup,
+      successMessage,
+      messageType,
+      handleForgotPassword,
+    };
   }
 };
 </script>
@@ -159,6 +185,12 @@ input {
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
+}
+
+.message-top {
+  margin: 20px;
+  position: relative;
+  z-index: 1000;
 }
 
 .sign-in-container {

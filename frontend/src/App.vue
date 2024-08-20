@@ -1,5 +1,5 @@
 <template>
-  <el-container class="layout-container-demo" v-if="login.isLoggedIn()">
+    <el-container class="layout-container-demo" v-if="login.isLoggedIn()">
     <MenuLateral />
     <el-container>
       <el-main>

@@ -20,12 +20,16 @@ export class UsuarioService {
     private usuarioRepository: Repository<UsuarioEntity>,
     private readonly usuarioRoleService: UsuarioRoleService,
     private readonly empresaUsuarioService: EmpresaUsuarioService,
-  ) { }
+  ) {}
 
   async findAll(usuarioLogado: UsuarioLogado): Promise<UsuarioEntity[]> {
-    const empresasIds = await this.empresaUsuarioService.findAllEmpresaIdListByUsuarioLogado(usuarioLogado.sub)
+    const empresasIds =
+      await this.empresaUsuarioService.findAllEmpresaIdListByUsuarioLogado(
+        usuarioLogado.sub,
+      );
 
-    return this.usuarioRepository.createQueryBuilder('usuario')
+    return this.usuarioRepository
+      .createQueryBuilder('usuario')
       .leftJoinAndSelect('usuario.roles', 'roles')
       .leftJoinAndSelect('roles.roles', 'subRoles')
       .innerJoinAndSelect('usuario.empresasUsuarios', 'empresasUsuarios')
@@ -60,7 +64,12 @@ export class UsuarioService {
   async findOneByUuidWithEmpresas(uuid: string): Promise<UsuarioEntity> {
     const usuario = await this.usuarioRepository.findOne({
       where: { uuid },
-      relations: ['roles', 'roles.roles', 'empresasUsuarios', 'empresasUsuarios.empresa'],
+      relations: [
+        'roles',
+        'roles.roles',
+        'empresasUsuarios',
+        'empresasUsuarios.empresa',
+      ],
     });
     if (!usuario) {
       throw new NotFoundException('Usuario não localizado');
@@ -79,7 +88,10 @@ export class UsuarioService {
     return usuario;
   }
 
-  async findOneByEmailOrUsername(email: string, username: string): Promise<UsuarioEntity> {
+  async findOneByEmailOrUsername(
+    email: string,
+    username: string,
+  ): Promise<UsuarioEntity> {
     const usuario = await this.usuarioRepository.findOne({
       where: [{ email }, { username }],
     });
@@ -89,25 +101,21 @@ export class UsuarioService {
     return usuario;
   }
 
-  async signup(
-    request: SignupRequestDto,
-  ): Promise<UsuarioEntity> {
+  async signup(request: SignupRequestDto): Promise<UsuarioEntity> {
     // this.logger.debug('Iniciando criação do usuário');
     const username = request.email.split('@')[0].toLowerCase();
     const usuarioExistente = await this.usuarioRepository.findOne({
       where: [{ email: request.email }, { username }],
     });
-    if (usuarioExistente)
-      throw new UsuarioExistenteException()
+    if (usuarioExistente) throw new UsuarioExistenteException();
 
     const usuario = UsuarioEntity.toEntity(request);
     usuario.password = await this.encryptPassword(request.password);
     const savedUsuario = await this.usuarioRepository.save(usuario);
 
-    await this.usuarioRoleService.adicionarRoleAoUsuario(
-      savedUsuario,
-      [Role.MASTER],
-    );
+    await this.usuarioRoleService.adicionarRoleAoUsuario(savedUsuario, [
+      Role.MASTER,
+    ]);
 
     //await this.empresaUsuarioService.associarEmpresaAoUsuarioMaster(savedUsuario, request.empresa);
     return await savedUsuario;
@@ -115,7 +123,7 @@ export class UsuarioService {
 
   async create(
     request: UsuarioRequestDto,
-    usuarioLogado: UsuarioLogado
+    usuarioLogado: UsuarioLogado,
   ): Promise<UsuarioEntity> {
     this.logger.debug('Iniciando criação do usuário');
     const usuario = UsuarioEntity.toEntity(request);
@@ -129,7 +137,10 @@ export class UsuarioService {
 
     const master = await this.findOneByUuidWithEmpresas(usuarioLogado.sub);
 
-    await this.empresaUsuarioService.associateEmpresaWithUsuario(master, usuario);
+    await this.empresaUsuarioService.associateEmpresaWithUsuario(
+      master,
+      usuario,
+    );
 
     return savedUsuario;
   }
@@ -186,8 +197,8 @@ export class UsuarioService {
     });
 
     const response = {
-      has_company: usuario.empresasUsuarios.length > 0
-    }
+      has_company: usuario.empresasUsuarios.length > 0,
+    };
 
     return response;
   }
