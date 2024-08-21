@@ -1,28 +1,35 @@
 <template>
   <div class="container" id="container">
+    <!-- Exibe a mensagem de sucesso ou erro -->
+     <Message 
+      v-if="successMessage" 
+      :severity="messageType" 
+      v-html="successMessage" 
+      :key="messageType"
+      :life="5000"
+      class="message-top"
+    />
+  
     <div class="form-container sign-in-container">
       <img class="logo" src="/images/logo-login.png">
     </div>
     <div class="overlay-container">
       <form @submit.prevent="login.login()" v-if="!signup.novo_usuario">
         <br>
-        <!-- span>Informe seu nome de usuário e senha</span-->
         <input type="email" v-model="login.user.email" id="email" placeholder="Email" />
         <input v-model="login.user.password" type="password" id="password" required placeholder="Senha" />
-        <!-- a href="#">Esqueceu a senha?</a-->
         <button>Entrar</button>
         <a @click="signup.novo_usuario = true" href="#">Criar conta</a>
+        <div class="card flex justify-center gap-4" id="mensagem">
+          <a href="#" @click.prevent="handleForgotPassword">Esqueceu a senha?</a>
+        </div>
       </form>
 
       <form @submit.prevent="signup.signup()" v-else>
         <br>
-        <!-- span>Informe seu nome de usuário e senha</span-->
-        <input type="nome" v-model="signup.usuario.nome" id="nome" placeholder="Seu nome completo..."
-          autocomplete="off" />
+        <input type="text" v-model="signup.usuario.nome" id="nome" placeholder="Seu nome completo..." autocomplete="off" />
         <input type="email" v-model="signup.usuario.email" id="email" placeholder="Email..." autocomplete="off" />
-        <input v-model="signup.usuario.password" type="password" id="password" required placeholder="Senha..."
-          autocomplete="off" />
-        <!-- a href="#">Esqueceu a senha?</a-->
+        <input v-model="signup.usuario.password" type="password" id="password" required placeholder="Senha..." autocomplete="off" />
         <button>Cadastrar</button>
         <a @click="signup.novo_usuario = false" href="#">Já sou cadastrado</a>
       </form>
@@ -31,20 +38,53 @@
 </template>
 
 <script>
-import { LoginStore } from '@/store/LoginStore'
-import { Signup } from '@/store/Signup'
+import { ref } from 'vue';
+import { LoginStore } from '@/store/LoginStore';
+import { Signup } from '@/store/Signup';
+import Message from 'primevue/message';
 
 export default {
+  components: {
+    Message,
+  },
   setup() {
-    const login = LoginStore()
-    const signup = Signup()
-    return { login, signup }
-  },
-  data() {
-    return {
+    const login = LoginStore();
+    const signup = Signup();
+    const successMessage = ref('');
+    const messageType = ref(''); // Tipo de mensagem (ex: success, warn)
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const handleForgotPassword = () => {
+      const email = login.user.email;
+
+
+      if (!email) {
+        successMessage.value ='';
+        successMessage.value ='<strong> Atenção: </strong> Informe o email que você deseja redefinir a senha';
+        messageType.value = 'warn'; 
+      } else if  (!emailRegex.test(email)) {
+        successMessage.value ='';
+        successMessage.value ='<strong> Por favor, insira um email válido </strong>';
+        messageType.value = 'error'; 
+      }else{
+        successMessage.value ='';
+        successMessage.value = `<strong> Instruções enviadas: </strong> Verifique seu email ${email} para redefinir sua senha`;
+        messageType.value = 'success'; 
+      }
+
+      setTimeout(() => {
+        successMessage.value = '';
+        messageType.value = '';
+      }, 5000); 
     };
-  },
-  methods: {
+
+    return {
+      login,
+      signup,
+      successMessage,
+      messageType,
+      handleForgotPassword,
+    };
   }
 };
 </script>
@@ -159,6 +199,16 @@ input {
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
+}
+
+.message-top {
+  margin: 20px;
+  position: relative;
+  z-index: 1000;
+  white-space: auto;
+  padding: 15px;
+  font-size: 14px;
+  
 }
 
 .sign-in-container {
