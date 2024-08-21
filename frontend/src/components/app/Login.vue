@@ -1,15 +1,15 @@
 <template>
   <div class="container" id="container">
     <!-- Exibe a mensagem de sucesso ou erro -->
-    <Message 
+     <Message 
       v-if="successMessage" 
       :severity="messageType" 
-      :content="successMessage" 
+      v-html="successMessage" 
       :key="messageType"
-      :life="3000"
+      :life="5000"
       class="message-top"
     />
-
+  
     <div class="form-container sign-in-container">
       <img class="logo" src="/images/logo-login.png">
     </div>
@@ -53,15 +53,29 @@ export default {
     const successMessage = ref('');
     const messageType = ref(''); // Tipo de mensagem (ex: success, warn)
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const handleForgotPassword = () => {
       const email = login.user.email;
-      if (email) {
-        successMessage.value = `Email enviado com sucesso para ${email}`;
-        messageType.value = 'success'; // Definindo o tipo de mensagem como sucesso
-      } else {
-        successMessage.value = 'Por favor, informe seu email';
-        messageType.value = 'warn'; // Definindo o tipo de mensagem como aviso
+
+
+      if (!email) {
+        successMessage.value ='';
+        successMessage.value ='<strong> Atenção: </strong> Informe o email que você deseja redefinir a senha';
+        messageType.value = 'warn'; 
+      } else if  (!emailRegex.test(email)) {
+        successMessage.value ='';
+        successMessage.value ='<strong> Por favor, insira um email válido </strong>';
+        messageType.value = 'error'; 
+      }else{
+        successMessage.value ='';
+        successMessage.value = `<strong> Instruções enviadas: </strong> Verifique seu email ${email} para redefinir sua senha`;
+        messageType.value = 'success'; 
       }
+
+      setTimeout(() => {
+        successMessage.value = '';
+        messageType.value = '';
+      }, 5000); 
     };
 
     return {
@@ -191,6 +205,10 @@ input {
   margin: 20px;
   position: relative;
   z-index: 1000;
+  white-space: auto;
+  padding: 15px;
+  font-size: 14px;
+  
 }
 
 .sign-in-container {
