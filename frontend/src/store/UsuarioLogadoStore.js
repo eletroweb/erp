@@ -14,7 +14,7 @@ export const UsuarioLogadoStore = defineStore('UsuarioLogadoStore', {
                 this.settings = response.data
                 const alertStore = AlertStore();
                 if (!this.settings.has_company) {
-                    alertStore.show("Configure sua empresa", "warn")
+                    alertStore.show("Por favor, cadastre sua empresa em configurações.", "warn")
                     //location.replace('/configuracoes')
                     router.push('/configuracoes');
                 } else {

@@ -1,0 +1,14 @@
+2024/09/02 22:38:00 [notice] 1#1: using the "epoll" event method
+2024/09/02 22:38:00 [notice] 1#1: nginx/1.25.1
+2024/09/02 22:38:00 [notice] 1#1: built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r4) 
+2024/09/02 22:38:00 [notice] 1#1: OS: Linux 5.15.153.1-microsoft-standard-WSL2
+2024/09/02 22:38:00 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/09/02 22:38:00 [notice] 1#1: start worker processes
+2024/09/02 22:38:00 [notice] 1#1: start worker process 13
+2024/09/02 22:38:00 [notice] 1#1: start worker process 14
+2024/09/02 22:38:00 [notice] 1#1: start worker process 15
+2024/09/02 22:38:00 [notice] 1#1: start worker process 16
+2024/09/02 22:38:00 [notice] 1#1: start worker process 17
+2024/09/02 22:38:00 [notice] 1#1: start worker process 18
+2024/09/02 22:38:00 [notice] 1#1: start worker process 19
+2024/09/02 22:38:00 [notice] 1#1: start worker process 20

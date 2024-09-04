@@ -6,8 +6,11 @@ export class EmpresaSpecification<T> implements Specification<T> {
     constructor(private empresa: EmpresaEntity) {}
 
     apply(query: SelectQueryBuilder<T>): SelectQueryBuilder<T> {
-        return query.andWhere('empresaId = :empresa', {
-            empresa: this.empresa.id,
-        });        
+        if (this.empresa?.id) {
+            return query.andWhere('empresaId = :empresaId', {
+                empresaId: this.empresa.id });
+        }
+
+        return query;
     }
 }

@@ -1,0 +1,17 @@
+22:38:38.541 [graviteeio-node] INFO  i.g.r.a.s.i.u.DefaultInstallationUpgrader - Current installation id is [da48887f-f5ad-4667-8888-7ff5ad4667cd]
+22:38:38.661 [graviteeio-node] INFO  i.g.r.a.s.i.u.EnvironmentUpgrader - Starting DocumentationSystemFolderUpgrader for ExecutionContext{organizationId='DEFAULT', environmentId=Optional[DEFAULT]}
+22:38:38.726 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping OrphanCategoryUpgrader execution cause it has already been successfully executed
+22:38:38.731 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping DefaultRolesUpgrader execution cause it has already been successfully executed
+22:38:38.744 [graviteeio-node] INFO  i.g.r.a.s.i.u.OrganizationUpgrader - Starting DefaultOrganizationAdminRoleUpgrader for ExecutionContext{organizationId='DEFAULT', environmentId=Optional.empty}
+22:38:38.857 [graviteeio-node] INFO  i.g.r.a.s.i.u.OrganizationUpgrader - Starting DefaultUserStatusUpgrader for ExecutionContext{organizationId='DEFAULT', environmentId=Optional.empty}
+22:38:39.087 [graviteeio-node] INFO  i.g.r.a.s.i.u.EnvironmentUpgrader - Starting DefaultApiHeaderUpgrader for ExecutionContext{organizationId='DEFAULT', environmentId=Optional[DEFAULT]}
+22:38:39.116 [graviteeio-node] INFO  i.g.r.a.s.i.u.EnvironmentUpgrader - Starting DefaultThemeUpgrader for ExecutionContext{organizationId='DEFAULT', environmentId=Optional[DEFAULT]}
+22:38:39.177 [graviteeio-node] INFO  i.g.r.a.s.i.u.IdentityProviderActivationUpgrader -     No activation found. Active all idp on all target by default if enabled.
+22:38:39.192 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping ApplicationApiKeyModeUpgrader execution cause it has already been successfully executed
+22:38:39.199 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping AlertsEnvironmentUpgrader execution cause it has already been successfully executed
+22:38:39.206 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping CommandOrganizationUpgrader execution cause it has already been successfully executed
+22:38:39.210 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping PlansDataFixUpgrader execution cause it has already been successfully executed
+22:38:39.214 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping ApiKeySubscriptionsUpgrader execution cause it has already been successfully executed
+22:38:39.221 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping ClientIdInApiKeySubscriptionsUpgrader execution cause it has already been successfully executed
+22:38:39.226 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping ApiLoggingConditionUpgrader execution cause it has already been successfully executed
+22:38:39.232 [graviteeio-node] INFO  i.g.r.a.s.i.upgrade.OneShotUpgrader - Skipping PlansFlowsDefinitionUpgrader execution cause it has already been successfully executed

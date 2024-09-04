@@ -15,7 +15,7 @@
               <template #title>{{ menu.label }}</template>
             </component>
           </el-icon>
-          <span>{{ menu.label }}</span>
+          <span>{{ menu.label }} </span>
         </template>
         <el-menu-item v-for="(submenuItem, subIndex) in menu.submenu" :key="subIndex" :index="`/${submenuItem.path}`">
           <template #title>
@@ -29,7 +29,7 @@
         </el-menu-item>
       </el-sub-menu>
       <el-menu-item v-else :index="`/${menu.path}`" :disabled="menu.visibility"
-        v-if="authorizationStore.hasAuthorization(menu.roles)">
+        v-if="displayMenu(menu)">
         <el-icon>
           <component :is="menu.icon">
             <template #title>{{ menu.label }}</template>
@@ -51,13 +51,16 @@
 <script>
 import { AuthorizationStore } from '@/store/AuthorizationStore'
 import { MenuLateralStore } from '@/store/MenuLateralStore'
+import { UsuarioLogadoStore } from '@/store/UsuarioLogadoStore'
 import EmpresaLogomarcaPrincipal from '@/components/configuracoes/empresa/EmpresaLogomarcaPrincipal.vue'
 
 export default {
   setup() {
     const authorizationStore = AuthorizationStore()
     const menuLateralStore = MenuLateralStore()
-    return { authorizationStore, menuLateralStore }
+    const usuariologadoStore = UsuarioLogadoStore()
+    
+    return { authorizationStore, menuLateralStore, usuariologadoStore }
   },
   data() {
     return {
@@ -76,6 +79,15 @@ export default {
       } else {
         this.logoClass = "logo-opened"
       }
+    },
+    displayMenu(menu) {
+      if (this.usuariologadoStore.settings.has_company && this.authorizationStore.hasAuthorization(menu.roles)
+        || menu.path === 'configuracoes' && this.authorizationStore.hasAuthorization(menu.roles)
+      ) {
+          return true
+      }
+
+      return false
     }
   },
 };

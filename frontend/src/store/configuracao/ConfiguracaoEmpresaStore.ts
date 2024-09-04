@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { api } from "@/api/index"
 import { AlertStore } from '@/store/AlertStore'
+import router from "@/router";
 
 interface Empresa {
     razaoSocial: string | null;
@@ -64,11 +65,12 @@ export const ConfiguracaoEmpresaStore = defineStore('ConfiguracaoEmpresaStore', 
                 const response = await api.post(`empresa`, this.empresa);
                 const alertStore = AlertStore();
                 alertStore.show(response.data, "success")
+                router.push('/dashboard')
             } catch (error) {
                 console.log(error);
                 throw error;
             }
-        },
+        }
     },
     getters: {}
 })
