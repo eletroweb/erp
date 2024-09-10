@@ -18,6 +18,7 @@ import { EmpresaModule } from 'src/empresa/empresa.module';
 import { EmpresaUsuarioModule } from 'src/empresa/empresausuario/empresa.usuario.module';
 import { UsuarioModule } from 'src/usuario/usuario.module';
 import { AppService } from './app.service';
+import { ConfiguracaoModule } from 'src/configuracao/configuracao.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { AppService } from './app.service';
     EmpresaModule,
     UsuarioModule,
     EmpresaUsuarioModule,
+    ConfiguracaoModule,
 
   ],
   controllers: [AppController],

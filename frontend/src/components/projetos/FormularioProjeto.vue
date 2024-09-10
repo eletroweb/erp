@@ -1,145 +1,124 @@
 <template>
-  <el-tabs type="border-card">
 
-    <el-tab-pane label="Projeto">
-    <el-card class="box-card" shadow="never">
-        <template #header>
-            <div class="card-header">
-                <span>
-                    {{ this.id ? "Editar" : "Cadastrar" }}
-                    Projeto</span>
-                <el-popover :visible="confirmacaoVisivel" placement="top" :width="200" v-if="id">
-                    <p>Deseja confirma a exclusão do projeto
-                        <el-tag type="danger">
-                            {{ projetoStore.projeto.uuid }}
-                        </el-tag>
-                    </p>
-                    <div style="text-align: right; margin: 0; display: flex;">
-                        <el-button size="small" type="primary" plain
-                            @click="confirmacaoVisivel = false">Cancelar</el-button>
-                        <el-button size="small" type="danger"
-                            @click="projetoStore.excluir(projetoStore.projeto.uuid)">Confirmar</el-button>
+    <div class="project-prsogress-bar">
+        <label>Percentual de conclusão do projeto</label>
+        <ProgressBar 
+        background="red"
+        :value="calculateCompletedPercentage()">{{calculateCompletedPercentage()}}%</ProgressBar>
+    </div>
+
+    <el-tabs type="border-card">
+
+        <el-tab-pane label="Projeto">
+            <el-card class="box-card" shadow="never">
+                <template #header>
+                    <div class="card-header">
+                        <span>
+                            {{ this.id ? "Editar" : "Cadastrar" }}
+                            Projeto</span>
+                        <el-popover :visible="confirmacaoVisivel" placement="top" :width="200" v-if="id">
+                            <p>Deseja confirma a exclusão do projeto
+                                <el-tag type="danger">
+                                    {{ projetoStore.projeto.uuid }}
+                                </el-tag>
+                            </p>
+                            <div style="text-align: right; margin: 0; display: flex;">
+                                <el-button size="small" type="primary" plain
+                                    @click="confirmacaoVisivel = false">Cancelar</el-button>
+                                <el-button size="small" type="danger"
+                                    @click="projetoStore.excluir(projetoStore.projeto.uuid)">Confirmar</el-button>
+                            </div>
+                            <template #reference>
+                                <el-button type="danger" @click="confirmacaoVisivel = true">Excluir</el-button>
+                            </template>
+                        </el-popover>
+
                     </div>
-                    <template #reference>
-                        <el-button type="danger" @click="confirmacaoVisivel = true">Excluir</el-button>
-                    </template>
-                </el-popover>
+                </template>
+                <br>
+                <el-form :model="projetoStore.projeto" label-width="120px">
 
-            </div>
-        </template>
+                    <el-form-item label="Cliente">
+                        <el-col :span="13">
+                            <el-select v-model="projetoStore.projeto.cliente.uuid" id="cliente" name="contrato"
+                                placeholder="Selecionar o cliente..." style="width: 240px">
+                                <el-option v-for="item in clientes" :key="item.uuid" :label="item.nome"
+                                    :value="item.uuid" />
+                            </el-select>
+                        </el-col>
+                    </el-form-item>
 
-    <el-progress type="dashboard" :percentage="80" class="percentage">
-      <template #default="{ percentage }">
-        <span class="percentage-value">{{ percentage }}%</span>
-        <span class="percentage-label">Progresso</span>
-      </template>
-    </el-progress>
+                    <el-form-item label="Responsável">
+                        <el-input v-model="projetoStore.projeto.responsavel" name="responsavel" id="responsavel" />
+                    </el-form-item>
 
-    <el-progress type="dashboard" :percentage="0" class="percentage2">
-      <template #default="{ percentage }">
-        <span class="percentage-value">
-            {{ projetoAtividadesStore.atividades.length }}
-        </span>
-        <span class="percentage-label">Atividades</span>
-      </template>
-    </el-progress>
+                    <el-form-item label="Setor">
+                        <el-radio-group v-model="projetoStore.projeto.setor.uuid" class="ml-4" name="setor">
+                            <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
+                                <el-radio ce :label="setor.uuid" size="large">
+                                    {{ setor.descricao }}
+                                </el-radio>
+                            </div>
+                        </el-radio-group>
+                    </el-form-item>
 
-    <br>
-    <br>
-        <el-form :model="projetoStore.projeto" label-width="120px">
-
-            <el-form-item label="Cliente">
-                <el-col :span="13">
-                    <el-select v-model="projetoStore.projeto.cliente.uuid" 
-                    id="cliente"
-                    name="contrato"
-                    placeholder="Selecionar o cliente..." style="width: 240px">
-                        <el-option
-                        v-for="item in clientes"
-                        :key="item.uuid"
-                        :label="item.nome"
-                        :value="item.uuid"
-                        />
-                    </el-select>
-                </el-col>
-            </el-form-item>
-
-            <el-form-item label="Responsável">
-                <el-input v-model="projetoStore.projeto.responsavel" name="responsavel" id="responsavel"/>
-            </el-form-item >
-
-            <el-form-item label="Setor">
-                <el-radio-group v-model="projetoStore.projeto.setor.uuid" class="ml-4" name="setor">
-                    <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
-                        <el-radio ce :label="setor.uuid" size="large">
-                            {{ setor.descricao }}
-                        </el-radio>
-                    </div>
-                </el-radio-group>
-            </el-form-item>
-
-            <el-form-item label="Orçamento">
-                <el-input name="orcamento" v-model="projetoStore.projeto.orcamento" placeholder="Orçamento">
-                    <template #prepend>R$</template>
-                </el-input>
-            </el-form-item>
-
-            
-            <el-form-item label="Início">
-                <el-col :span="5">
-                    <el-date-picker 
-                    name="data_inicio"
-                    :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_inicio"
-                        type="date" placeholder="Data Início" style="width: 100%" />
-                </el-col>
-                <el-col :span="2">
-                    <span style=" margin-left: 18px;">
-                        Fim
-                    </span>
-                </el-col>
-                <el-col :span="5">
-                    <el-date-picker 
-                    name="data_fim"
-                    :locale="ptBR" format="DD/MM/YYYY" v-model="projetoStore.projeto.data_fim" type="date"
-                        placeholder="Data Fim" style="width: 100%" />
-                </el-col>
-            </el-form-item>
-
-            <el-form-item label="Observação">
-                <el-input v-model="projetoStore.projeto.observacao" type="textarea" name="observacao" id="observacao" />
-            </el-form-item>
-
-            <el-form-item label="Situação">
-                <el-switch v-model="projetoStore.projeto.situacao" />
-            </el-form-item>
-
-            <el-form-item>
-
-                <el-button :disabled="!projetoStore.btnSalvarValido" v-if="this.id == null" type="primary"
-                    @click="projetoStore.cadastrar()">
-                    Salvar
-                </el-button>
-
-                <el-button v-else type="primary" @click="projetoStore.editar(projetoStore.projeto.uuid)">
-                    Salvar alterações
-                </el-button>
-
-                <el-button class="btn" @click="projetoStore.cancelar()">Cancelar</el-button>
-            </el-form-item>
-
-        </el-form>
-    </el-card>
-    </el-tab-pane>
+                    <el-form-item label="Orçamento">
+                        <el-input name="orcamento" v-model="projetoStore.projeto.orcamento" placeholder="Orçamento">
+                            <template #prepend>R$</template>
+                        </el-input>
+                    </el-form-item>
 
 
+                    <el-form-item label="Início">
+                        <el-col :span="5">
+                            <el-date-picker name="data_inicio" :locale="ptBR" format="DD/MM/YYYY"
+                                v-model="projetoStore.projeto.data_inicio" type="date" placeholder="Data Início"
+                                style="width: 100%" />
+                        </el-col>
+                        <el-col :span="2">
+                            <span style=" margin-left: 18px;">
+                                Fim
+                            </span>
+                        </el-col>
+                        <el-col :span="5">
+                            <el-date-picker name="data_fim" :locale="ptBR" format="DD/MM/YYYY"
+                                v-model="projetoStore.projeto.data_fim" type="date" placeholder="Data Fim"
+                                style="width: 100%" />
+                        </el-col>
+                    </el-form-item>
 
-    <el-tab-pane label="Atividades">
-        <ProjetoAtividadesListar/>
-    </el-tab-pane>
- 
+                    <el-form-item label="Observação">
+                        <el-input v-model="projetoStore.projeto.observacao" type="textarea" name="observacao"
+                            id="observacao" />
+                    </el-form-item>
 
-  </el-tabs>
+                    <el-form-item label="Situação">
+                        <el-switch v-model="projetoStore.projeto.situacao" />
+                    </el-form-item>
 
+                    <el-form-item>
+
+                        <el-button :disabled="!projetoStore.btnSalvarValido" v-if="this.id == null" type="primary"
+                            @click="projetoStore.cadastrar()">
+                            Salvar
+                        </el-button>
+
+                        <el-button v-else type="primary" @click="projetoStore.editar(projetoStore.projeto.uuid)">
+                            Salvar alterações
+                        </el-button>
+
+                        <el-button class="btn" @click="projetoStore.cancelar()">Cancelar</el-button>
+                    </el-form-item>
+
+                </el-form>
+            </el-card>
+        </el-tab-pane>
+
+        <el-tab-pane :label="'Atividades (' + projetoAtividadesStore.atividades.length + ')'">
+            <ProjetoAtividadesListar />
+        </el-tab-pane>
+
+    </el-tabs>
 </template>
 
 <script>
@@ -148,10 +127,12 @@ import { ProjetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
 import { ClienteStore } from '../../store/ClienteStore'
 import { SetorStore } from '../../store/SetorStore'
 import ProjetoAtividadesListar from './projeto.atividades.listar.vue'
+import ProgressBar from 'primevue/progressbar';
 
 export default {
     components: {
         ProjetoAtividadesListar,
+        ProgressBar
     },
     setup() {
         const projetoStore = useProjetoStore()
@@ -164,7 +145,8 @@ export default {
             id: null,
             setores: [],
             clientes: [],
-            setorSelecionado: null
+            setorSelecionado: null,
+            ProgressBarValue: 0
         }
     },
     async mounted() {
@@ -183,11 +165,37 @@ export default {
         this.clientes = await clienteStore.listar();
     },
     methods: {
+        calculateCompletedPercentage(){
+            const data = this.projetoAtividadesStore.atividades;
+            const completedCount = data.reduce((count, item) => {
+                if (item.situacao === "COMPLETED") {
+                    return count + 1;
+                }
+                return count;
+            }, 0);
+
+            const totalCount = data.length;
+            const completedPercentage = (completedCount / totalCount) * 100;
+            return completedPercentage.toFixed(2);
+        }
     }
 }
 </script>
 
-<style scoped> .card-header {
+<style scoped> 
+.project-prsogress-bar {
+    position: relative;
+    z-index: 3000;
+    left: 48%;
+    width: 500px;
+    top: 36px;
+}
+
+.project-prsogress-bar label {
+    font-size: 10px; text-transform: uppercase;
+}
+
+.card-header {
      display: flex;
      justify-content: space-between;
      align-items: center;

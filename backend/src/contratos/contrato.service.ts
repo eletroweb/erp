@@ -50,7 +50,7 @@ export class ContratoService {
   }
 
   async remove(uuid: string): Promise<ContratoEntity> {
-    const contrato = await this.findOneByUuid(uuid); // Verifica se o cliente existe
+    const contrato = await this.findOneByUuid(uuid);
     return this.contratoRepository.remove(contrato);
   }
 }

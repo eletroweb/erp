@@ -19,7 +19,7 @@ export class ColaboradorService {
 
     @Inject(EmpresaUsuarioService)
     private empresaUsuarioService: EmpresaUsuarioService,
-  ) { }
+  ) {}
 
   async findAll(
     usuarioLogado: UsuarioLogado,

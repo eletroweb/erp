@@ -14,8 +14,7 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
             setor: {
                 uuid: ""
             },
-            periodo: {},
-            situacao: true,
+            situacao: 'IN_PROGRESS',
             data_inicio: null,
             data_fim: null,
             descricao: null,
@@ -39,7 +38,7 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
             const alertStore = AlertStore();
             try {
                 const request = this.requestBuild();
-                 const response = await api.post("projetos-atividades", request);
+                const response = await api.post("projetos-atividades", request);
                 if (response.status === 201) {
                     alertStore.show("Atividade cadastrada com sucesso", "success")
                     this.listar(this.projeto)
@@ -59,16 +58,16 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
                 setor: {
                     uuid: ""
                 },
-                situacao: true,
+                situacao: 'IN_PROGRESS',
                 data_inicio: null,
                 data_fim: null,
                 descricao: null,
                 observacao: null
             }
         },
-        async deletar(uuid) {
+        async deletar() {
             try {
-                await api.delete(`projetos-atividades/${uuid}`);
+                await api.delete(`projetos-atividades/${this.atividade.uuid}`);
                 const alertStore = AlertStore();
                 alertStore.show("Atividade excluída com sucesso", "success")
                 this.exibirFormulario = false
@@ -83,13 +82,9 @@ export const ProjetoAtividadesStore = defineStore('ProjetoAtividadesStore', {
                 ...this.atividade,
                 setor: this.atividade.setor.uuid,
                 projeto: this.editarRegistro ? this.atividade.projeto.uuid : this.atividade.projeto,
-                data_inicio: moment(this.atividade.periodo.from).format('YYYY-MM-DD'),
-                data_fim: moment(this.atividade.periodo.to).format('YYYY-MM-DD')
+                data_inicio: moment(this.atividade.data_inicio).format('YYYY-MM-DD'),
+                data_fim: moment(this.atividade.data_fim).format('YYYY-MM-DD')
             };
-        },
-        novo() {
-            this.exibirFormulario = true
-            this.reset()
         },
         async editar(uuid) {
             const response = await api.get(`projetos-atividades/${uuid}`);

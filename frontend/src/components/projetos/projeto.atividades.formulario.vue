@@ -1,104 +1,107 @@
 <template>
+    <Fieldset :legend="atividadeStore.atividade.uuid ? atividadeStore.atividade.descricao : 'Nova atividade'">
+        <div class="botoes">
 
-    <el-button id="btnCadastrar" type="success" @click="atividadeStore.novo()" name="btnCadastrar">
-        Adicionar Atividade
-    </el-button>
+            <div v-if="!atividadeStore.atividade.uuid">
+                <Button label="Salvar nova" @click="atividadeStore.cadastrar()" />
+            </div>
 
+            <div v-else>
+                <Button label="Salvar alteração" severity="info" @click="atividadeStore.salvarEdicao()" />
+                <Button severity="danger" label="Excluir" @click="atividadeStore.deletar()" />
+            </div>
 
-    <el-drawer v-model="atividadeStore.exibirFormulario" title="" size="50%">
-        <div>
-            <h4>
-                {{ atividadeStore.atividade.descricao }}
-            </h4>
-
-            <el-form :model="atividadeStore.atividade" label-width="120px" v-if="atividadeStore.exibirFormulario">
-
-                <q-input filled v-model="atividadeStore.atividade.descricao" label="Descrição" />
-
-                <q-btn-toggle v-model="atividadeStore.atividade.situacao" class="situacao-toggle" no-caps rounded
-                    unelevated toggle-color="primary" color="white" text-color="primary" :options="[
-        { label: 'PENDENTE', value: 'PENDING' },
-        { label: 'EM ANDAMENTO', value: 'IN_PROGRESS' },
-        { label: 'CANCELADA', value: 'CANCELLED' },
-        { label: 'PAUSADA', value: 'PAUSED' },
-        { label: 'CONCLUÍDA', value: 'COMPLETED' },
-    ]" />
-
-                <div class="q-pa-md q-gutter-sm" style="height: 80px;">
-                    <q-avatar v-for="n in 5" :key="n" size="40px" class="overlapping" :style="`left: ${n * 5}px`">
-                        <img style="border-style: none;
-    border: 1px solid #1976D2;
-    padding: 1px;" :src="`https://cdn.quasar.dev/img/avatar${n + 1}.jpg`">
-                    </q-avatar>
-                </div>
-
-                <label>Setor</label>
-
-
-                <div v-for="setor in this.setores" :key="setor.uuid" style="    margin-right: 20px;">
-                    <q-radio keep-color v-model="atividadeStore.atividade.setor.uuid" :val="setor.uuid"
-                        :label="setor.descricao" color="blue" />
-                </div>
-
-                <label>Período</label>
-                <q-date landscape v-model="atividadeStore.atividade.periodo" range />
-
-                <div class="q-pa-md" style="max-width: 600px">
-                    <q-input v-model="atividadeStore.atividade.observacao" filled type="textarea" label="Observação" />
-                </div>
-
-                <q-btn-group push style="position: absolute;top: 13px;">
-                        <q-btn v-if="!atividadeStore.editarRegistro" 
-                        @click="atividadeStore.cadastrar()" 
-                        push
-                        color="secondary"
-                        label="Salvar" />
-
-                        <q-btn v-else @click="atividadeStore.salvarEdicao()" push label="Salvar alteração"/>
-
-                        <q-btn @click="atividadeStore.exibirFormulario = false" color="white" text-color="black"
-                            label="Cancelar" />
-
-                        <el-popover :visible="confirmacaoVisivel" placement="top" :width="200"
-                            v-if="atividadeStore.atividade.uuid">
-                            <p>Deseja confirma a exclusão da atividade
-                                <el-tag type="danger">
-                                    {{ atividadeStore.atividade.descricao }}
-                                </el-tag>
-                            </p>
-                            <div style="text-align: right; margin: 0; display: flex;">
-                                <el-button size="small" type="danger"
-                                    @click="atividadeStore.deletar(atividadeStore.atividade.uuid)">Confirmar</el-button>
-                            </div>
-                            <template #reference>
-                                <q-btn @click="confirmacaoVisivel = true" color="white" text-color="black"
-                                    label="Excluir" />
-                            </template>
-                        </el-popover>
-                    </q-btn-group>
-
-            </el-form>
+            <Button severity="secondary" label="Cancelar" @click="atividadeStore.reset()" />
         </div>
-    </el-drawer>
+
+        <FloatLabel>
+            <InputText id="descricao" v-model="atividadeStore.atividade.descricao" />
+            <label for="descricao">Descrição</label>
+        </FloatLabel>
+        <br>
+        <div class="row2">
+            <div>
+                <Select v-model="atividadeStore.atividade.setor" :options="setorStore.setores" optionLabel="descricao"
+                    placeholder="Selecione o Setor..." />
+            </div>
+            <div>
+                <FloatLabel>
+                    <DatePicker inputId="dataInicio" v-model="atividadeStore.atividade.data_inicio" showIcon
+                        iconDisplay="input" />
+                    <label for="descricao">Data início</label>
+                </FloatLabel>
+            </div>
+            <div>
+                <FloatLabel>
+                    <DatePicker inputId="dataFim" v-model="atividadeStore.atividade.data_fim" showIcon
+                        iconDisplay="input" />
+                    <label for="descricao">Data fim</label>
+                </FloatLabel>
+            </div>
+        </div>
+        <br>
+        <div class="situacoes">
+            <RadioButton v-model="atividadeStore.atividade.situacao" inputId="situacao1" name="situacao"
+                value="PENDING" />
+            <label for="situacao1">PENDENTE</label>
+            <RadioButton v-model="atividadeStore.atividade.situacao" inputId="situacao2" name="situacao"
+                value="IN_PROGRESS" />
+            <label for="situacao2">EM ANDAMENTO</label>
+            <RadioButton v-model="atividadeStore.atividade.situacao" inputId="situacao3" name="situacao"
+                value="CANCELLED" />
+            <label for="situacao3">CANCELADA</label>
+            <RadioButton v-model="atividadeStore.atividade.situacao" inputId="situacao4" name="situacao"
+                value="PAUSED" />
+            <label for="situacao4">PAUSADA</label>
+            <RadioButton v-model="atividadeStore.atividade.situacao" inputId="situacao5" name="situacao"
+                value="COMPLETED" />
+            <label for="situacao5">CONCLUÍDA</label>
+        </div>
+        <br>
+        <FloatLabel>
+            <Textarea v-model="atividadeStore.atividade.observacao" rows="5" cols="30" />
+            <label for="descricao">Observação</label>
+        </FloatLabel>
+    </Fieldset>
 
 </template>
 
 <script>
 import { ProjetoAtividadesStore } from '@/store/ProjetoAtividadesStore'
 import { SetorStore } from '../../store/SetorStore'
+import InputText from 'primevue/inputtext';
+import InputSwitch from 'primevue/inputswitch';
+import FloatLabel from 'primevue/floatlabel';
+import RadioButton from 'primevue/radiobutton';
+import Textarea from 'primevue/textarea';
+import Select from 'primevue/select';
+import DatePicker from 'primevue/datepicker';
+import Fieldset from 'primevue/fieldset';
 
 export default {
     name: "ProjetoAtividadesFormulario",
     props: ['projeto'],
     setup() {
         const atividadeStore = ProjetoAtividadesStore()
-        return { atividadeStore }
+
+        const setorStore = SetorStore()
+        setorStore.listar()
+
+        return { atividadeStore, setorStore }
     },
     async mounted() {
         const setorStore = SetorStore()
         this.setores = await setorStore.listar();
     },
     components: {
+        InputText,
+        FloatLabel,
+        InputSwitch,
+        RadioButton,
+        Textarea,
+        Select,
+        DatePicker,
+        Fieldset
     },
     data() {
         return {
@@ -118,53 +121,34 @@ export default {
 </script>
 
 <style>
-h4 {
-    padding: 0;
-    margin: 0;
-    margin-top: 10px;
+#descricao {
+    width: 100%;
+}
+
+.situacoes {
+    margin-bottom: 20px;
+}
+
+.row2 {
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    margin-top: 13px;
+}
+
+.situacoes label {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+textarea {
+    width: 100%;
+}
+
+.botoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
     margin-bottom: 10px;
-}
-
-.card-header {
-    position: relative;
-    height: 50px;
-}
-
-.btnCadastrar {
-    position: absolute;
-    right: 0;
-}
-
-#btnCadastrar {
-    position: absolute;
-    top: 32px;
-    right: 37px;
-}
-
-.el-drawer__header {
-    margin-bottom: 0px;
-}
-
-.el-drawer__body {
-    padding-top: 10px;
-}
-
-#observacao {
-    height: 200px;
-}
-
-.q-date--landscape-standard {
-    min-width: 580px !important;
-}
-
-label {
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.situacao-toggle span {
-    font-size: 12px;
 }
 </style>

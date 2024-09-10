@@ -1,5 +1,19 @@
 # ERP - Enterprise Resource Planning
 
+# Mudança de repositório
+Para visualizar para qual repositório você esta apontado, execute:
+git remote -v
+
+Se o resultado for:
+origin  git@github.com:Yonatha/erp.git (fetch)
+origin  git@github.com:Yonatha/erp.git (push)
+
+Então execute o seguinte comando
+git remote set-url origin git@github.com:laboratorio-dev-community/erp.git
+
+Em seguida execute o comando git remote -v para se certificar da mudança
+
+
 # Testes automatizados
 
 Para a realização dos testes e2e, crie o seguinte usuário com email qa@teste.com e senha 123456
