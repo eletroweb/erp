@@ -1,5 +1,8 @@
 # ERP - Enterprise Resource Planning
 
+# Como configurar e executar o ambiente do projeto?
+Assista ao vídeo https://youtu.be/P5e0u3eHdf8 e siga os passos, caso encontre alguma dificuldade, fale no gropo do whastapp.
+
 # Mudança de repositório
 Para visualizar para qual repositório você esta apontado, execute:
 git remote -v
